@@ -1,0 +1,23 @@
+# Môi trường & Hệ điều hành
+.env
+.DS_Store
+Thumbs.db
+
+# Database local volume
+pgdata/
+
+# Java / Spring Boot
+backend-service/target/
+backend-service/*.log
+backend-service/.idea/
+backend-service/*.iml
+
+# Python / FastAPI
+ai-engine/__pycache__/
+ai-engine/*.pyc
+ai-engine/.venv/
+ai-engine/venv/
+ai-engine/.pytest_cache/
+
+# Thư mục clone tạm thời khi bóc tách code
+ai-engine/temp_repos/

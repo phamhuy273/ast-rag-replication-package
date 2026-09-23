@@ -1,0 +1,77 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+
+# Cho phép ghi vào GitHub Packages (GHCR)
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: cd-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish-images:
+    name: Build & Push Docker Images to GHCR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry (GHCR)
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Normalize Repository Name (lowercase)
+        id: repo_name
+        run: |
+          echo "IMAGE_PREFIX=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
+      - name: Build and Push Backend Service Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend-service
+          push: true
+          tags: |
+            ghcr.io/${{ env.IMAGE_PREFIX }}/backend-service:latest
+            ghcr.io/${{ env.IMAGE_PREFIX }}/backend-service:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and Push AI Engine Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./ai-engine
+          push: true
+          tags: |
+            ghcr.io/${{ env.IMAGE_PREFIX }}/ai-engine:latest
+            ghcr.io/${{ env.IMAGE_PREFIX }}/ai-engine:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # Tùy chọn: Tự động kích hoạt cập nhật máy chủ khi có VPS (bỏ comment và cấu hình Secret khi cần)
+  # deploy-to-server:
+  #   name: Deploy to Production Server
+  #   needs: publish-images
+  #   if: ${{ vars.SERVER_HOST != '' }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: SSH to Server and Redeploy
+  #       uses: appleboy/ssh-action@v1.0.3
+  #       with:
+  #         host: ${{ secrets.SERVER_HOST }}
+  #         username: ${{ secrets.SERVER_USER }}
+  #         key: ${{ secrets.SERVER_SSH_KEY }}
+  #         script: |
+  #           cd /opt/jd-evidence-matching
+  #           docker compose pull
+  #           docker compose up -d --remove-orphans
