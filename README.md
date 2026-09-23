@@ -22,24 +22,24 @@ Hệ thống **JD-Evidence-Matching** tự động đánh giá năng lực lập
 
 ```mermaid
 flowchart LR
-    Client([Client / Frontend])
+    Client(["Client / Frontend"])
     
-    subgraph AppNetwork [Docker Network: app-network]
+    subgraph AppNetwork ["Docker Network: app-network"]
         direction TB
-        Backend["Backend Service\n(Java 21 + Spring Boot 3.2)\nPort: 8080"]
-        AIEngine["AI Engine\n(Python 3.11 + FastAPI)\nPort: 8001"]
-        DB[("PostgreSQL 16 + pgvector\nHNSW Vector Index\nPort: 5433 (Host) -> 5432")]
+        Backend["Backend Service<br/>(Java 21 + Spring Boot 3.2)<br/>Port: 8080"]
+        AIEngine["AI Engine<br/>(Python 3.11 + FastAPI)<br/>Port: 8001"]
+        DB[("PostgreSQL 16 + pgvector<br/>HNSW Vector Index<br/>Port: 5433 (Host) -> 5432")]
     end
 
-    Client -->|1. POST /evaluate-async| Backend
-    Backend -->|2. WebClient Non-blocking| AIEngine
-    AIEngine -->|3. HTTP 202 Accepted & task_id| Backend
-    Backend -->|4. HTTP 202 Accepted| Client
+    Client -->|"1. POST /evaluate-async"| Backend
+    Backend -->|"2. WebClient Non-blocking"| AIEngine
+    AIEngine -->|"3. HTTP 202 Accepted & task_id"| Backend
+    Backend -->|"4. HTTP 202 Accepted"| Client
 
-    AIEngine -.->|5. Background Worker: AST Chunking & Vector Search| DB
-    Client -->|6. Polling GET /tasks/{task_id}/status| Backend
-    Backend -->|7. Proxy status| AIEngine
-    Client -->|8. GET /jobs/{job_id}/results| Backend
+    AIEngine -.->|"5. Background Worker: AST Chunking & Vector Search"| DB
+    Client -->|"6. Polling GET /tasks/{task_id}/status"| Backend
+    Backend -->|"7. Proxy status"| AIEngine
+    Client -->|"8. GET /jobs/{job_id}/results"| Backend
 ```
 
 ---
