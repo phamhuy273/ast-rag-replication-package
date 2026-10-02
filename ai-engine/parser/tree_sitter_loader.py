@@ -70,30 +70,65 @@ class ASTParserLoader:
                 logger.warning(f"Tệp {file_path} có lỗi cú pháp, kích hoạt Fallback Line-based theo Mục 2.3.4.")
                 return self.fallback_line_chunking(file_path, source_code)
 
-            # Bóc tách AST method_declaration / function_declaration
+            # Bóc tách AST method_declaration / function_declaration kèm tên lớp & tên hàm
             chunks = []
             lines = source_code.splitlines()
+            source_bytes = bytes(source_code, "utf8")
 
-            def traverse(node):
+            def get_node_text(n):
+                if n is None:
+                    return None
+                return source_bytes[n.start_byte:n.end_byte].decode("utf8", errors="replace")
+
+            def get_identifier(n):
+                if n is None:
+                    return None
+                name_node = n.child_by_field_name("name")
+                if name_node:
+                    return get_node_text(name_node)
+                for child in n.children:
+                    if child.type in ("identifier", "type_identifier", "property_identifier"):
+                        return get_node_text(child)
+                return None
+
+            def traverse(node, current_class=None):
+                # 1. Cập nhật current_class khi gặp cấu trúc lớp/giao diện
+                if node.type in ("class_declaration", "interface_declaration", "record_declaration", "enum_declaration", "class"):
+                    cls_name = get_identifier(node)
+                    if cls_name:
+                        current_class = cls_name
+
+                # 2. Bóc tách hàm/phương thức/constructor
                 # Java: method_declaration, constructor_declaration
                 # JS/TS: function_declaration, method_definition
                 if node.type in ("method_declaration", "constructor_declaration", "function_declaration", "method_definition"):
-                    start_line = node.start_point.row + 1
-                    end_line = node.end_point.row + 1
-                    chunk_text = "\n".join(lines[node.start_point.row:node.end_point.row + 1])
-                    context_header = f"// File: {file_path}\n// Lines: {start_line}-{end_line}"
+                    start_line = source_bytes[:node.start_byte].count(b'\n') + 1
+                    end_line = source_bytes[:node.end_byte].count(b'\n') + 1
+                    chunk_text = source_bytes[node.start_byte:node.end_byte].decode("utf8", errors="replace")
+                    method_name = get_identifier(node)
+
+                    # Tạo Context Header chứa File, Class, Method và Lines
+                    header_lines = [f"// File: {file_path}"]
+                    if current_class:
+                        header_lines.append(f"// Class: {current_class}")
+                    if method_name:
+                        header_lines.append(f"// Method: {method_name}")
+                    header_lines.append(f"// Lines: {start_line}-{end_line}")
+                    context_header = "\n".join(header_lines)
+
                     chunks.append({
                         "file_path": file_path,
-                        "class_name": None,
-                        "method_name": None,
+                        "class_name": current_class,
+                        "method_name": method_name,
                         "start_line": start_line,
                         "end_line": end_line,
                         "context_header": context_header,
                         "chunk_content": chunk_text,
                         "chunk_type": "AST_METHOD"
                     })
+
                 for child in node.children:
-                    traverse(child)
+                    traverse(child, current_class)
 
             traverse(root_node)
 

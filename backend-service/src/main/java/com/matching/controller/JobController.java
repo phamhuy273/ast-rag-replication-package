@@ -20,7 +20,7 @@ public class JobController {
     private final JobService jobService;
 
     @PostMapping("/extract-skills")
-    @Operation(summary = "Bóc tách kỹ năng từ JD bằng LLM (DOC-03 Mục 4.2)")
+    @Operation(summary = "Bóc tách kỹ năng từ JD bằng LLM")
     public ResponseEntity<ApiResponse<ExtractSkillsResponse>> extractSkills(
             @Valid @RequestBody ExtractSkillsRequest request) {
         ApiResponse<ExtractSkillsResponse> response = jobService.extractAndSaveSkills(request);

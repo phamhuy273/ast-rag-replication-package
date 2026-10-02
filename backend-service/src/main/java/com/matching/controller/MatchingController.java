@@ -26,7 +26,7 @@ public class MatchingController {
 
     @PostMapping("/evaluate-async")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @Operation(summary = "Kích hoạt đối sánh Repo bất đồng bộ (DOC-03 Mục 4.3)")
+    @Operation(summary = "Kích hoạt đối sánh Repo bất đồng bộ")
     public ResponseEntity<ApiResponse<EvaluateAsyncResponse>> evaluateAsync(
             @Valid @RequestBody EvaluateAsyncRequest request) {
         ApiResponse<EvaluateAsyncResponse> response = matchingService.evaluateAsync(request);
@@ -34,7 +34,7 @@ public class MatchingController {
     }
 
     @GetMapping("/tasks/{task_id}/status")
-    @Operation(summary = "Kiểm tra tiến trình tác vụ ngầm (DOC-03 Mục 4.4 Endpoint 1)")
+    @Operation(summary = "Kiểm tra tiến trình tác vụ ngầm")
     public ResponseEntity<ApiResponse<TaskStatusResponse>> getTaskStatus(
             @PathVariable("task_id") String taskId) {
         ApiResponse<TaskStatusResponse> response = matchingService.getTaskStatus(taskId);
@@ -42,7 +42,7 @@ public class MatchingController {
     }
 
     @GetMapping("/jobs/{job_id}/results")
-    @Operation(summary = "Truy vấn danh sách xếp hạng ứng viên và minh chứng code (DOC-03 Mục 4.4 Endpoint 2)")
+    @Operation(summary = "Truy vấn danh sách xếp hạng ứng viên và minh chứng code ")
     public ResponseEntity<ApiResponse<JobResultsResponse>> getJobResults(
             @PathVariable("job_id") UUID jobId) {
         ApiResponse<JobResultsResponse> response = matchingService.getJobResults(jobId);

@@ -21,3 +21,24 @@ ai-engine/.pytest_cache/
 
 # Thư mục clone tạm thời khi bóc tách code
 ai-engine/temp_repos/
+
+# Dữ liệu thực nghiệm & Dataset
+dataset/
+
+# Thư mục nháp (Scratch), file rác & log
+scratch/
+*.log
+*.tmp
+*.out
+
+# Tài liệu đồ án, báo cáo (Word, PDF, Excel...)
+*.docx
+*.doc
+*.pdf
+*.pptx
+*.xlsx
+*.csv
+D*a'n 1/
+
+# Python Cache chung
+__pycache__/
