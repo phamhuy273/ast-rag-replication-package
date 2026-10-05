@@ -1,5 +1,33 @@
 {
   "files.associations": {
     "*.sql": "postgres"
+  },
+  "python.analysis.extraPaths": [
+    "./ai-engine",
+    "./scripts"
+  ],
+  "python.autoComplete.extraPaths": [
+    "./ai-engine",
+    "./scripts"
+  ],
+  "files.exclude": {
+    "**/scratch/temp_repos_cache/**": true,
+    "**/target/**": true
+  },
+  "search.exclude": {
+    "**/scratch/temp_repos_cache/**": true,
+    "**/target/**": true
+  },
+  "files.watcherExclude": {
+    "**/scratch/temp_repos_cache/**": true,
+    "**/target/**": true
+  },
+  "java.project.resourceFilters": [
+    "node_modules",
+    ".git",
+    "scratch/**"
+  ],
+  "typescript.tsserver.watchOptions": {
+    "excludeDirectories": ["**/scratch/**"]
   }
 }

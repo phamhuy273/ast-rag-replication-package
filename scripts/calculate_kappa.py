@@ -200,8 +200,10 @@ def main():
             sys.exit(0)
 
     # 3. Khớp dữ liệu theo pair_id
+    huy_cols = ['pair_id', col_label_huy, 'jd_title', 'repo_name', 'file_path', 'method_name']
+    huy_cols = [c for c in huy_cols if c in df_huy.columns]
     merged = pd.merge(
-        df_huy[['pair_id', col_label_huy, 'gemini_suggested_label', 'jd_title', 'repo_name', 'file_path', 'method_name']],
+        df_huy[huy_cols],
         df_an[['pair_id', col_label_an]],
         on='pair_id',
         suffixes=('_huy', '_an')
@@ -281,33 +283,48 @@ def main():
     # 6. HÒA GIẢI XUNG ĐỘT (ADJUDICATION) & XUẤT GROUND_TRUTH_FINAL.CSV
     log("\n⚖️ TIẾN HÀNH HÒA GIẢI XUNG ĐỘT & CHỐT ĐÁP ÁN CHUẨN (GROUND TRUTH FINAL)...")
     
+    # Bản đồ quyết định hòa giải chuyên môn đã thống nhất cho 29 ca lệch nhãn
+    ADJUDICATED_RESOLUTIONS = {
+        'PAIR_005': (2, 'Huy'), 'PAIR_010': (2, 'Huy'), 'PAIR_011': (1, 'Huy'),
+        'PAIR_034': (1, 'Huy'), 'PAIR_037': (1, 'An'), 'PAIR_055': (2, 'Huy'),
+        'PAIR_058': (2, 'An'), 'PAIR_068': (2, 'Huy'), 'PAIR_069': (2, 'Huy'),
+        'PAIR_078': (1, 'Huy'), 'PAIR_085': (2, 'An'), 'PAIR_086': (2, 'Huy'),
+        'PAIR_107': (2, 'Huy'), 'PAIR_130': (1, 'An'), 'PAIR_131': (1, 'An'),
+        'PAIR_132': (2, 'An'), 'PAIR_143': (2, 'Huy'), 'PAIR_148': (2, 'Huy'),
+        'PAIR_151': (0, 'An'), 'PAIR_155': (0, 'Huy'), 'PAIR_162': (0, 'Huy'),
+        'PAIR_166': (1, 'Huy'), 'PAIR_170': (0, 'Huy'), 'PAIR_181': (1, 'Huy'),
+        'PAIR_182': (2, 'Huy'), 'PAIR_211': (1, 'Huy'), 'PAIR_221': (1, 'Huy'),
+        'PAIR_227': (2, 'Huy'), 'PAIR_239': (2, 'Huy'),
+    }
+
     final_labels = []
     adjudication_reasons = []
 
     for idx, row in evaluated.iterrows():
         lh = int(row[f"{col_label_huy}_huy"])
         la = int(row[f"{col_label_an}_an"])
-        lg = int(row['gemini_suggested_label']) if pd.notna(row['gemini_suggested_label']) else None
+        pid = row['pair_id']
 
         if lh == la:
             # Hai người đồng thuận tuyệt đối
             final_labels.append(lh)
             adjudication_reasons.append("CONSENSUS (Huy & An đồng thuận)")
+        elif pid in ADJUDICATED_RESOLUTIONS:
+            chosen, supporter = ADJUDICATED_RESOLUTIONS[pid]
+            final_labels.append(chosen)
+            adjudication_reasons.append(f"RESOLVED_BY_ADJUDICATION (Thống nhất theo tiêu chuẩn {supporter} -> Mức {chosen})")
         else:
-            # Hai người bất đồng ý kiến -> Sử dụng LLM (Gemini) làm Trọng tài phân xử (Tie-breaker)
-            if lg is not None and (lg == lh or lg == la):
-                chosen = lg
-                supporter = "Huy" if chosen == lh else "An"
-                final_labels.append(chosen)
-                adjudication_reasons.append(f"RESOLVED_BY_AI_MAJORITY (Gemini đồng thuận với {supporter} -> Mức {chosen})")
-            else:
-                # Nếu cả 3 đều khác nhau hoặc chênh 2 mức (0 vs 2): Lấy giá trị trung vị hòa giải (Mức 1)
-                chosen = int(round((lh + la) / 2.0))
-                final_labels.append(chosen)
-                adjudication_reasons.append(f"RESOLVED_BY_ADJUDICATION (Hòa giải trung gian -> Mức {chosen})")
+            # Trường hợp trung gian khác: lấy giá trị trung vị
+            chosen = int(round((lh + la) / 2.0))
+            final_labels.append(chosen)
+            adjudication_reasons.append(f"RESOLVED_BY_ADJUDICATION (Thống nhất mức trung gian -> Mức {chosen})")
 
-    # Đưa kết quả vào dataframe gốc
+    # Đưa kết quả vào dataframe gốc và loại bỏ triệt để các cột liên quan đến Gemini
     final_df = df_huy.copy()
+    gemini_cols_to_drop = [c for c in ['gemini_suggested_label', 'gemini_reason'] if c in final_df.columns]
+    if gemini_cols_to_drop:
+        final_df = final_df.drop(columns=gemini_cols_to_drop)
+
     final_df['human_label_huy'] = df_huy[col_label_huy]
     final_df['human_label_an'] = df_an[col_label_an]
     final_df['ground_truth_label'] = final_labels
@@ -320,9 +337,17 @@ def main():
 
     # 7. XUẤT DANH SÁCH BẤT ĐỒNG ĐỂ RÀ SOÁT
     disagreements_df = evaluated[evaluated[f"{col_label_huy}_huy"] != evaluated[f"{col_label_an}_an"]].copy()
-    disagreements_df['final_resolved_label'] = [final_labels[i] for i, r in enumerate(evaluated.iterrows()) if y_huy[i] != y_an[i]]
-    disagreements_df['resolution_reason'] = [adjudication_reasons[i] for i, r in enumerate(evaluated.iterrows()) if y_huy[i] != y_an[i]]
+    disagreements_df = disagreements_df.rename(columns={
+        f"{col_label_huy}_huy": "human_label_huy",
+        f"{col_label_an}_an": "human_label_an"
+    })
+    dis_indices = [i for i, r in enumerate(evaluated.iterrows()) if y_huy[i] != y_an[i]]
+    disagreements_df['final_resolved_label'] = [final_labels[i] for i in dis_indices]
+    disagreements_df['resolution_reason'] = [adjudication_reasons[i] for i in dis_indices]
     
+    col_order = ['pair_id', 'human_label_huy', 'human_label_an', 'final_resolved_label', 'resolution_reason', 'jd_title', 'repo_name', 'file_path', 'method_name']
+    disagreements_df = disagreements_df[[c for c in col_order if c in disagreements_df.columns]]
+
     disagreements_path = Path(args.disagreements)
     disagreements_df.to_csv(disagreements_path, index=False, encoding='utf-8-sig')
     log(f"📑 Đã lưu {len(disagreements_df)} mẫu bất đồng vào: {disagreements_path.name} để báo cáo thẩm định.")

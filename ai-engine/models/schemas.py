@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional, Any, Generic, TypeVar
-from datetime import datetime
+from datetime import datetime, timezone
 
 T = TypeVar("T")
 
@@ -9,7 +9,7 @@ class StandardResponse(BaseModel, Generic[T]):
     status: str
     message: str = "Thao tác thực hiện thành công."
     data: Optional[T] = None
-    timestamp: str = Field(default_factory=lambda: datetime.utcnow().isoformat() + "Z")
+    timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 # ===================================================================
 # Extract Skills Models 

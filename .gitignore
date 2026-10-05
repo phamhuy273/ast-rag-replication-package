@@ -37,8 +37,16 @@ scratch/
 *.pdf
 *.pptx
 *.xlsx
-*.csv
 D*a'n 1/
+*Đồ án 1*/
+*DoAn1*/
+*pilot_dataset*.zip
+paper/
+scratch/
 
 # Python Cache chung
-__pycache__/
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
+
+
