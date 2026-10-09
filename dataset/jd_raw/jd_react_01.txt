@@ -1,0 +1,20 @@
+﻿Vị trí: Frontend Developer Fresher (ReactJS / TypeScript - E-Commerce)
+Cấp bậc: Fresher / Junior (0 - 2 năm kinh nghiệm)
+Lĩnh vực: Thương mại điện tử (E-Commerce Storefront)
+
+Mô tả công việc:
+- Phát triển giao diện người dùng hiện đại, tốc độ cao cho nền tảng thương mại điện tử sử dụng thư viện ReactJS (React 18) và ngôn ngữ TypeScript.
+- Xây dựng các phân hệ chức năng cốt lõi phía khách hàng: trang danh sách sản phẩm với bộ lọc đa chiều, giỏ hàng thời gian thực, quy trình thanh toán nhiều bước (Multi-step Checkout) và quản lý đơn hàng cá nhân.
+- Quản lý trạng thái toàn cục của ứng dụng (Global State Management: giỏ hàng, phiên đăng nhập, danh sách yêu thích) một cách nhất quán bằng Redux Toolkit (createSlice, createAsyncThunk) hoặc RTK Query.
+- Chuyển đổi chính xác các bản thiết kế UI/UX từ Figma thành các Functional Components tái sử dụng cao, chuẩn Responsive trên mọi kích thước màn hình bằng Tailwind CSS.
+- Tích hợp chặt chẽ với các RESTful API từ đội ngũ Backend thông qua Axios, xử lý trạng thái tải dữ liệu (Loading Skeleton) và thông báo lỗi thân thiện.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Có kinh nghiệm thực tế phát triển ứng dụng SPA với ReactJS (Functional Components, React Hooks: useState, useEffect, useMemo, useCallback) và TypeScript (Interfaces, Generics, Type Safety).
+- Am hiểu và đã từng triển khai quản lý trạng thái bằng Redux Toolkit trong dự án thực tế.
+- Thành thạo xây dựng giao diện bằng HTML5, CSS3 và Tailwind CSS theo tiêu chuẩn Responsive Web Design.
+- Biết cách tích hợp RESTful API, xử lý bất đồng bộ (Async/Await, Promises) và quản lý mã nguồn với Git/GitHub.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Có kinh nghiệm cấu hình định tuyến bằng React Router v6 và tối ưu hóa hiệu năng render (Code Splitting, Lazy Loading).
+- Quen thuộc với công cụ đóng gói hiện đại như Vite và quy tắc kiểm tra mã nguồn ESLint / Prettier.

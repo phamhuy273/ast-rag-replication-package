@@ -1,0 +1,2174 @@
+{
+  "JD_JAVA_01": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên đáp ứng tốt các kỹ năng cốt lõi liên quan đến Java, Spring Boot, và Spring Security & JWT.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "General summary backed by specific class/method mentions in subsequent sentences."
+        },
+        {
+          "claim": "Kỹ năng Spring Boot và lập trình Java được thể hiện qua cấu trúc các tệp cấu hình và Controller, ví dụ như trong tệp AccountController.java tại phương thức me().",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by Code Chunk #1 showing AccountController.java and method me()."
+        },
+        {
+          "claim": "Kỹ năng Spring Security & JWT được minh chứng rõ ràng tại tệp SecurityConfig.java trong phương thức securityFilterChain(), thiết lập SessionCreationPolicy.STATELESS và tích hợp jwtAuthenticationFilter.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by Code Chunk #3 showing SecurityConfig.java and securityFilterChain()."
+        },
+        {
+          "claim": "Ứng viên thể hiện khả năng cấu hình hệ thống chuyên nghiệp với Spring Boot thông qua việc sử dụng @ConfigurationProperties trong tệp SsoProperties.java để quản lý các thiết lập SSO và Keycloak.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by Code Chunk #2 showing SsoProperties.java using @ConfigurationProperties."
+        },
+        {
+          "claim": "Đối với các kỹ năng còn lại bao gồm Spring Data JPA / Hibernate, MySQL, và Git, các đoạn mã nguồn bằng chứng được cung cấp không chứa bất kỳ đoạn mã hoặc thông tin nào liên quan.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Accurately notes the absence of these specific skills in the provided code context chunks."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.6,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện năng lực với Spring Boot và Spring Security & JWT.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Được minh chứng qua Code Chunk #2 với cấu hình SecurityFilterChain."
+        },
+        {
+          "claim": "Trong Code Chunk #2, ứng viên thiết lập SecurityFilterChain, cấu hình phân quyền hasRole(\"ADMIN\"), SessionCreationPolicy.STATELESS và tích hợp jwtAuthenticationFilter.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Khớp chính xác với nội dung mã nguồn trong Code Chunk #2."
+        },
+        {
+          "claim": "Đối với kỹ năng Java, ứng viên sử dụng @Getter, @Setter, @ConfigurationProperties và List.of trong SsoProperties tại Code Chunk #3.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Khớp chính xác với các annotation và mã nguồn trong Code Chunk #3."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng trong mã nguồn được cung cấp đối với các kỹ năng Spring Data JPA / Hibernate, MySQL, và Git.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Đúng theo ngữ cảnh mã nguồn được cung cấp chỉ gồm ApiExceptionResponse, SecurityFilterChain và SsoProperties."
+        },
+        {
+          "claim": "Các đoạn mã hiện tại tập trung vào xử lý ngoại lệ ApiExceptionResponse tại Code Chunk #1, cấu hình bảo mật và cấu hình thuộc tính SSO.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Chính xác, code chunks bao gồm ApiExceptionResponse ở chunk 1, security filter chain ở chunk 2 và SsoProperties ở chunk 3."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 1.0,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc thẩm định các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là đánh giá kỹ thuật về mức độ đáp ứng các yêu cầu của Bản mô tả công việc (JD):\n\nỨng viên có đáp ứng tốt các kỹ năng cốt lõi liên quan đến **Java**, **Spring Boot**, và **Spring Security & JWT**. Cụ thể, kỹ năng Spring Boot và lập trình Java được thể hiện qua cấu trúc các tệp cấu hình và Controller, ví dụ như trong tệp `src/main/java/com/mewebstudio/javaspringbootboilerplate/controller/AccountController.java` tại phương thức `me()`. Kỹ năng **Spring Security & JWT** được minh chứng rõ ràng tại tệp `src/main/java/com/huseynovvusal/springblogapi/config/SecurityConfig.java` trong phương thức `securityFilterChain()`, nơi ứng viên thiết lập `SessionCreationPolicy.STATELESS` và tích hợp `jwtAuthenticationFilter` cùng cơ chế phân quyền dựa trên `HttpSecurity`.\n\nBên cạnh đó, ứng viên cũng thể hiện khả năng cấu hình hệ thống chuyên nghiệp với Spring Boot thông qua việc sử dụng `@ConfigurationProperties` trong tệp `auth-service/src/main/java/com/ecommerce/authservice/config/SsoProperties.java` để quản lý các thiết lập SSO và Keycloak. \n\nTuy nhiên, đối với các kỹ năng còn lại bao gồm **Spring Data JPA / Hibernate**, **MySQL**, và **Git**, các đoạn mã nguồn bằng chứng được cung cấp **không** chứa bất kỳ đoạn mã hoặc thông tin nào liên quan. Do đó, **không tìm thấy bằng chứng trong mã nguồn được cung cấp** để xác thực các kỹ năng này của ứng viên.",
+    "ans_line": "Dưới đây là báo cáo đánh giá kỹ thuật dựa trên các đoạn mã nguồn bằng chứng được cung cấp:\n\nDựa trên các đoạn mã nguồn được trích xuất, ứng viên thể hiện rõ năng lực với các công nghệ cốt lõi của **Spring Boot** và **Spring Security & JWT**. Cụ thể, trong **Code Chunk #2** (bên trong cấu hình `securityFilterChain`), ứng viên đã thiết lập thành công `SecurityFilterChain`, cấu hình phân quyền dựa trên vai trò (`.hasRole(\"ADMIN\")`), thiết lập chính sách phiên làm việc ở trạng thái phi trạng thái (`SessionCreationPolicy.STATELESS`), và tích hợp các bộ lọc tùy chỉnh bao gồm bộ lọc xác thực JWT (`jwtAuthenticationFilter`, `UsernamePasswordAuthenticationFilter`). Đối với kỹ năng **Java**, ứng viên sử dụng thành thạo các tính năng hiện đại như `@Getter`, `@Setter`, `@ConfigurationProperties` (như trong `SsoProperties` tại **Code Chunk #3**) và các cấu trúc dữ liệu (`List.of`) để quản lý cấu hình SSO của Keycloak.\n\nTuy nhiên, đối với các kỹ năng bắt buộc còn lại trong Bản mô tả công việc (JD), các đoạn mã nguồn hiện tại chưa cung cấp đủ thông tin. Cụ thể, không tìm thấy bằng chứng trong mã nguồn được cung cấp đối với các kỹ năng **Spring Data JPA / Hibernate**, **MySQL**, và **Git**. Các đoạn mã hiện tại chỉ tập trung vào xử lý ngoại lệ (`ApiExceptionResponse` tại **Code Chunk #1**), cấu hình bảo mật và cấu hình thuộc tính SSO, do đó chưa thể xác nhận khả năng thao tác cơ sở dữ liệu quan hệ hay quản lý mã nguồn của ứng viên từ các minh chứng này."
+  },
+  "JD_JAVA_02": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên đã thể hiện năng lực làm việc với Java và Spring Boot thông qua việc sử dụng các annotation chuẩn như @Bean, @Primary tại Code Chunk #1.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows @Bean and @Primary annotations in AuthorizationServerConfig.java."
+        },
+        {
+          "claim": "Ứng viên sử dụng Lombok annotation như @Getter, @Setter, @NoArgsConstructor, @AllArgsConstructor tại Code Chunk #2.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 displays these Lombok annotations in ApiExceptionResponse.java."
+        },
+        {
+          "claim": "Ứng viên có bằng chứng sử dụng Spring Data JPA/Database connection qua userRepository.findByUserName(...) trong AuthorizationServerConfig.java tại Code Chunk #1.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 explicitly shows userRepository.findByUserName(principal.getUsername())."
+        },
+        {
+          "claim": "Ứng viên cấu hình clients.jdbc(dataSource); trong phương thức configure tại Code Chunk #3.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 contains the configure method with clients.jdbc(dataSource)."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng PostgreSQL trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The code context does not mention PostgreSQL explicitly."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng JUnit trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The code context does not contain any test files or JUnit annotations."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.6667,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên sử dụng các annotation của Lombok như @Getter, @Setter, @NoArgsConstructor, @AllArgsConstructor.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Supported by Code Chunk #1 showing Lombok annotations on ApiExceptionResponse."
+        },
+        {
+          "claim": "Ứng viên định nghĩa lớp ngoại lệ ApiExceptionResponse tại package com.rimmelasghar.boilerplate.springboot.exceptions (Code Chunk #1).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by Code Chunk #1."
+        },
+        {
+          "claim": "Ứng viên cấu hình Bean jwtAccessTokenConverter và xử lý OAuth2AccessToken sử dụng Spring Security/OAuth2 (Code Chunk #2 và #3).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by Code Chunk #2 and #3."
+        },
+        {
+          "claim": "Ứng viên truy vấn dữ liệu thông qua userRepository.findByUserName().",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Supported by code lines containing userRepository.findByUserName(principal.getUsername())."
+        },
+        {
+          "claim": "Không tìm thấy bất kỳ bằng chứng nào về Spring Data JPA trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The provided code chunks do not contain Spring Data JPA repository interfaces."
+        },
+        {
+          "claim": "Không tìm thấy bất kỳ bằng chứng nào về PostgreSQL trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The provided code chunks contain no configuration or reference to PostgreSQL."
+        },
+        {
+          "claim": "Không tìm thấy bất kỳ bằng chứng nào về JUnit trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The provided code chunks contain no test classes or JUnit assertions."
+        }
+      ],
+      "total_claims": 7,
+      "supported_claims": 7,
+      "claims_with_citation": 2,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.2857,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc kiểm tra và thẩm định các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là đánh giá kỹ thuật đối với vị trí **Junior Java Developer**:\n\nỨng viên đã thể hiện được năng lực làm việc với **Java** và **Spring Boot** thông qua việc sử dụng các annotation chuẩn như `@Bean`, `@Primary` (Code Chunk #1) và các Lombok annotation như `@Getter`, `@Setter`, `@NoArgsConstructor`, `@AllArgsConstructor` (Code Chunk #2). Ngoài ra, ứng viên có bằng chứng về việc sử dụng **Spring Data JPA / Database connection** được thể hiện qua việc gọi phương thức `userRepository.findByUserName(...)` trong tệp `AuthorizationServerConfig.java` (Code Chunk #1) và cấu hình `clients.jdbc(dataSource);` trong phương thức `configure` tại cùng tệp này (Code Chunk #3). \n\nTuy nhiên, đối với các kỹ năng bắt buộc còn lại theo yêu cầu của Bản mô tả công việc (JD), kết quả kiểm tra cụ thể như sau:\n- **PostgreSQL**: Không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n- **JUnit**: Không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n\nTóm lại, ứng viên có một số nền tảng về Java và Spring Boot, nhưng chưa cung cấp đủ bằng chứng mã nguồn để chứng minh năng lực đối với toàn bộ danh mục kỹ năng bắt buộc của dự án (cụ thể thiếu PostgreSQL và JUnit).",
+    "ans_line": "Dựa trên vai trò là một chuyên gia đánh giá kỹ thuật và tuân thủ nghiêm ngặt quy tắc trung thực, tôi xin đưa ra báo cáo thẩm định năng lực của ứng viên cho vị trí **Junior Java Developer** dựa trên các đoạn mã nguồn bằng chứng được cung cấp như sau:\n\nĐối với kỹ năng **Java** và **Spring Boot**, ứng viên có cung cấp bằng chứng qua việc sử dụng các annotation của Lombok (`@Getter`, `@Setter`, `@NoArgsConstructor`, `@AllArgsConstructor`), định nghĩa lớp ngoại lệ `ApiExceptionResponse` tại package `com.rimmelasghar.boilerplate.springboot.exceptions` (Code Chunk #1), cũng như cấu hình Bean `jwtAccessTokenConverter` và xử lý `OAuth2AccessToken` sử dụng Spring Security/OAuth2 (Code Chunk #2 và #3). Tuy nhiên, ứng viên cũng có truy vấn dữ liệu thông qua `userRepository.findByUserName()`, cho thấy việc ứng dụng các nguyên tắc lập trình hướng đối tượng và framework cơ bản.\n\nMặc dù vậy, đối với các kỹ năng bắt buộc còn lại trong JD gồm **Spring Data JPA**, **PostgreSQL**, và **JUnit**, **không tìm thấy bất kỳ bằng chứng nào trong mã nguồn được cung cấp**. Các đoạn mã hiện tại chỉ thể hiện logic xử lý Token/OAuth2 và cấu trúc Response lỗi, hoàn toàn chưa xuất hiện các thành phần của Spring Data JPA (như Interface extends JpaRepository), cấu hình kết nối hay mã nguồn tương tác với cơ sở dữ liệu PostgreSQL, cũng như các tệp mã nguồn kiểm thử (test class) sử dụng thư viện JUnit. \n\n**Kết luận:** Ứng viên mới chỉ thể hiện một phần năng lực về Java và Spring Boot qua mã nguồn xác thực/phân quyền, nhưng chưa đủ bằng chứng để đáp ứng toàn bộ các yêu cầu kỹ thuật khắt khe của vị trí."
+  },
+  "JD_JAVA_03": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên có sử dụng ngôn ngữ Java, được thể hiện qua ApiExceptionResponse.java, AuthorizationServerConfig.java và SsoProperties.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "The files exist in the context and are Java classes."
+        },
+        {
+          "claim": "Ứng viên có kinh nghiệm với Spring Boot qua @ConfigurationProperties trong SsoProperties.java và cấu hình ngoại lệ trong ApiExceptionResponse.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "SsoProperties.java contains @ConfigurationProperties and ApiExceptionResponse.java is a Spring Boot exception response class."
+        },
+        {
+          "claim": "Ứng viên có kinh nghiệm với cấu hình xác thực OAuth2/JWT qua AuthorizationServerConfig.java và phương thức jwtAccessTokenConverter().",
+          "supported": true,
+          "cites_code": true,
+          "reason": "AuthorizationServerConfig.java and jwtAccessTokenConverter() are present in Code Chunk #2."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Spring Data JPA, PostgreSQL, và Redis trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "None of these technologies appear in the provided chunks, though repository usage like userRepository is hinted, explicit mention of JPA/PostgreSQL/Redis is absent."
+        },
+        {
+          "claim": "Các tệp được cung cấp là ApiExceptionResponse.java, AuthorizationServerConfig.java, và SsoProperties.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly matches the file names given in the code context chunks."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện được sự quen thuộc với Java và Spring Boot qua việc sử dụng các annotation như @Configuration và @ConfigurationProperties trong SsoProperties (Code Chunk #2).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 shows SsoProperties annotated with @Configuration and @ConfigurationProperties, written in Java."
+        },
+        {
+          "claim": "Ứng viên xây dựng lớp DTO ApiExceptionResponse tại Code Chunk #1.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 displays ApiExceptionResponse class with Lombok annotations."
+        },
+        {
+          "claim": "Ứng viên xây dựng cấu hình Bean jwtAccessTokenConverter tại Code Chunk #3.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 contains the jwtAccessTokenConverter method annotated with @Bean."
+        },
+        {
+          "claim": "Ứng viên sử dụng Lombok (@Getter, @Setter, @NoArgsConstructor, @AllArgsConstructor).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Lombok annotations are present in both Code Chunk #1 and Code Chunk #2."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Spring Data JPA, PostgreSQL và Redis trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "None of the code chunks contain references to JPA repositories, PostgreSQL configuration, or Redis."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dưới đây là báo cáo đánh giá kỹ thuật dựa trên các đoạn mã nguồn bằng chứng được cung cấp:\n\n**1. Đánh giá các kỹ năng bắt buộc:**\n*   **Java:** Ứng viên có sử dụng ngôn ngữ Java, được thể hiện qua các tệp mã nguồn như `ApiExceptionResponse.java`, `AuthorizationServerConfig.java`, và `SsoProperties.java`.\n*   **Spring Boot / Spring Security / OAuth2:** Ứng viên có kinh nghiệm với hệ sinh thái Spring, cụ thể là Spring Boot (`@ConfigurationProperties` trong `SsoProperties.java`, cấu hình ngoại lệ trong `ApiExceptionResponse.java`) và cấu hình xác thực OAuth2/JWT (`AuthorizationServerConfig.java`, phương thức `jwtAccessTokenConverter()`).\n*   **Spring Data JPA, PostgreSQL, Redis:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n\n**2. Kết luận:**\nDựa trên các đoạn mã nguồn được trích xuất, ứng viên thể hiện khả năng sử dụng Java và Spring Boot, đặc biệt trong việc xây dựng cấu hình hệ thống và bảo mật (OAuth2/JWT). Tuy nhiên, các kỹ năng bắt buộc rất quan trọng đối với vị trí Fintech/Payment Gateway như **Spring Data JPA**, **PostgreSQL**, và **Redis** hoàn toàn không xuất hiện trong các tệp mã nguồn được cung cấp (`ApiExceptionResponse.java`, `AuthorizationServerConfig.java`, `SsoProperties.java`). Do đó, ứng viên chưa đáp ứng đầy đủ các tiêu chí kỹ thuật theo yêu cầu của Bản mô tả công việc (JD).",
+    "ans_line": "Dưới đây là báo cáo đánh giá kỹ thuật dựa trên các đoạn mã nguồn bằng chứng được cung cấp:\n\nDựa trên việc phân tích các đoạn mã nguồn bằng chứng, ứng viên thể hiện được sự quen thuộc với **Java** và **Spring Boot**, cụ thể qua việc sử dụng các annotation của Spring framework như `@Configuration`, `@ConfigurationProperties` trong lớp `SsoProperties` (Code Chunk #2), cũng như việc xây dựng các lớp DTO và cấu hình Bean (`ApiExceptionResponse` tại Code Chunk #1 và `jwtAccessTokenConverter` tại Code Chunk #3). Ứng viên cũng có bằng chứng về việc sử dụng Lombok (`@Getter`, `@Setter`, `@NoArgsConstructor`, `@AllArgsConstructor`) và làm việc với các thành phần bảo mật/OAuth2 trong Spring.\n\nTuy nhiên, đối với các kỹ năng bắt buộc còn lại trong Bản mô tả công việc (JD) bao gồm **Spring Data JPA**, **PostgreSQL** và **Redis**, **không tìm thấy bằng chứng trong mã nguồn được cung cấp**. Các đoạn mã hiện tại chỉ tập trung vào xử lý ngoại lệ, cấu hình SSO/Keycloak và JWT, hoàn toàn chưa xuất hiện các repository thao tác cơ sở dữ liệu qua JPA, cấu hình kết nối PostgreSQL hay việc sử dụng Redis.\n\nTóm lại, ứng viên đáp ứng một phần tiêu chí về Java và Spring Boot qua các bằng chứng mã nguồn đã cung cấp. Tuy nhiên, các kỹ năng về Spring Data JPA, PostgreSQL và Redis chưa thể được xác thực do hoàn toàn thiếu vắng bằng chứng trong dữ liệu mã nguồn được giao thẩm định."
+  },
+  "JD_JAVA_04": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Đối với các kỹ năng Java 17+, Apache Kafka, MySQL/PostgreSQL, và Docker / Docker Compose, hoàn toàn không tìm thấy bằng chứng trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Accurately notes the absence of these skills in the provided code context."
+        },
+        {
+          "claim": "Việc sử dụng các annotation như @RestController, @GetMapping, @RequestParam, @Bean, @Primary và lớp ResponseEntity trong tệp auth-service/src/main/java/com/ecommerce/authservice/controller/AuthController.java chứng minh ứng viên có tiếp xúc với framework Spring Boot.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by Code Chunk #1 and #2, mentioning specific annotations and file path."
+        },
+        {
+          "claim": "Các kỹ năng cụ thể như Spring Data JPA hay các công nghệ hệ thống phân tán khác không xuất hiện trong phạm vi mã nguồn được xét duyệt.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Correctly states that Spring Data JPA is not present in the provided snippets."
+        },
+        {
+          "claim": "Ứng viên cho thấy sự quen thuộc cơ bản với Spring Boot qua các đoạn mã điều khiển HTTP (AuthController.java), nhưng các kỹ năng bắt buộc còn lại không tìm thấy bằng chứng.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Synthesizes the findings accurately based on the context."
+        }
+      ],
+      "total_claims": 4,
+      "supported_claims": 4,
+      "claims_with_citation": 2,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.5,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên sử dụng Spring Boot thông qua các annotation @Bean và @Primary.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 explicitly shows @Bean and @Primary annotations."
+        },
+        {
+          "claim": "Ứng viên xử lý ngoại lệ HTTP thông qua HttpStatus trong lớp ApiExceptionResponse.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows ApiExceptionResponse utilizing HttpStatus."
+        },
+        {
+          "claim": "Mã nguồn cung cấp chỉ thể hiện ứng dụng Spring Boot đơn lẻ, chưa có kiến trúc Microservices.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "True based on the lack of microservices code, though it doesn't cite specific code for this conclusion."
+        },
+        {
+          "claim": "Ứng viên sử dụng MySQL/PostgreSQL thông qua từ khóa dataSource trong cấu hình ClientDetailsServiceConfigurer.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 explicitly shows configure method with clients.jdbc(dataSource)."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Java 17+, Apache Kafka, Spring Data JPA, và Docker trong mã nguồn.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Accurate negative constraint check against the provided code chunks."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.6,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên vai trò Chuyên gia Đánh giá Kỹ thuật, tôi xin báo cáo kết quả thẩm định năng lực của ứng viên dựa **hoàn toàn** trên các đoạn mã nguồn bằng chứng được cung cấp, tuân thủ nghiêm ngặt tính trung thực:\n\nĐối với các kỹ năng **Java 17+**, **Apache Kafka**, **MySQL/PostgreSQL**, và **Docker / Docker Compose**, hoàn toàn không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n\nVề kỹ năng **Spring Boot** và **Spring Data JPA**, ứng viên có để lại một số dấu hiệu kỹ thuật. Cụ thể, việc sử dụng các annotation như `@RestController`, `@GetMapping`, `@RequestParam`, `@Bean`, `@Primary` và lớp `ResponseEntity` trong tệp `auth-service/src/main/java/com/ecommerce/authservice/controller/AuthController.java` (lớp `AuthController`, phương thức `ssoCallback`) chứng minh ứng viên có tiếp xúc với framework Spring Boot. Tuy nhiên, các kỹ năng cụ thể như Spring Data JPA hay các công nghệ hệ thống phân tán khác không xuất hiện trong phạm vi mã nguồn được xét duyệt.\n\nTóm lại, ứng viên cho thấy sự quen thuộc cơ bản với Spring Boot qua các đoạn mã điều khiển HTTP (`AuthController.java`), nhưng các kỹ năng bắt buộc còn lại (Java 17+, Apache Kafka, MySQL/PostgreSQL, Docker / Docker Compose) không tìm thấy bằng chứng trong mã nguồn được cung cấp.",
+    "ans_line": "Dưới đây là báo cáo đánh giá kỹ thuật dựa trên các đoạn mã nguồn bằng chứng được cung cấp cho vị trí **Java Microservices Fresher**:\n\nDựa trên việc phân tích các đoạn mã nguồn (bao gồm tệp `ApiExceptionResponse.java` và cấu hình liên quan đến Spring Security/OAuth2), ứng viên đã thể hiện sự quen thuộc với framework Spring thông qua việc sử dụng các annotation của Spring Boot (`@Bean`, `@Primary`) và xử lý ngoại lệ HTTP (`HttpStatus`) trong lớp `ApiExceptionResponse`. Tuy nhiên, mã nguồn cung cấp chỉ thể hiện một ứng dụng Spring Boot đơn lẻ, chưa có cấu trúc phân tán hoặc các thành phần của kiến trúc Microservices.\n\nXét cụ thể theo danh sách kỹ năng bắt buộc trong JD, ứng viên có bằng chứng sử dụng **Spring Boot** (thể hiện qua `@Bean`, `@Primary` và `HttpStatus` tại `Code Chunk #1` và `3`) và **MySQL/PostgreSQL** (thông qua từ khóa `dataSource` trong cấu hình `configure(ClientDetailsServiceConfigurer clients)` tại `Code Chunk #2`). Đối với các kỹ năng còn lại bao gồm **Java 17+**, **Apache Kafka**, **Spring Data JPA**, và **Docker / Docker Compose**, không tìm thấy bất kỳ bằng chứng nào trong các đoạn mã nguồn được cung cấp.\n\nTóm lại, ứng viên hiện mới chỉ đáp ứng một phần rất nhỏ các yêu cầu cơ bản của Spring Boot. Do thiếu hụt các bằng chứng cốt lõi về Microservices, Kafka, Java phiên bản mới và Docker trong mã nguồn, ứng viên chưa đáp ứng đủ tiêu chuẩn kỹ thuật theo yêu cầu của bản mô tả công việc (JD)."
+  },
+  "JD_JAVA_05": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện khả năng sử dụng các tính năng Java Core hiện đại như List.of() thông qua tệp auth-service/src/main/java/com/ecommerce/authservice/config/SsoProperties.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows List.of() being used in SsoProperties.java."
+        },
+        {
+          "claim": "Mã nguồn cung cấp bằng chứng rõ ràng về cấu hình Spring Boot thông qua annotation @ConfigurationProperties(prefix = \"keycloak.sso\") trong tệp SsoProperties.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 explicitly shows @ConfigurationProperties(prefix = \"keycloak.sso\") on SsoProperties."
+        },
+        {
+          "claim": "Sử dụng Lombok (@Getter, @Setter) trong tệp src/main/java/com/rimmelasghar/boilerplate/springboot/exceptions/ApiExceptionResponse.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 shows @Getter and @Setter on ApiExceptionResponse.java."
+        },
+        {
+          "claim": "Kỹ năng Spring Security được chứng minh qua phương thức authenticationManager trong lớp SecurityConfig tại tệp src/main/java/com/huseynovvusal/springblogapi/config/SecurityConfig.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 explicitly shows the authenticationManager method in SecurityConfig.java."
+        },
+        {
+          "claim": "Hoàn toàn không tìm thấy mã nguồn hoặc cấu hình liên quan đến Spring Data JPA và MySQL trong các đoạn mã được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "None of the provided code chunks contain Spring Data JPA or MySQL references, which aligns with the context."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Candidate demonstrates Java Core skills through the use of List.of(), Optional, and HashMap.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Java structures like List.of(), Optional, and HashMap are present in the provided code chunks."
+        },
+        {
+          "claim": "Candidate uses Spring Boot annotations such as @Configuration and @ConfigurationProperties(prefix = \"keycloak.sso\") in SsoProperties class.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 explicitly shows SsoProperties annotated with @Configuration and @ConfigurationProperties(prefix = \"keycloak.sso\")."
+        },
+        {
+          "claim": "Candidate uses Lombok annotations like @Getter, @Setter, @NoArgsConstructor, and @AllArgsConstructor in ApiExceptionResponse class.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 explicitly shows ApiExceptionResponse annotated with these Lombok annotations."
+        },
+        {
+          "claim": "Spring Security evidence appears in the enhance method involving OAuth2AccessToken and OAuth2Authentication in Code Chunk #3.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 contains the enhance method with OAuth2AccessToken and OAuth2Authentication parameters."
+        },
+        {
+          "claim": "No explicit implementation code for Spring Data JPA is found in the provided source code, despite a reference to userRepository.findByUserName.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 calls userRepository.findByUserName, but no JPA repository interface or implementation is provided in the chunks."
+        },
+        {
+          "claim": "No MySQL-specific configuration or interaction code is found in the provided source code context.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Reviewing all three code chunks confirms there are no MySQL configurations or database interaction codes present."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.6667,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dưới đây là báo cáo đánh giá kỹ thuật năng lực của ứng viên dựa trên các đoạn mã nguồn bằng chứng được cung cấp:\n\nDựa trên việc phân tích các đoạn mã nguồn, ứng viên có bằng chứng đáp ứng một phần các kỹ năng bắt buộc của vị trí Backend Developer (Java/Spring Boot). Cụ thể, về **Java Core**, ứng viên thể hiện khả năng sử dụng các tính năng hiện đại như `List.of()` thông qua tệp `auth-service/src/main/java/com/ecommerce/authservice/config/SsoProperties.java`. Đối với **Spring Boot**, mã nguồn cung cấp nhiều bằng chứng rõ ràng về việc cấu hình ứng dụng thông qua các annotation như `@ConfigurationProperties(prefix = \"keycloak.sso\")` trong tệp `SsoProperties.java` và việc sử dụng Lombok (`@Getter`, `@Setter`) trong tệp `ApiExceptionResponse.java`. Kỹ năng **Spring Security** cũng được chứng minh cụ thể qua phương thức `authenticationManager` trong lớp `SecurityConfig` tại tệp `src/main/java/com/huseynovvusal/springblogapi/config/SecurityConfig.java`.\n\nTuy nhiên, đối với hai kỹ năng bắt buộc còn lại là **Spring Data JPA** và **MySQL**, hoàn toàn không tìm thấy bất kỳ mã nguồn, câu lệnh truy vấn, hoặc cấu hình liên quan nào trong các đoạn mã được cung cấp. Do đó, theo các quy tắc đánh giá nghiêm ngặt, tôi kết luận rằng không tìm thấy bằng chứng trong mã nguồn được cung cấp đối với hai công nghệ này.",
+    "ans_line": "Dựa trên việc thẩm định các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật đối với ứng viên cho vị trí Backend Developer (Java/Spring Boot):\n\nVề kỹ năng **Java Core** và **Spring Boot**, ứng viên có hiển thị bằng chứng qua việc sử dụng các cấu trúc lập trình Java (như `List.of()`, `Optional`, `HashMap`) và các annotation cốt lõi của Spring Boot như `@Configuration`, `@ConfigurationProperties(prefix = \"keycloak.sso\")` trong tệp `com.ecommerce.authservice.config.SsoProperties` (Code Chunk #2), cũng như việc sử dụng các annotation của Lombok (`@Getter`, `@Setter`, `@NoArgsConstructor`, `@AllArgsConstructor`) trong tệp `com.rimmelasghar.boilerplate.springboot.exceptions.ApiExceptionResponse` (Code Chunk #1). Đối với **Spring Security**, bằng chứng xuất hiện trong phương thức `enhance` liên quan đến `OAuth2AccessToken` và `OAuth2Authentication` tại Code Chunk #3. \n\nTuy nhiên, đối với các kỹ năng bắt buộc còn lại theo yêu cầu của JD, **không tìm thấy bằng chứng trong mã nguồn được cung cấp** cho **Spring Data JPA** (không có repository interface hoặc truy vấn CSDL cụ thể nào được minh chứng trong code, mặc dù có gọi `userRepository.findByUserName` ở Code Chunk #3 nhưng không rõ implementation) và **MySQL** (không có cấu hình kết nối hay mã nguồn tương tác với cơ sở dữ liệu MySQL). Tóm lại, ứng viên chứng minh được sự quen thuộc với Java, Spring Boot và Spring Security, nhưng hồ sơ mã nguồn hiện tại chưa đủ bằng chứng để xác thực toàn bộ các yêu cầu của dự án EdTech & LMS."
+  },
+  "JD_JAVA_06": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên có bằng chứng sử dụng Spring Boot thông qua việc cấu hình các tính năng như @ConfigurationProperties trong tệp auth-service/src/main/java/com/ecommerce/authservice/config/SsoProperties.java",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows SsoProperties.java using @ConfigurationProperties and Spring Boot annotations."
+        },
+        {
+          "claim": "Ứng viên thiết lập bảo mật với @Bean public SecurityFilterChain securityFilterChain(HttpSecurity http) tại src/main/java/com/huseynovvusal/springblogapi/config/SecurityConfig.java",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 explicitly contains this securityFilterChain method in SecurityConfig.java."
+        },
+        {
+          "claim": "Mã nguồn được cung cấp không chứa phiên bản Java cụ thể (Java 11/17) hay mã Java thuần túy ngoài các annotation của Spring.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "True based on the provided snippets, though no code citation is strictly needed to state an absence of version info."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Spring Data JPA trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The provided code chunks only contain configuration, security, and exception response classes, lacking any JPA entities or repositories."
+        },
+        {
+          "claim": "Các đoạn code hiện tại tập trung vào cấu hình bảo mật, xử lý ngoại lệ (ApiExceptionResponse.java) và cấu hình thuộc tính (SsoProperties.java)",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 is SsoProperties, #2 is SecurityConfig, and #3 is ApiExceptionResponse."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về PostgreSQL/MySQL trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "None of the code chunks contain database configurations or SQL references."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.6667,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện một phần năng lực với Spring Boot thông qua cấu hình bảo mật SecurityFilterChain, sử dụng HttpSecurity, SessionCreationPolicy.STATELESS và tích hợp JWT filter trong Code Chunk #2.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Mã nguồn Code Chunk #2 chứa SecurityFilterChain với các thành phần HttpSecurity, SessionCreationPolicy.STATELESS, và jwtAuthenticationFilter."
+        },
+        {
+          "claim": "Ứng viên có kiến thức về xây dựng lớp DTO/Response xử lý lỗi với ApiExceptionResponse, sử dụng annotation của Lombok và Spring Framework HttpStatus trong Code Chunk #1.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 chứa lớp ApiExceptionResponse sử dụng các annotation Lombok (@Getter, @Setter, v.v.) và HttpStatus."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng cụ thể về phiên bản Java 11/17 trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Đúng là đoạn mã không chứa thông tin về phiên bản Java."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Spring Data JPA trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Đúng là không có repository hoặc mã liên quan đến Spring Data JPA trong context."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về PostgreSQL/MySQL trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Đúng là không có cấu hình CSDL hoặc mã kết nối PostgreSQL/MySQL trong context."
+        },
+        {
+          "claim": "Đoạn mã Code Chunk #3 là mã nguồn TypeScript/React (.tsx), không liên quan đến phạm vi kỹ năng Backend Java yêu cầu trong JD.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 thực sự chứa cú pháp React/JSX (icon, Tailwind classes, TypeScript FC)."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.5,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên các đoạn mã nguồn bằng chứng được trức xuất từ GitHub, dưới đây là báo cáo đánh giá kỹ thuật đối với vị trí **Fresher Java Backend Engineer**:\n\n1. **Java & Spring Boot:** Ứng viên có bằng chứng sử dụng **Spring Boot** thông qua việc cấu hình các tính năng như `@ConfigurationProperties` trong tệp `auth-service/src/main/java/com/ecommerce/authservice/config/SsoProperties.java` và thiết lập bảo mật với `@Bean public SecurityFilterChain securityFilterChain(HttpSecurity http)` tại `src/main/java/com/huseynovvusal/springblogapi/config/SecurityConfig.java`. Tuy nhiên, mã nguồn được cung cấp không chứa phiên bản Java cụ thể (Java 11/17) hay mã Java thuần túy ngoài các annotation của Spring.\n\n2. **Spring Data JPA:** **Không tìm thấy bằng chứng trong mã nguồn được cung cấp**. Các đoạn code hiện tại chỉ tập trung vào cấu hình bảo mật (Security), xử lý ngoại lệ (`ApiExceptionResponse.java`) và cấu hình thuộc tính (`SsoProperties.java`), hoàn toàn chưa xuất hiện các Repository hay thao tác cơ sở dữ liệu liên quan đến Spring Data JPA.\n\n3. **PostgreSQL/MySQL:** **Không tìm thấy bằng chứng trong mã nguồn được cung cấp**. Trong các đoạn mã kiểm tra không có cấu hình kết nối cơ sở dữ liệu (như `application.properties` hoặc `application.yml` chứa thông tin DataSource) hay câu lệnh truy vấn nào liên quan đến PostgreSQL hoặc MySQL.\n\n**Kết luận:** Ứng viên thể hiện sự quen thuộc cơ bản với Spring Boot và cấu hình bảo mật, nhưng chưa đủ bằng chứng kỹ thuật toàn diện theo yêu cầu của JD (thiếu minh chứng về Java 11/17, Spring Data JPA và hệ quản trị cơ sở dữ liệu).",
+    "ans_line": "Dưới đây là báo cáo đánh giá kỹ thuật dựa trên các đoạn mã nguồn bằng chứng được cung cấp:\n\nDựa trên việc kiểm tra các đoạn mã nguồn, ứng viên có thể hiện một phần năng lực với **Spring Boot** thông qua cấu hình bảo mật `SecurityFilterChain` trong đoạn mã, sử dụng các thành phần như `HttpSecurity`, `SessionCreationPolicy.STATELESS`, và tích hợp JWT filter (được thể hiện trong Code Chunk #2). Ngoài ra, ứng viên cũng có kiến thức về xây dựng các lớp DTO/Response xử lý lỗi với `ApiExceptionResponse`, sử dụng các annotation của Lombok và Spring Framework `HttpStatus` (được thể hiện trong Code Chunk #1).\n\nTuy nhiên, đối với các kỹ năng bắt buộc còn lại trong JD, kết quả kiểm tra cụ thể như sau:\n- **Java 11/17**: Không tìm thấy bằng chứng cụ thể về phiên bản Java trong mã nguồn được cung cấp.\n- **Spring Data JPA**: Không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n- **PostgreSQL/MySQL**: Không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n- (Lưu ý: Đoạn mã Code Chunk #3 là mã nguồn TypeScript/React (`.tsx`), không liên quan đến phạm vi kỹ năng Backend Java yêu cầu trong JD).\n\n**Kết luận:** Ứng viên mới chỉ cung cấp một phần bằng chứng về kỹ năng Spring Boot (cấu hình Security), nhưng chưa đủ bằng chứng xác thực cho các yêu cầu về Java 11/17, Spring Data JPA, và cơ sở dữ liệu (PostgreSQL/MySQL) trong các đoạn mã được cung cấp."
+  },
+  "JD_JAVA_07": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên cấu hình SecurityScheme với định dạng bearerFormat(\"JWT\") trong tệp OpenAPIConfiguration.java, lớp OpenAPIConfiguration, hàm defineOpenApi.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Mã nguồn Code Chunk #1 thể hiện chính xác cấu hình SecurityScheme với bearerFormat(\"JWT\") trong phương thức defineOpenApi."
+        },
+        {
+          "claim": "Ứng viên thiết lập JwtAccessTokenConverter, AuthorizationServerEndpointsConfigurer và userDetailsService trong AuthorizationServerConfig.java, lớp AuthorizationServerConfig, các hàm jwtAccessTokenConverter và configure.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 và #3 chứng minh rõ ràng việc cấu hình các thành phần này trong lớp AuthorizationServerConfig."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Spring WebSocket / STOMP trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Các đoạn mã nguồn không chứa bất kỳ từ khóa hoặc cấu hình nào liên quan đến WebSocket hay STOMP."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng trực tiếp về loại CSDL (PostgreSQL / MySQL / MongoDB) trong các đoạn mã mặc dù có gọi userRepository.findByUserName.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Mã nguồn có gọi userRepository.findByUserName trong AuthorizationServerConfig.java nhưng không hiển thị cấu hình kết nối CSDL cụ thể."
+        }
+      ],
+      "total_claims": 4,
+      "supported_claims": 4,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.75,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên có sử dụng ngôn ngữ Java và framework Spring Boot được thể hiện tại Code Chunk #1.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 thuộc package com.rimmelasghar.boilerplate.springboot.exceptions và sử dụng các annotation của Spring / Lombok."
+        },
+        {
+          "claim": "Code Chunk #2 thể hiện việc sử dụng OpenAPI, Bean, Server, Components trong Spring Boot.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 chứa phương thức @Bean định nghĩa OpenAPI với Server và SecurityScheme."
+        },
+        {
+          "claim": "Code Chunk #3 thể hiện cấu hình AuthorizationServerSecurityConfigurer và override phương thức configure.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 chứa mã nguồn phương thức configure với AuthorizationServerSecurityConfigurer."
+        },
+        {
+          "claim": "Ứng viên có bằng chứng về JWT & Spring Security được thể hiện ở Code Chunk #2 với SecurityScheme bearerFormat là JWT.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 thiết lập SecurityScheme kiểu HTTP với bearerFormat là 'JWT'."
+        },
+        {
+          "claim": "Code Chunk #3 thể hiện cấu hình liên quan đến Spring Security thông qua passwordEncoder, tokenKeyAccess và checkTokenAccess.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Mã nguồn trong Code Chunk #3 khớp chính xác với các phương thức này."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Spring WebSocket / STOMP, PostgreSQL / MySQL / MongoDB trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Các kỹ năng này thực sự không xuất hiện trong các chunk mã nguồn được cung cấp."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8333,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc thẩm định mã nguồn được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật năng lực của ứng viên đối với vị trí **Java API Developer**:\n\n1. **Java & Spring Boot / Spring Security / JWT**: Ứng viên có bằng chứng rõ ràng về việc sử dụng Java, Spring Boot và cấu hình bảo mật liên quan đến JWT. Cụ thể, trong tệp `src/main/java/com/huseynovvusal/springblogapi/config/OpenAPIConfiguration.java` (lớp `OpenAPIConfiguration`, hàm `defineOpenApi`), ứng viên đã cấu hình `SecurityScheme` với định dạng `bearerFormat(\"JWT\")`. Ngoài ra, tại tệp `bookstore-account-service/src/main/java/com/devd/spring/bookstoreaccountservice/config/AuthorizationServerConfig.java` (lớp `AuthorizationServerConfig`, các hàm `jwtAccessTokenConverter` và `configure`), ứng viên thể hiện khả năng thiết lập `JwtAccessTokenConverter`, `AuthorizationServerEndpointsConfigurer` và `userDetailsService` để quản lý xác thực và phân quyền.\n\n2. **Spring WebSocket / STOMP**: Không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n\n3. **PostgreSQL / MySQL / MongoDB**: Không tìm thấy bằng chứng trực tiếp về việc cấu hình hoặc kết nối cơ sở dữ liệu cụ thể nào trong các đoạn mã nguồn được cung cấp (mặc dù có gọi `userRepository.findByUserName` trong tệp `AuthorizationServerConfig.java`, nhưng đoạn mã không hiển thị rõ loại CSDL đang sử dụng).\n\n**Kết luận:** Ứng viên đáp ứng tốt các yêu cầu về nền tảng Java, Spring Boot, Spring Security và JWT, nhưng **không đủ bằng chứng** trong mã nguồn được cung cấp để xác thực các kỹ năng về Spring WebSocket / STOMP và hệ quản trị cơ sở dữ liệu cụ thể (PostgreSQL / MySQL / MongoDB).",
+    "ans_line": "Dựa trên vai trò Chuyên gia đánh giá kỹ thuật và tuân thủ nghiêm ngặt các quy tắc đánh giá dựa hoàn toàn trên các đoạn mã nguồn bằng chứng được cung cấp, tôi xin đưa ra báo cáo thẩm định năng lực của ứng viên cho vị trí **Java API Developer** như sau:\n\n**1. Đánh giá các kỹ năng bắt buộc dựa trên bằng chứng:**\n*   **Java & Spring Boot:** Ứng viên có sử dụng ngôn ngữ Java và framework Spring Boot. Bằng chứng thể hiện rõ tại Code Chunk #1 (`package com.rimmelasghar.boilerplate.springboot.exceptions;`, sử dụng các annotation của Lombok và `org.springframework.http.HttpStatus`), Code Chunk #2 (`@Bean`, `OpenAPI`, `Server`, `Components`), và Code Chunk #3 (ghi đè phương thức `configure` trong cấu hình bảo mật).\n*   **JWT & Spring Security:** Ứng viên có bằng chứng về việc cấu hình bảo mật liên quan đến JWT (JSON Web Token). Bằng chứng cụ thể nằm ở Code Chunk #2 trong hàm `defineOpenApi()` với việc thiết lập `SecurityScheme` kiểu HTTP, scheme là \"bearer\" và bearerFormat là \"JWT\". Ngoài ra, Code Chunk #3 thể hiện cấu hình `AuthorizationServerSecurityConfigurer` với các phương thức như `passwordEncoder`, `tokenKeyAccess`, và `checkTokenAccess`.\n*   **Spring WebSocket / STOMP, PostgreSQL / MySQL / MongoDB:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n\n**2. Kết luận tổng quan:**\nỨng viên đã cung cấp mã nguồn thể hiện năng lực làm việc với **Java**, **Spring Boot**, và cấu hình **JWT / Spring Security** (thông qua các đoạn mã cấu hình OpenAPI và Authorization Server). Tuy nhiên, các kỹ năng bắt buộc khác theo yêu cầu của JD là **Spring WebSocket / STOMP** và các hệ quản trị cơ sở dữ liệu (**PostgreSQL / MySQL / MongoDB**) hoàn toàn không xuất hiện trong các đoạn mã nguồn bằng chứng được trích xuất. Do đó, cần có thêm các đoạn mã minh chứng khác từ kho lưu trữ GitHub của ứng viên để có thể đưa ra kết luận tuyển dụng toàn diện hơn."
+  },
+  "JD_JAVA_08": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện việc sử dụng Spring Boot qua cấu hình bảo mật BCryptPasswordEncoder tại SecutiryConfig.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code context includes SecutiryConfig.java with passwordEncoder method returning BCryptPasswordEncoder."
+        },
+        {
+          "claim": "Ứng viên xây dựng lớp phản hồi lỗi tùy chỉnh ApiExceptionResponse tại ApiExceptionResponse.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code context includes ApiExceptionResponse.java defining the exception response structure."
+        },
+        {
+          "claim": "Đoạn mã AuthorizationServerConfig.java (Method: jwtAccessTokenConverter, Lines: 103-129) minh họa việc sử dụng Spring Security OAuth2 và Repository (userRepository.findByUserName).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code context includes AuthorizationServerConfig.java showing jwtAccessTokenConverter using userRepository.findByUserName."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Java 17, Spring Data JPA, MySQL/PostgreSQL, MapStruct, Bean Validation trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "None of the provided code chunks contain references to these specific technologies/libraries."
+        }
+      ],
+      "total_claims": 4,
+      "supported_claims": 4,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.75,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Có bằng chứng về ngôn ngữ Java thông qua định nghĩa lớp ApiExceptionResponse (Code Chunk #1) và cấu hình Spring Bean jwtAccessTokenConverter() (Code Chunk #2).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows ApiExceptionResponse in Java and Code Chunk #2 shows jwtAccessTokenConverter."
+        },
+        {
+          "claim": "Có bằng chứng sử dụng Spring thông qua các annotation như @Bean, @Primary (Code Chunk #2) và xử lý ngoại lệ trong Spring (Code Chunk #1).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 contains @Bean and @Primary annotations, and Code Chunk #1 is an exception response class."
+        },
+        {
+          "claim": "Các kỹ năng cụ thể theo JD như Spring Boot (khẳng định phiên bản), Spring Data JPA, MySQL/PostgreSQL, MapStruct, và Bean Validation hoàn toàn không tìm thấy bằng chứng trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Correctly notes the absence of these mandatory skills in the provided code snippets."
+        },
+        {
+          "claim": "Code Chunk #3 chứa mã nguồn React và TypeScript (React.FC<Props>), tuy nhiên điều này nằm ngoài phạm vi kỹ năng bắt buộc của vị trí Java Engineer theo JD.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 explicitly contains React and TypeScript component definitions."
+        },
+        {
+          "claim": "Ứng viên thể hiện khả năng sử dụng ngôn ngữ Java và cấu hình cơ bản liên quan đến Spring/OAuth2 (thể hiện qua class ApiExceptionResponse tại Code Chunk #1 và phương thức jwtAccessTokenConverter tại Code Chunk #2).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Accurately summarizes code chunk contents regarding Java and OAuth2/Spring."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc thẩm định mã nguồn được cung cấp, dưới đây là báo cáo đánh giá năng lực của ứng viên đối với vị trí Junior Java Software Engineer:\n\nTrong các đoạn mã nguồn được truy xuất, ứng viên chỉ cung cấp bằng chứng thể hiện việc sử dụng các thành phần cơ bản của **Spring Boot** qua cấu hình bảo mật (`BCryptPasswordEncoder` tại `src/main/java/com/sopromadze/blogapi/config/SecutiryConfig.java` - Method: `passwordEncoder`) và việc xây dựng lớp phản hồi lỗi tùy chỉnh (`ApiExceptionResponse` tại `src/main/java/com/rimmelasghar/boilerplate/springboot/exceptions/ApiExceptionResponse.java`). Ngoài ra, đoạn mã `AuthorizationServerConfig.java` (Method: `jwtAccessTokenConverter`, Lines: 103-129) minh họa việc sử dụng Spring Security OAuth2 và Repository (`userRepository.findByUserName`).\n\nTuy nhiên, đối với các kỹ năng bắt buộc khác theo yêu cầu của bản mô tả công việc (JD), kết quả đánh giá cụ thể như sau:\n- **Java 17, Spring Data JPA, MySQL/PostgreSQL, MapStruct, Bean Validation**: Không tìm thấy bằng chứng trong mã nguồn được cung cấp. Các đoạn mã hiện tại không chứa các dấu hiệu đặc thù của Java 17, các phương thức giao tiếp cơ sở dữ liệu của Spring Data JPA, cấu hình ánh xạ dữ liệu của MapStruct, hay các chú thích (annotations) kiểm tra tính hợp lệ của Bean Validation.\n\nTổng kết lại, dựa **hoàn toàn** vào các đoạn mã nguồn bằng chứng đã cung cấp, ứng viên chưa chứng minh được đầy đủ các năng lực kỹ thuật cốt lõi theo yêu cầu của JD, ngoại trừ việc có tiếp xúc với Spring Boot và Spring Security ở mức độ cơ bản.",
+    "ans_line": "Dưới đây là báo cáo đánh giá kỹ thuật dựa trên các đoạn mã nguồn bằng chứng được cung cấp cho vị trí Junior Java Software Engineer:\n\n**1. Đánh giá các kỹ năng bắt buộc:**\n* **Java:** Có bằng chứng về ngôn ngữ Java thông qua định nghĩa lớp `ApiExceptionResponse` (Code Chunk #1) và cấu hình Spring Bean `jwtAccessTokenConverter()` (Code Chunk #2).\n* **Spring Boot / Spring (OAuth2, Security, Data):** Có bằng chứng sử dụng Spring thông qua các annotation như `@Bean`, `@Primary` (Code Chunk #2) và xử lý ngoại lệ trong Spring (Code Chunk #1). Tuy nhiên, các kỹ năng cụ thể theo JD như **Spring Boot** (khẳng định phiên bản), **Spring Data JPA**, **MySQL/PostgreSQL**, **MapStruct**, và **Bean Validation** hoàn toàn *không tìm thấy bằng chứng trong mã nguồn được cung cấp*.\n* **Frontend (React/TypeScript):** Code Chunk #3 chứa mã nguồn React và TypeScript (`React.FC<Props>`), tuy nhiên điều này nằm ngoài phạm vi kỹ năng bắt buộc của vị trí Java Engineer theo JD.\n\n**2. Kết luận kỹ thuật:**\nỨng viên thể hiện khả năng sử dụng ngôn ngữ Java và cấu hình cơ bản liên quan đến Spring/OAuth2 (thể hiện qua class `ApiExceptionResponse` tại Code Chunk #1 và phương thức `jwtAccessTokenConverter` tại Code Chunk #2). Tuy nhiên, dựa trên giới hạn của các đoạn mã bằng chứng, ứng viên **chưa đáp ứng đủ** các yêu cầu cốt lõi của JD như Spring Data JPA, cơ sở dữ liệu (MySQL/PostgreSQL), MapStruct và Bean Validation. Do đó, cần có thêm các đoạn mã nguồn minh chứng khác trước khi đưa ra quyết định tuyển dụng."
+  },
+  "JD_JAVA_09": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên đã cung cấp bằng chứng rõ ràng về khả năng làm việc với Spring Boot thông qua cấu hình bảo mật SecurityFilterChain trong tệp auth-service/src/main/java/com/ecommerce/authservice/config/SecurityConfig.java",
+          "supported": true,
+          "cites_code": true,
+          "reason": "The code context includes SecurityConfig.java with securityFilterChain demonstrating Spring Boot security configuration."
+        },
+        {
+          "claim": "Ứng viên thiết lập phân quyền HTTP, vô hiệu hóa CSRF và quản lý phiên làm việc stateless",
+          "supported": true,
+          "cites_code": false,
+          "reason": "These exact configurations (csrf disable, stateless session, authorizeHttpRequests) are present in the SecurityConfig code chunk."
+        },
+        {
+          "claim": "Ứng viên thể hiện kỹ năng với cơ sở dữ liệu và cấu hình hệ thống qua việc sử dụng ClientDetailsServiceConfigurer clients.jdbc(dataSource) trong tệp bookstore-account-service/.../config/AuthorizationServerConfig.java",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows AuthorizationServerConfig.java with clients.jdbc(dataSource)."
+        },
+        {
+          "claim": "Các đoạn mã nguồn hiện tại chỉ hiển thị cấu trúc lớp DTO cơ bản như tệp ApiExceptionResponse.java sử dụng Lombok",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 shows ApiExceptionResponse.java using Lombok annotations (@Getter, @Setter, etc.)."
+        },
+        {
+          "claim": "Không có các đoạn mã minh chứng trực tiếp cho việc thao tác với Repository/JPA hay xử lý logic Java Core chuyên sâu, cũng như không có bằng chứng cụ thể về việc tích hợp CSDL MySQL hay PostgreSQL",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The provided code chunks indeed lack any Spring Data JPA repositories or database-specific MySQL/PostgreSQL setup beyond a general dataSource reference."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.6,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện khả năng sử dụng Java Core thông qua việc khai báo các lớp dữ liệu và sử dụng các cấu trúc như List trong lớp SsoProperties tại tệp com/ecommerce/authservice/config/SsoProperties.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "The code context shows SsoProperties.java using Java features like List, and Code Chunk #1 shows ApiExceptionResponse utilizing Java core classes."
+        },
+        {
+          "claim": "Ứng viên có làm quen với Spring Boot, được minh chứng qua các annotation đặc trưng như @Configuration, @ConfigurationProperties(prefix = \"keycloak.sso\") tại lớp SsoProperties.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 explicitly demonstrates @Configuration and @ConfigurationProperties used in SsoProperties."
+        },
+        {
+          "claim": "Annotation @Bean được sử dụng để cấu hình OpenAPI trong các đoạn mã.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Code Chunk #3 explicitly shows a method annotated with @Bean returning OpenAPI, though it doesn't cite a specific file path."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng trong mã nguồn được cung cấp đối với Spring Data JPA như các interface JpaRepository hay cấu hình kết nối cơ sở dữ liệu.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Reviewing the provided code snippets confirms the complete absence of any Spring Data JPA references."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về cơ sở dữ liệu MySQL/PostgreSQL trong các đoạn mã được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The provided code snippets do not contain any references to MySQL or PostgreSQL."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 2,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.4,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc thẩm định các đoạn mã nguồn bằng chứng được cung cấp so với các kỹ năng bắt buộc trong Bản mô tả công việc (JD) cho vị trí Java Backend Intern, tôi xin đưa ra báo cáo đánh giá kỹ thuật như sau:\n\nỨng viên đã cung cấp bằng chứng rõ ràng về khả năng làm việc với **Spring Boot** thông qua cấu hình bảo mật `SecurityFilterChain` trong tệp `auth-service/src/main/java/com/ecommerce/authservice/config/SecurityConfig.java`, nơi ứng viên thiết lập phân quyền HTTP, vô hiệu hóa CSRF và quản lý phiên làm việc stateless. Ngoài ra, ứng viên cũng thể hiện kỹ năng với cơ sở dữ liệu và cấu hình hệ thống qua việc sử dụng `ClientDetailsServiceConfigurer clients.jdbc(dataSource)` trong tệp `bookstore-account-service/.../config/AuthorizationServerConfig.java`, cho thấy sự hiểu biết cơ bản về kết nối cơ sở dữ liệu (`DataSource`). \n\nTuy nhiên, đối với các kỹ năng bắt buộc còn lại gồm **Java Core**, **Spring Data JPA**, và **MySQL/PostgreSQL**, các đoạn mã nguồn hiện tại chỉ hiển thị cấu trúc lớp DTO cơ bản (như tệp `ApiExceptionResponse.java` sử dụng Lombok) và cấu hình bảo mật OAuth2/JWT mà không có các đoạn mã minh chứng trực tiếp cho việc thao tác với Repository/JPA hay xử lý logic Java Core chuyên sâu, cũng như không có bằng chứng cụ thể về việc tích hợp CSDL MySQL hay PostgreSQL. \n\n**Kết luận:** Ứng viên đáp ứng một phần yêu cầu về Spring Boot và cấu hình hệ thống (qua các tệp cấu hình bảo mật và JDBC), nhưng **không tìm thấy bằng chứng trong mã nguồn được cung cấp** cho các kỹ năng Java Core, Spring Data JPA, và MySQL/PostgreSQL.",
+    "ans_line": "Chào bạn, dưới đây là báo cáo đánh giá kỹ thuật đối với ứng viên dựa trên các đoạn mã nguồn bằng chứng được cung cấp, tuân thủ nghiêm ngặt nguyên tắc trung thực và khách quan:\n\nDựa trên các đoạn mã nguồn bằng chứng đã truy xuất, ứng viên thể hiện được khả năng sử dụng **Java Core** thông qua việc khai báo các lớp dữ liệu và sử dụng các cấu trúc như `List` (ví dụ: trong lớp `SsoProperties` tại tệp `com/ecommerce/authservice/config/SsoProperties.java`). Đồng thời, ứng viên có làm quen với **Spring Boot**, được minh chứng qua các annotation đặc trưng của framework này như `@Configuration`, `@ConfigurationProperties(prefix = \"keycloak.sso\")` tại lớp `SsoProperties`, và `@Bean` được sử dụng để cấu hình `OpenAPI` trong các đoạn mã.\n\nTuy nhiên, đối với các kỹ năng bắt buộc còn lại trong Bản mô tả công việc (JD), hiện **không tìm thấy bằng chứng trong mã nguồn được cung cấp**. Cụ thể, các đoạn mã hiện tại không xuất hiện bất kỳ mã nguồn, lớp, hoặc phương thức nào liên quan đến **Spring Data JPA** (như các interface `JpaRepository` hay cấu hình kết nối cơ sở dữ liệu) cũng như cơ sở dữ liệu **MySQL/PostgreSQL**.\n\nTóm lại, ứng viên mới chỉ cung cấp được bằng chứng tối thiểu về việc sử dụng Java Core và cấu hình Spring Boot cơ bản. Do thiếu vắng hoàn toàn các đoạn mã chứng minh khả năng thao tác cơ sở dữ liệu và ORM, ứng viên chưa đủ bằng chứng kỹ thuật để đáp ứng trọn vẹn yêu cầu của vị trí Java Backend Intern theo phạm vi mã nguồn được cung cấp."
+  },
+  "JD_JAVA_10": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên có bằng chứng sử dụng Java 17, Spring Boot và Spring Security, cụ thể qua cấu hình Spring Boot trong SsoProperties.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "SsoProperties.java tồn tại trong ngữ cảnh và thuộc về cấu hình Spring Boot."
+        },
+        {
+          "claim": "Việc tích hợp Spring Security và cấu hình AuthenticationManager được chứng minh qua SecurityConfig.java, lớp SecurityConfig, phương thức authenticationManager, dòng 91-96.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Khớp chính xác với Code Chunk #3."
+        },
+        {
+          "claim": "Ứng viên thể hiện khả năng xây dựng REST API bằng Spring thông qua AccountController.java, lớp AccountController, phương thức me, dòng 39-64.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Khớp chính xác với Code Chunk #1."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng trong mã nguồn về Spring Data JPA, MySQL / PostgreSQL, Redis do mã chỉ tập trung vào Controller, SSO và Bảo mật.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Đúng với nội dung các đoạn mã được cung cấp hoàn toàn không chứa JPA, DB hay Redis."
+        }
+      ],
+      "total_claims": 4,
+      "supported_claims": 4,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.75,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện sự quen thuộc với hệ sinh thái Spring thông qua việc sử dụng các annotation của Spring Boot, Spring MVC như @GetMapping, @Configuration, @ConfigurationProperties.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Supported by SsoProperties class with @Configuration and @ConfigurationProperties, and me() method with @GetMapping in the provided code chunks."
+        },
+        {
+          "claim": "Ứng viên có kỹ thuật xử lý ngoại lệ trong ApiExceptionResponse (Code Chunk #1).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Supported by ApiExceptionResponse class in Code Chunk #1."
+        },
+        {
+          "claim": "Các đoạn mã được cung cấp không chứa bất kỳ khai báo cụ thể hay đoạn code logic nào thể hiện tường minh cấu hình Spring Security hoặc phiên bản Java 17.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "True based on an inspection of the provided code chunks which lack Spring Security configuration and Java 17 version declarations."
+        },
+        {
+          "claim": "Đối với các kỹ năng Spring Data JPA, MySQL / PostgreSQL, và Redis, hoàn toàn không tìm thấy bằng chứng trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "True because none of the chunks contain JPA repositories, database connections, or Redis code."
+        },
+        {
+          "claim": "Các đoạn code hiện tại chỉ dừng lại ở mức cấu hình SSO (SsoProperties), định nghĩa đối tượng phản hồi lỗi (ApiExceptionResponse), và một endpoint mẫu (me() trong Code Chunk #3).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Accurately summarizes Code Chunk #1, #2, and #3."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.6,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc thẩm định các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là đánh giá kỹ thuật về năng lực của ứng viên so với các kỹ năng bắt buộc của vị trí **Fresher Backend Developer**:\n\n*   **Java 17 & Spring Boot & Spring Security:** Ứng viên có bằng chứng sử dụng các công nghệ này. Cụ thể, cú pháp và cấu hình Spring Boot được thể hiện rõ trong tệp `SsoProperties.java` tại gói `com.ecommerce.authservice.config`. Việc tích hợp Spring Security và cấu hình `AuthenticationManager` được chứng minh qua tệp `SecurityConfig.java` (lớp `SecurityConfig`, phương thức `authenticationManager`, dòng 91-96). Ngoài ra, ứng viên cũng thể hiện khả năng xây dựng REST API bằng Spring thông qua tệp `AccountController.java` (lớp `AccountController`, phương thức `me`, dòng 39-64).\n*   **Spring Data JPA, MySQL / PostgreSQL, Redis:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp. Các đoạn mã trích xuất hiện tại chỉ tập trung vào tầng Controller, Cấu hình SSO và Bảo mật, hoàn toàn chưa xuất hiện các thành phần tương tác cơ sở dữ liệu (như Repository, Entity) hay cấu hình kết nối Cache/Database.",
+    "ans_line": "Chào bạn, dưới góc độ là một Chuyên gia đánh giá kỹ thuật (Senior Technical Auditor), tôi xin đưa ra báo cáo thẩm định năng lực của ứng viên dựa **hoàn toàn và độc quyền** trên các đoạn mã nguồn bằng chứng được cung cấp:\n\nDựa trên các đoạn mã nguồn đã trích xuất, ứng viên có thể hiện sự quen thuộc với hệ sinh thái Spring thông qua việc sử dụng các annotation của Spring Boot, Spring MVC (ví dụ: `@GetMapping`, `@Configuration`, `@ConfigurationProperties` tại class `SsoProperties` trong Code Chunk #2 và phương thức `me()` trong Code Chunk #3), cũng như kỹ thuật xử lý ngoại lệ trong `ApiExceptionResponse` (Code Chunk #1). Tuy nhiên, xét chiếu theo danh sách kỹ năng bắt buộc của Bản mô tả công việc (JD), kết quả cụ thể như sau:\n\nĐối với các kỹ năng **Java 17, Spring Boot, và Spring Security**, mặc dù cấu trúc mã nguồn mang đặc trưng của Spring ứng dụng (như sử dụng `@ConfigurationProperties`, `@Operation` từ OpenAPI/Swagger), các đoạn mã được cung cấp **không chứa** bất kỳ khai báo cụ thể hay đoạn code logic nào thể hiện tường minh cấu hình Spring Security hoặc phiên bản Java 17. \n\nĐối với các kỹ năng **Spring Data JPA, MySQL / PostgreSQL, và Redis**, hoàn toàn **không tìm thấy bằng chứng trong mã nguồn được cung cấp**. Các đoạn code hiện tại chỉ dừng lại ở mức cấu hình SSO (`SsoProperties`), định nghĩa đối tượng phản hồi lỗi (`ApiExceptionResponse`), và một endpoint mẫu (`me()` trong Code Chunk #3), hoàn toàn thiếu các thành phần thao tác cơ sở dữ liệu (Repository/Entity) hay bộ nhớ đệm (Redis).\n\n**Kết luận:** Dựa trên phạm vi mã nguồn bằng chứng hạn chế được cung cấp, ứng viên hiện **chưa đủ cơ sở dữ liệu kỹ thuật** để xác nhận đáp ứng trọn vẹn các yêu cầu của vị trí Fresher Backend Developer theo JD."
+  },
+  "JD_JAVA_11": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Không tìm thấy bằng chứng trực tiếp về các kỹ năng Java 17, Spring Boot 3, Spring Security 6, Spring Data JPA / Hibernate, PostgreSQL và Git trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The retrieved code snippets do not explicitly state Java 17, Spring Boot 3, Spring Security 6, JPA, PostgreSQL, or Git versions."
+        },
+        {
+          "claim": "Các tệp mã nguồn sử dụng annotation của Spring Framework như @Bean và @ConfigurationProperties trong SsoProperties.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly references SsoProperties.java and mentions @Bean and @ConfigurationProperties which are present in Code Chunk #3 and #2."
+        },
+        {
+          "claim": "Các tệp mã nguồn sử dụng annotation @PostMapping và @RequestBody trong AccountController.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly references AccountController.java and annotations @PostMapping and @RequestBody present in Code Chunk #1."
+        },
+        {
+          "claim": "Cấu hình OpenAPI được thể hiện trong tệp OpenAPIConfiguration.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly references OpenAPIConfiguration.java present in Code Chunk #2."
+        },
+        {
+          "claim": "Các tệp này không chứa thông tin cụ thể hay bằng chứng tường minh để xác nhận phiên bản Java 17, Spring Boot 3, Spring Security 6, Spring Data JPA/Hibernate, PostgreSQL hay Git.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Accurately reflects the limits of the provided code context regarding specific tech stack versions and database/git dependencies."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.6,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện việc sử dụng framework Spring Boot thông qua các cấu hình và annotation như @Bean, @Configuration, và @ConfigurationProperties(prefix = \"keycloak.sso\") trong lớp SsoProperties (tại Code Chunk #3).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 explicitly shows SsoProperties annotated with @Configuration and @ConfigurationProperties."
+        },
+        {
+          "claim": "Ứng viên có hiểu biết về việc cấu hình tài liệu API với Swagger/OpenAPI qua phương thức defineOpenApi() (tại Code Chunk #2).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 explicitly defines the defineOpenApi() method utilizing OpenAPI and Swagger components."
+        },
+        {
+          "claim": "Ứng viên xây dựng cấu trúc phản hồi lỗi chuẩn với ApiExceptionResponse (tại Code Chunk #1).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows the ApiExceptionResponse class."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng trong mã nguồn được cung cấp để chứng minh ứng viên trực tiếp sử dụng các phiên bản cụ thể (Java 17, Spring Boot 3, Spring Security 6), các công nghệ lưu trữ dữ liệu (Spring Data JPA / Hibernate, PostgreSQL), cũng như hệ thống quản lý mã nguồn (Git).",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The retrieved chunks genuinely do not contain Java 17, Spring Boot 3 versions, JPA, PostgreSQL, or Git references."
+        }
+      ],
+      "total_claims": 4,
+      "supported_claims": 4,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.75,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc thẩm định mã nguồn được cung cấp, dưới đây là đánh giá kỹ thuật về năng lực của ứng viên so với các yêu cầu của Bản mô tả công việc (JD):\n\nĐối với các kỹ năng **Java 17, Spring Boot 3, Spring Security 6, Spring Data JPA / Hibernate, PostgreSQL và Git**: Không tìm thấy bằng chứng trong mã nguồn được cung cấp. Mặc dù các đoạn mã có sử dụng các annotation của Spring Framework như `@Bean`, `@ConfigurationProperties` (trong tệp `auth-service/src/main/java/com/ecommerce/authservice/config/SsoProperties.java`), `@PostMapping`, `@RequestBody` (trong tệp `src/main/java/com/mewebstudio/javaspringbootboilerplate/controller/AccountController.java`), cũng như cấu hình OpenAPI (trong tệp `src/main/java/com/huseynovvusal/springblogapi/config/OpenAPIConfiguration.java`), nhưng các tệp này không chứa thông tin cụ thể hay bằng chứng tường minh để xác nhận phiên bản Java 17, phiên bản Spring Boot 3, phiên bản Spring Security 6, việc sử dụng Spring Data JPA/Hibernate, cơ sở dữ liệu PostgreSQL hay hệ thống quản lý mã nguồn Git.\n\nTóm lại, dựa **hoàn toàn** vào các đoạn mã nguồn bằng chứng đã truy xuất, ứng viên chưa cung cấp đủ minh chứng trong code để khẳng định đáp ứng các kỹ năng bắt buộc theo yêu cầu của JD.",
+    "ans_line": "Chào bạn, dưới đây là báo cáo đánh giá kỹ thuật dựa trên các đoạn mã nguồn bằng chứng được cung cấp, tuân thủ nghiêm ngặt quy tắc trung thực:\n\nTrong các đoạn mã nguồn được cung cấp, ứng viên có thể hiện việc sử dụng framework Spring Boot thông qua các cấu hình và annotation như `@Bean`, `@Configuration`, và `@ConfigurationProperties(prefix = \"keycloak.sso\")` trong lớp `SsoProperties` (tại Code Chunk #3). Ứng viên cũng có hiểu biết về việc cấu hình tài liệu API với Swagger/OpenAPI qua phương thức `defineOpenApi()` (tại Code Chunk #2) và xây dựng cấu trúc phản hồi lỗi chuẩn với `ApiExceptionResponse` (tại Code Chunk #1).\n\nTuy nhiên, đối với danh sách các kỹ năng bắt buộc theo Bản mô tả công việc (JD) bao gồm **Java 17, Spring Boot 3, Spring Security 6, Spring Data JPA / Hibernate, PostgreSQL, và Git**, kết quả kiểm tra các đoạn mã nguồn bằng chứng cho thấy: **Không tìm thấy bằng chứng trong mã nguồn được cung cấp** để chứng minh ứng viên trực tiếp sử dụng các phiên bản cụ thể (Java 17, Spring Boot 3, Spring Security 6), các công nghệ lưu trữ dữ liệu (Spring Data JPA / Hibernate, PostgreSQL), cũng như hệ thống quản lý mã nguồn (Git). Do các đoạn mã được cung cấp quá hạn chế và không chứa thông tin về pom.xml/build.gradle hay tầng truy vấn cơ sở dữ liệu, tôi chưa đủ cơ sở dữ liệu mã nguồn để xác nhận các kỹ năng này."
+  },
+  "JD_JAVA_12": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên có sử dụng ngôn ngữ Java và framework Spring Boot trong các đoạn mã được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "General statement supported by the context which uses Spring annotations and Java syntax."
+        },
+        {
+          "claim": "Trong tệp bookstore-account-service/.../AuthorizationServerConfig.java, ứng viên đã cấu hình Bean jwtAccessTokenConverter() (dòng 103-129).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly matches Code Chunk #1 file path, class, method name, and line numbers."
+        },
+        {
+          "claim": "Trong tệp AuthorizationServerConfig.java, phương thức configure() sử dụng ClientDetailsServiceConfigurer (dòng 75-78).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly matches Code Chunk #2 file path, method name, and line numbers."
+        },
+        {
+          "claim": "Trong tệp auth-service/.../AuthController.java, ứng viên đã hiện thực hóa Spring MVC Controller với phương thức ssoCallback() (dòng 77-93) sử dụng @GetMapping và @RequestParam.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly matches Code Chunk #3 file path, class, method, annotations, and line numbers."
+        },
+        {
+          "claim": "Mã nguồn được cung cấp không chứa thông tin cụ thể để xác nhận phiên bản Java 17.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "True based on the provided code context which lacks Java version declarations."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng JUnit 5 & Mockito trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "True as no test files or testing frameworks appear in the context."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng cụ thể về PostgreSQL hoặc MySQL trong các đoạn mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "True since only a generic dataSource is referenced without explicit DB names."
+        },
+        {
+          "claim": "Tệp AuthorizationServerConfig.java có sử dụng dataSource trong phương thức configure(ClientDetailsServiceConfigurer clients) tại dòng 77.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly matches Code Chunk #2."
+        }
+      ],
+      "total_claims": 8,
+      "supported_claims": 8,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.625,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên có bằng chứng về việc sử dụng Spring Boot thông qua lớp ApiExceptionResponse trong Code Chunk #1.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows ApiExceptionResponse using org.springframework.http.HttpStatus within a springboot package."
+        },
+        {
+          "claim": "Mã nguồn không thể hiện rõ ràng việc ứng viên sử dụng phiên bản Java 17 cụ thể.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The code context does not specify Java 17 configuration or syntax."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về JUnit 5 & Mockito trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "No test classes or mockito annotations appear in the retrieved chunks."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về PostgreSQL/MySQL trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "No database configurations or queries are present in the code context."
+        },
+        {
+          "claim": "Code Chunk #2 và Code Chunk #3 thuộc về công nghệ Frontend (React/Next.js/TypeScript) không liên quan đến Backend Java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 uses Next.js client directives and ApexCharts, while Code Chunk #3 uses Radix/React primitives."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 2,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.4,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc thẩm định nghiêm ngặt các đoạn mã nguồn GitHub được cung cấp so với các kỹ năng bắt buộc của vị trí Junior Java Developer, dưới đây là báo cáo đánh giá kỹ thuật:\n\n**1. Java & Spring Boot:**\nỨng viên có sử dụng ngôn ngữ Java và framework Spring Boot trong các đoạn mã được cung cấp. Cụ thể, trong tệp `bookstore-account-service/src/main/java/com/devd/spring/bookstoreaccountservice/config/AuthorizationServerConfig.java` (lớp `AuthorizationServerConfig`), ứng viên đã cấu hình Bean `jwtAccessTokenConverter()` (dòng 103-129) và phương thức `configure()` sử dụng `ClientDetailsServiceConfigurer` (dòng 75-78). Ngoài ra, trong tệp `auth-service/src/main/java/com/ecommerce/authservice/controller/AuthController.java` (lớp `AuthController`), ứng viên đã hiện thực hóa Spring MVC Controller với phương thức `ssoCallback()` (dòng 77-93) sử dụng các annotation như `@GetMapping` và `@RequestParam`. Tuy nhiên, mã nguồn được cung cấp không chứa thông tin cụ thể để xác nhận phiên bản Java 17.\n\n**2. JUnit 5 & Mockito:**\nKhông tìm thấy bằng chứng trong mã nguồn được cung cấp.\n\n**3. PostgreSQL/MySQL:**\nKhông tìm thấy bằng chứng cụ thể về việc sử dụng PostgreSQL hoặc MySQL trong các đoạn mã nguồn được cung cấp (mặc dù tệp `AuthorizationServerConfig.java` có sử dụng `dataSource` trong phương thức `configure(ClientDetailsServiceConfigurer clients)` tại dòng 77, nhưng không thể xác định loại cơ sở dữ liệu cụ thể từ đoạn mã này).",
+    "ans_line": "Dựa trên việc thẩm định các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật đối với vị trí Junior Java Developer:\n\nĐối với các kỹ năng bắt buộc bao gồm **Java 17**, **Spring Boot**, **JUnit 5 & Mockito**, và **PostgreSQL/MySQL**, tôi đưa ra kết luận như sau: \n\nỨng viên có bằng chứng về việc sử dụng **Spring Boot** thông qua đoạn mã nguồn *Code Chunk #1* (đường dẫn: `com/rimmelasghar/boilerplate/springboot/exceptions/ApiExceptionResponse.java`), trong đó lớp `ApiExceptionResponse` sử dụng các annotation của Spring Framework như `org.springframework.http.HttpStatus`. Tuy nhiên, mã nguồn này không thể hiện rõ ràng việc ứng viên sử dụng phiên bản **Java 17** cụ thể (vì chỉ thấy các cấu trúc lớp Java thông thường và Lombok). \n\nĐối với các kỹ năng còn lại trong yêu cầu tuyển dụng, bao gồm **JUnit 5 & Mockito** và **PostgreSQL/MySQL**, hoàn toàn không tìm thấy bằng chứng trong mã nguồn được cung cấp. Ngoài ra, các đoạn mã *Code Chunk #2* (`use client`, `react-apexcharts`, `@mui/system`) và *Code Chunk #3* (`AccordionPrimitive.Item`) lại thuộc về công nghệ Frontend (React/Next.js/TypeScript), không liên quan đến phạm vi kỹ năng Backend Java yêu cầu trong JD. Do đó, không đủ cơ sở dữ liệu mã nguồn để xác nhận ứng viên đáp ứng toàn bộ các yêu cầu kỹ thuật cốt lõi của vị trí này."
+  },
+  "JD_JAVA_13": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "The candidate has Java, Spring Boot, Spring Security & JWT skills, evidenced by SecurityConfig.java configuring SecurityFilterChain with STATELESS session management, request authorization, and jwtAuthenticationFilter.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by Code Chunk #1 showing SecurityConfig.java, securityFilterChain method, STATELESS session, and jwtAuthenticationFilter."
+        },
+        {
+          "claim": "The candidate configured OpenAPI security scheme using Bearer JWT as shown in OpenAPIConfiguration.java (defineOpenApi method).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by Code Chunk #3 showing OpenAPIConfiguration.java and defineOpenApi method with Bearer JWT."
+        },
+        {
+          "claim": "No evidence of MySQL & Spring Data JPA was found in the provided source code snippets.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Accurately reflects the retrieved context, which lacks any JPA or database code."
+        },
+        {
+          "claim": "No evidence of RabbitMQ / Kafka was found in the provided source code snippets.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Accurately reflects the retrieved context, which lacks message broker code."
+        },
+        {
+          "claim": "The code also includes SSO settings in SsoProperties.java bound from keycloak.sso.*.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by Code Chunk #2 showing SsoProperties.java and keycloak.sso configuration prefix."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.6,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện rõ khả năng cấu hình bảo mật thông qua phương thức securityFilterChain trong Code Chunk #1",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly mentioned and supported by Code Chunk #1."
+        },
+        {
+          "claim": "Sử dụng HttpSecurity để phân quyền endpoint (/auth/**, /admin/**) trong Code Chunk #1",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Explicitly shown in securityFilterChain method in Code Chunk #1."
+        },
+        {
+          "claim": "Thiết lập chính sách phiên làm việc SessionCreationPolicy.STATELESS và tích hợp bộ lọc jwtAuthenticationFilter trong Code Chunk #1",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly referenced from Code Chunk #1."
+        },
+        {
+          "claim": "Cấu hình OpenAPI với SecurityScheme định dạng JWT được thể hiện trong phương thức defineOpenApi() tại Code Chunk #3",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by Code Chunk #3."
+        },
+        {
+          "claim": "Ứng viên sử dụng cú pháp Java chuẩn kèm theo các Lombok annotation (@Getter, @Setter, @NoArgsConstructor, @AllArgsConstructor) trong lớp ApiExceptionResponse tại Code Chunk #2",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by Code Chunk #2."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về MySQL & Spring Data JPA trong mã nguồn được cung cấp",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Accurately notes the absence of this skill in the provided code context."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về RabbitMQ / Kafka trong mã nguồn được cung cấp",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Accurately notes the absence of this skill in the provided code context."
+        }
+      ],
+      "total_claims": 7,
+      "supported_claims": 7,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.71,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên các đoạn mã nguồn bằng chứng được trích xuất từ GitHub của ứng viên, dưới đây là báo cáo đánh giá kỹ thuật đối với vị trí **Java Backend Fresher**:\n\n**1. Đánh giá các kỹ năng bắt buộc:**\n*   **Java, Spring Boot, Spring Security & JWT:** Ứng viên **có** kỹ năng này. Bằng chứng thể hiện qua việc cấu hình `SecurityFilterChain` trong tệp `src/main/java/com/huseynovvusal/springblogapi/config/SecurityConfig.java` (lớp `SecurityConfig`, phương thức `securityFilterChain`), nơi ứng viên thiết lập quản lý phiên `STATELESS`, phân quyền request và tích hợp bộ lọc JWT (`jwtAuthenticationFilter`, `UsernamePasswordAuthenticationFilter`). Ngoài ra, tệp `src/main/java/com/huseynovvusal/springblogapi/config/OpenAPIConfiguration.java` (lớp `OpenAPIConfiguration`, phương thức `defineOpenApi`) cũng chứng minh việc cấu hình bảo mật `SecurityScheme` dạng Bearer JWT cho tài liệu API.\n*   **MySQL & Spring Data JPA:** **Không tìm thấy bằng chứng trong mã nguồn được cung cấp.** Các tệp mã nguồn hiện tại chỉ tập trung vào cấu hình bảo mật và SSO (`SsoProperties.java`), hoàn toàn chưa xuất hiện các đoạn code liên quan đến thực thể cơ sở dữ liệu (`@Entity`) hay kho lưu trữ (`JpaRepository`).\n*   **RabbitMQ / Kafka:** **Không tìm thấy bằng chứng trong mã nguồn được cung cấp.** Không có cấu hình, message producer, hay consumer nào liên quan đến hệ thống Message Broker xuất hiện trong các đoạn code đã trích xuất.\n\n**2. Kết luận tổng quan:**\nỨng viên đã thể hiện tốt năng lực cơ bản về Java Backend, đặc biệt là khả năng xây dựng và cấu hình bảo mật ứng dụng với Spring Boot và Spring Security kèm JWT. Tuy nhiên, do các đoạn mã nguồn cung cấp chỉ giới hạn ở tầng cấu hình bảo mật và OpenAPI, ứng viên hiện **chưa đáp ứng đầy đủ** toàn bộ tiêu chí của JD do thiếu hoàn toàn bằng chứng về kỹ năng cơ sở dữ liệu (MySQL/Spring Data JPA) và nhắn tin bất đồng bộ (RabbitMQ/Kafka).",
+    "ans_line": "Dựa trên các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là kết quả thẩm định năng lực lập trình viên cho vị trí **Java Backend Fresher**:\n\n**1. Đánh giá các kỹ năng có bằng chứng:**\n*   **Java, Spring Boot, Spring Security & JWT:** Ứng viên thể hiện rõ khả năng cấu hình bảo mật thông qua phương thức `securityFilterChain` trong **Code Chunk #1**, sử dụng `HttpSecurity` để phân quyền endpoint (`/auth/**`, `/admin/**`), thiết lập chính sách phiên làm việc `SessionCreationPolicy.STATELESS`, và tích hợp bộ lọc `jwtAuthenticationFilter`. Ngoài ra, cấu hình OpenAPI với `SecurityScheme` định dạng JWT được thể hiện rõ trong phương thức `defineOpenApi()` tại **Code Chunk #3**. Ứng viên cũng sử dụng cú pháp Java chuẩn kèm theo các Lombok annotation (`@Getter`, `@Setter`, `@NoArgsConstructor`, `@AllArgsConstructor`) trong lớp `ApiExceptionResponse` tại **Code Chunk #2**.\n\n**2. Đánh giá các kỹ năng chưa tìm thấy bằng chứng:**\n*   **MySQL & Spring Data JPA:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n*   **RabbitMQ / Kafka:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n\n**Kết luận:** Ứng viên đáp ứng một phần các kỹ năng cốt lõi về Spring Boot và Spring Security & JWT dựa trên các đoạn mã đã trích xuất, nhưng hiện tại chưa có bằng chứng mã nguồn nào chứng minh kinh nghiệm làm việc với MySQL & Spring Data JPA cũng như hệ thống Message Queue (RabbitMQ / Kafka)."
+  },
+  "JD_JAVA_14": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện năng lực sử dụng Java Core và Spring Boot qua việc xây dựng cấu hình và các thành phần trong Spring tại SecurityConfig.java và SsoProperties.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Claims are directly backed by SecurityConfig.java and SsoProperties.java in the code context."
+        },
+        {
+          "claim": "Ứng viên có kỹ năng cấu hình bảo mật và xác thực thông qua SecurityFilterChain, vô hiệu hóa CSRF, cấu hình authorizeHttpRequests, stateless session, và jwtAuthenticationFilter trong SecurityConfig.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by the contents of SecurityConfig.java."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng liên quan đến Spring Data JPA hoặc cơ sở dữ liệu PostgreSQL/MySQL trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Accurately notes the absence of JPA and DB related code in the provided chunks."
+        }
+      ],
+      "total_claims": 3,
+      "supported_claims": 3,
+      "claims_with_citation": 2,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.67,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện năng lực Java Core qua khai báo package và định nghĩa lớp với Lombok annotations (@Getter, @Setter, @NoArgsConstructor, @AllArgsConstructor) trong ApiExceptionResponse.java và SsoProperties.java",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code chunks #1 and #3 explicitly show package declarations, class definitions, and Lombok annotations in these files."
+        },
+        {
+          "claim": "Ứng viên cấu hình bảo mật thông qua securityFilterChain với HttpSecurity, requestMatchers, hasRole, authenticated, SessionCreationPolicy.STATELESS và tích hợp các custom filters như jwtAuthenticationFilter",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code chunk #2 explicitly contains the securityFilterChain method utilizing all these exact components."
+        },
+        {
+          "claim": "Tệp SsoProperties.java minh họa khả năng cấu hình các thuộc tính ứng dụng với @ConfigurationProperties trong Spring",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code chunk #3 shows SsoProperties annotated with @ConfigurationProperties(prefix = 'keycloak.sso')."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Spring Data JPA và PostgreSQL / MySQL trong mã nguồn được cung cấp",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Accurate observation based on the provided code context which lacks any database or JPA related classes."
+        }
+      ],
+      "total_claims": 4,
+      "supported_claims": 4,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.75,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc thẩm định mã nguồn được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật năng lực của ứng viên đối với vị trí Backend Engineer (Java / Spring Boot) tuân thủ nghiêm ngặt tính trung thực:\n\n*   **Java Core & Spring Boot:** Ứng viên thể hiện năng lực sử dụng Java Core và Spring Boot qua việc xây dựng cấu hình và các thành phần trong Spring. Cụ thể được minh chứng tại tệp `src/main/java/com/huseynovvusal/springblogapi/config/SecurityConfig.java` trong lớp `SecurityConfig` (phương thức `securityFilterChain`) và tệp `auth-service/src/main/java/com/ecommerce/authservice/config/SsoProperties.java` (lớp `SsoProperties` sử dụng các annotation như `@Configuration` và `@ConfigurationProperties`).\n*   **Spring Security & JWT:** Ứng viên có kỹ năng cấu hình bảo mật và xác thực. Bằng chứng trực tiếp nằm trong tệp `src/main/java/com/huseynovvusal/springblogapi/config/SecurityConfig.java` tại lớp `SecurityConfig`, nơi ứng viên thiết lập `SecurityFilterChain`, vô hiệu hóa CSRF, cấu hình phân quyền (`authorizeHttpRequests`), quản lý session ở trạng thái stateless (`SessionCreationPolicy.STATELESS`), và tích hợp bộ lọc JWT (`jwtAuthenticationFilter`). Ngoài ra, tệp `auth-service/src/main/java/com/ecommerce/authservice/config/SsoProperties.java cũng cho thấy cấu hình liên quan đến OIDC/SSO.\n*   **Java / Spring Data JPA & PostgreSQL / MySQL:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp.",
+    "ans_line": "Dựa trên việc thẩm định mã nguồn được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật đối với vị trí Backend Engineer (Java / Spring Boot):\n\n*   **Java Core:** Ứng viên thể hiện năng lực qua việc sử dụng các thành phần cơ bản của ngôn ngữ như khai báo gói (package), định nghĩa lớp/đối tượng với các annotation của Lombok (`@Getter`, `@Setter`, `@NoArgsConstructor`, `@AllArgsConstructor`) được tìm thấy trong `ApiExceptionResponse.java` (Code Chunk #1) và `SsoProperties.java` (Code Chunk #3).\n*   **Spring Boot & Spring Security & JWT:** Ứng viên có kỹ năng cấu hình bảo mật thông qua phương thức `securityFilterChain` trong Code Chunk #2, nơi áp dụng `HttpSecurity`, thiết lập phân quyền (`requestMatchers`, `hasRole`, `authenticated`), quản lý phiên làm việc ở trạng thái không trạng thái (`SessionCreationPolicy.STATELESS`), và tích hợp các bộ lọc tùy chỉnh (`jwtAuthenticationFilter`, `blockedUserFilter`, `databaseHealthFilter`). Ngoài ra, tệp `SsoProperties.java` (Code Chunk #3) minh họa khả năng cấu hình các thuộc tính ứng dụng với `@ConfigurationProperties` trong hệ sinh thái Spring.\n*   **Spring Data JPA & PostgreSQL / MySQL:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp."
+  },
+  "JD_JAVA_15": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên sử dụng Spring Boot thông qua annotation @Configuration và @ConfigurationProperties(prefix = \"keycloak.sso\") tại tệp auth-service/src/main/java/com/ecommerce/authservice/config/SsoProperties.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly backed by Code Chunk #1 showing SsoProperties with @Configuration and @ConfigurationProperties."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng trong mã nguồn được cung cấp về việc sử dụng Spring Data JPA hay cấu hình cơ sở dữ liệu MySQL/PostgreSQL.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "True statement given the provided code chunks lack any Spring Data JPA repositories or database configurations."
+        },
+        {
+          "claim": "Đoạn mã tại AuthorizationServerConfig.java có gọi userRepository.findByUserName(...), nhưng không đủ mã nguồn để xác thực đây là Spring Data JPA hay loại cơ sở dữ liệu nào.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Backed by Code Chunk #2 showing user.findByUserName(principal.getUsername())."
+        },
+        {
+          "claim": "Tệp bookstore-account-service/.../AuthorizationServerConfig.java thể hiện cấu hình JwtAccessTokenConverter và phương thức enhance để tạo, quản lý JWT token và thêm thông tin user_id.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly backed by Code Chunk #2 showing JwtAccessTokenConverter, enhance method, and additionalInfo.put(\"user_id\", ...)."
+        },
+        {
+          "claim": "Tệp OpenAPIConfiguration.java cũng cấu hình bảo mật SecurityScheme với định dạng \"bearer\" và \"JWT\".",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly backed by Code Chunk #3 showing SecurityScheme with type HTTP, scheme bearer, and bearerFormat JWT."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Không tìm thấy bằng chứng trong mã nguồn được cung cấp về việc sử dụng Java 17, Spring Data JPA hay cơ sở dữ liệu MySQL/PostgreSQL.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Các công nghệ này thực sự không xuất hiện trong các đoạn mã cung cấp."
+        },
+        {
+          "claim": "Mã nguồn có sử dụng framework Spring Boot thể hiện qua annotation @Configuration và @ConfigurationProperties(prefix = \"keycloak.sso\") trong lớp SsoProperties tại tệp com/ecommerce/authservice/config/SsoProperties.java.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Đúng với Code Chunk #3, hiển thị rõ ràng đường dẫn gói và các annotation."
+        },
+        {
+          "claim": "Ứng viên có bằng chứng về việc cấu hình liên quan đến JWT, cụ thể trong đoạn mã định nghĩa cấu hình OpenAPI (Code Chunk #2) đã thiết lập SecurityScheme với scheme(\"bearer\").bearerFormat(\"JWT\").",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Đúng với Code Chunk #2, có sử dụng bearerFormat(\"JWT\")."
+        }
+      ],
+      "total_claims": 3,
+      "supported_claims": 3,
+      "claims_with_citation": 2,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.67,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc thẩm định các đoạn mã nguồn bằng chứng được cung cấp so với các kỹ năng bắt buộc của Bản mô tả công việc (JD) vị trí Java Backend Fresher, kết quả đánh giá chi tiết như sau:\n\n*   **Java 17, Spring Boot, Spring Data JPA, MySQL/PostgreSQL:** \n    *   *Java và Spring Boot:* Có bằng chứng ứng viên sử dụng **Spring Boot** thông qua annotation `@Configuration` và `@ConfigurationProperties(prefix = \"keycloak.sso\")` tại tệp `auth-service/src/main/java/com/ecommerce/authservice/config/SsoProperties.java` (Code Chunk #1). \n    *   *Spring Data JPA và MySQL/PostgreSQL:* **Không tìm thấy bằng chứng trong mã nguồn được cung cấp** về việc sử dụng Spring Data JPA hay cấu hình cơ sở dữ liệu MySQL/PostgreSQL. Mặc dù đoạn mã tại `AuthorizationServerConfig.java` (Code Chunk #2) có gọi `userRepository.findByUserName(...)`, nhưng không đủ mã nguồn để xác thực đây là Spring Data JPA hay loại cơ sở dữ liệu nào được sử dụng.\n*   **JWT (JSON Web Token):** Có bằng chứng rõ ràng về việc xử lý JWT. Tệp `bookstore-account-service/.../AuthorizationServerConfig.java` (Code Chunk #2) thể hiện cấu hình `JwtAccessTokenConverter` và phương thức `enhance` để tạo, quản lý JWT token và thêm thông tin `user_id`. Ngoài ra, tệp `OpenAPIConfiguration.java` (Code Chunk #3) cũng cấu hình bảo mật `SecurityScheme` với định dạng `\"bearer\"` và `\"JWT\"`.\n\n**Tóm lại:** Ứng viên có bằng chứng về việc làm việc với Spring Boot và JWT, nhưng các kỹ năng cụ thể như Java 17, Spring Data JPA và MySQL/PostgreSQL không đủ bằng chứng xác thực từ các đoạn mã nguồn được cung cấp.",
+    "ans_line": "Dựa trên các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật cho vị trí Java Backend Fresher:\n\n**1. Đánh giá các kỹ năng bắt buộc:**\n*   **Java 17, Spring Boot, Spring Data JPA, MySQL/PostgreSQL:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp về việc sử dụng Java 17, Spring Data JPA hay cơ sở dữ liệu MySQL/PostgreSQL. Tuy nhiên, mã nguồn có sử dụng framework Spring Boot (thể hiện qua annotation `@Configuration` và `@ConfigurationProperties(prefix = \"keycloak.sso\")` trong lớp `SsoProperties` tại tệp `com/ecommerce/authservice/config/SsoProperties.java`).\n*   **JWT:** Ứng viên có bằng chứng về việc cấu hình liên quan đến JWT. Cụ thể, trong đoạn mã định nghĩa cấu hình OpenAPI (Code Chunk #2), ứng viên đã thiết lập `SecurityScheme` với `scheme(\"bearer\").bearerFormat(\"JWT\")`.\n\n**2. Kết luận chung:**\nDựa hoàn toàn vào các đoạn mã bằng chứng đã trích xuất, ứng viên đã thể hiện sự hiểu biết và khả năng cấu hình Spring Boot cũng như cơ chế bảo mật tích hợp JWT. Tuy nhiên, các kỹ năng quan trọng khác theo yêu cầu của JD bao gồm Java 17, Spring Data JPA và hệ quản trị cơ sở dữ liệu (MySQL/PostgreSQL) hoàn toàn chưa được kiểm chứng do không xuất hiện trong mã nguồn."
+  },
+  "JD_REACT_01": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Kỹ năng ReactJS và TypeScript được minh chứng rõ ràng tại tệp components/cart/CartList.tsx, nơi ứng viên sử dụng functional component kết hợp với định nghĩa kiểu dữ liệu (ICartRootState, ICartProduct).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "The file components/cart/CartList.tsx uses React functional components and TypeScript types like ICartRootState and ICartProduct."
+        },
+        {
+          "claim": "Kỹ năng Redux Toolkit (hoặc Redux nói chung) xuất hiện trong tệp components/cart/CartList.tsx thông qua việc sử dụng hook useSelector để quản lý trạng thái giỏ hàng (state.cart.items).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "The code snippet shows the use of useSelector to access state.cart.items in components/cart/CartList.tsx."
+        },
+        {
+          "claim": "Mã nguồn trong tệp components/cart/CartList.tsx cung cấp bằng chứng về việc sử dụng Tailwind CSS qua các lớp tiện ích như w-full xl:max-w-[2100px] mx-auto.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "The code uses Tailwind CSS classes such as className=\"w-full xl:max-w-[2100px] mx-auto\"."
+        },
+        {
+          "claim": "Đối với kỹ năng Git, không tìm thấy bất kỳ tệp cấu hình, lịch sử commit hay bằng chứng nào liên quan trong các đoạn mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The retrieved context contains no Git files or commit history, which is correctly identified, though no specific code line is cited."
+        }
+      ],
+      "total_claims": 4,
+      "supported_claims": 4,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.75,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên sử dụng ReactJS và TypeScript trong CartList với các kiểu dữ liệu ICartRootState và ICartProduct.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 chứng minh việc sử dụng CartList với ICartRootState và ICartProduct."
+        },
+        {
+          "claim": "Code Chunk #2 và Code Chunk #3 chứng minh việc sử dụng functional component và JSX của React.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 (CustomThemeProvider) và Code Chunk #3 (Brands) thể hiện cú pháp React functional component và JSX."
+        },
+        {
+          "claim": "Ứng viên sử dụng Redux thông qua hook useSelector để truy xuất state.cart.items trong CartList.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 cho thấy useSelector được dùng để lấy state.cart.items."
+        },
+        {
+          "claim": "Ứng viên sử dụng Tailwind CSS trong CartList với className w-full xl:max-w-[2100px] mx-auto.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 chứa className này."
+        },
+        {
+          "claim": "Ứng viên sử dụng Tailwind CSS trong Brands với className p-1 my-4 md:my-8 text-center.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 chứa className này."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Git trong các đoạn mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Đúng là mã nguồn không chứa thông tin Git, nhưng tuyên bố này không trích dẫn mã cụ thể (cố tình không có bằng chứng)."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8333,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc thẩm định mã nguồn được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật đối với ứng viên cho vị trí Frontend Developer Fresher (ReactJS / TypeScript):\n\nỨng viên đã thể hiện sự quen thuộc nhất định với hệ sinh thái ReactJS và TypeScript thông qua các đoạn mã nguồn bằng chứng. Cụ thể, kỹ năng **ReactJS** và **TypeScript** được minh chứng rõ ràng tại tệp `components/cart/CartList.tsx`, nơi ứng viên sử dụng functional component kết hợp với định nghĩa kiểu dữ liệu (`ICartRootState`, `ICartProduct`). Bên cạnh đó, kỹ năng **Redux Toolkit** (hoặc Redux nói chung) cũng xuất hiện trong tệp này thông qua việc sử dụng hook `useSelector` để quản lý trạng thái giỏ hàng (`state.cart.items`). Ngoài ra, mã nguồn trong tệp này cũng cung cấp bằng chứng về việc sử dụng **Tailwind CSS** qua các lớp tiện ích như `w-full xl:max-w-[2100px] mx-auto`.\n\nTuy nhiên, đối với kỹ năng **Git**, không tìm thấy bất kỳ tệp cấu hình, lịch sử commit hay bằng chứng nào liên quan trong các đoạn mã nguồn được cung cấp. Do đó, kỹ năng này chưa thể được xác thực qua dữ liệu hiện tại.",
+    "ans_line": "Dựa trên việc thẩm định các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật đối với vị trí Frontend Developer Fresher (ReactJS / TypeScript):\n\n**1. Đánh giá các kỹ năng bắt buộc:**\n*   **ReactJS & TypeScript:** Ứng viên có sử dụng ReactJS và TypeScript. Bằng chứng trực tiếp được thể hiện trong `Code Chunk #1` (tệp `CartList`) với việc định nghĩa component `CartList` sử dụng kiểu dữ liệu `ICartRootState` và `ICartProduct`. Ngoài ra, `Code Chunk #2` và `Code Chunk #3` cũng chứng minh việc sử dụng cú pháp Functional Component và JSX của React.\n*   **Redux Toolkit:** Ứng viên có sử dụng công cụ quản lý trạng thái Redux. Bằng chứng được tìm thấy trong `Code Chunk #1` (`CartList`) thông qua việc sử dụng hook `useSelector` để truy xuất trạng thái giỏ hàng (`state.cart.items`).\n*   **Tailwind CSS:** Ứng viên có sử dụng Tailwind CSS để định kiểu giao diện. Bằng chứng xuất hiện rõ ràng trong `Code Chunk #1` (`className=\"w-full xl:max-w-[2100px] mx-auto\"`) và `Code Chunk #3` (`className=\"p-1 my-4 md:my-8 text-center\"` trong component `Brands`).\n*   **Git:** **Không tìm thấy bằng chứng trong mã nguồn được cung cấp.** (Các đoạn mã không chứa thông tin về lịch sử commit, branch hay các thao tác liên quan đến Git).\n\n**2. Kết luận:**\nỨng viên đã cung cấp bằng chứng mã nguồn xác thực cho phần lớn các kỹ năng cốt lõi theo yêu cầu của JD (ReactJS, TypeScript, Redux Toolkit, Tailwind CSS) thông qua các component mẫu. Tuy nhiên, kỹ năng Git không thể được xác thực do giới hạn của các đoạn mã đầu vào."
+  },
+  "JD_REACT_02": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện kỹ năng ReactJS và TypeScript qua việc xây dựng các Functional Component như Carousel, Brands, và Prose.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Mã nguồn xác nhận sự tồn tại của các functional component Carousel, Brands và Prose sử dụng TypeScript và React."
+        },
+        {
+          "claim": "Định nghĩa kiểu dữ liệu tường minh cho props như interface cho html và className trong tệp components/prose.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Tệp components/prose.tsx có định nghĩa kiểu dữ liệu cho props html và className."
+        },
+        {
+          "claim": "Sử dụng các phương thức của mảng như .map() để render danh sách trong components/carousel/index.tsx và components/brands/index.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Cả hai tệp Carousel và Brands đều sử dụng phương thức .map() trên sliderContent và brandContent."
+        },
+        {
+          "claim": "Sử dụng cấu trúc Arrow Functions.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Các component và hàm đều được viết dưới dạng arrow function, mặc dù không chỉ rõ tên tệp cụ thể cho ý này nhưng đúng với bối cảnh."
+        },
+        {
+          "claim": "Kỹ năng HTML5/CSS3 được thể hiện thông qua cú pháp JSX và tính năng render mã HTML trực tiếp dangerouslySetInnerHTML trong tệp components/prose.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Tệp components/prose.tsx thực sự sử dụng dangerouslySetInnerHTML={{ __html: html }}."
+        },
+        {
+          "claim": "Styling được thể hiện qua việc tích hợp các lớp tiện ích của Tailwind CSS kết hợp với thư viện clsx trong tệp components/prose.tsx và components/carousel/index.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Các tệp trên sử dụng các class Tailwind như relative, absolute, p-1, max-w-6xl và sử dụng thư viện clsx trong prose.tsx."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8333,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên đáp ứng tốt các kỹ năng bắt buộc liên quan đến ReactJS và TypeScript.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Supported by the code context showing React functional components and TypeScript interfaces."
+        },
+        {
+          "claim": "Trong tệp chứa BrandBox (Code Chunk #3), ứng viên đã áp dụng cú pháp TypeScript thông qua việc định nghĩa tường minh giao diện interface Props cho component React.FC<Props>.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly verified in Code Chunk #3 via `interface Props` and `React.FC<Props>`."
+        },
+        {
+          "claim": "Đối với ReactJS, bằng chứng là việc sử dụng các functional component (Carousel, Brands, BrandBox) và hook.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Verified in all code chunks where Carousel, Brands, and BrandBox are functional components."
+        },
+        {
+          "claim": "Sử dụng phương thức .map() đi kèm thuộc tính key (như sliderContent.map trong Carousel và brandContent.map trong Brands).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Verified in Code Chunk #1 and #2 where `.map()` and `key` are used."
+        },
+        {
+          "claim": "Đối với HTML5/CSS3 và JavaScript (ES6+), mã nguồn thể hiện việc sử dụng các class utility của Tailwind CSS và cú pháp ES6+ cơ bản.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Verified through Tailwind classes (e.g., relative, flex, shadow-md) and ES6 syntax like arrow functions and destructuring."
+        },
+        {
+          "claim": "Không có tệp HTML thuần túy nào được cung cấp trong mã nguồn.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "True based on the retrieved code chunks which are exclusively React/TSX files."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8333,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dưới đây là báo cáo đánh giá kỹ thuật dựa trên các đoạn mã nguồn bằng chứng được cung cấp:\n\nỨng viên đã thể hiện tốt việc đáp ứng các kỹ năng cốt lõi cho vị trí ReactJS / TypeScript Intern. Cụ thể, kỹ năng **ReactJS** và **TypeScript** được minh chứng rõ ràng qua việc xây dựng các Functional Component (như `Carousel`, `Brands`, và `Prose`) sử dụng cú pháp JSX, định nghĩa kiểu dữ liệu tường minh cho props (ví dụ: interface cho `html` và `className` trong tệp `components/prose.tsx`), cũng như tận dụng các React Hooks. Kỹ năng **JavaScript (ES6+)** được thể hiện thông qua việc sử dụng các phương thức của mảng như `.map()` để render danh sách (trong `components/carousel/index.tsx` và `components/brands/index.tsx`) và cấu trúc Arrow Functions. \n\nĐối với kỹ năng **HTML5/CSS3**, ứng viên có sử dụng cấu trúc HTML thông qua cú pháp JSX và tính năng render mã HTML trực tiếp (`dangerouslySetInnerHTML`) trong tệp `components/prose.tsx`. Đồng thời, kỹ năng styling được thể hiện mạnh mẽ qua việc tích hợp các lớp tiện ích (utility classes) của Tailwind CSS (như `relative`, `absolute`, `p-1`, `my-4`, `max-w-6xl`,...) kết hợp với thư viện hỗ trợ `clsx` trong tệp `components/prose.tsx` và `components/carousel/index.tsx`.",
+    "ans_line": "Dưới đây là báo cáo đánh giá kỹ thuật dựa trên các đoạn mã nguồn bằng chứng được cung cấp:\n\nDựa trên việc phân tích các đoạn mã nguồn (Code Chunk #1, #2, và #3), ứng viên đáp ứng tốt các kỹ năng bắt buộc liên quan đến **ReactJS** và **TypeScript**. Cụ thể, trong tệp chứa `BrandBox` (Code Chunk #3), ứng viên đã áp dụng cú pháp TypeScript thông qua việc định nghĩa tường minh giao diện `interface Props` cho component `React.FC<Props>`. Đối với **ReactJS**, bằng chứng rõ ràng là việc sử dụng các functional component (`Carousel`, `Brands`, `BrandBox`), hook (`import React from \"react\"`), cùng với việc render danh sách hiệu quả thông qua phương thức `.map()` đi kèm thuộc tính `key` (như `sliderContent.map` trong `Carousel` và `brandContent.map` trong `Brands`). \n\nTuy nhiên, đối với các kỹ năng **HTML5/CSS3** và **JavaScript (ES6+)**, mã nguồn cung cấp chỉ thể hiện việc sử dụng các class utility của Tailwind CSS (ví dụ: các lớp `relative`, `flex`, `shadow-md`, `absolute` trong `BrandBox` và `Carousel`) và cú pháp ES6+ cơ bản (như arrow function, destructuring `({ brandName, imageSrc })` trong `BrandBox`). Mặc dù các kỹ năng này có xuất hiện gián tiếp, nhưng không có tệp HTML thuần túy nào được cung cấp.\n\nTóm lại, ứng viên thể hiện tốt năng lực lập trình ReactJS và TypeScript qua các đoạn code mẫu. Đối với các kỹ năng cơ bản như HTML5/CSS3 và JavaScript (ES6+), do phạm vi mã nguồn được cung cấp rất hạn chế, đánh giá chính xác nhất là: Các kỹ năng này được suy ra từ mã React/TS (ví dụ: JSX và ES6 Destructuring), nhưng **không tìm thấy bằng chứng trực tiếp** của các tệp HTML độc lập hoặc các logic JavaScript thuần ngoài phạm vi framework được cung cấp."
+  },
+  "JD_REACT_03": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên có sử dụng TypeScript và cú pháp ES6+ rõ ràng, được chứng minh tại tệp src/api/index.ts (Class: RequestHttp, Method: constructor, dòng 25-88) với việc định kiểu cho AxiosRequestConfig, AxiosError, và AxiosResponse.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Mã nguồn trong src/api/index.ts thể hiện việc sử dụng TypeScript với các kiểu dữ liệu AxiosRequestConfig, AxiosError, và AxiosResponse."
+        },
+        {
+          "claim": "Ứng viên thể hiện kỹ năng lập trình React thông qua việc xây dựng các functional component có sử dụng TypeScript props tại tệp components/modules/custom/Container.tsx (Method: Container, dòng 3-11).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Tệp components/modules/custom/Container.tsx chứa component Container nhận children và className với TypeScript."
+        },
+        {
+          "claim": "Ứng viên thể hiện kỹ năng React tại tệp components/modules/custom/Col.tsx (Method: Col, dòng 3-13).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Tệp components/modules/custom/Col.tsx chứa component Col sử dụng TypeScript props đúng như mô tả."
+        },
+        {
+          "claim": "Ứng viên có kỹ năng xử lý liên quan đến JWT Authentication ở phía client, được trích xuất từ tệp src/api/index.ts bằng cách thêm token vào header ('x-access-token': token) và xử lý ResultEnum.OVERDUE.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Mã nguồn trong src/api/index.ts thực hiện gán 'x-access-token' từ store và kiểm tra ResultEnum.OVERDUE."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng trong mã nguồn được cung cấp về Node.js / Express.js và MongoDB / PostgreSQL / MySQL.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Ngữ cảnh mã nguồn chỉ cung cấp file cấu hình axios ở client và hai React component, không có mã backend hoặc database."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "In Code Chunk #1, the source code uses TypeScript syntax with types and generics such as AxiosRequestConfig, AxiosError, AxiosResponse, and string.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 explicitly demonstrates TypeScript syntax with these types and generics."
+        },
+        {
+          "claim": "In Code Chunk #2, the Container function defines explicit types for props (children: React.ReactNode, className?: string).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 shows the Container component receiving children and className with these exact types."
+        },
+        {
+          "claim": "Code Chunk #2 demonstrates building a functional component named Container taking children and className as parameters.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 defines a React functional component named Container with these parameters."
+        },
+        {
+          "claim": "In Code Chunk #1, the request interceptor comments and logic refer to receiving and attaching a token to the header under x-access-token.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 includes JWT token retrieval from redux and attaching it to the header as x-access-token."
+        },
+        {
+          "claim": "Code Chunk #3 (configure method) also configures security filters related to jwtAuthenticationFilter.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 shows http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)."
+        },
+        {
+          "claim": "No evidence for Node.js / Express.js & MongoDB / PostgreSQL / MySQL was found in the provided code context.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "The retrieved code chunks only contain Axios, React, and Spring Security configurations, completely lacking Node.js or SQL/NoSQL DB code."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8333,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên kết quả thẩm định mã nguồn GitHub được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật đối với vị trí Fullstack TypeScript Fresher tuân thủ nghiêm ngặt tính trung thực (Faithfulness):\n\n**1. Kỹ năng Frontend (TypeScript, JavaScript ES6+, ReactJS):**\n*   **TypeScript & JavaScript (ES6+):** Ứng viên có sử dụng TypeScript và cú pháp ES6+ rõ ràng. Bằng chứng được tìm thấy tại tệp `src/api/index.ts` (Class: `RequestHttp`, Method: `constructor`, dòng 25-88) với việc định kiểu dữ liệu cho `AxiosRequestConfig`, `AxiosError`, và `AxiosResponse`.\n*   **ReactJS:** Ứng viên thể hiện kỹ năng lập trình React thông qua việc xây dựng các functional component có sử dụng TypeScript props. Bằng chứng cụ thể tại tệp `components/modules/custom/Container.tsx` (Method: `Container`, dòng 3-11) và tệp `components/modules/custom/Col.tsx` (Method: `Col`, dòng 3-13).\n\n**2. Kỹ năng Xử lý Xác thực (JWT Authentication):**\n*   Ứng viên có kỹ năng xử lý liên quan đến JWT Authentication ở phía client. Bằng chứng được trích xuất từ tệp `src/api/index.ts` (Class: `RequestHttp`, Method: `constructor`, dòng 25-88), nơi mã nguồn thực hiện việc thêm token vào header yêu cầu (`\"x-access-token\": token`) thông qua axios interceptors và xử lý trạng thái đăng nhập hết hạn (`ResultEnum.OVERDUE`).\n\n**3. Các kỹ năng Backend (Node.js / Express.js, MongoDB / PostgreSQL / MySQL):**\n*   **Không tìm thấy bằng chứng trong mã nguồn được cung cấp.** Các đoạn mã hiện tại chỉ bao gồm mã nguồn phía client (Axios API client và React components), hoàn toàn thiếu vắng các bằng chứng về mã nguồn Node.js/Express.js cũng như các thao tác tương tác với cơ sở dữ liệu (MongoDB, PostgreSQL, MySQL).",
+    "ans_line": "Dựa trên việc thẩm định mã nguồn được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật đối với vị trí Fullstack TypeScript Fresher:\n\n**1. Đánh giá các kỹ năng bắt buộc:**\n* **TypeScript & JavaScript (ES6+):** Ứng viên có bằng chứng sử dụng TypeScript. Cụ thể, trong **Code Chunk #1**, mã nguồn sử dụng cú pháp TypeScript với các kiểu dữ liệu và generic như `AxiosRequestConfig`, `AxiosError`, `AxiosResponse`, và `string`. Trong **Code Chunk #2**, hàm `Container` định nghĩa kiểu dữ liệu rõ ràng cho props (`children: React.ReactNode`, `className?: string`).\n* **ReactJS:** Ứng viên có bằng chứng sử dụng ReactJS. Cụ thể, **Code Chunk #2** thể hiện việc xây dựng một functional component có tên là `Container` nhận `children` và `className` làm tham số kiểu dữ liệu React.\n* **JWT Authentication:** Ứng viên có bằng chứng xử lý xác thực JWT. Cụ thể, trong **Code Chunk #1**, phần chú thích và logic xử lý của request interceptor (`token校验(JWT)`) đề cập đến việc nhận và gắn token vào header (`\"x-access-token\": token`). Ngoài ra, **Code Chunk #3** (phương thức `configure`) cũng cấu hình bộ lọc bảo mật liên quan đến `jwtAuthenticationFilter`.\n* **Node.js / Express.js & MongoDB / PostgreSQL / MySQL:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n\n**2. Kết luận:**\nỨng viên thể hiện năng lực tốt với các công nghệ frontend (TypeScript, ReactJS) và cơ chế xử lý JWT thông qua các đoạn mã được trích xuất. Tuy nhiên, do phạm vi mã nguồn được cung cấp giới hạn, hiện chưa có bằng chứng để kiểm chứng các kỹ năng về Node.js/Express.js và cơ sở dữ liệu (MongoDB/PostgreSQL/MySQL)."
+  },
+  "JD_REACT_04": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên sử dụng cú pháp TypeScript (interface Props, React.FC<Props>) và React functional component (NextArrow, PrevArrow) trong tệp components/carousel/Arrows.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly verified in components/carousel/Arrows.tsx lines 6-11 and 12-38."
+        },
+        {
+          "claim": "Tệp src/components/core/theme-provider/theme-provider.tsx thể hiện việc sử dụng kiểu trả về React.JSX.Element cho CustomThemeProvider.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly verified in src/components/core/theme-provider/theme-provider.tsx line 15."
+        },
+        {
+          "claim": "Ứng viên sử dụng Tailwind CSS với các lớp tiện ích như z-10, w-12, h-full, items-center, justify-center, và drop-shadow-lg trong tệp components/carousel/Arrows.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly verified in components/carousel/Arrows.tsx classNames."
+        },
+        {
+          "claim": "Ứng viên sử dụng Material-UI (MUI) thông qua createTheme, ThemeProvider, và CssBaseline tại tệp src/components/core/theme-provider/theme-provider.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly verified in src/components/core/theme-provider/theme-provider.tsx lines 16-24."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về TanStack React Query trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Accurate negative assertion; React Query does not appear in any code chunk."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Recharts hay Chart.js trong mã nguồn được cung cấp, mà sử dụng react-apexcharts tại tệp src/components/core/chart.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly verified in src/components/core/chart.tsx using react-apexcharts."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8333,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên có sử dụng React, thể hiện qua cú pháp component, hook 'use client', và các kiểu dữ liệu React.FC<Props>, React.JSX.Element trong Code Chunk #2 và #3",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly backed by Code Chunk #2 and #3 showing React components and types."
+        },
+        {
+          "claim": "Ứng viên có sử dụng Tailwind CSS, thể hiện qua các chuỗi class utility như z-10 w-12 md:w-16, items-center, justify-center, drop-shadow-lg trong Code Chunk #3",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly backed by Tailwind utility classes present in Code Chunk #3."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về TanStack React Query trong mã nguồn được cung cấp",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Correctly notes the absence of React Query in the provided code chunks."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Recharts / Chart.js, vì mã nguồn chỉ sử dụng react-apexcharts trong Code Chunk #1",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly backed by Code Chunk #1 showing 'react-apexcharts' instead of Recharts or Chart.js."
+        }
+      ],
+      "total_claims": 4,
+      "supported_claims": 4,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 1.0,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc kiểm tra nghiêm ngặt các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật năng lực của ứng viên so với các yêu cầu bắt buộc của Bản mô tả công việc (JD):\n\n* **ReactJS & TypeScript:** Ứng viên có đáp ứng. Bằng chứng được tìm thấy trong tệp `components/carousel/Arrows.tsx`, nơi ứng viên sử dụng cú pháp TypeScript (`interface Props`, `React.FC<Props>`) và React functional component (`NextArrow`, `PrevArrow`). Ngoài ra, tệp `src/components/core/theme-provider/theme-provider.tsx` (phương thức `CustomThemeProvider`) cũng thể hiện việc sử dụng kiểu trả về `React.JSX.Element`.\n* **Tailwind CSS:** Ứng viên có đáp ứng. Bằng chứng xuất hiện rõ ràng trong tệp `components/carousel/Arrows.tsx`, nơi các lớp tiện ích (utility classes) của Tailwind như `z-10`, `w-12`, `h-full`, `items-center`, `justify-center`, và `drop-shadow-lg` được sử dụng trực tiếp trong thuộc tính `className`.\n* **ReactJS UI Framework / Ecosystem (MUI):** Mặc dù không nằm trực tiếp trong danh sách bắt buộc của JD ngắn gọn nhưng có trong mã nguồn, ứng viên sử dụng Material-UI (MUI) thông qua `createTheme`, `ThemeProvider`, và `CssBaseline` tại tệp `src/components/core/theme-provider/theme-provider.tsx`.\n* **TanStack React Query:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n* **Recharts / Chart.js:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp. (Bằng chứng tại tệp `src/components/core/chart.tsx` sử dụng thư viện `react-apexcharts`, không phải Recharts hay Chart.js).",
+    "ans_line": "Dựa trên việc kiểm tra và thẩm định các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là đánh giá kỹ thuật về năng lực của ứng viên so với các yêu cầu bắt buộc của Bản mô tả công việc (JD):\n\n* **ReactJS & TypeScript:** Ứng viên có sử dụng React (thể hiện qua cú pháp component, hook `'use client'`, và các kiểu dữ liệu `React.FC<Props>`, `React.JSX.Element` trong Code Chunk #2 và #3).\n* **Tailwind CSS:** Ứng viên có sử dụng Tailwind CSS (thể hiện qua các chuỗi class utility như `z-10 w-12 md:w-16`, `items-center`, `justify-center`, `drop-shadow-lg` trong Code Chunk #3).\n* **TanStack React Query:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp.\n* **Recharts / Chart.js:** Không tìm thấy bằng chứng trong mã nguồn được cung cấp. (Mã nguồn chỉ sử dụng `react-apexcharts` trong Code Chunk #1, không dùng Recharts hay Chart.js).\n\nTóm lại, ứng viên chỉ thể hiện được một phần kỹ năng (ReactJS, TypeScript, Tailwind CSS qua các đoạn code được trích dẫn), nhưng hoàn toàn thiếu bằng chứng đối với các công nghệ quản lý trạng thái/data fetching (TanStack React Query) và thư viện biểu đồ yêu cầu (Recharts / Chart.js)."
+  },
+  "JD_REACT_05": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên sử dụng ReactJS và TypeScript thông qua việc định nghĩa các component như CategoriesAccordion, CreateProduct, và Carousel.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Mã nguồn chứng minh rõ việc sử dụng các component này với cú pháp TypeScript và React."
+        },
+        {
+          "claim": "Các tệp sử dụng React Hooks như useState, useEffect, quản lý state và định nghĩa kiểu dữ liệu.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "useState và useEffect được sử dụng trong CategoriesAccordion.tsx và CreateProduct.tsx."
+        },
+        {
+          "claim": "Ứng viên sử dụng next/image và component Link từ Next.js cùng với biến môi trường process.env.NEXT_PUBLIC_API_URL.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Các import và biến môi trường này xuất hiện trực tiếp trong CreateProduct.tsx và CategoriesAccordion.tsx."
+        },
+        {
+          "claim": "Ứng viên sử dụng Tailwind CSS thông qua các utility classes như flex flex-col gap-4, capitalize, relative, absolute top-1/2.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Các lớp Tailwind CSS này được tìm thấy trong CategoriesAccordion.tsx, CreateProduct.tsx, và Carousel.tsx."
+        },
+        {
+          "claim": "Ứng viên tích hợp RESTful API thông qua axios.get đến endpoint /api/categories nhưng không có bằng chứng về GraphQL.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Hàm getCategories trong CategoriesAccordion.tsx gọi axios.get(process.env.NEXT_PUBLIC_API_URL + '/api/categories')."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 1.0,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên sử dụng ReactJS và TypeScript thông qua component CategoriesAccordion với các Hook như useState và useEffect.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows CategoriesAccordion using useState and useEffect with TypeScript."
+        },
+        {
+          "claim": "Ứng viên định nghĩa các kiểu dữ liệu như Category, SubCategory và type Color = string.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 uses Category and SubCategory types, and Code Chunk #3 defines type Color = string."
+        },
+        {
+          "claim": "Ứng viên sử dụng Next.js thông qua NextRequest và NextResponse trong hàm PUT, biến môi trường process.env.NEXT_PUBLIC_API_URL và next/image.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 shows NextRequest/NextResponse, Code Chunk #1 uses NEXT_PUBLIC_API_URL, and Code Chunk #3 imports from next/image."
+        },
+        {
+          "claim": "Ứng viên sử dụng Tailwind CSS thông qua các utility classes như flex flex-col gap-4 và hàm cn().",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 explicitly includes className='flex flex-col gap-4' and the cn() helper."
+        },
+        {
+          "claim": "Ứng viên sử dụng RESTful API qua axios.get() để gọi endpoint /api/categories và xây dựng PUT route handler.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows axios.get('/api/categories') and Code Chunk #2 shows a PUT API route."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 1.0,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật của ứng viên cho vị trí Next.js & TypeScript Frontend Developer:\n\n*   **ReactJS & TypeScript:** Ứng viên thể hiện rõ năng lực sử dụng ReactJS kết hợp với TypeScript thông qua việc định nghĩa các component (ví dụ: `CategoriesAccordion` trong tệp `components/modules/custom/CategoriesAccordion.tsx`, `CreateProduct` trong tệp `components/admin/product/CreateProduct.tsx`, và `Carousel` trong tệp `components/carousel/index.tsx`). Các tệp này có sử dụng các React Hooks (`useState`, `useEffect`), quản lý state, định nghĩa kiểu dữ liệu và thư viện bên thứ ba.\n*   **Next.js:** Ứng viên có sử dụng các tính năng và thành phần đặc trưng của Next.js, được minh chứng qua việc import và sử dụng `next/image` (`CreateProduct.tsx`), sử dụng component `Link` từ Next.js (`CategoriesAccordion.tsx`), và truy cập biến môi trường `process.env.NEXT_PUBLIC_API_URL`.\n*   **Tailwind CSS:** Ứng viên đáp ứng kỹ năng này thông qua việc áp dụng các utility classes của Tailwind CSS trong suốt mã nguồn (ví dụ: các lớp `flex flex-col gap-4`, `capitalize`, `relative`, `absolute top-1/2` được tìm thấy tại các tệp `CategoriesAccordion.tsx`, `CreateProduct.tsx`, và `Carousel.tsx`).\n*   **RESTful API / GraphQL:** Ứng viên có bằng chứng về việc tích hợp API theo chuẩn RESTful thông qua việc sử dụng thư viện `axios` để thực hiện phương thức HTTP GET (`axios.get(...)`) trỏ đến endpoint `/api/categories` bên trong hàm `getCategories` tại tệp `components/modules/custom/CategoriesAccordion.tsx`. Tuy nhiên, **không tìm thấy bằng chứng trong mã nguồn được cung cấp** đối với việc sử dụng GraphQL.",
+    "ans_line": "Dưới đây là báo cáo đánh giá kỹ thuật năng lực của ứng viên dựa trên các đoạn mã nguồn bằng chứng được cung cấp, tuân thủ nghiêm ngặt các quy tắc trung thực và minh bạch:\n\n**1. Đánh giá các kỹ năng bắt buộc theo JD:**\n*   **ReactJS & TypeScript:** Ứng viên có sử dụng ReactJS và TypeScript thông qua việc định nghĩa các component sử dụng Hook (ví dụ: `useState`, `useEffect` trong hàm `CategoriesAccordion` tại Code Chunk #1) và sử dụng các kiểu dữ liệu (type/interface như `Category`, `SubCategory` tại Code Chunk #1, hoặc định nghĩa `type Color = string` tại Code Chunk #3).\n*   **Next.js:** Ứng viên đáp ứng kỹ năng Next.js, được minh chứng qua việc sử dụng các thành phần cốt lõi của Next.js như `NextRequest` và `NextResponse` trong hàm `PUT` (Code Chunk #2), sử dụng biến môi trường `process.env.NEXT_PUBLIC_API_URL` (Code Chunk #1), và import component `Image` từ `\"next/image\"` (Code Chunk #3).\n*   **Tailwind CSS:** Ứng viên có sử dụng Tailwind CSS để định nghĩa kiểu giao diện thông qua các lớp tiện ích (utility classes) như `className=\"flex flex-col gap-4\"`, `className=\"min-w-40 hover:text-primary-900 capitalize\"` (Code Chunk #1) và hàm hỗ trợ `cn()` kết hợp với các biến thể như `[&>svg]:hidden`.\n*   **RESTful API / GraphQL:** Ứng viên có sử dụng RESTful API thông qua thư viện Axios với phương thức `axios.get()` để gọi endpoint `/api/categories` (Code Chunk #1), cùng với việc xây dựng Route Handler xử lý phương thức `PUT` nhận request HTTP chuẩn (Code Chunk #2).\n\n**2. Kết luận:**\nDựa trên các đoạn mã nguồn bằng chứng được cung cấp, ứng viên hoàn toàn đáp ứng đầy đủ tất cả các kỹ năng bắt buộc nêu trong Bản mô tả công việc (JD) bao gồm ReactJS, TypeScript, Next.js, Tailwind CSS và RESTful API. Các minh chứng được thể hiện rõ ràng qua cấu trúc code component, API route handler, và cách thức styling trong các đoạn mã số #1, #2 và #3."
+  },
+  "JD_REACT_06": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên định nghĩa các component sử dụng cú pháp Functional Component (React.FC<Props>) kết hợp với TypeScript Interface (interface Props) trong tệp components/carousel/Arrows.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code context shows Arrows.tsx defining interface Props and using React.FC<Props> for NextArrow and PrevArrow."
+        },
+        {
+          "claim": "Tệp src/components/Cart.tsx sử dụng FC (Functional Component) và các hooks cơ bản của React.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Cart.tsx imports FC and useState, and defines const Cart: FC = () => {."
+        },
+        {
+          "claim": "Ứng viên sử dụng Redux trong mã nguồn, minh chứng qua tệp src/components/Cart.tsx với các custom hooks useAppDispatch và useAppSelector, gọi các action emptyCart và setCartState từ cartSlice.ts.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Cart.tsx uses useAppDispatch, useAppSelector, emptyCart, and setCartState."
+        },
+        {
+          "claim": "Tệp components/admin/product/CreateProduct.tsx sử dụng useDispatch và gọi showDialog từ DialogSlice.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "CreateProduct.tsx uses useDispatch and showDialog from DialogSlice."
+        },
+        {
+          "claim": "Ứng viên sử dụng Tailwind CSS cho việc thiết kế giao diện qua các lớp tiện ích trong components/carousel/Arrows.tsx và src/components/Cart.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Both files use complex Tailwind CSS class strings."
+        },
+        {
+          "claim": "Ứng viên sử dụng Formik kết hợp với Yup để xác thực trong tệp components/admin/product/CreateProduct.tsx thay vì React Hook Form và Zod.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "CreateProduct.tsx imports Formik, Form, and Yup, and implements Yup.object validation."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 6,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 1.0,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên sử dụng ReactJS qua việc khai báo các functional component như NextArrow, PrevArrow, CreateProduct, CreateCategory.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Các component NextArrow, PrevArrow, CreateProduct, CreateCategory xuất hiện trong đoạn code context."
+        },
+        {
+          "claim": "Ứng viên sử dụng TypeScript qua việc dùng React.FC<Props>, định nghĩa interface Props, kiểu type Color = string.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 và #2 có chứa interface Props, React.FC<Props> và type Color = string."
+        },
+        {
+          "claim": "Ứng viên sử dụng Redux thông qua hook useDispatch() và dispatch action showDialog từ @/redux/slices/DialogSlice.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 dòng 10-11 và 57-58 thể hiện việc import và sử dụng useDispatch và showDialog."
+        },
+        {
+          "claim": "Ứng viên sử dụng thư viện Formik và Yup để thực hiện validation thay vì React Hook Form và Zod.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 và #3 có import Formik, Form từ formik và * as Yup từ yup."
+        },
+        {
+          "claim": "Ứng viên sử dụng Tailwind CSS qua các chuỗi className tiện ích như className='flex p-2 border-b pb-1 font-semibold' trong CreateCategory.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 dòng 27 chứa đoạn className này và Code Chunk #1 chứa nhiều class Tailwind khác."
+        },
+        {
+          "claim": "Không tìm thấy mã nguồn hoặc bằng chứng liên quan đến Zustand hoặc React Hook Form và Zod.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Đúng là trong context không có sự xuất hiện của Zustand, React Hook Form hay Zod."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8333,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc thẩm định mã nguồn được cung cấp, dưới đây là đánh giá kỹ thuật chi tiết về năng lực của ứng viên so với các yêu cầu của vị trí Junior ReactJS Developer:\n\n*   **ReactJS & TypeScript:** Ứng viên thể hiện rõ ràng việc sử dụng ReactJS và TypeScript qua các tệp mã nguồn. Cụ thể, trong tệp `components/carousel/Arrows.tsx`, ứng viên định nghĩa các component sử dụng cú pháp Functional Component (`React.FC<Props>`) kết hợp với TypeScript Interface (`interface Props`). Tương tự, tệp `src/components/Cart.tsx` cũng sử dụng `FC` (Functional Component) và các hooks cơ bản của React.\n*   **Redux Toolkit / Zustand:** Ứng viên có sử dụng Redux trong mã nguồn. Bằng chứng trực tiếp được tìm thấy trong tệp `src/components/Cart.tsx` với việc sử dụng các custom hooks `useAppDispatch` và `useAppSelector`, đồng thời gọi các action `emptyCart` và `setCartState` từ `cartSlice.ts`. Ngoài ra, tệp `components/admin/product/CreateProduct.tsx` cũng sử dụng `useDispatch` và gọi `showDialog` từ `DialogSlice`.\n*   **Tailwind CSS / CSS-in-JS:** Ứng viên có sử dụng Tailwind CSS cho việc thiết kế giao diện. Bằng chứng được thể hiện rõ qua các lớp (classes) tiện ích của Tailwind trong tệp `components/carousel/Arrows.tsx` (ví dụ: `className={`${className} z-10 w-12 md:w-16...`) và tệp `src/components/Cart.tsx` (ví dụ: `className=\"bg-[#0000007d] w-full min-h-screen fixed...\"`).\n*   **React Hook Form & Zod/Yup:** Đối với thư viện quản lý form, ứng viên sử dụng `Formik` kết hợp với `Yup` để xác thực (validation) thay vì sử dụng React Hook Form và Zod. Bằng chứng được ghi nhận rõ trong tệp `components/admin/product/CreateProduct.tsx` với việc import `{ Formik, Form }` từ `\"formik\"` và `* as Yup from \"yup\"`, đồng thời khởi tạo schema xác thực bằng `Yup.object({...})`. Do đó, **không tìm thấy bằng chứng trong mã nguồn được cung cấp** đối với kỹ năng React Hook Form và Zod.",
+    "ans_line": "Dưới đây là báo cáo đánh giá kỹ thuật năng lực của ứng viên cho vị trí Junior ReactJS Developer dựa **hoàn toàn** trên các đoạn mã nguồn bằng chứng được cung cấp:\n\n**1. Đánh giá chi tiết các kỹ năng bắt buộc:**\n*   **ReactJS & TypeScript:** Ứng viên có sử dụng ReactJS (khai báo các functional component như `NextArrow`, `PrevArrow`, `CreateProduct`, `CreateCategory`) và TypeScript (sử dụng `React.FC<Props>`, định nghĩa interface `Props`, kiểu `type Color = string;`). Các bằng chứng này xuất hiện rải rác trong cả 3 Code Chunk (từ các tệp component giao diện).\n*   **Redux Toolkit / Zustand:** Ứng viên có sử dụng Redux thông qua hook `useDispatch()` và dispatch action `showDialog` từ `@/redux/slices/DialogSlice` (được tìm thấy trong Code Chunk #2, dòng 10-11 và 57-58). Không tìm thấy mã nguồn hoặc bằng chứng liên quan đến Zustand trong các đoạn code được cung cấp.\n*   **React Hook Form & Zod/Yup:** Ứng viên có sử dụng thư viện quản lý form là **Formik** kết hợp với **Yup** để thực hiện validation (được minh chứng rõ qua việc import `Formik`, `Form` từ `\"formik\"` và `* as Yup` từ `\"yup\"` trong Code Chunk #2 và #3). **Không tìm thấy** bằng chứng sử dụng *React Hook Form* hoặc *Zod* trong mã nguồn được cung cấp; ứng viên đang dùng Formik và Yup thay thế.\n*   **Tailwind CSS / CSS-in-JS:** Ứng viên có sử dụng Tailwind CSS qua các chuỗi className tiện ích như `className=\"flex p-2 border-b pb-1 font-semibold\"` trong hàm `CreateCategory` (Code Chunk #3) và các class responsive/styling trong Code Chunk #1.\n\n**2. Kết luận:**\nDựa trên các đoạn mã nguồn được cung cấp, ứng viên thể hiện sự quen thuộc với ReactJS, TypeScript, Redux (Redux Toolkit), Yup (validation) và Tailwind CSS. Tuy nhiên, ứng viên sử dụng **Formik** thay vì *React Hook Form* và sử dụng **Yup** thay vì *Zod* theo yêu cầu của JD. Đồng thời, không có bằng chứng nào trong mã nguồn cho thấy ứng viên sử dụng *Zustand*. Vì vậy, ứng viên chưa đáp ứng hoàn toàn chính xác 100% các công nghệ form/state được liệt kê trong bản mô tả công việc (JD)."
+  },
+  "JD_REACT_07": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "The candidate uses ReactJS demonstrated via hooks like useState and functional component FC in Cart.tsx and CreateCategory.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "The code context shows useState and FC in src/components/Cart.tsx and components/admin/categories/CreateCategory.tsx."
+        },
+        {
+          "claim": "The candidate uses TypeScript demonstrated via types like FC, any, and .tsx file structures.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "TypeScript syntax and file extensions are present in the provided code snippets."
+        },
+        {
+          "claim": "The candidate utilizes Redux Toolkit for state management via useAppDispatch, useAppSelector, emptyCart, and setCartState in Cart.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "These hooks and actions are explicitly present in src/components/Cart.tsx."
+        },
+        {
+          "claim": "The candidate uses Tailwind CSS with utility classes such as bg-[#0000007d] and mt-4 flex p-2 border-b in Cart.tsx and CreateCategory.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Tailwind utility classes are found throughout the retrieved code files."
+        },
+        {
+          "claim": "There is no evidence of WebSocket / Socket.io-client usage in the provided code context.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "None of the code chunks contain WebSocket or Socket.io-client implementations, which is accurate."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.8,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên sử dụng ReactJS thông qua các hook như useState và định nghĩa component const Cart: FC = () => trong Code Chunk #2, cũng như cú pháp JSX trong Code Chunk #3.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 shows `useState` and `const Cart: FC = () =>`, and Code Chunk #3 shows JSX."
+        },
+        {
+          "claim": "Việc sử dụng cú pháp TypeScript (: FC, định nghĩa kiểu dữ liệu) cũng xuất hiện trong Code Chunk #2 và Code Chunk #3.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 uses `: FC` and Code Chunk #3 uses TypeScript/React functional component structures."
+        },
+        {
+          "claim": "Ứng viên có sử dụng Redux thông qua các hook tùy chỉnh useAppDispatch, useAppSelector và các action như emptyCart, setCartState được import từ thư mục redux trong Code Chunk #2.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 explicitly imports `useAppDispatch`, `useAppSelector`, `emptyCart`, and `setCartState` from `../redux/...`."
+        },
+        {
+          "claim": "Ứng viên có sử dụng các utility class của Tailwind CSS (ví dụ: các lớp bg-[#0000007d], w-full, min-h-screen, fixed, flex, items-center) trong cấu trúc JSX tại Code Chunk #2.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 includes Tailwind utility classes like `bg-[#0000007d]`, `w-full`, `min-h-screen`, `fixed`, `flex`, `items-center`."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng WebSocket / Socket.io-client & Zustand / React Context API trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Checked all chunks, and there are no WebSocket, Socket.io, Zustand, or Context API references; it only uses Redux."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 1.0,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên kết quả thẩm định mã nguồn GitHub được cung cấp, dưới đây là báo cáo đánh giá kỹ năng của ứng viên so với các yêu cầu bắt buộc của Bản mô tả công việc (JD):\n\n* **ReactJS & TypeScript:** Ứng viên có sử dụng ReactJS (thể hiện qua việc sử dụng các hook như `useState` và định nghĩa Functional Component `FC`) cùng với TypeScript (thể hiện qua các kiểu dữ liệu như `FC`, `any`, và cấu trúc file `.tsx`). Bằng chứng cụ thể có trong tệp `src/components/Cart.tsx` (Component `Cart`) và `components/admin/categories/CreateCategory.tsx` (Component `CreateCategory`).\n* **Zustand / Redux Toolkit / React Context API:** Ứng viên đáp ứng yêu cầu này bằng cách sử dụng Redux Toolkit trong quản lý trạng thái, được minh chứng qua các hook `useAppDispatch` và `useAppSelector` cũng như các action `emptyCart`, `setCartState` tại tệp `src/components/Cart.tsx`.\n* **Tailwind CSS / SCSS:** Ứng viên có sử dụng Tailwind CSS để thiết kế giao diện, với các lớp tiện ích (utility classes) được tìm thấy trực tiếp trong mã nguồn như `bg-[#0000007d] w-full min-h-screen fixed` (tại tệp `src/components/Cart.tsx`) và `mt-4 flex p-2 border-b` (tại tệp `components/admin/categories/CreateCategory.tsx`).\n\nTuy nhiên, đối với kỹ năng **WebSocket / Socket.io-client**, hoàn toàn không tìm thấy bất kỳ bằng chứng nào trong các đoạn mã nguồn được cung cấp. Do đó, ứng viên chưa cung cấp đủ minh chứng để đáp ứng yêu cầu này trong phạm vi mã nguồn đã xét duyệt.",
+    "ans_line": "Dựa trên việc thẩm định các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật đối với ứng viên cho vị trí **Frontend Developer Intern/Fresher** (lĩnh vực: Ứng dụng Nhắn tin & Cộng tác Thời gian thực):\n\n**1. Đánh giá các kỹ năng bắt buộc dựa trên mã nguồn:**\n*   **ReactJS & TypeScript:** Ứng viên có sử dụng ReactJS (thể hiện qua việc sử dụng các hook như `useState` và định nghĩa component `const Cart: FC = () =>` trong **Code Chunk #2**, cũng như cú pháp JSX trong **Code Chunk #3**). Việc sử dụng cú pháp TypeScript (`: FC`, định nghĩa kiểu dữ liệu) cũng xuất hiện trong **Code Chunk #2** và **Code Chunk #3**.\n*   **Redux Toolkit:** Ứng viên có sử dụng Redux thông qua các hook tùy chỉnh `useAppDispatch`, `useAppSelector` và các action như `emptyCart`, `setCartState` được import từ thư mục redux trong **Code Chunk #2** (`../redux/hooks`, `../redux/features/cartSlice`).\n*   **Tailwind CSS:** Ứng viên có sử dụng các utility class của Tailwind CSS (ví dụ: các lớp `bg-[#0000007d]`, `w-full`, `min-h-screen`, `fixed`, `flex`, `items-center` trong cấu trúc JSX tại **Code Chunk #2**).\n*   **WebSocket / Socket.io-client & Zustand / React Context API:** **Không tìm thấy bằng chứng trong mã nguồn được cung cấp**. Các đoạn mã không chứa bất kỳ khởi tạo kết nối WebSocket/Socket.io nào, cũng không sử dụng thư viện Zustand hay React Context API (chỉ thấy Redux được sử dụng).\n\n**2. Kết luận tổng quan:**\nỨng viên đã chứng minh được năng lực cơ bản với **ReactJS, TypeScript, Redux Toolkit và Tailwind CSS** thông qua các đoạn mã xử lý giỏ hàng (`Cart` component) và hiệu ứng chuyển động (`Carousel` component). Tuy nhiên, do đây là vị trí yêu cầu cho ứng dụng nhắn tin thời gian thực, ứng viên **chưa đáp ứng** các kỹ năng cốt lõi về giao tiếp thời gian thực (`WebSocket / Socket.io-client`) trong phạm vi mã nguồn được cung cấp để thẩm định."
+  },
+  "JD_REACT_08": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên có sử dụng ReactJS Functional Components và Hooks như useState, useDispatch",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Supported by Slide.tsx, CreateCategory.tsx, and CreateProduct.tsx showing React functional components and hooks like useState and useDispatch."
+        },
+        {
+          "claim": "Ứng viên sử dụng TypeScript với interface Props trong Slide.tsx và kiểu dữ liệu Color = string trong CreateProduct.tsx",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Explicitly shown in Slide.tsx (interface Props) and CreateProduct.tsx (type Color = string)."
+        },
+        {
+          "claim": "Ứng viên sử dụng thư viện Yup để định nghĩa schema validation trong CreateCategory.tsx và CreateProduct.tsx",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly verified via Yup imports and schema declarations in both CreateCategory.tsx and CreateProduct.tsx."
+        },
+        {
+          "claim": "Ứng viên có sử dụng các utility classes của Tailwind CSS trong Slide.tsx",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by className attributes containing Tailwind classes in Slide.tsx."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về React Hook Form trong mã nguồn, ứng viên đang dùng Formik thay thế",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Supported by the presence of Formik in CreateCategory.tsx and CreateProduct.tsx and absence of React Hook Form."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Authentication & Axios Interceptors, chỉ có axios.post thông thường trong CreateCategory.tsx",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Supported by CreateCategory.tsx showing standard axios.post without interceptor configurations."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Material UI / Ant Design / Shadcn UI trong mã nguồn",
+          "supported": true,
+          "cites_code": true,
+          "reason": "True based on the lack of imports or usage from those UI libraries in the provided chunks."
+        }
+      ],
+      "total_claims": 7,
+      "supported_claims": 7,
+      "claims_with_citation": 7,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 1.0,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên có sử dụng ReactJS (Functional Components, Hooks như useState, useDispatch) kết hợp với TypeScript (định nghĩa interface Props, kiểu Color = string) trong các tệp như Slide (Chunk #1) và CreateCategory (Chunk #3).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "The code context clearly shows Slide (Chunk #1) and CreateCategory (Chunk #3) using React functional components, hooks (useState), and TypeScript interfaces/types."
+        },
+        {
+          "claim": "Ứng viên sử dụng thư viện Yup để định nghĩa schema validation trong CreateProduct và CreateCategory (Chunk #2 và #3). Không tìm thấy bằng chứng về việc sử dụng Zod.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Yup is imported and used in Chunk #2 and #3, and Zod is absent from the provided code snippets."
+        },
+        {
+          "claim": "Ứng viên có gọi API thông qua thư viện axios trong CreateCategory ở Chunk #3, nhưng không tìm thấy bằng chứng về cấu hình Authentication hoặc Axios Interceptors.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Axios is used in Chunk #3, and no interceptors or authentication headers are present in the provided context."
+        },
+        {
+          "claim": "Ứng viên có sử dụng các lớp utility của Tailwind CSS trong các tệp tại Chunk #1 và Chunk #3, nhưng không tìm thấy bằng chứng về Material UI, Ant Design, hoặc Shadcn UI.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Tailwind utility classes are visible in Chunk #1 and Chunk #3, and other UI libraries are absent."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về React Hook Form trong mã nguồn, thay vào đó ứng viên sử dụng Formik và Form trong CreateProduct (Chunk #2) và CreateCategory (Chunk #3).",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Formik and Form are imported and used in Chunks #2 and #3, while React Hook Form is not present."
+        }
+      ],
+      "total_claims": 5,
+      "supported_claims": 5,
+      "claims_with_citation": 5,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 1.0,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dưới đây là báo cáo đánh giá kỹ thuật năng lực của ứng viên dựa trên các đoạn mã nguồn bằng chứng được cung cấp cho vị trí **React TypeScript Fresher**:\n\n**1. Đánh giá chi tiết các kỹ năng bắt buộc:**\n*   **ReactJS & TypeScript:** Ứng viên có sử dụng ReactJS (Functional Components, Hooks như `useState`, `useDispatch`) và TypeScript (định nghĩa interface `Props` trong tệp `components/carousel/Slide.tsx`, kiểu dữ liệu `Color = string` trong tệp `components/admin/product/CreateProduct.tsx`).\n*   **Zod / Yup:** Ứng viên sử dụng thư viện `Yup` để định nghĩa schema validation trong các tệp mã nguồn (`components/admin/categories/CreateCategory.tsx` và `components/admin/product/CreateProduct.tsx`). \n*   **Tailwind CSS:** Ứng viên có sử dụng các utility classes của Tailwind CSS để tạo kiểu dáng giao diện, minh chứng cụ thể trong tệp `components/carousel/Slide.tsx` (ví dụ: `className=\"relative w-[100%] h-[50vh] ... bg-cover\"`).\n*   **React Hook Form:** **Không tìm thấy bằng chứng trong mã nguồn được cung cấp.** (Trong các tệp `CreateCategory.tsx` và `CreateProduct.tsx`, ứng viên đang sử dụng thư viện `Formik` thay vì `React Hook Form`).\n*   **Authentication & Axios Interceptors:** **Không tìm thấy bằng chứng trong mã nguồn được cung cấp.** (Mặc dù có sử dụng `axios.post` trong tệp `CreateCategory.tsx`, nhưng hoàn toàn không có mã nguồn nào thể hiện cấu hình Authentication hoặc Axios Interceptors).\n*   **Material UI / Ant Design / Shadcn UI:** **Không tìm thấy bằng chứng trong mã nguồn được cung cấp.**\n\n**2. Kết luận:**\nỨng viên đã thể hiện được năng lực cơ bản về ReactJS, TypeScript, Tailwind CSS và Yup thông qua các tệp mã nguồn được trích dẫn. Tuy nhiên, ứng viên chưa đáp ứng toàn bộ bộ kỹ năng bắt buộc của JD do thiếu vắng hoàn toàn các bằng chứng về **React Hook Form**, **Authentication & Axios Interceptors**, và các thư viện UI yêu cầu (Material UI/Ant Design/Shadcn UI). Do đó, ứng viên cần được kiểm tra thêm hoặc chưa đủ điều kiện vượt qua vòng thẩm định kỹ thuật này dựa trên tập mã nguồn hiện tại.",
+    "ans_line": "Dựa trên việc thẩm định các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật đối với ứng viên cho vị trí React TypeScript Fresher:\n\n**1. Đánh giá các kỹ năng bắt buộc dựa trên bằng chứng:**\n*   **ReactJS & TypeScript:** Ứng viên có sử dụng ReactJS (Functional Components, Hooks như `useState`, `useDispatch`) kết hợp với TypeScript (định nghĩa interface `Props`, kiểu `Color = string`) trong các tệp như `Slide` (Chunk #1) và `CreateCategory` (Chunk #3).\n*   **Zod / Yup:** Ứng viên sử dụng thư viện `Yup` để định nghĩa schema validation trong `CreateProduct` và `CreateCategory` (Chunk #2 và #3). **Không tìm thấy bằng chứng** về việc sử dụng `Zod` trong mã nguồn được cung cấp.\n*   **Authentication & Axios Interceptors:** Ứng viên có gọi API thông qua thư viện `axios` (ví dụ: hàm `submitHandler` trong `CreateCategory` ở Chunk #3, `axios` được import ở Chunk #2). Tuy nhiên, **không tìm thấy bằng chứng** về mã nguồn cấu hình Authentication hoặc Axios Interceptors (như `axios.interceptors.request` hay `response`) trong các đoạn mã được cung cấp.\n*   **Tailwind CSS:** Ứng viên có sử dụng các lớp utility của Tailwind CSS (như `relative w-[100%] h-[50vh] bg-cover`, `flex p-2 border-b`, `mt-4 bg-green-500`) trong các tệp tại Chunk #1 và Chunk #3. **Không tìm thấy bằng chứng** về Material UI, Ant Design, hoặc Shadcn UI.\n*   **React Hook Form:** **Không tìm thấy bằng chứng** trong mã nguồn được cung cấp. Thay vào đó, ứng viên đang sử dụng thư viện `Formik` và `Form` (được thể hiện rõ trong `CreateProduct` ở Chunk #2 và `CreateCategory` ở Chunk #3).\n\n**2. Kết luận tổng quan:**\nỨng viên đã thể hiện khả năng làm việc với ReactJS, TypeScript, Tailwind CSS và Yup validation (thông qua Formik) qua các đoạn mã được trích xuất. Tuy nhiên, ứng viên thiếu một số công nghệ cốt lõi theo yêu cầu của JD trong phạm vi mã nguồn này, bao gồm `React Hook Form`, `Zod`, cấu hình `Axios Interceptors`, và các UI library như Material UI, Ant Design hay Shadcn UI."
+  },
+  "JD_REACT_09": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Candidate demonstrates ReactJS skills through functional components and hooks like useState in components/admin/categories/CreateCategory.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "The file components/admin/categories/CreateCategory.tsx contains a React functional component using useState."
+        },
+        {
+          "claim": "Candidate demonstrates ReactJS skills through useNavigate hook in src/components/ErrorMessage/404.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "The file src/components/ErrorMessage/404.tsx shows the usage of the useNavigate hook."
+        },
+        {
+          "claim": "Candidate applies TypeScript syntax in auth-service/src/main/java/com/ecommerce/authservice/controller/AuthController.java method ssoCallback.",
+          "supported": false,
+          "cites_code": true,
+          "reason": "The specified file path auth-service/.../AuthController.java is a Java file, not TypeScript, making this claim factually incorrect despite citing code."
+        },
+        {
+          "claim": "Candidate uses the 'any' type in components/admin/categories/CreateCategory.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 includes TypeScript/TSX syntax with 'any' types (e.g., ({ setCategories }: any))."
+        },
+        {
+          "claim": "Candidate uses React Router's useNavigate hook and navigate(HOME_URL) in src/components/ErrorMessage/404.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 explicitly shows the import of useNavigate from 'react-router-dom' and usage of navigate(HOME_URL)."
+        },
+        {
+          "claim": "Candidate uses the axios library to perform asynchronous HTTP requests (axios.post) in submitHandler within components/admin/categories/CreateCategory.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows 'import axios from \"axios\"' and an asynchronous call 'await axios.post(\"/api/admin/category\",{ name })'."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 5,
+      "claims_with_citation": 6,
+      "faithfulness_score": 0.83,
+      "citation_coverage": 1.0,
+      "answer_relevance_score": 0.95
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "Ứng viên thể hiện năng lực ReactJS thông qua việc sử dụng useState trong Code Chunk #1 và xây dựng các Functional Components.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows `import { useState } from \"react\";` and the functional component `CreateCategory`."
+        },
+        {
+          "claim": "Ứng viên sử dụng TypeScript thông qua interface Props trong Code Chunk #2 và định nghĩa kiểu React.FC<Props>.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #2 displays `interface Props` and `Slide: React.FC<Props>`."
+        },
+        {
+          "claim": "Ứng viên sử dụng Axios qua hàm axios.post trong phương thức submitHandler tại Code Chunk #1.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #1 shows `import axios from \"axios\";` and `axios.post(\"/api/admin/category\",{ name })` inside `submitHandler`."
+        },
+        {
+          "claim": "Trong Code Chunk #3 có sử dụng hàm useNavigate từ thư viện định tuyến (react-router-dom) trong component NotFound.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Code Chunk #3 contains `import { useNavigate } from \"react-router-dom\";` and `const NotFound = () => { ... }`."
+        }
+      ],
+      "total_claims": 4,
+      "supported_claims": 4,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 1.0,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên quá trình kiểm định kỹ thuật các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là báo cáo đánh giá năng lực của ứng viên đối với vị trí Frontend Web Developer:\n\n*   **ReactJS:** **Đạt (Có bằng chứng).** Ứng viên thể hiện khả năng sử dụng ReactJS thông qua việc xây dựng các functional component và sử dụng các Hooks (như `useState` trong tệp `components/admin/categories/CreateCategory.tsx`, và `useNavigate` trong tệp `src/components/ErrorMessage/404.tsx`).\n*   **TypeScript:** **Đạt (Có bằng chứng).** Mã nguồn minh chứng việc ứng viên áp dụng cú pháp TypeScript, ví dụ như khai báo kiểu dữ liệu trả về và tham số trong phương thức `ssoCallback` (tệp `auth-service/src/main/java/com/ecommerce/authservice/controller/AuthController.java`), hoặc sử dụng kiểu `any` trong tệp `components/admin/categories/CreateCategory.tsx`.\n*   **React Router:** **Đạt (Có bằng chứng).** Ứng viên đã sử dụng hook điều hướng `useNavigate` và hàm `navigate(HOME_URL)` được cung cấp bởi thư viện `react-router-dom` trong tệp `src/components/ErrorMessage/404.tsx`.\n*   **Axios:** **Đạt (Có bằng chứng).** Ứng viên có sử dụng thư viện `axios` để thực hiện yêu cầu HTTP bất đồng bộ (`axios.post`) nhằm gửi dữ liệu danh mục trong hàm `submitHandler` tại tệp `components/admin/categories/CreateCategory.tsx`.",
+    "ans_line": "Dưới đây là báo cáo đánh giá kỹ thuật năng lực của ứng viên dựa trên các đoạn mã nguồn bằng chứng được cung cấp cho vị trí Frontend Web Developer:\n\nDựa trên việc phân tích các đoạn mã nguồn, ứng viên có bằng chứng đáp ứng một phần các kỹ năng bắt buộc của JD. Đối với kỹ năng **ReactJS**, ứng viên đã thể hiện năng lực thông qua việc sử dụng các React hooks (`useState` trong Code Chunk #1) và xây dựng các Functional Components (như `CreateCategory` ở Code Chunk #1 và `Slide` ở Code Chunk #2). Về kỹ năng **TypeScript**, ứng viên có sử dụng khai báo kiểu dữ liệu thông qua interface (`interface Props` trong Code Chunk #2) và định nghĩa kiểu cho các React Functional Component (`React.FC<Props>`). Đối với kỹ năng **Axios**, mã nguồn cung cấp bằng chứng trực tiếp về việc gọi API bằng thư viện này qua hàm `axios.post` trong phương thức `submitHandler` tại Code Chunk #1.\n\nTuy nhiên, đối với kỹ năng **React Router**, mặc dù trong Code Chunk #3 có sử dụng hàm `useNavigate` từ thư viện định tuyến (thể hiện qua `import { useNavigate } from \"react-router-dom\";` trong component `NotFound`), các đoạn mã này chủ yếu minh họa cho việc điều hướng trang chứ chưa đủ để phản ánh toàn diện hệ thống routing phức tạp. \n\nTóm lại, ứng viên đã cung cấp bằng chứng xác thực cho các kỹ năng ReactJS, TypeScript và Axios thông qua các đoạn mã được trích dẫn, nhưng cần thêm các minh chứng chuyên sâu hơn để đánh giá toàn diện kỹ năng React Router theo yêu cầu của dự án."
+  },
+  "JD_REACT_10": {
+    "eval_ast": {
+      "claims": [
+        {
+          "claim": "Ứng viên sử dụng TypeScript kết hợp với ReactJS trong Cart.tsx và CartRow.tsx với kiểu dữ liệu FC và useState.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Supported by Cart.tsx showing import of FC, useState and CartRow.tsx showing FC type usage."
+        },
+        {
+          "claim": "Tệp components/cart/CartList.tsx minh chứng việc viết component React bằng TypeScript kết hợp interface ICartRootState và ICartProduct.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly mentioned and verified in CartList.tsx code chunk."
+        },
+        {
+          "claim": "Ứng viên sử dụng Redux Toolkit qua các hàm useAppDispatch, useAppSelector trong Cart.tsx và CartRow.tsx, và useSelector trong CartList.tsx.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Supported by code snippets containing useAppDispatch, useAppSelector, and useSelector."
+        },
+        {
+          "claim": "Các action như emptyCart, setCartState, addToCart được gọi từ cartSlice.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Confirmed by imports and usage in Cart.tsx and CartRow.tsx."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Node.js / Express / NestJS trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "True as no backend files are present in the provided chunks."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Prisma / TypeORM / Mongoose trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "True as no ORM/ODM files are present in the provided chunks."
+        },
+        {
+          "claim": "Không tìm thấy bằng chứng về Git trong mã nguồn được cung cấp.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "True as no git logs or configuration files are shown."
+        }
+      ],
+      "total_claims": 7,
+      "supported_claims": 7,
+      "claims_with_citation": 4,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.57,
+      "answer_relevance_score": 1.0
+    },
+    "eval_line": {
+      "claims": [
+        {
+          "claim": "TypeScript and ReactJS skills are demonstrated through Functional Component syntax (`const Cart: FC = () => ...`), type definitions (`ICartRootState`, `ICartProduct`), and hooks like `useState` in CartList, Cart, and CustomPopup.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by code chunks showing FC, types, and hooks."
+        },
+        {
+          "claim": "Redux Toolkit / Zustand skills are demonstrated through `useSelector`, `useAppDispatch`, `useAppSelector`, and slice actions called in handleOrder and handleLogout.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly supported by code chunks referencing useSelector, useAppDispatch, dispatch(emptyCart()), etc."
+        },
+        {
+          "claim": "No evidence is found in the provided code chunks for Node.js / Express / NestJS.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Correctly notes the absence of backend code in the provided chunks."
+        },
+        {
+          "claim": "No evidence is found in the provided code chunks for Prisma / TypeORM / Mongoose.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Correctly notes the absence of ORM/database code in the provided chunks."
+        },
+        {
+          "claim": "No evidence is found in the provided code chunks for Git.",
+          "supported": true,
+          "cites_code": false,
+          "reason": "Correctly notes the absence of Git history or version control code."
+        },
+        {
+          "claim": "Code Chunk #2 notes that order history hasn't been developed due to not having a proper backend API.",
+          "supported": true,
+          "cites_code": true,
+          "reason": "Directly matches the text inside Code Chunk #2."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "claims_with_citation": 3,
+      "faithfulness_score": 1.0,
+      "citation_coverage": 0.5,
+      "answer_relevance_score": 1.0
+    },
+    "ans_ast": "Dựa trên việc thẩm định các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật đối với ứng viên cho vị trí Fullstack React & TypeScript Developer:\n\n**1. Đánh giá các kỹ năng bắt buộc:**\n*   **TypeScript & ReactJS:** Ứng viên có bằng chứng rõ ràng sử dụng TypeScript kết hợp với ReactJS. Cụ thể, trong tệp `src/components/Cart.tsx` và `src/components/CartRow.tsx`, ứng viên sử dụng kiểu dữ liệu `FC` (FunctionComponent) từ thư viện React, cùng với việc định nghĩa các React Hooks như `useState`. Tệp `components/cart/CartList.tsx` cũng minh chứng việc ứng viên viết component React bằng TypeScript kết hợp với các interface như `ICartRootState` và `ICartProduct`.\n*   **Redux Toolkit / Zustand:** Ứng viên có sử dụng Redux Toolkit để quản lý trạng thái, được chứng minh qua việc gọi các hàm `useAppDispatch`, `useAppSelector` trong tệp `src/components/Cart.tsx` và `src/components/CartRow.tsx`, cũng như sử dụng `useSelector` với định nghĩa kiểu state trong `components/cart/CartList.tsx`. Các action như `emptyCart`, `setCartState`, `addToCart` được gọi từ `cartSlice`.\n*   **Node.js / Express / NestJS:** **Không tìm thấy bằng chứng trong mã nguồn được cung cấp**.\n*   **Prisma / TypeORM / Mongoose:** **Không tìm thấy bằng chứng trong mã nguồn được cung cấp**.\n*   **Git:** **Không tìm thấy bằng chứng trong mã nguồn được cung cấp** (không có lịch sử commit hay tệp cấu hình Git nào hiển thị trong các đoạn mã mẫu).\n\n**2. Kết luận:**\nỨng viên thể hiện năng lực tốt ở phía Frontend với ReactJS, TypeScript và Redux Toolkit (thông qua các tệp `Cart.tsx`, `CartList.tsx`, và `CartRow.tsx`). Tuy nhiên, dựa hoàn toàn vào phạm vi mã nguồn được cung cấp, ứng viên chưa cung cấp đủ bằng chứng xác thực đối với các kỹ năng Backend (Node.js/Express/NestJS, ORM/ODM như Prisma/TypeORM/Mongoose) và hệ thống quản lý mã nguồn Git. Do đó, ứng viên hiện chỉ đáp ứng một phần các yêu cầu của Bản mô tả công việc (JD).",
+    "ans_line": "Dựa trên việc thẩm định các đoạn mã nguồn bằng chứng được cung cấp, dưới đây là báo cáo đánh giá kỹ thuật đối với vị trí **Fullstack React & TypeScript Developer**:\n\n**1. Đánh giá các kỹ năng Frontend (TypeScript, ReactJS, Redux Toolkit):**\nỨng viên có bằng chứng rõ ràng đáp ứng các kỹ năng Frontend. Cụ thể, kỹ năng **TypeScript** và **ReactJS** được thể hiện qua việc sử dụng cú pháp Functional Component (`const Cart: FC = () => ...`), định nghĩa kiểu dữ liệu (`ICartRootState`, `ICartProduct`), và các hook tiêu chuẩn (`useState`) trong các đoạn mã như `CartList` (Code Chunk #1), `Cart` (Code Chunk #2), và `CustomPopup` (Code Chunk #3). Kỹ năng **Redux Toolkit / Zustand** cũng được chứng minh trực tiếp qua việc sử dụng các hàm `useSelector`, `useAppDispatch`, `useAppSelector` và thao tác với các slice (`cartSlice.ts`, `authSlice.ts`) được gọi trong hàm `handleOrder` (Code Chunk #2) và `handleLogout` (Code Chunk #3).\n\n**2. Đánh giá các kỹ năng Backend và Công cụ khác:**\nĐối với các kỹ năng bắt buộc còn lại bao gồm **Node.js / Express / NestJS**, **Prisma / TypeORM / Mongoose**, và **Git**, hoàn toàn không tìm thấy bằng chứng nào trong các đoạn mã nguồn được cung cấp. Thậm chí, trong Code Chunk #2, ứng viên còn ghi chú rõ ràng rằng tính năng lịch sử đơn hàng chưa được phát triển do \"không có backend api phù hợp\" (*\"order history hasn't been developed due to not having a proper backend api\"*). \n\n**Kết luận:** \nỨng viên đáp ứng tốt các kỹ năng lập trình Frontend với React, TypeScript và Redux Toolkit dựa trên các đoạn code được trích xuất. Tuy nhiên, **không tìm thấy bằng chứng trong mã nguồn được cung cấp** đối với các kỹ năng Backend (Node.js/Express/NestJS, Prisma/TypeORM/Mongoose) và Git."
+  }
+}

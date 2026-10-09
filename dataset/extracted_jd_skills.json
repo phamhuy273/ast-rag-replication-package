@@ -1,0 +1,1533 @@
+{
+  "JD_JAVA_01": {
+    "title": "Backend Developer (Java / Spring Boot)",
+    "level": "Fresher",
+    "domain": "E-Commerce Platform",
+    "summary": "Participate in developing and scaling Backend services for a large-scale e-commerce platform using Java 17 and Spring Boot 3. Design and build RESTful APIs and collaborate with Frontend and QA teams within an Agile/Scrum workflow.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Security & JWT",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "Spring Data JPA / Hibernate",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "MySQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Git",
+        "category": "DEVOPS",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "RabbitMQ",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Redis",
+        "category": "DATABASE",
+        "importance": "PREFERRED",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "Docker",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Swagger / OpenAPI",
+        "category": "TESTING",
+        "importance": "PREFERRED",
+        "weight": 0.2
+      }
+    ],
+    "jd_id": "JD_JAVA_01",
+    "filename": "jd_java_01.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_02": {
+    "title": "Junior Java Developer",
+    "level": "Intern/Fresher",
+    "domain": "Enterprise Web & HRM Systems",
+    "summary": "Build, enhance, and maintain core business modules within an enterprise Human Resource Management (HRM) and timekeeping system using Java Core and Spring Boot. Develop data persistence layers, write unit tests, and optimize SQL queries for high performance.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Data JPA",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "PostgreSQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "JUnit",
+        "category": "TESTING",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Mockito",
+        "category": "TESTING",
+        "importance": "PREFERRED",
+        "weight": 0.4
+      },
+      {
+        "skill_name": "Maven",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Flyway",
+        "category": "DATABASE",
+        "importance": "PREFERRED",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "Liquibase",
+        "category": "DATABASE",
+        "importance": "PREFERRED",
+        "weight": 0.15
+      }
+    ],
+    "jd_id": "JD_JAVA_02",
+    "filename": "jd_java_02.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_03": {
+    "title": "Java Backend Fresher",
+    "level": "Fresher",
+    "domain": "Fintech & Payment Gateway",
+    "summary": "Develop core Backend microservices for an E-Wallet and Online Payment Gateway on Java 17 and Spring Boot. Build transaction APIs, integrate Redis caching and PostgreSQL with strict data consistency and ACID transaction guarantees.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Data JPA",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "PostgreSQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "Redis",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Payment Gateway Integration",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Security",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Docker",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "Cryptography & Security",
+        "category": "LANGUAGE",
+        "importance": "PREFERRED",
+        "weight": 0.2
+      }
+    ],
+    "jd_id": "JD_JAVA_03",
+    "filename": "jd_java_03.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_04": {
+    "title": "Java Microservices Fresher",
+    "level": "Fresher",
+    "domain": "Distributed Systems & Supply Chain",
+    "summary": "Develop core services including Order, Inventory, and Catalog following Microservices architecture using Java 17 and Spring Boot 3. Implement asynchronous event-driven communication via Apache Kafka and containerized deployment with Docker.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java 17+",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Apache Kafka",
+        "category": "DEVOPS",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "Spring Data JPA",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "MySQL/PostgreSQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Docker / Docker Compose",
+        "category": "DEVOPS",
+        "importance": "MANDATORY",
+        "weight": 0.05
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Spring Cloud Ecosystem",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.6
+      },
+      {
+        "skill_name": "Circuit Breaker (Resilience4j)",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "Distributed Tracing",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.2
+      }
+    ],
+    "jd_id": "JD_JAVA_04",
+    "filename": "jd_java_04.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_05": {
+    "title": "Backend Developer (Java/Spring Boot)",
+    "level": "Fresher",
+    "domain": "EdTech & Learning Management Systems (LMS)",
+    "summary": "Develop Backend architecture for a Learning Management System (LMS) using Java and Spring Boot. Implement course management workflows, role-based access control authentication, and multimedia storage integration.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java Core",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Security",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "Spring Data JPA",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "MySQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "AWS S3 / Cloudinary",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.4
+      },
+      {
+        "skill_name": "Springdoc OpenAPI",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "JavaMailSender",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      }
+    ],
+    "jd_id": "JD_JAVA_05",
+    "filename": "jd_java_05.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_06": {
+    "title": "Fresher Java Backend Engineer",
+    "level": "Fresher",
+    "domain": "Digital Healthcare & Telemedicine",
+    "summary": "Develop clinical appointment booking and Electronic Health Record (EHR) management systems using Java 17 and Spring Boot. Build multi-criteria search engines, scheduling business logic, and automated background jobs.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java 11/17",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Data JPA",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "PostgreSQL/MySQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "MapStruct/ModelMapper",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.5
+      },
+      {
+        "skill_name": "Redis",
+        "category": "DATABASE",
+        "importance": "PREFERRED",
+        "weight": 0.5
+      }
+    ],
+    "jd_id": "JD_JAVA_06",
+    "filename": "jd_java_06.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_07": {
+    "title": "Java API Developer",
+    "level": "Fresher",
+    "domain": "Real-time Messaging & Notification Services",
+    "summary": "Build high-throughput Backend services for real-time online messaging and push notifications using Java and Spring Boot. Ensure low-latency delivery, high concurrent connection scalability, and secure WebSocket channels via JWT.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring WebSocket / STOMP",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "JWT & Spring Security",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "PostgreSQL / MySQL / MongoDB",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Redis Pub/Sub",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.5
+      },
+      {
+        "skill_name": "Docker",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.5
+      }
+    ],
+    "jd_id": "JD_JAVA_07",
+    "filename": "jd_java_07.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_08": {
+    "title": "Junior Java Software Engineer",
+    "level": "Junior",
+    "domain": "Logistics & Fleet Management",
+    "summary": "Develop Backend logistics services for shipment management, driver dispatching, and real-time delivery route tracking using Java 17 and Spring Boot 3. Design resilient RESTful APIs and maintain high engineering data standards.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java 17",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Data JPA",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "MySQL/PostgreSQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "MapStruct",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Bean Validation",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Flyway/Liquibase",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.4
+      },
+      {
+        "skill_name": "JUnit 5",
+        "category": "TESTING",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "OpenAPI/Swagger",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      }
+    ],
+    "jd_id": "JD_JAVA_08",
+    "filename": "jd_java_08.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_09": {
+    "title": "Java Backend Intern",
+    "level": "Intern",
+    "domain": "Digital Library & Bookstore API",
+    "summary": "Participate in engineering digital library and online bookstore platforms using Java and Spring Boot. Construct REST APIs for catalog management, borrowing transactions, and query performance optimization.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java Core",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.35
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Data JPA",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "MySQL/PostgreSQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Spring Security & JWT",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.5
+      },
+      {
+        "skill_name": "Swagger UI",
+        "category": "TESTING",
+        "importance": "PREFERRED",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Postman",
+        "category": "TESTING",
+        "importance": "PREFERRED",
+        "weight": 0.25
+      }
+    ],
+    "jd_id": "JD_JAVA_09",
+    "filename": "jd_java_09.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_10": {
+    "title": "Fresher Backend Developer",
+    "level": "Fresher",
+    "domain": "Hospitality & Online Travel Agency (OTA)",
+    "summary": "Develop Backend systems for an Online Travel Agency (OTA) and hotel reservation platform using Java 17 and Spring Boot. Implement search filters, dynamic pricing algorithms, booking lifecycle management, and Redis caching.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java 17",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Security",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Spring Data JPA",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "MySQL / PostgreSQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Redis",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Docker",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.05
+      },
+      {
+        "skill_name": "Unit Test",
+        "category": "TESTING",
+        "importance": "PREFERRED",
+        "weight": 0.05
+      }
+    ],
+    "jd_id": "JD_JAVA_10",
+    "filename": "jd_java_10.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_11": {
+    "title": "Java Backend Developer",
+    "level": "Fresher / Junior",
+    "domain": "Social Network & Technical Blogging Platform",
+    "summary": "Engineer RESTful API backends for a professional technical social network and blogging platform using Java 17 and Spring Boot 3. Implement article authoring, multi-level nested commenting, social feeds, and secure JWT authentication.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java 17",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Boot 3",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Security 6",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "Spring Data JPA / Hibernate",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "PostgreSQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Git",
+        "category": "DEVOPS",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "QueryDSL / JPA Specification",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.5
+      },
+      {
+        "skill_name": "Docker Compose",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.5
+      }
+    ],
+    "jd_id": "JD_JAVA_11",
+    "filename": "jd_java_11.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_12": {
+    "title": "Junior Java Developer",
+    "level": "Junior",
+    "domain": "Enterprise Software & Financial Services",
+    "summary": "Develop core enterprise software modules adhering to Clean Architecture principles with Java 17 and Spring Boot. Construct comprehensive automated test suites and enforce high source code quality standards.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java 17",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "JUnit 5 & Mockito",
+        "category": "TESTING",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "PostgreSQL/MySQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Testcontainers",
+        "category": "TESTING",
+        "importance": "PREFERRED",
+        "weight": 0.05
+      },
+      {
+        "skill_name": "GitHub Actions",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.03
+      },
+      {
+        "skill_name": "Liquibase/Flyway",
+        "category": "DATABASE",
+        "importance": "PREFERRED",
+        "weight": 0.02
+      }
+    ],
+    "jd_id": "JD_JAVA_12",
+    "filename": "jd_java_12.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_13": {
+    "title": "Java Backend Fresher",
+    "level": "Fresher",
+    "domain": "FoodTech & Delivery Platform",
+    "summary": "Develop Backend systems for an Online Food Delivery platform using Java 17 and Spring Boot. Build cart management APIs, role-based authorization, and asynchronous order processing pipelines.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Security & JWT",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "MySQL & Spring Data JPA",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "RabbitMQ / Kafka",
+        "category": "DEVOPS",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "WebSocket",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.05
+      },
+      {
+        "skill_name": "Redis",
+        "category": "DATABASE",
+        "importance": "PREFERRED",
+        "weight": 0.05
+      }
+    ],
+    "jd_id": "JD_JAVA_13",
+    "filename": "jd_java_13.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_14": {
+    "title": "Backend Engineer (Java / Spring Boot)",
+    "level": "Intern/Fresher",
+    "domain": "HRTech & Recruitment Job Portal",
+    "summary": "Develop Backend architectures for an online recruitment portal using Java 17 and Spring Boot. Construct job posting management APIs, candidate profile parsing, secure authentication, and advanced search filters.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java Core",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Data JPA",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "Spring Security & JWT",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "PostgreSQL / MySQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Spring Mail",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Redis",
+        "category": "DATABASE",
+        "importance": "PREFERRED",
+        "weight": 0.4
+      },
+      {
+        "skill_name": "File Processing (PDF/Docx/Image)",
+        "category": "LANGUAGE",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      }
+    ],
+    "jd_id": "JD_JAVA_14",
+    "filename": "jd_java_14.txt",
+    "category": "JAVA"
+  },
+  "JD_JAVA_15": {
+    "title": "Java Backend Fresher",
+    "level": "Fresher",
+    "domain": "Retail & Warehouse Inventory Management",
+    "summary": "Develop Backend infrastructure for multi-branch Point of Sale (POS) and inventory warehouse management using Java 17 and Spring Boot. Build APIs for inventory reconciliation, invoice generation, and reporting.",
+    "mandatory_skills": [
+      {
+        "skill_name": "Java 17",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Spring Boot",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Spring Data JPA",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "MySQL/PostgreSQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "JWT",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Apache POI",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "JasperReports",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "JUnit 5",
+        "category": "TESTING",
+        "importance": "PREFERRED",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "Maven",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "Docker",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.15
+      }
+    ],
+    "jd_id": "JD_JAVA_15",
+    "filename": "jd_java_15.txt",
+    "category": "JAVA"
+  },
+  "JD_REACT_01": {
+    "title": "Frontend Developer Fresher (ReactJS / TypeScript)",
+    "level": "Fresher",
+    "domain": "E-Commerce Storefront & Order Management",
+    "summary": "Develop modern, high-speed user interfaces for an e-commerce platform using ReactJS and TypeScript. Integrate RESTful APIs and construct client-side state management architectures.",
+    "mandatory_skills": [
+      {
+        "skill_name": "ReactJS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "TypeScript",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Redux Toolkit",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "Tailwind CSS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "Git",
+        "category": "DEVOPS",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "React Router",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.5
+      },
+      {
+        "skill_name": "Vite",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "ESLint / Prettier",
+        "category": "TESTING",
+        "importance": "PREFERRED",
+        "weight": 0.2
+      }
+    ],
+    "jd_id": "JD_REACT_01",
+    "filename": "jd_react_01.txt",
+    "category": "REACT"
+  },
+  "JD_REACT_02": {
+    "title": "ReactJS / TypeScript Intern",
+    "level": "Intern/Fresher",
+    "domain": "Digital Media & Streaming SPA",
+    "summary": "Develop Single Page Applications (SPA) and reusable UI component libraries using ReactJS and TypeScript. Implement routing workflows, asynchronous API client layers, and cross-device responsive optimizations.",
+    "mandatory_skills": [
+      {
+        "skill_name": "HTML5/CSS3",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "JavaScript (ES6+)",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "TypeScript",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "ReactJS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Tailwind CSS",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "CSS Modules",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.05
+      },
+      {
+        "skill_name": "Styled Components",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.05
+      }
+    ],
+    "jd_id": "JD_REACT_02",
+    "filename": "jd_react_02.txt",
+    "category": "REACT"
+  },
+  "JD_REACT_03": {
+    "title": "Fullstack TypeScript Fresher",
+    "level": "Fresher",
+    "domain": "Fullstack Web Application Development",
+    "summary": "Engage in fullstack web application development with ReactJS frontend and Node.js/Express.js backend. Construct RESTful APIs, JWT authentication protocols, and database schema models.",
+    "mandatory_skills": [
+      {
+        "skill_name": "TypeScript",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "JavaScript (ES6+)",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "ReactJS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "Node.js / Express.js",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "JWT Authentication",
+        "category": "TESTING",
+        "importance": "MANDATORY",
+        "weight": 0.05
+      },
+      {
+        "skill_name": "MongoDB / PostgreSQL / MySQL",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.05
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Prisma / TypeORM",
+        "category": "DATABASE",
+        "importance": "PREFERRED",
+        "weight": 0.04
+      },
+      {
+        "skill_name": "Redux Toolkit / Zustand",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.03
+      },
+      {
+        "skill_name": "Docker",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.03
+      }
+    ],
+    "jd_id": "JD_REACT_03",
+    "filename": "jd_react_03.txt",
+    "category": "REACT"
+  },
+  "JD_REACT_04": {
+    "title": "Frontend Engineer",
+    "level": "Fresher",
+    "domain": "B2B SaaS Analytics & Reporting Dashboard",
+    "summary": "Develop B2B SaaS administrative dashboards and data visualization portals. Build complex interactive workflows using React 18, TypeScript, and robust global state management.",
+    "mandatory_skills": [
+      {
+        "skill_name": "ReactJS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "TypeScript",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "TanStack React Query",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "Tailwind CSS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Recharts / Chart.js",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Shadcn UI",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.03
+      },
+      {
+        "skill_name": "Radix UI",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.03
+      },
+      {
+        "skill_name": "TanStack Table",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.02
+      },
+      {
+        "skill_name": "Feature-Sliced Design",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.02
+      }
+    ],
+    "jd_id": "JD_REACT_04",
+    "filename": "jd_react_04.txt",
+    "category": "REACT"
+  },
+  "JD_REACT_05": {
+    "title": "Next.js & TypeScript Frontend Developer",
+    "level": "Fresher / Junior",
+    "domain": "High-Performance Web & Digital Commerce",
+    "summary": "Develop SEO-optimized, high-performance web applications using Next.js and TypeScript. Implement responsive interfaces, server-side rendering (SSR), and frontend performance tuning.",
+    "mandatory_skills": [
+      {
+        "skill_name": "ReactJS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "TypeScript",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Next.js",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Tailwind CSS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "RESTful API / GraphQL",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "NextAuth / OAuth2",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Zod",
+        "category": "LANGUAGE",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Vercel",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "Docker",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.2
+      }
+    ],
+    "jd_id": "JD_REACT_05",
+    "filename": "jd_react_05.txt",
+    "category": "REACT"
+  },
+  "JD_REACT_06": {
+    "title": "Junior ReactJS Developer",
+    "level": "Junior",
+    "domain": "Productivity & Collaborative Kanban System",
+    "summary": "Develop project and task management applications following the Kanban methodology using React 18 and TypeScript. Implement drag-and-drop interactions, optimistic UI state updates, and real-time state synchronization.",
+    "mandatory_skills": [
+      {
+        "skill_name": "ReactJS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "TypeScript",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Redux Toolkit / Zustand",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "React Hook Form & Zod/Yup",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "Tailwind CSS / CSS-in-JS",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Drag-and-Drop (dnd-kit / react-beautiful-dnd)",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.6
+      },
+      {
+        "skill_name": "RESTful API / GraphQL",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.4
+      }
+    ],
+    "jd_id": "JD_REACT_06",
+    "filename": "jd_react_06.txt",
+    "category": "REACT"
+  },
+  "JD_REACT_07": {
+    "title": "Frontend Developer Intern/Fresher",
+    "level": "Intern/Fresher",
+    "domain": "Real-Time Collaboration & Messaging",
+    "summary": "Develop web interfaces for team collaboration and real-time messaging using ReactJS and TypeScript. Integrate WebSocket connections for instant chat delivery, performance optimization, and cross-team backend collaboration.",
+    "mandatory_skills": [
+      {
+        "skill_name": "ReactJS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "TypeScript",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "WebSocket / Socket.io-client",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "Zustand / Redux Toolkit / React Context API",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Tailwind CSS / SCSS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "File/Image Preview & Web Notification API",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.5
+      },
+      {
+        "skill_name": "Tối ưu render danh sách dài",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.5
+      }
+    ],
+    "jd_id": "JD_REACT_07",
+    "filename": "jd_react_07.txt",
+    "category": "REACT"
+  },
+  "JD_REACT_08": {
+    "title": "React TypeScript Fresher",
+    "level": "Fresher",
+    "domain": "Personal Finance & Digital Banking Portal",
+    "summary": "Develop personal finance management and digital invoicing web portals using ReactJS and TypeScript. Implement secure client authentication flows, strict schema validation, and enterprise UI component libraries.",
+    "mandatory_skills": [
+      {
+        "skill_name": "ReactJS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "TypeScript",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "React Hook Form",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Zod / Yup",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Authentication & Axios Interceptors",
+        "category": "DEVOPS",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Material UI / Ant Design / Shadcn UI / Tailwind CSS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Vitest / Jest & React Testing Library",
+        "category": "TESTING",
+        "importance": "PREFERRED",
+        "weight": 0.1
+      }
+    ],
+    "jd_id": "JD_REACT_08",
+    "filename": "jd_react_08.txt",
+    "category": "REACT"
+  },
+  "JD_REACT_09": {
+    "title": "Frontend Web Developer",
+    "level": "Intern / Fresher",
+    "domain": "Service Discovery & Booking Platform",
+    "summary": "Develop user interfaces for online service discovery and booking platforms using ReactJS and TypeScript. Build smart search inputs, URL query filters, pagination, and performance-optimized rendering.",
+    "mandatory_skills": [
+      {
+        "skill_name": "ReactJS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "TypeScript",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "React Router",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "Axios",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "TanStack React Query",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Tailwind CSS",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.05
+      },
+      {
+        "skill_name": "React Testing Library",
+        "category": "TESTING",
+        "importance": "PREFERRED",
+        "weight": 0.05
+      }
+    ],
+    "jd_id": "JD_REACT_09",
+    "filename": "jd_react_09.txt",
+    "category": "REACT"
+  },
+  "JD_REACT_10": {
+    "title": "Fullstack React & TypeScript Developer",
+    "level": "Fresher / Junior",
+    "domain": "EdTech Fullstack Application",
+    "summary": "Participate in fullstack engineering with ReactJS/TypeScript frontend and Node.js/NestJS backend for an e-learning platform. Implement lecture players, quiz engines, student progress trackers, and auth subsystems.",
+    "mandatory_skills": [
+      {
+        "skill_name": "TypeScript",
+        "category": "LANGUAGE",
+        "importance": "MANDATORY",
+        "weight": 0.25
+      },
+      {
+        "skill_name": "ReactJS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "Node.js / Express / NestJS",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.2
+      },
+      {
+        "skill_name": "Redux Toolkit / Zustand",
+        "category": "FRAMEWORK",
+        "importance": "MANDATORY",
+        "weight": 0.15
+      },
+      {
+        "skill_name": "Prisma / TypeORM / Mongoose",
+        "category": "DATABASE",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      },
+      {
+        "skill_name": "Git",
+        "category": "DEVOPS",
+        "importance": "MANDATORY",
+        "weight": 0.1
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill_name": "Tailwind CSS",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.4
+      },
+      {
+        "skill_name": "Shadcn UI",
+        "category": "FRAMEWORK",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      },
+      {
+        "skill_name": "Docker Compose",
+        "category": "DEVOPS",
+        "importance": "PREFERRED",
+        "weight": 0.3
+      }
+    ],
+    "jd_id": "JD_REACT_10",
+    "filename": "jd_react_10.txt",
+    "category": "REACT"
+  }
+}

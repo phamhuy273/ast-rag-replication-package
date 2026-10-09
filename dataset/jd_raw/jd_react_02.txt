@@ -1,0 +1,19 @@
+﻿Vị trí: ReactJS / TypeScript Intern (SPA Media & Content Portal)
+Cấp bậc: Thực tập sinh / Mới tốt nghiệp (Intern / Fresher)
+Lĩnh vực: Cổng thông tin Nội dung số & Giải trí (Digital Media SPA)
+
+Mô tả công việc:
+- Tham gia phát triển các ứng dụng trang đơn (Single Page Application - SPA) và thư viện thành phần giao diện (UI Components) bằng ReactJS và TypeScript.
+- Xây dựng luồng điều hướng phía máy khách (Client-side Routing) sử dụng React Router v6, bao gồm định tuyến động (Dynamic Routes), Nested Routes và bảo vệ đường dẫn riêng tư (Protected Routes).
+- Thiết kế tầng giao tiếp mạng (API Client Layer) bằng Axios, cài đặt Axios Interceptors để tự động đính kèm Bearer JWT Token vào tiêu đề HTTP và xử lý lỗi tập trung.
+- Đóng gói các logic nghiệp vụ lặp lại (như phân trang, tìm kiếm có độ trễ Debounce, quản lý chế độ Sáng/Tối Dark Mode) thành các Custom React Hooks sạch sẽ và dễ bảo trì.
+- Đảm bảo giao diện tương thích đa trình duyệt và hiển thị mượt mà trên thiết bị di động, máy tính bảng và máy tính để bàn.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Nắm vững nền tảng HTML5, CSS3, JavaScript hiện đại (ES6+: Destructuring, Spread, Array methods, Async/Await) và kiểu tĩnh trong TypeScript.
+- Đã từng thực hiện ít nhất 01 đồ án hoặc dự án cá nhân hoàn chỉnh sử dụng ReactJS (Hooks, Context API, Custom Hooks).
+- Thành thạo sử dụng React Router để điều hướng trang và Axios hoặc Fetch API để giao tiếp với Backend.
+- Tư duy tổ chức cấu trúc thư mục dự án (package.json, components, hooks, services, types) rõ ràng, mạch lạc.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Biết sử dụng Tailwind CSS hoặc CSS Modules / Styled Components và có khả năng đọc hiểu tài liệu kỹ thuật tiếng Anh tốt.

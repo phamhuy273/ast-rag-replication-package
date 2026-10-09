@@ -1,0 +1,19 @@
+﻿Vị trí: Fullstack React & TypeScript Developer (E-Learning & Course Platform)
+Cấp bậc: Fresher / Junior
+Lĩnh vực: Nền tảng Đào tạo Trực tuyến & Đánh giá Năng lực (EdTech Fullstack)
+
+Mô tả công việc:
+- Tham gia phát triển cả hai phân hệ Frontend (ReactJS, TypeScript) và Backend API (Node.js / Express hoặc NestJS bằng TypeScript) cho nền tảng học tập và kiểm tra năng lực trực tuyến.
+- Ở phía Frontend: Xây dựng giao diện trình phát bài giảng, làm bài kiểm tra trắc nghiệm có đếm ngược thời gian (Countdown Timer), theo dõi tiến độ hoàn thành khóa học và bảng xếp hạng học viên bằng ReactJS và Redux Toolkit.
+- Ở phía Backend: Thiết kế các RESTful API quản lý khóa học, tiến độ học tập, chấm điểm bài thi và cấp quyền truy cập khóa học sau khi thanh toán.
+- Triển khai cơ chế xác thực đồng nhất sử dụng JWT kết hợp đăng nhập OAuth2 (Google/GitHub) và phân quyền theo vai trò (Student, Instructor, Admin).
+- Tương tác với cơ sở dữ liệu quan hệ (PostgreSQL/MySQL) thông qua Prisma hoặc TypeORM.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Thành thạo ngôn ngữ TypeScript áp dụng xuyên suốt trên cả Frontend (ReactJS) và Backend (Node.js / Express / NestJS).
+- Kinh nghiệm quản lý trạng thái ứng dụng phức tạp ở Frontend với Redux Toolkit hoặc Zustand.
+- Nắm vững cách thiết kế RESTful API, xác thực JWT / OAuth2 và thao tác cơ sở dữ liệu qua ORM (Prisma / TypeORM / Mongoose).
+- Sử dụng thành thạo Git, quản lý gói qua package.json và nắm vững quy trình phát triển phần mềm hiện đại.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Biết sử dụng Tailwind CSS, Shadcn UI và đóng gói ứng dụng Fullstack bằng Docker Compose.

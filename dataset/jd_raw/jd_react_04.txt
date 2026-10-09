@@ -1,0 +1,19 @@
+﻿Vị trí: Frontend Engineer Fresher (SaaS Admin Dashboard & Analytics)
+Cấp bậc: Fresher / Junior
+Lĩnh vực: Nền tảng Quản trị Doanh nghiệp & Phân tích Dữ liệu (B2B SaaS Dashboard)
+
+Mô tả công việc:
+- Phát triển phân hệ Bảng điều khiển quản trị (Admin Dashboard) và Trực quan hóa dữ liệu cho nền tảng SaaS sử dụng React 18 và TypeScript.
+- Quản lý trạng thái dữ liệu bất đồng bộ từ máy chủ (Server State: caching, background refetching, optimistic updates, pagination) bằng thư viện TanStack Query (React Query) kết hợp quản lý trạng thái giao diện gọn nhẹ với Zustand.
+- Xây dựng các bảng dữ liệu phức tạp (Data Tables hỗ trợ sắp xếp đa cột, lọc nâng cao, chọn hàng loạt, xuất CSV) và các biểu đồ thống kê tương tác (Recharts / Chart.js).
+- Phát triển hệ thống thành phần giao diện đồng nhất, hỗ trợ khả năng tiếp cận (Accessibility) dựa trên Shadcn UI / Radix UI và Tailwind CSS.
+- Triển khai cơ chế ẩn/hiện tính năng và bảo vệ trang theo quyền hạn người dùng (Role-Based Access Control trên giao diện).
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Thành thạo ReactJS và TypeScript, hiểu sâu về vòng đời component và tối ưu hóa hiệu năng render khi hiển thị tập dữ liệu lớn.
+- Có kinh nghiệm sử dụng TanStack React Query (useQuery, useMutation, QueryClient) hoặc Zustand / Redux Toolkit.
+- Đã từng xây dựng giao diện Dashboard có tích hợp biểu đồ (Recharts/Chart.js) và bảng dữ liệu có phân trang, tìm kiếm.
+- Sử dụng thành thạo Tailwind CSS và công cụ quản lý gói npm/yarn/pnpm (package.json).
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Quen thuộc với hệ sinh thái Shadcn UI, Radix UI, TanStack Table và kiến trúc Feature-Sliced Design.

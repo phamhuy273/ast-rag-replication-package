@@ -1,0 +1,19 @@
+﻿Vị trí: Frontend Web Developer (Booking, Search & Discovery Platform)
+Cấp bậc: Intern / Fresher
+Lĩnh vực: Nền tảng Tìm kiếm, Đặt lịch & Khám phá Dịch vụ
+
+Mô tả công việc:
+- Phát triển giao diện người dùng cho nền tảng tìm kiếm và đặt dịch vụ trực tuyến (đặt phòng, đặt lịch hẹn, tìm kiếm địa điểm) bằng ReactJS và TypeScript.
+- Xây dựng thanh tìm kiếm thông minh hỗ trợ gợi ý tự động (Autocomplete) với kỹ thuật chống dội (Debounce Custom Hook), kết hợp bộ lọc nhiều tiêu chí đồng bộ trực tiếp lên tham số đường dẫn (URL Search Params với React Router).
+- Triển khai cơ chế phân trang dữ liệu (Pagination) và cuộn tải thêm (Infinite Scrolling) kết hợp lưu đệm dữ liệu truy vấn.
+- Xây dựng các thành phần giao diện chọn lịch ngày/giờ (Date Range Picker), thư viện ảnh (Image Carousel/Gallery) và đánh giá xếp hạng (Star Rating & Reviews).
+- Phối hợp kiểm thử giao diện và tối ưu hóa trải nghiệm người dùng trên thiết bị di động.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Thành thạo lập trình giao diện với ReactJS (Functional Components, Hooks) và TypeScript.
+- Hiểu và tự cài đặt được các kỹ thuật xử lý sự kiện tối ưu như Debounce, Throttle, Pagination và đồng bộ trạng thái bộ lọc với URL Query Parameters.
+- Sử dụng thành thạo React Router v6, Axios và các kỹ thuật xử lý trạng thái Loading / Error / Empty State.
+- Có khả năng tổ chức mã nguồn sạch, tách biệt rõ tầng gọi API (Services), tầng giao diện (Components) và tầng kiểu dữ liệu (Types).
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Có kinh nghiệm sử dụng TanStack React Query, Tailwind CSS và viết kiểm thử giao diện với React Testing Library.

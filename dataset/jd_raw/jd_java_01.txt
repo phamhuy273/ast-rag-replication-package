@@ -1,0 +1,23 @@
+﻿Vị trí: Backend Developer Fresher (Java / Spring Boot - E-Commerce)
+Cấp bậc: Fresher / Junior (0 - 2 năm kinh nghiệm)
+Lĩnh vực: Thương mại điện tử (E-Commerce Platform)
+
+Mô tả công việc:
+- Tham gia phát triển và mở rộng hệ thống Backend cho nền tảng thương mại điện tử quy mô lớn sử dụng ngôn ngữ Java 17 và khung chương trình Spring Boot 3.
+- Thiết kế, xây dựng và chuẩn hóa các RESTful API phục vụ cho ứng dụng Web Storefront và Mobile App (quản lý giỏ hàng, danh mục sản phẩm, đặt hàng và thanh toán).
+- Triển khai cơ chế xác thực và phân quyền người dùng đầu cuối sử dụng Spring Security 6 kết hợp JSON Web Token (JWT) và bộ lọc bảo mật tùy chỉnh (OncePerRequestFilter).
+- Thiết kế lược đồ cơ sở dữ liệu quan hệ, viết truy vấn tối ưu và quản lý ánh xạ thực thể (ORM) thông qua Spring Data JPA / Hibernate trên hệ quản trị MySQL.
+- Xử lý các tác vụ bất đồng bộ như gửi email xác nhận đơn hàng và đồng bộ tồn kho qua hàng đợi thông điệp (Message Queue) sử dụng RabbitMQ.
+- Phối hợp chặt chẽ với đội ngũ Frontend (ReactJS) và QA trong quy trình Agile/Scrum để đảm bảo chất lượng mã nguồn.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Nắm vững nền tảng lập trình hướng đối tượng (OOP), cấu trúc dữ liệu giải thuật và ngôn ngữ Java (từ Java 11/17 trở lên).
+- Có kinh nghiệm thực hành xây dựng RESTful API với Spring Boot, Spring Web MVC và xử lý ngoại lệ tập trung (@ControllerAdvice / GlobalExceptionHandler).
+- Hiểu và đã từng cài đặt xác thực/phân quyền bằng Spring Security và JWT.
+- Làm việc thành thạo với cơ sở dữ liệu quan hệ MySQL hoặc PostgreSQL thông qua Spring Data JPA / Hibernate.
+- Sử dụng thành thạo Git/GitHub trong quản lý phiên bản mã nguồn.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Có hiểu biết hoặc từng tích hợp hàng đợi thông điệp RabbitMQ hoặc bộ nhớ đệm Redis.
+- Biết đóng gói ứng dụng cơ bản bằng Docker / Docker Compose và viết tài liệu API với Swagger / OpenAPI 3.
+- Tư duy Clean Code, nắm vững nguyên lý SOLID và các Design Patterns thông dụng.

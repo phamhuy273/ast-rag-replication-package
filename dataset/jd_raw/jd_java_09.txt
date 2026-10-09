@@ -1,0 +1,20 @@
+﻿Vị trí: Java Backend Intern (Digital Library & Bookstore API)
+Cấp bậc: Thực tập sinh (Internship)
+Lĩnh vực: Hệ thống Quản lý Thư viện số & Nhà sách trực tuyến
+
+Mô tả công việc:
+- Tham gia đội ngũ phát triển dự án Hệ thống Quản lý Thư viện số và Mượn/Trả sách trực tuyến sử dụng ngôn ngữ Java và Spring Boot.
+- Xây dựng các API quản lý danh mục đầu sách, tác giả, thể loại, phiếu mượn sách, gia hạn và tính phí phạt quá hạn.
+- Áp dụng kỹ thuật phân trang (Pagination), sắp xếp (Sorting) và tìm kiếm từ khóa bằng Spring Data JPA (Pageable, Sort, JpaRepository) nhằm tối ưu tốc độ tải danh sách dữ liệu lớn.
+- Thiết kế các mối quan hệ thực thể chuẩn xác (@OneToMany, @ManyToOne, @ManyToMany) với chiến lược tải dữ liệu hợp lý (FetchType.LAZY) để tránh lỗi lặp vô hạn JSON và truy vấn thừa.
+- Viết tài liệu hướng dẫn cài đặt (README.md) và cấu hình dự án chuẩn mực thông qua Maven (pom.xml).
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Sinh viên năm 3, năm 4 ngành Công nghệ Phần mềm, Khoa học Máy tính hoặc Hệ thống Thông tin.
+- Nắm vững Java Core (OOP, Đa hình, Kế thừa, Interface, Abstract Class, Collections, Exception, Java 8+ Lambdas & Streams).
+- Đã hoàn thành ít nhất 01 dự án cá nhân hoặc đồ án môn học xây dựng REST API bằng Spring Boot và Spring Data JPA.
+- Hiểu cách cấu hình kết nối cơ sở dữ liệu MySQL/PostgreSQL trong application.properties / application.yml và quản lý thư viện bằng Maven.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Biết tích hợp Spring Security + JWT cơ bản để bảo vệ các endpoint quản trị (Admin).
+- Sử dụng thành thạo Lombok, Postman và tích hợp giao diện thử nghiệm API Swagger UI.

@@ -1,0 +1,20 @@
+﻿Vị trí: Java Backend Developer (Social Media & Community Blog API)
+Cấp bậc: Fresher / Junior
+Lĩnh vực: Mạng xã hội chia sẻ tri thức & Nền tảng Blog kỹ thuật
+
+Mô tả công việc:
+- Xây dựng hệ thống RESTful API cho nền tảng mạng xã hội chia sẻ bài viết chuyên môn (tương tự Dev.to / Medium / Reddit) bằng Java 17 và Spring Boot 3.
+- Phát triển các tính năng cốt lõi: đăng bài viết (Markdown), bình luận đa cấp (Nested Comments), thả cảm xúc (Upvote/Like), theo dõi tác giả (Follow) và bảng tin cá nhân hóa (Newsfeed).
+- Thiết kế luồng xác thực bảo mật nâng cao với cặp Access Token và Refresh Token (hỗ trợ thu hồi token / Token Revocation và xoay vòng Refresh Token).
+- Tận dụng cơ chế JPA Auditing (@EnableJpaAuditing, @CreatedBy, @CreatedDate) để tự động ghi nhận thông tin tác giả và dấu thời gian cho mọi thực thể.
+- Tối ưu hóa truy vấn lấy danh sách bài viết kèm số lượng bình luận/lượt thích và phân trang hiệu năng cao trên PostgreSQL.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Thành thạo Java 17, Spring Boot 3, Spring Web và thiết kế chuẩn mực RESTful API.
+- Nắm vững quy trình xác thực bằng Spring Security 6, cài đặt bộ lọc JWT, xử lý Refresh Token và mã hóa mật khẩu bằng BCryptPasswordEncoder.
+- Làm việc sâu với Spring Data JPA / Hibernate (quản lý quan hệ thực thể, JPA Auditing, Pagination, Custom Queries).
+- Thành thạo cơ sở dữ liệu PostgreSQL hoặc MySQL và sử dụng Git theo luồng nhánh (Git Flow).
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Biết sử dụng QueryDSL hoặc JPA Specification để lọc bài viết theo nhiều thẻ (Tags) và từ khóa.
+- Có kinh nghiệm triển khai ứng dụng với Docker Compose và cấu hình CORS cho phép ứng dụng ReactJS kết nối.

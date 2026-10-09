@@ -1,0 +1,19 @@
+﻿Vị trí: Next.js & TypeScript Frontend Developer (SSR & Modern Web)
+Cấp bậc: Fresher / Junior
+Lĩnh vực: Nền tảng Web hiệu năng cao & Thương mại số
+
+Mô tả công việc:
+- Tham gia phát triển các ứng dụng web hiện đại tối ưu hóa công cụ tìm kiếm (SEO) và tốc độ tải trang sử dụng khung chương trình Next.js (React Framework) và TypeScript.
+- Kết hợp linh hoạt giữa Server Components (RSC) và Client Components trong Next.js App Router, triển khai cơ chế Server-Side Rendering (SSR) và Static Site Generation (SSG).
+- Xây dựng các API Routes / Server Actions xử lý nghiệp vụ trung gian và tích hợp xác thực người dùng an toàn qua NextAuth.js (Auth.js) hoặc JWT.
+- Thiết kế giao diện người dùng hiện đại, hỗ trợ Dark Mode và hiệu ứng chuyển trang mượt mà bằng Tailwind CSS và Shadcn UI.
+- Tối ưu hóa các chỉ số Core Web Vitals (LCP, CLS, FID), tối ưu hóa hình ảnh và phông chữ.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Nắm vững nền tảng ReactJS và ngôn ngữ TypeScript nghiêm ngặt (Strict Type Checking).
+- Có dự án thực tế xây dựng bằng Next.js (hiểu rõ cơ chế định tuyến dựa trên thư mục File-based Routing, SSR, SSG và CSR).
+- Thành thạo Tailwind CSS trong việc xây dựng bố cục giao diện phức tạp và chuẩn Responsive.
+- Kinh nghiệm gọi và xử lý dữ liệu từ RESTful API hoặc GraphQL với cơ chế bắt lỗi rõ ràng.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Đã từng tích hợp xác thực với NextAuth / OAuth2, sử dụng Zod để kiểm tra dữ liệu và triển khai ứng dụng trên Vercel hoặc Docker.

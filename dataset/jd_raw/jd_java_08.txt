@@ -1,0 +1,19 @@
+﻿Vị trí: Junior Java Software Engineer (Logistics & Delivery Management)
+Cấp bậc: Fresher / Junior
+Lĩnh vực: Vận tải & Quản lý Giao nhận (Logistics & Fleet Management)
+
+Mô tả công việc:
+- Phát triển các dịch vụ Backend cho hệ thống Quản lý Vận đơn, Điều phối Tài xế và Theo dõi lộ trình giao hàng trên nền tảng Java 17 và Spring Boot 3.
+- Thiết kế các RESTful API tuân thủ chuẩn mực thiết kế hướng tài nguyên, sử dụng DTO Pattern và thư viện MapStruct để tách biệt hoàn toàn tầng biểu diễn và tầng thực thể cơ sở dữ liệu.
+- Xây dựng cơ chế kiểm tra ràng buộc dữ liệu đầu vào toàn diện bằng Jakarta Bean Validation (@Valid, Custom Validator Annotation) và chuẩn hóa cấu trúc phản hồi lỗi qua Global Exception Handling (@RestControllerAdvice).
+- Quản lý tiến trình chuyển đổi trạng thái vận đơn (State Machine / Enum Workflow) và tính toán cước phí vận chuyển tự động.
+- Quản lý kịch bản khởi tạo và nâng cấp cấu trúc bảng cơ sở dữ liệu tự động bằng công cụ Flyway hoặc Liquibase.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Tốt nghiệp chuyên ngành CNTT/KTPM, nắm vững Java 17, OOP, SOLID và Clean Code.
+- Kinh nghiệm thực chiến với Spring Boot, Spring Web, Spring Data JPA và hệ quản trị CSDL MySQL/PostgreSQL.
+- Thành thạo kỹ thuật xử lý ngoại lệ tập trung (@ControllerAdvice / @ExceptionHandler) và xác thực dữ liệu đầu vào (Bean Validation).
+- Biết sử dụng MapStruct hoặc tự xây dựng bộ chuyển đổi DTO – Entity rõ ràng, không trả trực tiếp JPA Entity ra API.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Có kinh nghiệm sử dụng Flyway/Liquibase, viết Unit Test với JUnit 5 và tài liệu hóa API bằng OpenAPI/Swagger.

@@ -1,0 +1,20 @@
+﻿Vị trí: Java Backend Fresher (POS, Inventory & Reporting System)
+Cấp bậc: Fresher
+Lĩnh vực: Hệ thống Bán lẻ & Quản lý Kho hàng (Retail POS & Warehouse Management)
+
+Mô tả công việc:
+- Phát triển hệ thống Backend phục vụ chuỗi cửa hàng bán lẻ (Point of Sale - POS) và quản lý xuất-nhập-tồn kho đa chi nhánh bằng ngôn ngữ Java 17 và Spring Boot.
+- Xây dựng các API tạo hóa đơn bán hàng, quản lý phiếu nhập kho, kiểm kê hàng hóa, cảnh báo sắp hết hàng và quản lý khách hàng thân thiết (Loyalty Points).
+- Đảm bảo tính chính xác tuyệt đối của số lượng tồn kho và công nợ thông qua quản lý giao dịch (@Transactional) và kiểm tra ràng buộc nghiệp vụ chặt chẽ.
+- Phát triển module trích xuất báo cáo doanh thu, báo cáo tồn kho và danh sách hóa đơn ra định dạng tệp Excel (.xlsx), CSV hoặc PDF sử dụng thư viện Apache POI / OpenPDF / JasperReports.
+- Bảo vệ các API quản trị và báo cáo tài chính bằng Spring Security và JWT.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Thành thạo ngôn ngữ lập trình Java 17, tư duy giải thuật và lập trình hướng đối tượng tốt.
+- Kinh nghiệm xây dựng ứng dụng Backend với Spring Boot, Spring Web, Spring Data JPA và MySQL/PostgreSQL.
+- Hiểu rõ cách quản lý Transaction (@Transactional) khi cập nhật đồng thời nhiều bảng (Hóa đơn, Chi tiết hóa đơn, Tồn kho).
+- Có kinh nghiệm xử lý đọc/ghi tệp dữ liệu hoặc xuất báo cáo (CSV/Excel/PDF) và bảo mật API bằng JWT.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Đã từng sử dụng thư viện Apache POI hoặc JasperReports trong dự án Java.
+- Biết viết Unit Test (JUnit 5), sử dụng Maven (pom.xml) và triển khai với Docker.

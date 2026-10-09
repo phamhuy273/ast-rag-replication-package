@@ -1,0 +1,19 @@
+﻿Vị trí: Backend Engineer Intern/Fresher (Recruitment & Job Portal API)
+Cấp bậc: Intern / Fresher
+Lĩnh vực: Nền tảng Tuyển dụng & Kết nối Việc làm (HRTech / Job Portal)
+
+Mô tả công việc:
+- Tham gia phát triển hệ thống Backend cho cổng thông tin tuyển dụng trực tuyến kết nối Nhà tuyển dụng (Recruiter) và Ứng viên (Candidate) trên nền tảng Java 17 và Spring Boot.
+- Xây dựng các API đăng tin tuyển dụng (Job Description), quản lý danh mục kỹ năng (Skill Tags), nộp hồ sơ ứng tuyển (Resume/CV Upload) và theo dõi trạng thái tuyển dụng.
+- Cài đặt bộ máy tìm kiếm việc làm nâng cao hỗ trợ lọc kết hợp theo kỹ năng, mức lương, địa điểm, cấp bậc và hình thức làm việc sử dụng Spring Data JPA Specification.
+- Triển khai phân quyền bảo mật bằng Spring Security và JWT đảm bảo mỗi doanh nghiệp chỉ được phép truy cập và quản lý danh sách ứng viên thuộc tin tuyển dụng của mình.
+- Xây dựng tính năng gửi email thông báo kết quả ứng tuyển và lịch phỏng vấn tự động.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Nắm vững Java Core (Java 11/17), OOP, Collections, Stream API và khung chương trình Spring Boot.
+- Có kinh nghiệm thực hành với Spring Data JPA, đặc biệt là truy vấn tìm kiếm động (Specification / Criteria / Custom JPQL) và phân trang.
+- Đã từng triển khai xác thực và phân quyền người dùng với Spring Security + JWT.
+- Làm việc tốt với hệ quản trị cơ sở dữ liệu PostgreSQL hoặc MySQL.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Có kinh nghiệm xử lý tệp tin đính kèm (PDF/Docx/Image), gửi email với Spring Mail và lưu đệm Redis.

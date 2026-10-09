@@ -1,0 +1,20 @@
+﻿Vị trí: Backend Developer Intern/Fresher (EdTech & LMS Platform)
+Cấp bậc: Thực tập sinh / Fresher
+Lĩnh vực: Công nghệ Giáo dục (Learning Management System - LMS)
+
+Mô tả công việc:
+- Phát triển hệ thống Backend cho nền tảng học trực tuyến (LMS) phục vụ học viên và giảng viên trên nền tảng Java và Spring Boot.
+- Xây dựng các phân hệ quản lý khóa học, bài giảng video, ngân hàng câu hỏi trắc nghiệm (Quiz), chấm điểm tự động và cấp chứng chỉ.
+- Triển khai hệ thống đăng nhập đa phương thức: xác thực truyền thống bằng JWT kết hợp đăng nhập mạng xã hội qua Google/GitHub sử dụng Spring Security OAuth2 Client.
+- Xây dựng module tải lên và lưu trữ tệp đa phương tiện (ảnh đại diện, tài liệu PDF, video bài giảng) sử dụng MultipartFile tích hợp dịch vụ đám mây AWS S3 hoặc Cloudinary.
+- Cài đặt tính năng gửi email tự động (kích hoạt tài khoản, khôi phục mật khẩu, thông báo khóa học) bằng Spring Boot Starter Mail (JavaMailSender).
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Nắm vững Java Core, OOP, Collections và quy trình xây dựng ứng dụng web với Spring Boot.
+- Có kinh nghiệm cài đặt Spring Security, phân quyền theo vai trò (Role-Based Access Control: ADMIN, INSTRUCTOR, STUDENT) với JWT hoặc OAuth2.
+- Thành thạo thao tác CRUD, phân trang (Pageable) và liên kết bảng (@OneToMany, @ManyToMany) bằng Spring Data JPA trên MySQL.
+- Đã từng xử lý upload/download file (MultipartFile) trong các dự án Spring Boot.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Từng tích hợp SDK lưu trữ đám mây (Cloudinary, AWS S3, MinIO) và gửi mail bất đồng bộ (@Async + JavaMailSender).
+- Viết tài liệu API rõ ràng bằng Swagger UI / Springdoc OpenAPI.

@@ -1,0 +1,26 @@
+﻿jd_id,title,ast_faithfulness,line_faithfulness,ast_citation_coverage,line_citation_coverage,ast_answer_relevance,line_answer_relevance
+JD_JAVA_01,Backend Developer (Java / Spring Boot),1.0,1.0,0.6,1.0,1.0,1.0
+JD_JAVA_02,Junior Java Developer,1.0,1.0,0.6667,0.2857,1.0,1.0
+JD_JAVA_03,Java Backend Fresher,1.0,1.0,0.8,0.8,1.0,1.0
+JD_JAVA_04,Java Microservices Fresher,1.0,1.0,0.5,0.6,1.0,1.0
+JD_JAVA_05,Backend Developer (Java/Spring Boot),1.0,1.0,0.8,0.6667,1.0,1.0
+JD_JAVA_06,Fresher Java Backend Engineer,1.0,1.0,0.6667,0.5,1.0,1.0
+JD_JAVA_07,Java API Developer,1.0,1.0,0.75,0.8333,1.0,1.0
+JD_JAVA_08,Junior Java Software Engineer,1.0,1.0,0.75,0.8,1.0,1.0
+JD_JAVA_09,Java Backend Intern,1.0,1.0,0.6,0.4,1.0,1.0
+JD_JAVA_10,Fresher Backend Developer,1.0,1.0,0.75,0.6,1.0,1.0
+JD_JAVA_11,Java Backend Developer,1.0,1.0,0.6,0.75,1.0,1.0
+JD_JAVA_12,Junior Java Developer,1.0,1.0,0.625,0.4,1.0,1.0
+JD_JAVA_13,Java Backend Fresher,1.0,1.0,0.6,0.71,1.0,1.0
+JD_JAVA_14,Backend Engineer (Java / Spring Boot),1.0,1.0,0.67,0.75,1.0,1.0
+JD_JAVA_15,Java Backend Fresher,1.0,1.0,0.8,0.67,1.0,1.0
+JD_REACT_01,Frontend Developer Fresher (ReactJS / TypeScript),1.0,1.0,0.75,0.8333,1.0,1.0
+JD_REACT_02,ReactJS / TypeScript Intern,1.0,1.0,0.8333,0.8333,1.0,1.0
+JD_REACT_03,Fullstack TypeScript Fresher,1.0,1.0,0.8,0.8333,1.0,1.0
+JD_REACT_04,Frontend Engineer,1.0,1.0,0.8333,1.0,1.0,1.0
+JD_REACT_05,Next.js & TypeScript Frontend Developer,1.0,1.0,1.0,1.0,1.0,1.0
+JD_REACT_06,Junior ReactJS Developer,1.0,1.0,1.0,0.8333,1.0,1.0
+JD_REACT_07,Frontend Developer Intern/Fresher,1.0,1.0,0.8,1.0,1.0,1.0
+JD_REACT_08,React TypeScript Fresher,1.0,1.0,1.0,1.0,1.0,1.0
+JD_REACT_09,Frontend Web Developer,0.83,1.0,1.0,1.0,0.95,1.0
+JD_REACT_10,Fullstack React & TypeScript Developer,1.0,1.0,0.57,0.5,1.0,1.0

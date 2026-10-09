@@ -1,0 +1,19 @@
+﻿Vị trí: Frontend Developer Intern/Fresher (Real-time Chat & Collaboration UI)
+Cấp bậc: Intern / Fresher
+Lĩnh vực: Ứng dụng Nhắn tin & Cộng tác Thời gian thực (Real-time Communication)
+
+Mô tả công việc:
+- Tham gia phát triển giao diện ứng dụng nhắn tin trực tuyến và làm việc nhóm thời gian thực bằng ReactJS và TypeScript.
+- Tích hợp kết nối hai chiều qua WebSocket hoặc Socket.io-client để nhận/gửi tin nhắn tức thời, hiển thị trạng thái đang gõ phím (Typing Indicator) và trạng thái trực tuyến (Online/Offline Presence) của người dùng.
+- Xây dựng giao diện khung trò chuyện hỗ trợ cuộn vô hạn ngược (Reverse Infinite Scroll) để tải lịch sử tin nhắn cũ, xem trước tệp ảnh/tài liệu đính kèm và tìm kiếm tin nhắn.
+- Quản lý vòng đời kết nối Socket (tự động kết nối lại khi mất mạng, hủy đăng ký sự kiện trong hàm cleanup của useEffect để tránh rò rỉ bộ nhớ Memory Leak).
+- Phối hợp với đội ngũ Backend để đồng bộ hóa xác thực JWT cho cả REST API và kết nối WebSocket.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Nắm vững ReactJS (đặc biệt là quản lý hiệu ứng phụ với useEffect, useRef, useCallback) và ngôn ngữ TypeScript.
+- Đã từng xây dựng tính năng thời gian thực ở phía Frontend sử dụng WebSocket API hoặc thư viện Socket.io-client.
+- Quản lý tốt trạng thái danh sách phòng chat, tin nhắn chưa đọc bằng Zustand, Redux Toolkit hoặc React Context API.
+- Thành thạo cắt ghép và xây dựng giao diện chuẩn Responsive với Tailwind CSS hoặc SCSS.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Có kinh nghiệm xử lý tải tệp đa phương tiện (File/Image Preview), thông báo trình duyệt (Web Notification API) và tối ưu render danh sách dài.

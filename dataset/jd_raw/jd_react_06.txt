@@ -1,0 +1,19 @@
+﻿Vị trí: Junior ReactJS Developer (Project & Kanban Task Management)
+Cấp bậc: Fresher / Junior
+Lĩnh vực: Công cụ Quản lý Dự án & Cộng tác Nhóm (Productivity & Kanban Tool)
+
+Mô tả công việc:
+- Phát triển ứng dụng Quản lý Công việc và Dự án theo mô hình bảng Kanban (tương tự Trello / Jira / Notion) sử dụng React 18 và TypeScript.
+- Xây dựng các tính năng tương tác phức tạp: kéo thả thẻ công việc giữa các cột trạng thái (Drag-and-Drop), gán thành viên, đặt hạn chót, bình luận và lọc công việc theo nhãn.
+- Quản lý trạng thái bảng công việc đồng bộ tức thời với máy chủ thông qua Redux Toolkit hoặc Zustand, áp dụng kỹ thuật Optimistic UI Update để mang lại trải nghiệm mượt mà.
+- Xây dựng các biểu mẫu tạo/chỉnh sửa tác vụ phức tạp sử dụng React Hook Form kết hợp bộ kiểm tra lược đồ dữ liệu Zod hoặc Yup.
+- Đảm bảo mã nguồn tuân thủ nguyên tắc tách biệt giữa giao diện hiển thị (Presentational Components) và logic nghiệp vụ (Custom Hooks / Store).
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Thành thạo ReactJS (Hooks, Context, Memoization) và TypeScript (định nghĩa kiểu dữ liệu rõ ràng cho Props, State và API Response).
+- Có kinh nghiệm quản lý trạng thái ứng dụng bằng Redux Toolkit hoặc Zustand.
+- Thành thạo xử lý biểu mẫu và kiểm tra lỗi đầu vào (Form Validation) với React Hook Form và Zod / Yup.
+- Kỹ năng CSS vững chắc (Tailwind CSS hoặc CSS-in-JS) để xây dựng bố cục ứng dụng web phức tạp.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Từng triển khai tính năng kéo thả (Drag-and-Drop với dnd-kit hoặc react-beautiful-dnd) và làm việc với RESTful API / GraphQL.

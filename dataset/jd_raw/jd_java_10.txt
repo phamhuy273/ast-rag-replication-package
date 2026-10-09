@@ -1,0 +1,19 @@
+﻿Vị trí: Fresher Backend Developer (Hotel & Travel Reservation Platform)
+Cấp bậc: Fresher
+Lĩnh vực: Du lịch & Đặt phòng trực tuyến (Hospitality & Online Travel Agency - OTA)
+
+Mô tả công việc:
+- Phát triển hệ thống Backend cho nền tảng Đặt phòng khách sạn và Tour du lịch trực tuyến sử dụng Java 17 và Spring Boot.
+- Xây dựng các chức năng tìm kiếm phòng trống theo ngày nhận/trả phòng (Check-in / Check-out), tính giá linh hoạt theo mùa và áp dụng mã giảm giá (Voucher/Promotion).
+- Xử lý bài toán đặt trùng phòng (Overbooking) khi nhiều người dùng đặt cùng lúc thông qua quản lý Transaction và khóa bản ghi trong Spring Data JPA.
+- Sử dụng bộ nhớ đệm Redis (@Cacheable, @CacheEvict, RedisTemplate) để lưu đệm danh sách khách sạn nổi bật và chi tiết hạng phòng, giúp giảm thời gian phản hồi API.
+- Cài đặt phân quyền truy cập theo phương thức (@PreAuthorize, Role-Based Access Control) cho Khách hàng, Chủ khách sạn (Host) và Quản trị viên (Admin).
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Kiến thức vững chắc về Java 11/17, cấu trúc dữ liệu và lập trình hướng đối tượng.
+- Có kinh nghiệm xây dựng ứng dụng Spring Boot tích hợp Spring Security (JWT + phân quyền @PreAuthorize / hasRole).
+- Thành thạo Spring Data JPA với các câu lệnh truy vấn tùy chỉnh (@Query JPQL/Native SQL) kiểm tra điều kiện khoảng thời gian trên MySQL hoặc PostgreSQL.
+- Hiểu nguyên lý hoạt động của Caching và đã từng áp dụng Spring Cache / Redis trong mã nguồn.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Hiểu biết về xử lý đồng thời (Concurrency/Locking) trong CSDL, biết dùng Docker và viết Unit Test.

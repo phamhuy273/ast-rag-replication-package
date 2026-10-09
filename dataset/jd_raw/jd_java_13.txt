@@ -1,0 +1,19 @@
+﻿Vị trí: Java Backend Fresher (Food Delivery & Restaurant Ordering)
+Cấp bậc: Fresher
+Lĩnh vực: Đặt đồ ăn trực tuyến & Quản lý Chuỗi Nhà hàng (FoodTech)
+
+Mô tả công việc:
+- Phát triển hệ thống Backend cho nền tảng Đặt đồ ăn trực tuyến kết nối Thực khách, Nhà hàng (Merchant) và Tài xế giao hàng (Shipper) bằng Java 17 và Spring Boot.
+- Xây dựng các API quản lý thực đơn (Menu, Topping/Option), giỏ hàng đa nhà hàng, tính phí giao hàng theo khoảng cách và theo dõi vòng đời đơn hàng.
+- Thiết kế cơ chế phân quyền đa vai trò (CUSTOMER, RESTAURANT_OWNER, DRIVER, ADMIN) sử dụng Spring Security và JWT.
+- Xử lý bất đồng bộ luồng thông báo đơn hàng mới từ thực khách đến nhà hàng và tài xế thông qua hàng đợi RabbitMQ hoặc cơ chế sự kiện nội bộ của Spring (ApplicationEventPublisher / @Async).
+- Tối ưu hóa truy vấn thống kê doanh thu theo ngày/tháng cho đối tác nhà hàng bằng Spring Data JPA trên MySQL.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Thành thạo ngôn ngữ lập trình Java, OOP và phát triển ứng dụng với Spring Boot, Maven.
+- Có kinh nghiệm xây dựng RESTful API chuẩn mực, xử lý phân quyền RBAC với Spring Security và JWT.
+- Nắm vững Spring Data JPA / Hibernate, thiết kế bảng quan hệ phức tạp và viết truy vấn tổng hợp (Aggregation / Group By) trên MySQL.
+- Hiểu và áp dụng được cơ chế xử lý bất đồng bộ (@Async hoặc Message Queue như RabbitMQ/Kafka).
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Biết kết hợp WebSocket để cập nhật trạng thái đơn hàng tức thời hoặc dùng Redis lưu vị trí/giỏ hàng tạm.

@@ -1,0 +1,19 @@
+﻿Vị trí: React TypeScript Fresher (Fintech & Personal Finance Portal)
+Cấp bậc: Fresher
+Lĩnh vực: Quản lý Tài chính Cá nhân & Cổng dịch vụ Ngân hàng số
+
+Mô tả công việc:
+- Phát triển ứng dụng web Quản lý Chi tiêu, Lập hóa đơn (Invoicing) và Theo dõi Ngân sách cá nhân sử dụng ReactJS và TypeScript.
+- Xây dựng các biểu mẫu nghiệp vụ tài chính đa bước (tạo giao dịch thu/chi, thiết lập hạn mức ngân sách, xuất hóa đơn PDF) với cơ chế xác thực dữ liệu đầu vào nghiêm ngặt bằng React Hook Form và Zod.
+- Triển khai luồng bảo mật giao diện: quản lý phiên đăng nhập JWT, tự động làm mới token (Refresh Token Interceptor), tự động đăng xuất khi hết hạn phiên và phân quyền truy cập tuyến đường (Protected Routes).
+- Tích hợp thư viện thành phần giao diện chuẩn doanh nghiệp (Material UI - MUI, Ant Design hoặc Shadcn UI) kết hợp biểu đồ phân tích dòng tiền.
+- Đảm bảo độ chính xác trong việc định dạng tiền tệ, ngày tháng đa múi giờ và xuất báo cáo trực tiếp trên trình duyệt.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Kiến thức vững chắc về ReactJS và TypeScript (xử lý kiểu dữ liệu chặt chẽ, tránh lạm dụng kiểu any).
+- Thành thạo xây dựng và kiểm tra hợp lệ biểu mẫu phức tạp với React Hook Form kết hợp Zod hoặc Yup.
+- Có kinh nghiệm cài đặt luồng xác thực người dùng (Authentication Flow), Protected Routes và Axios Interceptors.
+- Sử dụng thành thạo ít nhất một bộ thư viện UI (Material UI, Ant Design, Shadcn UI) hoặc Tailwind CSS.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Biết viết kiểm thử đơn vị cho các hàm tính toán và component bằng Vitest / Jest và React Testing Library.

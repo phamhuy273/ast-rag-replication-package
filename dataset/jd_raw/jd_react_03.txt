@@ -1,0 +1,19 @@
+﻿Vị trí: Fullstack TypeScript Fresher (ReactJS + Node.js/Express + JWT)
+Cấp bậc: Fresher (0 - 1 năm kinh nghiệm)
+Lĩnh vực: Phát triển Ứng dụng Web Toàn diện (Fullstack JavaScript/TypeScript)
+
+Mô tả công việc:
+- Tham gia phát triển toàn diện ứng dụng web từ phía giao diện người dùng (Frontend với ReactJS, TypeScript) đến phía máy chủ dịch vụ (Backend với Node.js, Express.js và TypeScript).
+- Thiết kế và hiện thực hóa hệ thống xác thực và phân quyền người dùng đầu cuối sử dụng JSON Web Token (JWT), mật khẩu băm (bcrypt) và bảo vệ các tuyến đường ở cả Frontend lẫn Backend Middleware.
+- Xây dựng các RESTful API xử lý nghiệp vụ và thao tác dữ liệu với cơ sở dữ liệu MongoDB (qua Mongoose) hoặc PostgreSQL (qua Prisma / TypeORM).
+- Phát triển giao diện người dùng tương tác cao trên ReactJS, quản lý trạng thái dữ liệu đồng bộ với máy chủ và xử lý biểu mẫu nhập liệu.
+- Đóng gói môi trường chạy ứng dụng bằng Docker / Docker Compose để đảm bảo tính nhất quán khi triển khai.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Nắm vững ngôn ngữ JavaScript (ES6+) và TypeScript trên cả hai môi trường trình duyệt (Browser) và máy chủ (Node.js).
+- Có kinh nghiệm thực chiến xây dựng giao diện với ReactJS và phát triển REST API với Node.js / Express.js.
+- Hiểu rõ cơ chế hoạt động của JWT Authentication, HTTP Cookies / LocalStorage và CORS.
+- Làm việc thành thạo với ít nhất một hệ quản trị cơ sở dữ liệu (MongoDB hoặc PostgreSQL/MySQL).
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Biết sử dụng ORM hiện đại như Prisma hoặc TypeORM, quản lý state với Redux Toolkit / Zustand và đóng gói ứng dụng bằng Docker.

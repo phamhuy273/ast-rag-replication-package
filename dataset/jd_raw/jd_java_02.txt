@@ -1,0 +1,21 @@
+﻿Vị trí: Junior Java Developer (Enterprise Web / HRM System)
+Cấp bậc: Thực tập sinh / Mới tốt nghiệp (Intern / Fresher)
+Lĩnh vực: Hệ thống Quản trị Doanh nghiệp (ERP / HRM)
+
+Mô tả công việc:
+- Tham gia xây dựng, phát triển mới và bảo trì các phân hệ nghiệp vụ trong hệ thống Quản trị Nhân sự và Chấm công doanh nghiệp sử dụng Java Core và Spring Boot / Spring MVC.
+- Phát triển tầng xử lý dữ liệu (Data Access Layer) thao tác với cơ sở dữ liệu PostgreSQL thông qua Spring Data JPA và Hibernate ORM (quản lý hồ sơ nhân viên, phòng ban, bảng lương, hợp đồng).
+- Áp dụng mẫu thiết kế DTO (Data Transfer Object), Mapper và kiểm tra tính hợp lệ dữ liệu đầu vào bằng Jakarta Bean Validation (@Valid, @NotNull, @Size).
+- Viết kịch bản kiểm thử đơn vị (Unit Test) cho các lớp nghiệp vụ Service và Controller bằng JUnit 5 và Mockito nhằm đảm bảo độ bao phủ mã nguồn.
+- Tham gia rà soát mã nguồn (Code Review) và tối ưu hóa các truy vấn SQL/JPQL bị nghẽn cổ chai (N+1 query problem).
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Sinh viên năm cuối hoặc mới tốt nghiệp chuyên ngành Kỹ thuật Phần mềm, Khoa học Máy tính, Công nghệ Thông tin.
+- Nắm vững kiến thức Lập trình hướng đối tượng (OOP), Java Collections Framework, Java Stream API và xử lý ngoại lệ (Exception Handling).
+- Có dự án thực tế hoặc đồ án môn học sử dụng Spring Boot, Spring MVC và Spring Data JPA / Hibernate.
+- Hiểu biết vững về thiết kế cơ sở dữ liệu quan hệ (PostgreSQL hoặc MySQL), chuẩn hóa dữ liệu và truy vấn JOIN/Transaction.
+- Có kỹ năng viết Unit Test cơ bản với JUnit.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Biết sử dụng Mockito để giả lập phụ thuộc (Mocking) khi kiểm thử tầng Service.
+- Quen thuộc với công cụ quản lý phụ thuộc Maven (pom.xml) và quản lý phiên bản DB bằng Flyway hoặc Liquibase.

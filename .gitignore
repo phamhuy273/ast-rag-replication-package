@@ -1,0 +1,14 @@
+# Python byte-compiled
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Environment and sensitive tokens
+.env
+*.local
+
+# OS files
+.DS_Store
+Thumbs.db

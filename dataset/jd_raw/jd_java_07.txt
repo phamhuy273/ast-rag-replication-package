@@ -1,0 +1,20 @@
+﻿Vị trí: Java API Developer Fresher (Real-time Chat & Notification Backend)
+Cấp bậc: Intern / Fresher
+Lĩnh vực: Truyền thông thời gian thực & Mạng xã hội (Real-time Messaging & Notification)
+
+Mô tả công việc:
+- Xây dựng hệ thống Backend cung cấp dịch vụ nhắn tin trực tuyến (1-1 và Group Chat) cùng hệ thống thông báo đẩy thời gian thực (Real-time Push Notification) bằng Java và Spring Boot.
+- Cấu hình và triển khai giao thức giao tiếp hai chiều sử dụng Spring WebSocket kết hợp giao thức STOMP (@MessageMapping, @SendTo, SimpMessagingTemplate).
+- Xác thực kết nối WebSocket an toàn thông qua JWT Handshake Interceptor và Spring Security.
+- Lưu trữ lịch sử tin nhắn, trạng thái đã xem (Read Receipts) và danh sách phòng chat với hiệu năng truy xuất cao.
+- Xây dựng các RESTful API bổ trợ cho việc quản lý danh bạ bạn bè, tìm kiếm tin nhắn cũ và tải tệp đính kèm trong cuộc trò chuyện.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Thành thạo ngôn ngữ Java và khung chương trình Spring Boot.
+- Đã từng triển khai tính năng thời gian thực sử dụng Spring WebSocket / STOMP hoặc Server-Sent Events (SSE).
+- Nắm vững cơ chế xác thực người dùng bằng JWT và tích hợp với Spring Security.
+- Sử dụng thành thạo Spring Data (JPA với PostgreSQL/MySQL hoặc Spring Data MongoDB) để lưu trữ và phân trang dữ liệu tin nhắn.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Có hiểu biết về Redis Pub/Sub hoặc Message Broker để mở rộng quy mô kết nối WebSocket.
+- Biết kiểm thử API và WebSocket bằng Postman, kèm đóng gói ứng dụng với Docker.

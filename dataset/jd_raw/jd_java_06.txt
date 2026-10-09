@@ -1,0 +1,20 @@
+﻿Vị trí: Fresher Java Backend Engineer (Healthcare & Clinic Booking)
+Cấp bậc: Fresher
+Lĩnh vực: Y tế số & Đặt lịch khám bệnh (Healthcare Booking System)
+
+Mô tả công việc:
+- Tham gia phát triển hệ thống đặt lịch khám bệnh trực tuyến và quản lý hồ sơ bệnh án điện tử bằng ngôn ngữ Java 17 và Spring Boot.
+- Xây dựng bộ máy tìm kiếm và lọc đa tiêu chí (lọc bác sĩ theo chuyên khoa, bệnh viện, khung giờ trống, mức phí) sử dụng Spring Data JPA Specification hoặc Criteria API.
+- Thiết kế thuật toán kiểm tra trùng lặp khung giờ đặt lịch (Time-slot conflict detection) và quản lý trạng thái lịch hẹn (PENDING, CONFIRMED, COMPLETED, CANCELLED).
+- Triển khai các tác vụ lập lịch tự động (Background Cron Jobs) bằng @Scheduled / Spring Scheduler để tự động hủy lịch hẹn quá hạn thanh toán và gửi thông báo nhắc lịch khám trước 24 giờ.
+- Đảm bảo an toàn dữ liệu hồ sơ y tế thông qua phân quyền chặt chẽ và ghi nhận lịch sử thay đổi (JPA Auditing: @CreatedDate, @LastModifiedDate).
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Có nền tảng tốt về Java 11/17, OOP và kiến trúc phân tầng (Controller - Service - Repository).
+- Kinh nghiệm làm việc sâu với Spring Data JPA, đặc biệt là viết truy vấn động (JPA Specification, JPQL hoặc Native Query) kèm phân trang và sắp xếp (Pagination & Sorting).
+- Biết sử dụng cơ chế lập lịch tự động (@Scheduled / Cron Expression) trong Spring Boot.
+- Làm việc tốt với hệ quản trị cơ sở dữ liệu PostgreSQL hoặc MySQL.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Biết sử dụng MapStruct hoặc ModelMapper để chuyển đổi dữ liệu giữa Entity và DTO sạch sẽ.
+- Có kinh nghiệm tích hợp dịch vụ gửi email (SMTP/JavaMailSender) và lưu đệm Redis.

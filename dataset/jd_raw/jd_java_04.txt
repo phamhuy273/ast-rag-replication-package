@@ -1,0 +1,20 @@
+﻿Vị trí: Java Microservices Fresher (Order & Inventory System)
+Cấp bậc: Fresher / Junior Backend Engineer
+Lĩnh vực: Hệ thống Phân tán & Chuỗi cung ứng (Distributed Order & Inventory)
+
+Mô tả công việc:
+- Tham gia phát triển hệ thống quản lý Đơn hàng (Order Service), Kho vận (Inventory Service) và Danh mục (Catalog Service) theo kiến trúc Microservices với Java 17 và Spring Boot 3.
+- Thiết kế giao tiếp đồng bộ giữa các dịch vụ thông qua RESTful API / Spring Cloud OpenFeign và giao tiếp bất đồng bộ hướng sự kiện (Event-driven Architecture) bằng Apache Kafka.
+- Xây dựng các Kafka Producer / Consumer xử lý sự kiện đặt hàng, trừ tồn kho và phát thông báo trạng thái đơn hàng theo thời gian thực.
+- Triển khai cơ chế định tuyến qua API Gateway (Spring Cloud Gateway) và khám phá dịch vụ (Service Discovery với Netflix Eureka).
+- Phối hợp đóng gói từng microservice thành container độc lập thông qua Dockerfile và cấu hình môi trường tích hợp bằng Docker Compose.
+
+Yêu cầu bắt buộc (Mandatory Skills):
+- Nắm vững ngôn ngữ Java 17+, lập trình hướng đối tượng và kiến trúc phân tầng trong Spring Boot.
+- Hiểu rõ nguyên lý thiết kế hệ thống Microservices và đã từng thực hiện dự án phân tách nhiều dịch vụ giao tiếp với nhau.
+- Có kinh nghiệm làm việc với hệ thống truyền thông điệp Apache Kafka (hoặc RabbitMQ) sử dụng Spring Kafka.
+- Thành thạo Spring Data JPA làm việc với MySQL/PostgreSQL và biết sử dụng Docker / Docker Compose.
+
+Yêu cầu ưu tiên / Điểm cộng (Preferred Skills):
+- Có kinh nghiệm sử dụng hệ sinh thái Spring Cloud (Spring Cloud Gateway, Eureka Server, OpenFeign, Config Server).
+- Biết áp dụng mẫu thiết kế chịu lỗi Circuit Breaker (Resilience4j) và theo dõi truy vết phân tán (Distributed Tracing).
