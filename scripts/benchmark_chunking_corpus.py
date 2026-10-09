@@ -59,8 +59,7 @@ def measure_line_based_syntax_fragmentation(source_dir: Path, window_size: int =
         tsx_lang = Language(tree_sitter_typescript.language_tsx())
         parser_tsx = Parser(tsx_lang)
     except Exception as e:
-        # Fallback if tree-sitter bindings are not loaded in the runtime
-        return 68.4, 255.0, 38, 26
+        raise RuntimeError(f"Tree-sitter parser dependencies missing: {e}. Ensure tree-sitter packages are installed.")
 
     files = []
     if source_dir.exists():
@@ -73,7 +72,7 @@ def measure_line_based_syntax_fragmentation(source_dir: Path, window_size: int =
             files = list(src_backup.rglob("*.java"))
 
     if not files:
-        return 68.4, 255.0, 38, 26
+        raise FileNotFoundError(f"No source code files found in {source_dir} to evaluate syntax fragmentation.")
 
     total_slices = 0
     broken_slices = 0
@@ -101,8 +100,11 @@ def measure_line_based_syntax_fragmentation(source_dir: Path, window_size: int =
 
             token_counts.append(count_tokens_approx(slice_text))
 
-    broken_rate = (broken_slices / total_slices) * 100.0 if total_slices > 0 else 68.4
-    mean_tokens = float(np.mean(token_counts)) if token_counts else 255.0
+    if total_slices == 0:
+        raise RuntimeError("No code windows could be sliced from the benchmark source files.")
+
+    broken_rate = (broken_slices / total_slices) * 100.0
+    mean_tokens = float(np.mean(token_counts))
 
     return broken_rate, mean_tokens, total_slices, broken_slices
 
