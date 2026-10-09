@@ -129,7 +129,7 @@ Cả 3 container `jd_matching_postgres`, `jd_matching_fastapi`, `jd_matching_spr
 | **Backend Health Check** | [http://localhost:8080/actuator/health](http://localhost:8080/actuator/health) | Giám sát trạng thái hoạt động của Spring Boot & DB |
 | **AI Engine API Docs** | [http://localhost:8001/docs](http://localhost:8001/docs) | Swagger tài liệu API phân tích AI & AST |
 | **AI Engine Health Check**| [http://localhost:8001/health](http://localhost:8001/health) | Giám sát trạng thái hoạt động của AI Engine |
-| **PostgreSQL (pgvector)** | `localhost:5433` | CSDL pgvector (User: `postgres`, Pass: `password_uit_secret`, DB: `jd_matching_db`) |
+| **PostgreSQL (pgvector)** | `localhost:5433` | CSDL pgvector (User: `postgres`, Pass: `password_db_secret`, DB: `jd_matching_db`) |
 
 > **Lưu ý về cổng Database**: Để tránh xung đột với các phiên bản PostgreSQL có sẵn trên máy (cổng mặc định `5432`), cổng ngoài máy Host được ánh xạ là **`5433`**. Các dịch vụ nội bộ Docker giao tiếp với nhau qua cổng mặc định `5432`.
 
@@ -200,3 +200,14 @@ Nếu muốn xóa sạch cả dữ liệu database trong volume để làm mới
 ```bash
 docker compose down -v
 ```
+
+---
+
+## 📊 9. Thực nghiệm & Replication Package (SANER 2027 ERA)
+
+Dự án cung cấp gói dữ liệu và kịch bản thực nghiệm tái lập độc lập phục vụ bài báo khoa học tại IEEE SANER 2027 ERA:
+- **Tập truy vấn**: 25 Job Descriptions công nghệ thực tế (15 Java, 10 React/TypeScript) đóng băng tại `dataset/queries_frozen.json`.
+- **Tập minh chứng mã nguồn**: 40 GitHub repositories với 189 source files định danh tại `dataset/ground_truth_500_master.csv`.
+- **Bộ nhãn chuyên gia (Gold Ground Truth)**: 250 cặp (JD, code chunk) gán nhãn 3 mức (0, 1, 2) bởi 2 annotator độc lập với độ đồng thuận Quadratic Weighted Cohen's Kappa = 0.88 tại `dataset/ground_truth_final.csv` (SHA-256 locked).
+- **Thiết kế thực nghiệm 2×2**: So sánh chiến lược phân đoạn {AST Method-level, Line-based 50 LOC} × Ngữ cảnh {Không Header, Có Header} trên 3 tầng truy xuất (BM25, BGE-M3 Dense, BGE-Reranker-Base) tuân thủ bộ quy tắc R1–R46 và `analysis_plan.md`.
+
