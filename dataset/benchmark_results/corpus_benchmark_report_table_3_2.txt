@@ -22,11 +22,11 @@ Technical Characteristic                      | Line-based (Baseline)        | A
 -------------------------------------------------------------------------------------------------------------------
 Segmentation Granularity                      | Fixed Window (50 LOC)        | Method-level AST Node
 Mean Chunk Size (LOC)                         | 50.0 LOC                    | 28.6 LOC (Median: 24, Std: 20.9)
-Mean Chunk Length (Tokens)                    | ~260.0 tokens               | 209.2 tokens (Median: 154)
+Mean Chunk Length (Tokens)                    | ~243.8 tokens               | 209.2 tokens (Median: 154)
 Context Header Retention                      | 0.0% (Missing headers)      | 100.0% (Hierarchical Context Headers)
-Syntax Boundary Preservation                  | 31.6% (68.4% broken)        | 100.0% (100% boundary intact)
+Syntax Boundary Preservation                  | 34.9% (65.1% broken)        | 100.0% (100% boundary intact)
 Domain Bias Mitigation                        | None (File clustering)       | 1 chunk/file capped
-Token Bloat Reduction                         | Baseline Reference           | -19.6% Token Reduction
+Token Bloat Reduction                         | Baseline Reference           | -14.2% Token Reduction
 -------------------------------------------------------------------------------------------------------------------
 
 3. LATEX FORMATTING FOR IEEE SANER 2027:
@@ -44,8 +44,8 @@ Target Repositories & 50 (25 Java / 25 TS) & 50 (25 Java / 25 TS) \\
 Candidate Evidence Pairs & 500 & 500 \\
 Segmentation Granularity & Fixed Window (50 LOC) & Method-level AST Node \\
 Mean Chunk Size (LOC) & 50.0 & 28.6 ($\pm$20.9) \\
-Mean Chunk Length (Tokens) & $\sim$260 & 209 \\
-Syntax Boundary Preservation & 31.6\% & \textbf{100.0\%} \\
+Mean Chunk Length (Tokens) & $\sim$244 & 209 \\
+Syntax Boundary Preservation & 34.9\% & \textbf{100.0\%} \\
 Context Header Retention & 0.0\% & \textbf{100.0\%} \\
 Domain Bias Mitigation & None (File clustering) & 1 chunk/file capped \\
 \hline
