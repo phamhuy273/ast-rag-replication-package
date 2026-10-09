@@ -1,0 +1,34 @@
+{
+  "universe": {
+    "total_repos": 40,
+    "total_files": 189,
+    "manifest_file": "manifest_repos.csv"
+  },
+  "filters": {
+    "ast_filter": "6 <= LOC <= 85 (No 1-chunk/file cap)",
+    "line_filter": "Window 50 LOC, Overlap 10 LOC (Step 40), Min 6 LOC"
+  },
+  "ast_sampling": {
+    "generated": 468,
+    "retained": 364,
+    "rejected_short": 90,
+    "rejected_long": 14
+  },
+  "line_sampling": {
+    "generated": 434,
+    "retained": 434,
+    "rejected_short": 0
+  },
+  "corpus_totals": {
+    "ast_chunks_count": 364,
+    "line_chunks_count": 434,
+    "total_corpus_chunks": 798
+  },
+  "ast_chunk_types_breakdown": {
+    "LINE_FALLBACK": 130,
+    "AST_METHOD": 136,
+    "AST_FUNCTION": 51,
+    "AST_ARROW_FUNCTION": 46,
+    "AST_CONSTRUCTOR": 1
+  }
+}
