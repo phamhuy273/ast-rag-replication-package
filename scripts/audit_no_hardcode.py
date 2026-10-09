@@ -51,7 +51,7 @@ class HardcodeASTVisitor(ast.NodeVisitor):
             elif isinstance(stmt, ast.Assign):
                 for target in stmt.targets:
                     if isinstance(target, ast.Name) and isinstance(stmt.value, ast.Constant):
-                        if isinstance(stmt.value.value, (int, float)):
+                        if isinstance(stmt.value.value, (int, float)) and not isinstance(stmt.value.value, bool):
                             self.findings.append({
                                 "file": self.filename,
                                 "line": stmt.lineno,

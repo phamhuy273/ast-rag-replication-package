@@ -1,0 +1,96 @@
+{
+  "metadata": {
+    "total_repos": 40,
+    "total_files": 189,
+    "tokenizer_model": "BAAI/bge-m3",
+    "max_seq_length": 512,
+    "ast_filter": "6 <= LOC <= 85 (no 1-chunk/file cap)",
+    "line_filter": "Window 50 LOC, Overlap 10 LOC (Step 40)"
+  },
+  "ast_progressive": {
+    "chunk_count": 364,
+    "loc_dist": {
+      "mean": 28.052197802197803,
+      "std": 19.02745328955373,
+      "median": 24.0,
+      "min": 6.0,
+      "max": 83.0,
+      "p25": 9.0,
+      "p75": 50.0,
+      "p90": 50.0
+    },
+    "tokens_content_dist": {
+      "mean": 266.9203296703297,
+      "std": 167.77865692206692,
+      "median": 222.0,
+      "min": 44.0,
+      "max": 954.0,
+      "p25": 124.0,
+      "p75": 377.75,
+      "p90": 498.09999999999997
+    },
+    "tokens_with_header_dist": {
+      "mean": 304.5164835164835,
+      "std": 160.72547495565925,
+      "median": 260.5,
+      "min": 82.0,
+      "max": 972.0,
+      "p25": 172.0,
+      "p75": 406.25,
+      "p90": 524.5
+    },
+    "syntax_error_count": 109,
+    "syntax_error_rate_pct": 29.945054945054945,
+    "syntax_intact_rate_pct": 70.05494505494505,
+    "boundary_cut_count": 33,
+    "boundary_cut_rate_pct": 9.065934065934066,
+    "boundary_intact_rate_pct": 90.93406593406593,
+    "header_retention_count": 234,
+    "header_retention_rate_pct": 64.28571428571429,
+    "truncated_512_count": 40,
+    "truncated_512_rate_pct": 10.989010989010989
+  },
+  "line_based": {
+    "chunk_count": 434,
+    "loc_dist": {
+      "mean": 40.97235023041475,
+      "std": 13.097443044048147,
+      "median": 50.0,
+      "min": 6.0,
+      "max": 50.0,
+      "p25": 32.25,
+      "p75": 50.0,
+      "p90": 50.0
+    },
+    "tokens_content_dist": {
+      "mean": 390.81797235023043,
+      "std": 174.60196088852797,
+      "median": 388.0,
+      "min": 40.0,
+      "max": 1097.0,
+      "p25": 271.0,
+      "p75": 498.25,
+      "p90": 617.0
+    },
+    "tokens_with_header_dist": {
+      "mean": 419.48387096774195,
+      "std": 175.88908048501344,
+      "median": 420.5,
+      "min": 70.0,
+      "max": 1137.0,
+      "p25": 300.0,
+      "p75": 525.0,
+      "p90": 653.0999999999999
+    },
+    "syntax_error_count": 337,
+    "syntax_error_rate_pct": 77.64976958525345,
+    "syntax_intact_rate_pct": 22.350230414746544,
+    "boundary_cut_count": 243,
+    "boundary_cut_rate_pct": 55.99078341013824,
+    "boundary_intact_rate_pct": 44.00921658986175,
+    "header_retention_count": 0,
+    "header_retention_rate_pct": 0.0,
+    "truncated_512_count": 124,
+    "truncated_512_rate_pct": 28.57142857142857
+  }
+}
