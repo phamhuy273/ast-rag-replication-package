@@ -75,6 +75,12 @@
     "w_l_t": "6/18/1"
   },
   "annotator_robustness": {
+    "consensus_only_scores": {
+      "rerank_line_with_header": 0.4261936264079819,
+      "rerank_line_no_header": 0.41282703896392353,
+      "rerank_ast_with_header": 0.3686740594058606,
+      "rerank_ast_no_header": 0.29380035671519755
+    },
     "consensus_only_no_disagreements": {
       "ast_header_mean": 0.3686740594058606,
       "ast_no_header_mean": 0.29380035671519755,
@@ -104,6 +110,24 @@
         0.1414974383145632
       ],
       "p_value": 0.0011548399925231934
+    }
+  },
+  "judged_only_evaluation": {
+    "rerank_line_with_header": 0.6148414880134944,
+    "rerank_line_no_header": 0.589600230699189,
+    "rerank_ast_with_header": 0.5463032011123152,
+    "rerank_ast_no_header": 0.45373686839539834,
+    "ast_header_gain": {
+      "delta": 0.09256633271691689,
+      "p_value": 0.003419220447540283
+    },
+    "comp_1_ast_vs_line_no_header": {
+      "delta": -0.04329702958687376,
+      "p_value": 0.3665854334831238
+    },
+    "comp_5_ast_vs_line_with_header": {
+      "delta": -0.06853828690117914,
+      "p_value": 0.03180783987045288
     }
   }
 }

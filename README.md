@@ -31,9 +31,9 @@ Our chunking strategy is **AST-first with line fallback**: it extracts method-le
 
 * **RQ2: 2×2 Factorial Retrieval Quality & Re-ranking (Table 3.3):** Across a $2 \times 2$ Factorial Design ($\{\text{AST-first Method}, \text{Line-based}\} \times \{\text{Without Header}, \text{With Header}\}$) evaluated over 3 retrieval tiers (BM25, BGE-M3 Dense, BGE-Reranker-Base):
   * *Top Performer:* **Line+Header** is the empirical top performer on aggregate reranking metrics ($\text{NDCG@10} = \mathbf{0.4994}$, $\text{NDCG@1} = \mathbf{0.800}$, $\text{MRR@10} = \mathbf{0.980}$, $\text{CP@5} = \mathbf{0.935}$).
-  * *AST Performance:* Isolated AST method chunks without headers suffer severe context deprivation ($\text{NDCG@10} = 0.3445$, $\text{NDCG@1} = 0.460$). Adding progressive context headers significantly boosts AST re-ranking performance to $\mathbf{0.4566}$ (**Comp 3:** $\Delta = \mathbf{+0.1120}$, paired Wilcoxon $W = 46.0$, $p_{\text{raw}} = 0.0010$, $p_{\text{Holm}} = \mathbf{0.0031} < 0.05$, 95% Bootstrap CI $[+0.0559, +0.1664]$), matching the full line baseline without headers ($0.4703$, $p_{\text{Holm}} = 0.8532$) while achieving higher Context Precision than Line No-Header ($\text{CP@5} = \mathbf{0.913}$ vs. $0.888$) and higher MRR ($\text{MRR@10} = \mathbf{0.940}$ vs. $0.933$).
+  * *AST Performance:* Isolated AST method chunks without headers suffer severe context deprivation ($\text{NDCG@10} = 0.3445$, $\text{NDCG@1} = 0.460$). Adding progressive context headers significantly boosts AST re-ranking performance to $\mathbf{0.4566}$ and Top-1 ranking to $\text{NDCG@1} = \mathbf{0.720}$ (**Comp 3:** $\Delta = \mathbf{+0.1120}$, paired Wilcoxon $W = 46.0$, $p_{\text{raw}} = 0.0010$, $p_{\text{Holm}} = \mathbf{0.0031} < 0.05$, 95% Bootstrap CI $[+0.0559, +0.1664]$), matching the full line baseline without headers ($0.4703$, $p_{\text{Holm}} = 0.8532$) while achieving higher Context Precision than Line No-Header ($\text{CP@5} = \mathbf{0.913}$ vs. $0.888$) and higher MRR ($\text{MRR@10} = \mathbf{0.940}$ vs. $0.933$).
   * *Exploratory Comp 5 (AST+Header vs. Line+Header):* $\Delta = -0.0428$, 95% Bootstrap CI $[-0.1056, +0.0211]$, Wilcoxon $W = 97.0, p = 0.1355 \ge 0.05$ (Line+Header wins 18 queries, AST+Header wins 6 queries, 1 tie; difference not statistically significant).
-  * *Candidate Pool Random Baseline:* $\text{NDCG@10} = \mathbf{0.592} \pm 0.083$ across 1,000 permutations within pooled candidates.
+  * *Candidate Pool Random Baseline:* $\text{NDCG@10} = \mathbf{0.592} \pm 0.083$ across 1,000 permutations within pooled candidates. Note that this baseline operates strictly within pre-screened judged items (0% unjudged rate); in whole-corpus retrieval where ~45% of top-10 retrieved items are unjudged (imputed as 0 under standard Cranfield pooling rules), a corpus-wide random baseline scores $\mathbf{0.0195}$, and when systems are restricted to judged candidates (Shortlist evaluation), Line+Header achieves $\mathbf{0.6148}$, surpassing the pool random baseline.
 
 * **RQ3: Downstream Generation Faithfulness & RAGAs Quality (Table 3.4, Exploratory):** How does retrieved evidence grounding affect LLM skill evaluation reliability?
   * *Empirical Finding:* Across 25 industry Job Descriptions, grounded LLM evaluation achieves perfect Faithfulness ($1.000 \pm 0.000$, zero hallucinations) with high Answer Relevance ($0.996 \pm 0.020$ for AST vs. $1.000$ for Line) and robust citation auditability ($79.3\%$ of AST claims citing explicit code locations). Evaluated via an offline cache of LLM judgments on Top-3 retrieved contexts.
@@ -254,7 +254,7 @@ python scripts/evaluate_retrieval.py
 * **Key Verified Results:**
   * **Comp 3 (Header Effect on AST Chunks):** $\Delta = \mathbf{+0.1120}$, 95% Bootstrap CI $[+0.0559, +0.1664]$, $W = 46.0$, $p_{\text{raw}} = 0.0010$, $p_{\text{Holm}} = \mathbf{0.0031} < 0.05$ (Statistically significant improvement of progressive context headers).
   * **Comp 2 (Pure Chunking Effect without Headers):** $\Delta = \mathbf{-0.1258}$, $p_{\text{Holm}} = \mathbf{0.0001} < 0.05$ (Confirms severe degradation when syntax chunks lack context).
-  * **Comp 1 (Full Proposed AST+Header vs. Baseline Line No-Header):** $\Delta = -0.0138$, 95% Bootstrap CI $[-0.0882, +0.0575]$, $p_{\text{Holm}} = 0.8532$ (Comparable re-ranking performance with superior top-1 ranking: $\text{NDCG@1} = 0.720$ vs. $0.460$, and higher Context Precision: $\text{CP@5} = 0.913$).
+  * **Comp 1 (Full Proposed AST+Header vs. Baseline Line No-Header):** $\Delta = -0.0138$, 95% Bootstrap CI $[-0.0882, +0.0575]$, Wilcoxon $W = 155.0$, $p_{\text{Holm}} = 0.8532$ (Comparable re-ranking performance: $\text{NDCG@10} = 0.4566$ vs. $0.4703$, not statistically significant; Context Precision $\text{CP@5} = 0.913$ vs. $0.888$, $\text{MRR@10} = 0.940$ vs. $0.933$).
   * **Comp 4 (Header Effect on Line Chunks):** $\Delta = +0.0291$, $p_{\text{Holm}} = 0.7332 \ge 0.05$ (Not statistically significant).
 * **Generated Artifacts:**
   * LaTeX Table: `paper/table_3_3_retrieval.tex`
@@ -287,12 +287,16 @@ Executes subgroup analyses evaluating language effects (Java vs. React/TS), fall
 python scripts/evaluate_sensitivity.py
 ```
 * **Key Verified Results:**
-  * **Comp 5 (AST+Header vs Line+Header):** $\Delta = -0.0428$, 95% Bootstrap CI $[-0.1056, +0.0211]$, $W = 100.0, p = 0.1355$.
-  * **Fallback Composition:** Top fallback reason is top-level JSX renders (51/130, 39.2%), followed by styled-components (23/130, 17.7%) and object configurations (13/130, 10.0%).
-  * **Annotator Robustness:** The ranking order remains strictly invariant across consensus pairs ($N=481$), Annotator 1 alone, and Annotator 2 alone.
+  * **Comp 5 (Exploratory AST+Header vs Line+Header):** $\Delta = -0.0428$, 95% Bootstrap CI $[-0.1056, +0.0211]$, Wilcoxon $W = 97.0, p = 0.1355$ (Difference not statistically significant; Line+Header wins 18 queries, AST+Header wins 6 queries, 1 tie).
+  * **Language Stratification (NDCG@10):**
+    * *Java (N=15):* AST+Header = **0.5146**, Line+Header = **0.5358** ($\Delta = -0.0212$).
+    * *React/TS (N=10):* AST+Header = **0.3694**, Line+Header = **0.4448** ($\Delta = -0.0754$).
+  * **Fallback Composition:** 110 of the 130 fallback chunks (84.6%) are from React/TS files (52.1% of React AST chunks, or 68.8% [110/160] in non-declaration UI files). Top fallback trigger is top-level JSX renders (51/130, 39.2%), followed by styled-components (23/130, 17.7%) and object configurations (13/130, 10.0%).
+  * **Annotator Robustness ($N=481$ Consensus Pairs):** Ranking order is invariant: Line+Header (**0.4262**) > Line No-Header (**0.4128**) > AST+Header (**0.3687**) > AST No-Header (**0.2938**). Header effect on AST: $\Delta = +0.0749, p = 0.0851 \ge 0.05$ (Not statistically significant at $\alpha = 0.05$).
+  * **Judged-Only (Shortlist) Evaluation:** When evaluated strictly within pre-screened judged candidates (fair comparison against the 0.592 pool random baseline where unjudged items are excluded): Line+Header (**0.6148**) > Line No-Header (**0.5896**) > AST+Header (**0.5463**) > AST No-Header (**0.4537**). AST header effect remains significant ($\Delta = +0.0926, p = 0.0034$), Comp 1 remains non-significant ($\Delta = -0.0433, p = 0.3666$), and Comp 5 favors Line ($\Delta = -0.0685, p = 0.0318$).
 * **Generated Artifacts:**
   * Report: `dataset/benchmark_results/sensitivity_analysis_report.txt`
-  * JSON: `dataset/benchmark_results/sensitivity_analysis_results.json`
+  * JSON: `dataset/benchmark_results/sensitivity_analysis_report.json`
 
 ---
 

@@ -224,13 +224,67 @@ def main():
             "p_value": float(p)
         }
 
+    # Consensus-only scores across all 4 configurations
+    consensus_scores = {}
+    for cfg in ["rerank_line_with_header", "rerank_line_no_header", "rerank_ast_with_header", "rerank_ast_no_header"]:
+        sc_list = []
+        for jid in query_ids:
+            ideal = sorted([v for k, v in gt_map.items() if k[0] == jid and k not in disagreed_pairs], reverse=True)
+            items = runs_data[cfg].get(jid, [])[:10]
+            sc = [gt_map.get((jid, it["repo_name"], it["file_path"], int(it["start_line"]), int(it["end_line"])), 0.0) if (jid, it["repo_name"], it["file_path"], int(it["start_line"]), int(it["end_line"])) not in disagreed_pairs else 0.0 for it in items]
+            sc_list.append(ndcg_at_k(sc, ideal, k=10))
+        consensus_scores[cfg] = float(np.mean(sc_list))
+
     robustness_results = {
+        "consensus_only_scores": consensus_scores,
         "consensus_only_no_disagreements": eval_subset(gt_map, drop_disagreements=True),
         "annotator_1_only_qrels": eval_subset(a1_map, drop_disagreements=False),
         "annotator_2_only_qrels": eval_subset(a2_map, drop_disagreements=False),
     }
 
+    # 5. Judged-Only (Shortlist) Evaluation (Fair baseline comparison)
+    judged_scores = {}
+    for cfg in ["rerank_line_with_header", "rerank_line_no_header", "rerank_ast_with_header", "rerank_ast_no_header"]:
+        sc_list = []
+        for jid in query_ids:
+            ideal = sorted([v for k, v in gt_map.items() if k[0] == jid], reverse=True)
+            items = runs_data[cfg].get(jid, [])
+            sc = [gt_map[k] for it in items if (k := (jid, it["repo_name"], it["file_path"], int(it["start_line"]), int(it["end_line"]))) in gt_map]
+            sc_list.append(ndcg_at_k(sc, ideal, k=10))
+        judged_scores[cfg] = sc_list
+
+    diff_ast_h = np.array(judged_scores["rerank_ast_with_header"]) - np.array(judged_scores["rerank_ast_no_header"])
+    _, p_j_ast_h = wilcoxon(diff_ast_h[diff_ast_h != 0])
+
+    diff_comp1 = np.array(judged_scores["rerank_ast_with_header"]) - np.array(judged_scores["rerank_line_no_header"])
+    _, p_j_comp1 = wilcoxon(diff_comp1[diff_comp1 != 0])
+
+    diff_comp5 = np.array(judged_scores["rerank_ast_with_header"]) - np.array(judged_scores["rerank_line_with_header"])
+    _, p_j_comp5 = wilcoxon(diff_comp5[diff_comp5 != 0])
+
+    judged_only_results = {
+        "rerank_line_with_header": float(np.mean(judged_scores["rerank_line_with_header"])),
+        "rerank_line_no_header": float(np.mean(judged_scores["rerank_line_no_header"])),
+        "rerank_ast_with_header": float(np.mean(judged_scores["rerank_ast_with_header"])),
+        "rerank_ast_no_header": float(np.mean(judged_scores["rerank_ast_no_header"])),
+        "ast_header_gain": {
+            "delta": float(np.mean(judged_scores["rerank_ast_with_header"]) - np.mean(judged_scores["rerank_ast_no_header"])),
+            "p_value": float(p_j_ast_h)
+        },
+        "comp_1_ast_vs_line_no_header": {
+            "delta": float(np.mean(judged_scores["rerank_ast_with_header"]) - np.mean(judged_scores["rerank_line_no_header"])),
+            "p_value": float(p_j_comp1)
+        },
+        "comp_5_ast_vs_line_with_header": {
+            "delta": float(np.mean(judged_scores["rerank_ast_with_header"]) - np.mean(judged_scores["rerank_line_with_header"])),
+            "p_value": float(p_j_comp5)
+        }
+    }
+
     # Format text report
+    p_cons = robustness_results['consensus_only_no_disagreements']['p_value']
+    cons_sig = "Confirmed Significant" if p_cons < 0.05 else "Not Significant at alpha = 0.05"
+
     report_text = f"""================================================================================
 EXPLORATORY SENSITIVITY & ROBUSTNESS ANALYSES REPORT
 Governed by Analysis Plan Addendum (Exploratory / Post-Hoc Framework)
@@ -258,17 +312,27 @@ rerank_ast_no_header        | {fallback_composition['rerank_ast_no_header']['tot
 rerank_ast_with_header      | {fallback_composition['rerank_ast_with_header']['total_top10']}          | {fallback_composition['rerank_ast_with_header']['ast_method_pct']:.1f}%          | {fallback_composition['rerank_ast_with_header']['fallback_pct']:.1f}% ({fallback_composition['rerank_ast_with_header']['fallback_count']} chunks)
 --------------------------------------------------------------------------------
 
-3. COMPARISON 5: FULL PROPOSED (AST+Header) VS FULL BASELINE (Line+Header):
+3. COMPARISON 5 (EXPLORATORY): FULL PROPOSED (AST+Header) VS FULL BASELINE (Line+Header):
 • System A (rerank_ast_with_header) : {comp_5_results['mean_a']:.4f}
 • System B (rerank_line_with_header): {comp_5_results['mean_b']:.4f}
 • Delta: {comp_5_results['delta']:+.4f} | 95% Bootstrap CI: [{comp_5_results['ci_95'][0]:+.4f}, {comp_5_results['ci_95'][1]:+.4f}]
-• Paired Wilcoxon W = {comp_5_results['wilcoxon_w']}, p = {comp_5_results['p_value']:.4f} (Null hypothesis not rejected at alpha = 0.05)
+• Paired Wilcoxon W = {comp_5_results['wilcoxon_w']:.1f}, p = {comp_5_results['p_value']:.4f} (Null hypothesis not rejected at alpha = 0.05)
 • Win / Loss / Tie: {comp_5_results['w_l_t']} (Line+Header leads on 18/25 queries)
 
 4. ANNOTATOR ROBUSTNESS (Header contribution on AST under alternative qrels):
-• Consensus-only (disagreements removed): Delta = {robustness_results['consensus_only_no_disagreements']['delta']:+.4f}, p = {robustness_results['consensus_only_no_disagreements']['p_value']:.4f} (Confirmed Significant)
-• Annotator 1-only qrels:                Delta = {robustness_results['annotator_1_only_qrels']['delta']:+.4f}, p = {robustness_results['annotator_1_only_qrels']['p_value']:.4f} (Confirmed Significant)
-• Annotator 2-only qrels:                Delta = {robustness_results['annotator_2_only_qrels']['delta']:+.4f}, p = {robustness_results['annotator_2_only_qrels']['p_value']:.4f} (Confirmed Significant)
+• Consensus-only ranking scores: Line+Header: {consensus_scores['rerank_line_with_header']:.4f}, Line No-Header: {consensus_scores['rerank_line_no_header']:.4f}, AST+Header: {consensus_scores['rerank_ast_with_header']:.4f}, AST No-Header: {consensus_scores['rerank_ast_no_header']:.4f}
+• Consensus-only AST Header gain: Delta = {robustness_results['consensus_only_no_disagreements']['delta']:+.4f}, p = {robustness_results['consensus_only_no_disagreements']['p_value']:.4f} ({cons_sig})
+• Annotator 1-only qrels:         Delta = {robustness_results['annotator_1_only_qrels']['delta']:+.4f}, p = {robustness_results['annotator_1_only_qrels']['p_value']:.4f} (Confirmed Significant)
+• Annotator 2-only qrels:         Delta = {robustness_results['annotator_2_only_qrels']['delta']:+.4f}, p = {robustness_results['annotator_2_only_qrels']['p_value']:.4f} (Confirmed Significant)
+
+5. JUDGED-ONLY (SHORTLIST) EVALUATION (Excluding unjudged items, fair comparison vs pool baseline):
+• rerank_line_with_header : {judged_only_results['rerank_line_with_header']:.4f}
+• rerank_line_no_header   : {judged_only_results['rerank_line_no_header']:.4f}
+• rerank_ast_with_header  : {judged_only_results['rerank_ast_with_header']:.4f}
+• rerank_ast_no_header    : {judged_only_results['rerank_ast_no_header']:.4f}
+• AST Header Effect       : Delta = {judged_only_results['ast_header_gain']['delta']:+.4f}, p = {judged_only_results['ast_header_gain']['p_value']:.4f}
+• Comp 1 (AST+H vs Line)  : Delta = {judged_only_results['comp_1_ast_vs_line_no_header']['delta']:+.4f}, p = {judged_only_results['comp_1_ast_vs_line_no_header']['p_value']:.4f}
+• Comp 5 (AST+H vs Line+H): Delta = {judged_only_results['comp_5_ast_vs_line_with_header']['delta']:+.4f}, p = {judged_only_results['comp_5_ast_vs_line_with_header']['p_value']:.4f}
 ================================================================================
 """
 
@@ -280,7 +344,8 @@ rerank_ast_with_header      | {fallback_composition['rerank_ast_with_header']['t
         "language_breakdown": lang_report,
         "fallback_composition": fallback_composition,
         "comp_5_ast_vs_line_with_header": comp_5_results,
-        "annotator_robustness": robustness_results
+        "annotator_robustness": robustness_results,
+        "judged_only_evaluation": judged_only_results
     }
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(all_data, f, indent=2)

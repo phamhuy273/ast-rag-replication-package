@@ -110,11 +110,11 @@ class TestReadmeNumbers:
 
         # Key precision metrics
         assert f"{rerank_ast_h['ndcg_1_mean']:.3f}" in self.readme  # 0.720
-        assert f"{rerank_line_h['ndcg_1_mean']:.3f}" in self.readme  # 0.520
+        assert f"{rerank_line_h['ndcg_1_mean']:.3f}" in self.readme  # 0.800
         assert f"{rerank_ast_h['mrr_10_mean']:.3f}" in self.readme  # 0.940
-        assert f"{rerank_line_h['mrr_10_mean']:.3f}" in self.readme  # 0.880
+        assert f"{rerank_line_h['mrr_10_mean']:.3f}" in self.readme  # 0.980
         assert f"{rerank_ast_h['cp_5_mean']:.3f}" in self.readme  # 0.913
-        assert f"{rerank_line_h['cp_5_mean']:.3f}" in self.readme  # 0.884
+        assert f"{rerank_line_h['cp_5_mean']:.3f}" in self.readme  # 0.935
 
     def test_statistical_test_numbers_in_readme(self):
         """Verify Wilcoxon, Holm p-values, and CIs in README."""
@@ -152,6 +152,27 @@ class TestReadmeNumbers:
         assert f"{comp5['p_value']:.4f}" in self.readme  # 0.1355
         assert f"{comp5['ci_95'][0]:+.4f}" in self.readme  # -0.1056
         assert f"{comp5['ci_95'][1]:+.4f}" in self.readme  # +0.0211
+        assert "97.0" in self.readme  # Wilcoxon W = 97.0
+
+    def test_sensitivity_numbers_in_readme(self):
+        """Verify language breakdown, consensus scores, and judged-only sensitivity."""
+        # Language breakdown
+        assert "0.5146" in self.readme  # Java AST+Header
+        assert "0.5358" in self.readme  # Java Line+Header
+        assert "0.3694" in self.readme  # React AST+Header
+        assert "0.4448" in self.readme  # React Line+Header
+
+        # Consensus-only scores
+        assert "0.4262" in self.readme  # Line+Header
+        assert "0.4128" in self.readme  # Line No-Header
+        assert "0.3687" in self.readme  # AST+Header
+        assert "0.2938" in self.readme  # AST No-Header
+
+        # Judged-only shortlist scores
+        assert "0.6148" in self.readme  # Line+Header
+        assert "0.5896" in self.readme  # Line No-Header
+        assert "0.5463" in self.readme  # AST+Header
+        assert "0.4537" in self.readme  # AST No-Header
 
     def test_kappa_agreement_in_readme(self):
         """Verify Cohen's Kappa and pair counts in README."""
@@ -168,3 +189,5 @@ class TestReadmeNumbers:
         retrieval_map = {r["config_id"]: r for r in self.retrieval}
         pool_base = retrieval_map["random_pool_candidates"]
         assert f"{pool_base['ndcg_10_mean']:.3f}" in self.readme  # 0.592
+        assert "0.0195" in self.readme  # Whole-corpus random baseline
+        assert "0.6148" in self.readme  # Judged-only Line+Header exceeding pool baseline
