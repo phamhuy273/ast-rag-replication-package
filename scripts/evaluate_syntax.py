@@ -131,17 +131,32 @@ def main():
     line_chunks = [c for c in chunks if c["strategy"] == "LINE"]
     print(f"AST chunks: {len(ast_chunks)} | Line chunks: {len(line_chunks)}")
 
-    # Cache full file codes and method intervals
+    # Cache method intervals for syntax boundary analysis
     file_cache = {}
+    intervals_cache = {}
+    intervals_file = DATASET_DIR / "source_file_intervals.json"
+    if intervals_file.exists():
+        with open(intervals_file, "r", encoding="utf-8") as f:
+            intervals_cache = json.load(f)
+
     for c in chunks:
         key = (c["repo_name"], c["file_path"])
         if key not in file_cache:
-            safe_name = c["repo_name"].replace("/", "__")
-            file_disk = CLONE_ROOT / safe_name / c["file_path"]
-            code = file_disk.read_text(encoding="utf-8", errors="replace")
+            file_key = f"{c['repo_name']}::{c['file_path']}"
             lang = "java" if c["file_path"].endswith(".java") else "tsx"
-            intervals = extract_method_intervals(code, lang)
-            file_cache[key] = (code, lang, intervals)
+            if file_key in intervals_cache:
+                intervals = intervals_cache[file_key]
+            else:
+                safe_name = c["repo_name"].replace("/", "__")
+                file_disk = CLONE_ROOT / safe_name / c["file_path"]
+                if file_disk.exists():
+                    code = file_disk.read_text(encoding="utf-8", errors="replace")
+                    intervals = extract_method_intervals(code, lang)
+                else:
+                    raise FileNotFoundError(
+                        f"Cannot compute method intervals: neither {intervals_file.name} nor source file {file_disk} exists."
+                    )
+            file_cache[key] = (lang, intervals)
 
     def evaluate_branch(branch_chunks: List[Dict[str, Any]], name: str) -> Dict[str, Any]:
         print(f"\nEvaluating branch: {name} ({len(branch_chunks)} chunks)...")
@@ -154,7 +169,7 @@ def main():
         truncated_count = 0
 
         for c in branch_chunks:
-            code, lang, intervals = file_cache[(c["repo_name"], c["file_path"])]
+            lang, intervals = file_cache[(c["repo_name"], c["file_path"])]
             content = c["chunk_content"]
             full_text = c["text_with_header"]
 

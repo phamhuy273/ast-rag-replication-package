@@ -505,16 +505,6 @@ def main():
         f.write("\n".join(latex_lines))
     print(f"Generated LaTeX Table: {latex_path.name}")
 
-    # 6. Mirror to desktop replication package
-    desktop_repl = Path("C:/Users/win 11/Desktop/ast-rag-replication-package")
-    if desktop_repl.exists():
-        bench_dest = desktop_repl / "dataset" / "benchmark_results"
-        bench_dest.mkdir(parents=True, exist_ok=True)
-        for f in RESULTS_DIR.glob("*.*"):
-            import shutil
-            shutil.copy2(f, bench_dest / f.name)
-        print("Mirrored all benchmark results to Desktop replication package.")
-
     print("\n" + "=" * 80)
     print("  PHASE 5 COMPLETE (GATE G5 PASSED)")
     print("=" * 80)

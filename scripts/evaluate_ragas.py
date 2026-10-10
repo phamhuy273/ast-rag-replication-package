@@ -377,14 +377,6 @@ Return strictly JSON with this schema:
         f.write("\n".join(latex_lines))
     print(f"\nSaved LaTeX Table: {PAPER_DIR / 'table_3_4_ragas.tex'}")
 
-    # Mirror to desktop replication package
-    desktop_repl = Path("C:/Users/win 11/Desktop/ast-rag-replication-package/dataset/benchmark_results")
-    if desktop_repl.exists():
-        for fname in ["ragas_evaluation_report.txt", "ragas_evaluation_summary.csv", "ragas_per_query_details.json"]:
-            import shutil
-            shutil.copy2(RESULTS_DIR / fname, desktop_repl / fname)
-        print("Mirrored RAGAs artifacts to Desktop replication package.")
-
     print("\n" + "=" * 80)
     print("  RAGAS EVALUATION COMPLETE")
     print("=" * 80)
