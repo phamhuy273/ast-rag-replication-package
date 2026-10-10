@@ -2,7 +2,6 @@
 
 [![Target Conference](https://img.shields.io/badge/IEEE_SANER_2027-ERA_Track-blue.svg)](https://conf.researchr.org/home/saner-2027)
 [![Review Policy](https://img.shields.io/badge/Review_Policy-Double--Anonymous-orange.svg)]()
-[![Artifacts Evaluated](https://img.shields.io/badge/Artifacts-Available_&_Reproducible-success.svg)]()
 [![Python Version](https://img.shields.io/badge/Python-3.10_%7C_3.11_%7C_3.12_%7C_3.13_%7C_3.14-blue.svg)]()
 [![Automated Tests](https://img.shields.io/badge/Tests-Passing-brightgreen.svg)]()
 [![License: MIT](https://img.shields.io/badge/Code_License-MIT-yellow.svg)](LICENSE)
@@ -17,7 +16,7 @@
 
 ## 📌 Executive Summary & Research Questions
 
-This replication package contains all source code, Tree-sitter AST parsers, curated chunk corpora, precomputed retrieval runs, LLM evaluation logs, and statistical hypothesis testing scripts necessary to reproduce all empirical tables, figures, and findings reported in our paper from scratch.
+This replication package provides the curated code chunk corpora, precomputed retrieval runs, human ground truth annotations, LLM evaluation cache, Tree-sitter chunking engine, and reproduction scripts necessary to independently verify and reproduce all empirical tables, figures, and statistical tests reported in our paper.
 
 Our chunking strategy is **AST-first with line fallback**: it extracts method-level semantic AST blocks when available, and falls back to 50-LOC sliding windows when files lack parseable method structures (e.g. top-level JSX renders, styled components, interface contracts, and configuration objects). In our corpus of 364 AST chunks, 234 chunks (64.3%) are pure AST method extractions, while 130 chunks (35.7%) are handled via the pre-registered fallback mechanism (fully audited in `dataset/fallback_audit.csv`).
 
@@ -36,13 +35,13 @@ Our chunking strategy is **AST-first with line fallback**: it extracts method-le
   * *Candidate Pool Random Baseline:* $\text{NDCG@10} = \mathbf{0.592} \pm 0.083$ across 1,000 permutations within pooled candidates. Note that this baseline operates strictly within pre-screened judged items (0% unjudged rate); in whole-corpus retrieval where ~45% of top-10 retrieved items are unjudged (imputed as 0 under standard Cranfield pooling rules), a corpus-wide random baseline scores $\mathbf{0.0195}$, and when systems are restricted to judged candidates (Shortlist evaluation), Line+Header achieves $\mathbf{0.6148}$, surpassing the pool random baseline.
 
 * **RQ3: Downstream Generation Faithfulness & RAGAs Quality (Table 3.4, Exploratory):** How does retrieved evidence grounding affect LLM skill evaluation reliability?
-  * *Empirical Finding:* Across 25 industry Job Descriptions, grounded LLM evaluation achieves perfect Faithfulness ($1.000 \pm 0.000$, zero hallucinations) with high Answer Relevance ($0.996 \pm 0.020$ for AST vs. $1.000$ for Line) and robust citation auditability ($79.3\%$ of AST claims citing explicit code locations). Evaluated via an offline cache of LLM judgments on Top-3 retrieved contexts.
+  * *Empirical Finding:* Across 25 industry Job Descriptions, grounded LLM evaluation achieves high Faithfulness ($1.000 \pm 0.000$ on the evaluated sample) with high Answer Relevance ($0.996 \pm 0.020$ for AST vs. $1.000$ for Line) and robust citation auditability ($79.3\%$ of AST claims citing explicit code locations). Evaluated via an offline cache of LLM judgments on Top-3 retrieved contexts.
 
 * **Inter-Annotator Reliability (Table 3.1 & Figure 3.1):**
   * Evaluated on all 603 candidate pairs between Annotator 1 and Annotator 2: Exact Agreement = **79.77%** (481/603), Minor Disagreements = **18.57%** (112/603), Severe Disagreements = **1.66%** (10/603).
   * **Quadratic Weighted Cohen's Kappa ($\kappa_w$):** **`0.7795`** (*Substantial Agreement*, Landis & Koch 1977 [0.61–0.80]).
   * **Gold 250 Subset Kappa:** **`0.8808`** (*Almost Perfect Agreement*).
-  * Adjudication of 122 disagreements includes 93 specific technical rationales (76.2%) and 29 structured rationales (23.8%).
+  * Adjudication of 122 disagreements was conducted by a single Lead Adjudicator, recording 70 distinct technical rationales across the 122 items (detailed in `dataset/disagreements_adjudication.csv`). Annotator 1 scored pairs via the 3-point rubric directly, while Annotator 2 recorded 45 diagnostic notes.
 
 ---
 
@@ -125,6 +124,7 @@ Our chunking strategy is **AST-first with line fallback**: it extracts method-le
 │   └── test_text_integrity.py                  # Dataset count cross-checks
 ├── analysis_plan.md                            # Pre-registered experimental analysis plan (frozen at Phase 0)
 ├── analysis_plan_addendum.md                   # Exploratory analysis protocol addendum (Path B)
+├── PROVENANCE.md                               # Comprehensive audit trail of data sources, licensing, and annotations
 ├── requirements.txt                            # Core package dependencies
 ├── requirements.lock                           # Fully locked, pinned transitive dependencies
 ├── run_all.bat                                 # One-click Windows master execution script
@@ -140,7 +140,7 @@ Our chunking strategy is **AST-first with line fallback**: it extracts method-le
 
 ### 1. Prerequisites
 * **Python Version:** Python 3.10, 3.11, 3.12, 3.13, or 3.14.
-* **Operating System:** Platform-independent (verified on Windows 11, Ubuntu 22.04 LTS, and macOS Sequoia).
+* **Operating System:** Platform-independent standard Python environment (tested on Windows 11).
 * **Hardware:** Minimal requirements (< 4 GB RAM, runs entirely on CPU).
 
 ### 2. Environment Setup
@@ -271,7 +271,7 @@ python scripts/evaluate_ragas.py
 ```
 *(Loads cached responses from `dataset/benchmark_results/ragas_evaluation_cache.json` for deterministic offline reproduction. Online evaluation supported by providing `GEMINI_API_KEY`).*
 * **Key Verified Results:**
-  * **Faithfulness:** **`1.000`** (AST) vs. **`1.000`** (Line) — 100% grounded in code context, zero hallucinations.
+  * **Faithfulness:** **`1.000`** (AST) vs. **`1.000`** (Line) — 100% grounded in code context across the evaluated sample.
   * **Answer Relevance:** **`0.996`** (AST) vs. **`1.000`** (Line).
   * **Citation Coverage:** **`79.3%`** (AST) vs. **`79.2%`** (Line) — over 79% of claims cite explicit code file/line locations.
 * **Generated Artifacts:**
@@ -291,7 +291,7 @@ python scripts/evaluate_sensitivity.py
   * **Language Stratification (NDCG@10):**
     * *Java (N=15):* AST+Header = **0.5146**, Line+Header = **0.5358** ($\Delta = -0.0212$).
     * *React/TS (N=10):* AST+Header = **0.3694**, Line+Header = **0.4448** ($\Delta = -0.0754$).
-  * **Fallback Composition:** 110 of the 130 fallback chunks (84.6%) are from React/TS files (52.1% of React AST chunks, or 68.8% [110/160] in non-declaration UI files). Top fallback trigger is top-level JSX renders (51/130, 39.2%), followed by styled-components (23/130, 17.7%) and object configurations (13/130, 10.0%).
+  * **Fallback Composition:** 110 of the 130 fallback chunks (84.6%) are from React/TS files (52.1% of React AST chunks). Top fallback trigger is top-level JSX renders (51/130, 39.2%), followed by styled-components (23/130, 17.7%) and object configurations (13/130, 10.0%).
   * **Annotator Robustness ($N=481$ Consensus Pairs):** Ranking order is invariant: Line+Header (**0.4262**) > Line No-Header (**0.4128**) > AST+Header (**0.3687**) > AST No-Header (**0.2938**). Header effect on AST: $\Delta = +0.0749, p = 0.0851 \ge 0.05$ (Not statistically significant at $\alpha = 0.05$).
   * **Judged-Only (Shortlist) Evaluation:** When evaluated strictly within pre-screened judged candidates (fair comparison against the 0.592 pool random baseline where unjudged items are excluded): Line+Header (**0.6148**) > Line No-Header (**0.5896**) > AST+Header (**0.5463**) > AST No-Header (**0.4537**). AST header effect remains significant ($\Delta = +0.0926, p = 0.0034$), Comp 1 remains non-significant ($\Delta = -0.0433, p = 0.3666$), and Comp 5 favors Line ($\Delta = -0.0685, p = 0.0318$).
 * **Generated Artifacts:**
@@ -324,13 +324,16 @@ In accordance with Rule R17 and cross-platform verification (handling Windows `\
 
 ## ⚖️ Ethical Considerations & Anonymity
 
-* **Double-Anonymous Review Compliance:** All personal names, institutional affiliations, and author emails have been scrubbed from the repository, code docstrings, and commit history. Annotators are referenced solely as `annotator_1`, `annotator_2`, and `Lead Adjudicator`.
-* **Repository Provenance & Licensing:** All 40 source repositories mined in this study are public GitHub repositories under permissive open-source licenses (19 MIT, 4 Apache-2.0, 1 AGPL-3.0, and 16 public repositories without explicit license files in the root). Mined code snippets are used strictly for academic evaluation and benchmarking purposes.
+* **Double-Anonymous Review Compliance:** All personal names, institutional affiliations, and author emails have been removed from repository files and docstrings. Annotators and adjudicators are referenced solely as `annotator_1`, `annotator_2`, and `Lead Adjudicator`.
+* **Repository Provenance & Third-Party Code:** The chunk corpora (`dataset/chunk_corpus.*`) contain code snippets extracted from 40 public GitHub repositories (20 Java, 20 TypeScript/React), fully listed with commit SHAs and repository URLs in `dataset/manifest_repos.csv` and documented in `PROVENANCE.md`.
+  * *Licensing Breakdown:* 19 repositories are licensed under MIT; 4 under Apache-2.0; 1 under AGPL-3.0; and 16 repositories are publicly hosted without an explicit root license file.
+  * *Fair Use & Research Exemption:* These code snippets are included strictly as an academic benchmarking and replication dataset under fair use principles (17 U.S. Code § 107 / Berne Convention academic citation rights). All copyrights remain with their original authors.
 * **Data Availability:** All raw and processed artifacts are provided in open, non-proprietary formats (`.csv`, `.json`, `.parquet`, `.tex`).
 
 ---
 
 ## 📜 License
 
-* **Code:** The source code and evaluation scripts in this package are released under the [MIT License](LICENSE).
-* **Data & Documentation:** The curated datasets, benchmark results, and documentation are made available under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](LICENSE).
+* **Replication Package Scripts & Infrastructure:** The evaluation and analysis scripts authored for this study are released under the [MIT License](LICENSE).
+* **Curated Annotations & Research Metadata:** The job descriptions, human relevance judgments, and evaluation logs authored for this study are made available under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](LICENSE).
+* **Third-Party Code Snippets:** Mined source code snippets retained in `dataset/chunk_corpus.*` remain subject to the original licenses and terms of their respective upstream repositories (see `dataset/manifest_repos.csv` and `PROVENANCE.md`).

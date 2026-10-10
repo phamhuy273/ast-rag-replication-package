@@ -67,11 +67,11 @@ As specified in `analysis_plan.md`:
 
 ### 3.3 Language Heterogeneity (Java vs. React/TypeScript)
 - **Java Cohort (15 JDs):**
-  - AST Pure chunks represent 78.4% (120/153) of Java chunks; fallbacks account for only 13.1% (20/153).
+  - AST Pure chunks represent **86.9%** (133/153) of Java chunks; fallbacks account for only **13.1%** (20/153).
   - Re-ranking NDCG@10: AST+Header = **0.5146** | Line+Header = **0.5358** | Line No-Header = **0.5252** | AST No-Header = **0.3835**.
   - Delta (AST+Header vs. Line+Header): **-0.0212**.
 - **React/TypeScript Cohort (10 JDs):**
-  - AST Fallback chunks represent 52.1% (110/211) of React/TS AST chunks, accounting for 84.6% (110/130) of all fallbacks across the entire benchmark, driven by JSX-heavy functional components and styled-components (or 68.8% [110/160] when evaluated on non-declaration UI files).
+  - AST Fallback chunks represent **52.1%** (110/211) of React/TS AST chunks, accounting for **84.6%** (110/130) of all fallbacks across the entire benchmark, driven by JSX-heavy functional components and styled-components.
   - Re-ranking NDCG@10: AST+Header = **0.3694** | Line+Header = **0.4448** | Line No-Header = **0.3881** | AST No-Header = **0.2860**.
   - Delta (AST+Header vs. Line+Header): **-0.0754**.
   - Takeaway: AST chunking performs substantially closer to Line in Java (-0.021) than in React/TS (-0.075), where syntax-level extraction frequently encounters non-method paradigms.
