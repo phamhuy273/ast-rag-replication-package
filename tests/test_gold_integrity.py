@@ -11,7 +11,7 @@ import pytest
 from sklearn.metrics import cohen_kappa_score
 
 LOCKED_GOLD_LABELS_SHA256 = "F9E3011EFA003C6AAB7D6DFD46CE94E1FFDDC741F193C02E0748D39D67650531"
-LOCKED_MASTER_SHA256 = "2260C21DEBBCE08EFD4ACB4F5ED2429120FDEC98D64954EAE7978FFE3647875B"
+LOCKED_NORMALIZED_MASTER_SHA256 = "70C01F773136F7D0352012B7D1F1DD9DB216708848C5A54E22A661DFD93DBB4D"
 ROOT_DIR = Path(__file__).resolve().parent.parent
 GOLD_FILE = ROOT_DIR / "dataset" / "ground_truth_final.csv"
 
@@ -23,13 +23,15 @@ class TestGoldIntegrity:
         assert GOLD_FILE.exists(), f"Ground truth file missing: {GOLD_FILE}"
 
     def test_gold_sha256_hash_unmodified(self):
-        # 1. Verify complete 603-row file hash
+        # 1. Verify complete 603-row file hash on normalized newlines (\r\n -> \n)
+        # to guarantee cross-platform determinism across Linux, macOS, and Windows git checkouts
         with open(GOLD_FILE, "rb") as f:
-            computed_hash = hashlib.sha256(f.read()).hexdigest().upper()
-        assert computed_hash == LOCKED_MASTER_SHA256, (
+            norm_content = f.read().replace(b"\r\n", b"\n")
+            computed_hash = hashlib.sha256(norm_content).hexdigest().upper()
+        assert computed_hash == LOCKED_NORMALIZED_MASTER_SHA256, (
             f"VIOLATION: ground_truth_final.csv has been modified!\n"
-            f"Expected: {LOCKED_MASTER_SHA256}\n"
-            f"Actual:   {computed_hash}"
+            f"Expected (normalized): {LOCKED_NORMALIZED_MASTER_SHA256}\n"
+            f"Actual:                 {computed_hash}"
         )
 
         # 2. Verify Rule R17: 250 gold labels remain strictly immutable

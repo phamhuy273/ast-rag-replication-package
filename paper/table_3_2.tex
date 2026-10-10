@@ -1,22 +1,22 @@
-\begin{table}[t]
-\caption{Quantitative Comparison of Source Code Chunking Strategies across 40 GitHub Repositories (189 Files)}
+\begin{table*}[t]
+\caption{Quantitative Comparison of Source Code Chunking Strategies across 40 GitHub Repositories (189 Files) Disaggregated by Subgroups}
 \label{tab:corpus_chunking}
 \centering
-\resizebox{\columnwidth}{!}{
-\begin{tabular}{lcc}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccc}
 \hline
-\textbf{Characteristic} & \textbf{Line-based (50 LOC)} & \textbf{AST Progressive (Ours)} \\
+\textbf{Characteristic} & \textbf{Line-based (50 LOC)} & \textbf{AST Pure (Ours)} & \textbf{AST Fallback} & \textbf{AST-first (Combined)} \\
 \hline
-Total Chunks Extracted & 434 & 364 \\
-Mean Chunk Size (LOC) & 41.0 ($\pm$13.1) & 28.1 ($\pm$19.0) \\
-Median Chunk Size (LOC) & 50 & 24 \\
-Mean Token Count (BGE-M3) & 390.8 & 266.9 \\
-Mean Tokens (with Context Header) & 419.5 & 304.5 \\
-Syntax Boundary Preservation & 44.0\% & \textbf{90.9\%} \\
-Parse Error-Free Rate & 22.4\% & \textbf{70.1\%} \\
-Context Header Retention (Class/Method) & 0.0\% & \textbf{64.3\%} \\
-Truncated Chunks ($> 512$ tokens) & 28.6\% (124) & 11.0\% (40) \\
+Total Chunks Extracted & 434 & 234 & 130 & 364 \\
+Mean Chunk Size (LOC) & 41.0 ($\pm$13.1) & 19.8 ($\pm$16.7) & 42.9 ($\pm$13.0) & 28.1 ($\pm$19.0) \\
+Median Chunk Size (LOC) & 50 & 13 & 50 & 24 \\
+Mean Token Count (BGE-M3) & 390.8 & 211.3 & 367.0 & 266.9 \\
+Mean Tokens (with Context Header) & 419.5 & 254.5 & 394.5 & 304.5 \\
+Syntax Boundary Preservation & 44.0\% & \textbf{100.0\%} & 74.6\% & 90.9\% \\
+Parse Error-Free Rate & 22.4\% & \textbf{97.9\%} & 20.0\% & 70.1\% \\
+Context Header Retention (Class/Method) & 0.0\% & \textbf{100.0\%} & 0.0\% & 64.3\% \\
+Truncated Chunks ($> 512$ tokens) & 28.6\% (124) & 6.0\% (14) & 20.0\% (26) & 11.0\% (40) \\
 \hline
 \end{tabular}
 }
-\end{table}
+\end{table*}

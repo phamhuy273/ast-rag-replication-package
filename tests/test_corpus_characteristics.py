@@ -67,17 +67,45 @@ class TestCorpusCharacteristics:
         ast = data["ast_progressive"]
         line = data["line_based"]
 
-        # Rule R5: No 0.0 "by construction" in boundary cut rate
+        # Rule R5: No 0.0 "by construction" in boundary cut rate for overall/fallback/line
         assert ast["boundary_cut_rate_pct"] > 0.0, "AST boundary cut rate must be measured, not 0.0 by construction"
         assert line["boundary_cut_rate_pct"] > 0.0, "Line boundary cut rate must be measured"
         assert ast["syntax_error_rate_pct"] > 0.0, "AST syntax error rate must be measured"
         assert line["syntax_error_rate_pct"] > 0.0, "Line syntax error rate must be measured"
 
+        # Rule B1: Verify all 3 AST subgroups
+        assert "ast_pure" in data
+        assert "ast_fallback" in data
+        assert "ast_combined" in data
+        pure = data["ast_pure"]
+        fallback = data["ast_fallback"]
+
+        assert pure["chunk_count"] == 234
+        assert fallback["chunk_count"] == 130
+        assert ast["chunk_count"] == 364
+        assert line["chunk_count"] == 434
+
+        # AST Pure boundary cut is 0, syntax intact is ~97.9%
+        assert pure["boundary_cut_count"] == 0
+        assert pure["boundary_intact_rate_pct"] == 100.0
+        assert pure["header_retention_rate_pct"] == 100.0
+        assert round(pure["syntax_intact_rate_pct"], 1) == 97.9
+
+        # Fallback has cuts and syntax errors
+        assert fallback["boundary_cut_count"] == 33
+        assert fallback["header_retention_count"] == 0
+        assert round(fallback["syntax_intact_rate_pct"], 1) == 20.0
+
         # Check LaTeX file contains the measured numbers (Rule R37)
         tex_text = TABLE_3_2_TEX.read_text(encoding="utf-8")
         assert "434" in tex_text
+        assert "234" in tex_text
+        assert "130" in tex_text
         assert "364" in tex_text
+        assert f"{pure['loc_dist']['mean']:.1f}" in tex_text
+        assert f"{fallback['loc_dist']['mean']:.1f}" in tex_text
         assert f"{ast['loc_dist']['mean']:.1f}" in tex_text
         assert f"{line['loc_dist']['mean']:.1f}" in tex_text
+        assert f"{pure['boundary_intact_rate_pct']:.1f}" in tex_text
         assert f"{ast['boundary_intact_rate_pct']:.1f}" in tex_text
         assert f"{line['boundary_intact_rate_pct']:.1f}" in tex_text

@@ -25,9 +25,9 @@ STEPS = [
     {
         "id": "STEP_1",
         "name": "Automated Test Suite (Integrity & Controls)",
-        "target": "Unit Tests & Experimental Controls (42 Tests)",
+        "target": "Unit Tests & Experimental Controls",
         "cmd": [sys.executable, "-m", "pytest", "tests/"],
-        "key_metric": "42 passed"
+        "key_metric": "All tests passed"
     },
     {
         "id": "STEP_2",
@@ -63,6 +63,13 @@ STEPS = [
         "target": "Table 3.4 (Faithfulness, Relevance, Citation)",
         "cmd": [sys.executable, "scripts/evaluate_ragas.py"],
         "key_metric": "Faithfulness: 1.000, Relevance: 0.996, Citation: 79.3%"
+    },
+    {
+        "id": "STEP_7",
+        "name": "Exploratory Sensitivity & Subgroup Analysis",
+        "target": "Language, Fallback, Comp 5 & Annotator Robustness",
+        "cmd": [sys.executable, "scripts/evaluate_sensitivity.py"],
+        "key_metric": "Comp 5 Delta = -0.0428, Top Fallback: JSX render"
     }
 ]
 
@@ -122,7 +129,7 @@ def main():
     print("=" * 95)
     print(f"Total Reproduction Time: {total_duration:.1f}s")
     if all_passed and len(results) == len(STEPS):
-        print("RESULT: ALL 6 EMPIRICAL REPRODUCTION STEPS COMPLETED AND VERIFIED SUCCESSFULLY [PASS]")
+        print(f"RESULT: ALL {len(STEPS)} EMPIRICAL REPRODUCTION STEPS COMPLETED AND VERIFIED SUCCESSFULLY [PASS]")
         print("=" * 95)
         sys.exit(0)
     else:

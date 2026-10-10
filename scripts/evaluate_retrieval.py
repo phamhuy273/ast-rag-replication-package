@@ -360,6 +360,40 @@ def main():
             "judged_10_mean": 0.0
         })
 
+        # Pre-registered Baseline 2: Random Selection from Evaluated Pool (1,000 permutations, seed=42)
+        rng_p = np.random.default_rng(42)
+        pool_rand_n10 = []
+        for jid in query_ids:
+            ideal = gt_query_rel.get(jid, [])
+            pool_scores = [float(val) for val in df_gt[df_gt["jd_id"] == jid]["ground_truth_label"].tolist()]
+            if len(pool_scores) >= 10:
+                p_sim = []
+                for _ in range(1000):
+                    idx = rng_p.choice(len(pool_scores), size=10, replace=False)
+                    sc = [pool_scores[i] for i in idx]
+                    p_sim.append(ndcg_at_k(sc, ideal, k=10))
+                pool_rand_n10.append(np.mean(p_sim))
+            else:
+                pool_rand_n10.append(0.0)
+
+        summary_rows.append({
+            "config_id": "random_pool_candidates",
+            "tier": "Random Baseline",
+            "chunking": "Random Selection",
+            "header": "Evaluated Pool Candidates",
+            "ndcg_10_mean": float(np.mean(pool_rand_n10)),
+            "ndcg_10_std": float(np.std(pool_rand_n10)),
+            "ndcg_5_mean": 0.0, "ndcg_5_std": 0.0,
+            "ndcg_3_mean": 0.0, "ndcg_3_std": 0.0,
+            "ndcg_1_mean": 0.0, "ndcg_1_std": 0.0,
+            "mrr_10_mean": 0.0, "mrr_10_std": 0.0,
+            "p5_mean": 0.0, "p5_std": 0.0,
+            "recall_10_mean": 0.0, "recall_10_std": 0.0,
+            "f1_5_mean": 0.0, "f1_5_std": 0.0,
+            "cp_5_mean": 0.0, "cp_10_mean": 0.0,
+            "judged_10_mean": 1.0
+        })
+
     df_summary = pd.DataFrame(summary_rows)
     df_summary.to_csv(RESULTS_DIR / "table_3_retrieval_benchmark.csv", index=False, encoding="utf-8")
     with open(RESULTS_DIR / "table_3_retrieval_benchmark.json", "w", encoding="utf-8") as f:

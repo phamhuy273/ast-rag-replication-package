@@ -10,7 +10,7 @@
 • Unweighted Cohen's Kappa (kappa)            : 0.6890
 • Linear Weighted Kappa (kappa_linear)        : 0.7313
 • QUADRATIC WEIGHTED KAPPA (kappa_w)          : 0.7795  <-- [PRIMARY METRIC]
-• Agreement Level (Landis & Koch, 1977)       : Almost Perfect / Excellent Agreement [EXCELLENT]
+• Agreement Level (Landis & Koch, 1977)       : Substantial Agreement [SUBSTANTIAL]
 ================================================================================
 
 CONFUSION MATRIX (3x3):

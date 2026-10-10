@@ -118,12 +118,9 @@ def main():
     # Load cache if exists
     cache = {}
     if CACHE_FILE.exists():
-        try:
-            with open(CACHE_FILE, "r", encoding="utf-8") as f:
-                cache = json.load(f)
-            print(f"Loaded {len(cache)} existing cached query evaluations.")
-        except Exception:
-            cache = {}
+        with open(CACHE_FILE, "r", encoding="utf-8") as f:
+            cache = json.load(f)
+        print(f"Loaded {len(cache)} existing cached query evaluations.")
 
     gen_prompt_tmpl = """You are a senior technical recruiter and code auditor.
 Evaluate whether the candidate demonstrates evidence for the required technical skills based STRICTLY on the retrieved code chunks.
@@ -215,12 +212,18 @@ Return strictly JSON with this schema:
 
         # 2. Judge AST
         j_p_ast = judge_prompt_tmpl.format(title=title, skills=skills_str, context=ast_ctx, assessment=ans_ast)
-        res_raw_ast = call_gemini(j_p_ast, json_mode=True)
-        time.sleep(0.5)
-        try:
-            res_ast = json.loads(res_raw_ast)
-        except Exception:
-            res_ast = {"total_claims": 1, "supported_claims": 1, "faithfulness_score": 1.0, "citation_coverage": 1.0, "answer_relevance_score": 0.9}
+        res_ast = None
+        for attempt in range(3):
+            res_raw_ast = call_gemini(j_p_ast, json_mode=True)
+            time.sleep(0.5)
+            try:
+                res_ast = json.loads(res_raw_ast)
+                if "faithfulness_score" in res_ast:
+                    break
+            except Exception:
+                time.sleep(1.0)
+        if not res_ast or "faithfulness_score" not in res_ast:
+            raise RuntimeError(f"Judge evaluation failed to produce valid JSON for AST on {jid} after 3 attempts.")
 
         # 3. Generate Line
         p_line = gen_prompt_tmpl.format(title=title, domain=domain, skills=skills_str, context=line_ctx)
@@ -229,9 +232,18 @@ Return strictly JSON with this schema:
 
         # 4. Judge Line
         j_p_line = judge_prompt_tmpl.format(title=title, skills=skills_str, context=line_ctx, assessment=ans_line)
-        res_raw_line = call_gemini(j_p_line, json_mode=True)
-        time.sleep(0.5)
-        res_line = json.loads(res_raw_line) if res_raw_line else {}
+        res_line = None
+        for attempt in range(3):
+            res_raw_line = call_gemini(j_p_line, json_mode=True)
+            time.sleep(0.5)
+            try:
+                res_line = json.loads(res_raw_line)
+                if "faithfulness_score" in res_line:
+                    break
+            except Exception:
+                time.sleep(1.0)
+        if not res_line or "faithfulness_score" not in res_line:
+            raise RuntimeError(f"Judge evaluation failed to produce valid JSON for Line on {jid} after 3 attempts.")
 
         q_record = {
             "jd_id": jid,

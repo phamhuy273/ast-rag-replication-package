@@ -323,5 +323,30 @@
     "cp_5_mean": 0.0,
     "cp_10_mean": 0.0,
     "judged_10_mean": 0.0
+  },
+  {
+    "config_id": "random_pool_candidates",
+    "tier": "Random Baseline",
+    "chunking": "Random Selection",
+    "header": "Evaluated Pool Candidates",
+    "ndcg_10_mean": 0.592092148054263,
+    "ndcg_10_std": 0.0829882700538846,
+    "ndcg_5_mean": 0.0,
+    "ndcg_5_std": 0.0,
+    "ndcg_3_mean": 0.0,
+    "ndcg_3_std": 0.0,
+    "ndcg_1_mean": 0.0,
+    "ndcg_1_std": 0.0,
+    "mrr_10_mean": 0.0,
+    "mrr_10_std": 0.0,
+    "p5_mean": 0.0,
+    "p5_std": 0.0,
+    "recall_10_mean": 0.0,
+    "recall_10_std": 0.0,
+    "f1_5_mean": 0.0,
+    "f1_5_std": 0.0,
+    "cp_5_mean": 0.0,
+    "cp_10_mean": 0.0,
+    "judged_10_mean": 1.0
   }
 ]

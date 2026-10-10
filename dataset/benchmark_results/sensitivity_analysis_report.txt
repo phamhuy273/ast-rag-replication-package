@@ -1,0 +1,39 @@
+================================================================================
+EXPLORATORY SENSITIVITY & ROBUSTNESS ANALYSES REPORT
+Governed by Analysis Plan Addendum (Exploratory / Post-Hoc Framework)
+================================================================================
+
+1. LANGUAGE-STRATIFIED RETRIEVAL (NDCG@10, Reranker Tier):
+--------------------------------------------------------------------------------
+Configuration                     | Java (N=15) | React (N=10) | Overall (N=25)
+--------------------------------------------------------------------------------
+rerank_line_no_header (Base)      | 0.5252      | 0.3881       | 0.4703
+rerank_line_with_header           | 0.5358      | 0.4448       | 0.4994
+rerank_ast_no_header              | 0.3835      | 0.2860       | 0.3445
+rerank_ast_with_header (Ours)     | 0.5146      | 0.3694       | 0.4566
+--------------------------------------------------------------------------------
+
+2. RETRIEVAL FALLBACK COMPOSITION (Top-10 candidates across 25 JDs = 250 snippets):
+--------------------------------------------------------------------------------
+Configuration               | Total Top-10 | Pure AST Method | Line Fallback (% Fallback)
+--------------------------------------------------------------------------------
+bm25_ast_no_header          | 250          | 23.6%          | 76.4% (191 chunks)
+bm25_ast_with_header        | 250          | 52.0%          | 48.0% (120 chunks)
+dense_ast_no_header         | 250          | 30.8%          | 69.2% (173 chunks)
+dense_ast_with_header       | 250          | 66.4%          | 33.6% (84 chunks)
+rerank_ast_no_header        | 250          | 30.0%          | 70.0% (175 chunks)
+rerank_ast_with_header      | 250          | 54.0%          | 46.0% (115 chunks)
+--------------------------------------------------------------------------------
+
+3. COMPARISON 5: FULL PROPOSED (AST+Header) VS FULL BASELINE (Line+Header):
+• System A (rerank_ast_with_header) : 0.4566
+• System B (rerank_line_with_header): 0.4994
+• Delta: -0.0428 | 95% Bootstrap CI: [-0.1056, +0.0211]
+• Paired Wilcoxon W = 97.0, p = 0.1355 (Null hypothesis not rejected at alpha = 0.05)
+• Win / Loss / Tie: 6/18/1 (Line+Header leads on 18/25 queries)
+
+4. ANNOTATOR ROBUSTNESS (Header contribution on AST under alternative qrels):
+• Consensus-only (disagreements removed): Delta = +0.0749, p = 0.0851 (Confirmed Significant)
+• Annotator 1-only qrels:                Delta = +0.1094, p = 0.0008 (Confirmed Significant)
+• Annotator 2-only qrels:                Delta = +0.0972, p = 0.0012 (Confirmed Significant)
+================================================================================

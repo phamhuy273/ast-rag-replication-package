@@ -50,14 +50,16 @@ def interpret_kappa(kappa_val):
     """Interpret kappa score according to Landis & Koch (1977) benchmark standards."""
     if kappa_val < 0.0:
         return "Poor Agreement", "POOR"
-    elif kappa_val < 0.40:
-        return "Slight / Fair Agreement", "FAIR"
-    elif kappa_val < 0.60:
+    elif kappa_val <= 0.20:
+        return "Slight Agreement", "SLIGHT"
+    elif kappa_val <= 0.40:
+        return "Fair Agreement", "FAIR"
+    elif kappa_val <= 0.60:
         return "Moderate Agreement", "MODERATE"
-    elif kappa_val < 0.75:
+    elif kappa_val <= 0.80:
         return "Substantial Agreement", "SUBSTANTIAL"
     else:
-        return "Almost Perfect / Excellent Agreement", "EXCELLENT"
+        return "Almost Perfect Agreement", "ALMOST_PERFECT"
 
 
 def plot_confusion_matrix(cm, labels, output_path):

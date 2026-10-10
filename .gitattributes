@@ -1,0 +1,6 @@
+# Ensure binary / byte-exact line endings across operating systems
+*.csv -text
+*.json -text
+*.jsonl -text
+*.parquet -text
+*.png -text
