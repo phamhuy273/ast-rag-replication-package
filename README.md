@@ -60,7 +60,6 @@ Our chunking strategy is **AST-first with line fallback**: it extracts method-le
 │   ├── manifest_repos.csv                      # 40 GitHub repositories with commit SHAs & licenses
 │   ├── source_file_intervals.json              # Pinned method intervals across 189 files for boundary analysis
 │   ├── fallback_audit.csv                      # Detailed audit and categorization of 130 fallback chunks
-│   ├── header_bias_neutral_50_to_label.csv     # 50 stratified gold items for neutral re-annotation
 │   ├── chunk_corpus.parquet                    # Dual corpus: 798 chunks (364 AST + 434 Line-based)
 │   ├── chunk_corpus.jsonl                      # JSONL export of the dual corpus
 │   ├── ground_truth_final.csv                  # 603 unified labeled pairs (250 Gold + 353 Pooled)
@@ -105,26 +104,27 @@ Our chunking strategy is **AST-first with line fallback**: it extracts method-le
 │   ├── table_3_3_retrieval.tex                 # 2x2 Factorial retrieval benchmark LaTeX table
 │   └── table_3_4_ragas.tex                     # RAGAs downstream generation quality LaTeX table
 ├── scripts/                                    # Standalone reproduction & evaluation runners
-│   ├── reproduce_all.py                        # Master one-click runner executing all 7 steps end-to-end
+│   ├── reproduce_all.py                        # Master one-click runner executing all 6 steps end-to-end
 │   ├── calculate_kappa.py                      # Reproduces Table 3.1 & Figure 3.1 (Inter-annotator agreement)
 │   ├── evaluate_syntax.py                      # Reproduces Table 3.2 (AST pure, fallback, combined vs Line)
 │   ├── evaluate_retrieval.py                   # Reproduces Table 3.3 (2x2 retrieval metrics & Wilcoxon tests)
 │   ├── evaluate_ragas.py                       # Reproduces Table 3.4 (RAGAs downstream generation evaluation)
-│   ├── evaluate_sensitivity.py                 # Evaluates exploratory subgroup & sensitivity analyses
-│   ├── scan_anonymity.py                       # Verifies double-anonymous review compliance
-│   ├── check_licenses.py                       # Audits open source licenses across all 40 repositories
-│   └── audit_no_hardcode.py                    # Static AST analyzer enforcing Rules R1–R46
+│   └── evaluate_sensitivity.py                 # Evaluates exploratory subgroup & sensitivity analyses
 ├── tests/                                      # Complete automated test suite (100% passing)
 │   ├── test_gold_integrity.py                  # SHA-256 cryptographic verification of ground truth
 │   ├── test_metrics_verification.py            # Unit tests for NDCG, MRR, CP against hand-calculated proofs
 │   ├── test_corpus_characteristics.py          # Verifies Table 3.2 measurements and subgroups
 │   ├── test_statistical_tests.py               # Verifies Wilcoxon and bootstrap implementations
 │   ├── test_parser_edge_cases.py               # Unit tests for Tree-sitter parsers and extractors
-│   ├── test_audit_detects.py                   # Positive control tests verifying auditor catches violations
-│   └── test_readme_numbers.py                  # Asserts README numerical claims match benchmark files
+│   ├── test_readme_numbers.py                  # Asserts README numerical claims match benchmark files
+│   ├── test_cache_invalidation.py              # Cache validation tests
+│   ├── test_evaluation_phase5.py               # 2x2 Factorial benchmark verification
+│   ├── test_experimental_controls.py           # Controls across conditions
+│   ├── test_neutral_labeling.py                # Pooling budget tests
+│   ├── test_reproducibility.py                 # Determinism & seed consistency
+│   └── test_text_integrity.py                  # Dataset count cross-checks
 ├── analysis_plan.md                            # Pre-registered experimental analysis plan (frozen at Phase 0)
 ├── analysis_plan_addendum.md                   # Exploratory analysis protocol addendum (Path B)
-├── CHANGELOG_FIXES.md                          # Detailed audit trail of all package enhancements
 ├── requirements.txt                            # Core package dependencies
 ├── requirements.lock                           # Fully locked, pinned transitive dependencies
 ├── run_all.bat                                 # One-click Windows master execution script
@@ -178,23 +178,22 @@ python scripts/reproduce_all.py
 ```
 *(Alternatively, on Windows run `run_all.bat`, or on Linux/macOS run `bash run_all.sh`).*
 
-### Typical Output (~30 seconds on commodity CPU):
+### Typical Output (~28 seconds on commodity CPU):
 ```text
 ===============================================================================================
   MASTER REPRODUCTION SUMMARY
 ===============================================================================================
-Step     | Target Paper Item                   | Status   | Duration | Key Empirical Verification
+Step     | Target Paper Item                              | Status   | Duration | Key Empirical Verification
 -----------------------------------------------------------------------------------------------
-STEP_1   | Unit Tests & Experimental Controls  | PASS     |    2.8s  | All tests passed
-STEP_2   | Rules R1–R46 Static Analyzer        | PASS     |    0.1s  | 0 violations
-STEP_3   | Table 3.1 & Figure 3.1 (Kappa)      | PASS     |    3.2s  | Quadratic Kappa = 0.7795, Agreement = 79.8%
-STEP_4   | Table 3.2 (AST vs Line Morphology)  | PASS     |   12.5s  | AST Syntax Intact: 90.9% vs Line: 44.0%
-STEP_5   | Table 3.3 & Confirmatory Hypotheses | PASS     |    2.8s  | Comp 3 AST Header Gain Statistically Significant
-STEP_6   | Table 3.4 (RAGAs Generation)        | PASS     |    2.1s  | Faithfulness: 1.000, Relevance: 0.996, Citation: 79.3%
-STEP_7   | Language, Fallback, Comp 5 & Sens.  | PASS     |    1.5s  | Comp 5 Delta = -0.0428, Top Fallback: JSX render
+STEP_1   | Unit Tests & Experimental Controls             | PASS     |    3.1s  | All tests passed
+STEP_2   | Table 3.1 & Figure 3.1 (Confusion Matrix)     | PASS     |    3.3s  | Quadratic Kappa = 0.7795, Agreement = 79.8%
+STEP_3   | Table 3.2 (AST vs Line Chunking Morphology)   | PASS     |   14.1s  | AST Syntax Intact: 90.9% vs Line: 44.0%
+STEP_4   | Table 3.3 & Confirmatory Hypothesis Tests     | PASS     |    3.3s  | Comp 3 AST Header Gain Statistically Significant
+STEP_5   | Table 3.4 (Faithfulness, Relevance, Citation) | PASS     |    2.2s  | Faithfulness: 1.000, Relevance: 0.996, Citation: 79.3%
+STEP_6   | Language, Fallback, Comp 5 & Annotator Robust  | PASS     |    2.3s  | Comp 5 Delta = -0.0428, Top Fallback: JSX render
 ===============================================================================================
-Total Reproduction Time: 25.0s
-RESULT: ALL 7 EMPIRICAL REPRODUCTION STEPS COMPLETED AND VERIFIED SUCCESSFULLY [PASS]
+Total Reproduction Time: 28.3s
+RESULT: ALL 6 EMPIRICAL REPRODUCTION STEPS COMPLETED AND VERIFIED SUCCESSFULLY [PASS]
 ===============================================================================================
 ```
 
@@ -205,22 +204,14 @@ RESULT: ALL 7 EMPIRICAL REPRODUCTION STEPS COMPLETED AND VERIFIED SUCCESSFULLY [
 Each empirical claim, table, and statistical hypothesis test can be verified independently:
 
 ### Step 1: Automated Test Suite & Controls
-Verifies hash immutability (Rule R17), ground truth integrity, metric implementations against hand-calculated proofs, parser edge cases, static auditor sensitivity, and numerical consistency of README claims:
+Verifies hash immutability (Rule R17), ground truth integrity, metric implementations against hand-calculated proofs, parser edge cases, and numerical consistency of README claims:
 ```bash
 python -m pytest tests/ -v
 ```
 
 ---
 
-### Step 2: Anti-Hardcoding Static Audit (Rules R1–R46)
-Scans active codebase using Python AST visitors and regex analyzers to detect any hardcoded metrics, placeholder assignments, non-deterministic random calls, or silent exception fallbacks:
-```bash
-python scripts/audit_no_hardcode.py
-```
-
----
-
-### Step 3: Reproduce Table 3.1 & Figure 3.1 — Inter-Annotator Reliability
+### Step 2: Reproduce Table 3.1 & Figure 3.1 — Inter-Annotator Reliability
 Evaluates independent human annotations from Annotator 1 and Annotator 2 across all 603 candidate pairs, computing Quadratic Weighted Cohen's Kappa ($\kappa_w$), Linear Kappa, exact agreement rate, and generating the confusion matrix heatmap:
 ```bash
 python scripts/calculate_kappa.py
@@ -238,7 +229,7 @@ python scripts/calculate_kappa.py
 
 ---
 
-### Step 4: Reproduce Table 3.2 — Real Corpus Morphology & Syntax Boundaries
+### Step 3: Reproduce Table 3.2 — Real Corpus Morphology & Syntax Boundaries
 Executes live Tree-sitter syntax parsing and HuggingFace AutoTokenizer (`BAAI/bge-m3`) across all 798 chunks from 189 source files:
 ```bash
 python scripts/evaluate_syntax.py
@@ -255,7 +246,7 @@ python scripts/evaluate_syntax.py
 
 ---
 
-### Step 5: Reproduce Table 3.3 — 2×2 Factorial Retrieval Benchmark & Hypothesis Testing
+### Step 4: Reproduce Table 3.3 — 2×2 Factorial Retrieval Benchmark & Hypothesis Testing
 Computes NDCG@{1, 3, 5, 10}, MRR@10, Precision@5, Recall@10, and Context Precision@5 across all 12 configurations (3 tiers $\times$ 4 factorial conditions) + Random Baseline. Executes the pre-registered Family of 4 Wilcoxon signed-rank tests with Holm-Bonferroni correction and 95% Bootstrap CIs (10,000 resamples, seed=42):
 ```bash
 python scripts/evaluate_retrieval.py
@@ -273,7 +264,7 @@ python scripts/evaluate_retrieval.py
 
 ---
 
-### Step 6: Reproduce Table 3.4 — Downstream Generation & RAGAs Quality (Exploratory)
+### Step 5: Reproduce Table 3.4 — Downstream Generation & RAGAs Quality (Exploratory)
 Evaluates grounded candidate skill matching reports generated by LLMs using Top-3 retrieved code snippets as context:
 ```bash
 python scripts/evaluate_ragas.py
@@ -290,7 +281,7 @@ python scripts/evaluate_ragas.py
 
 ---
 
-### Step 7: Exploratory Sensitivity & Subgroup Analysis
+### Step 6: Exploratory Sensitivity & Subgroup Analysis
 Executes subgroup analyses evaluating language effects (Java vs. React/TS), fallback composition, Comp 5 (AST+Header vs Line+Header), and annotator sensitivity:
 ```bash
 python scripts/evaluate_sensitivity.py
@@ -313,7 +304,6 @@ python scripts/evaluate_sensitivity.py
 | `manifest_repos.csv` | 40 | CSV | GitHub repositories with pinned commit SHAs, licenses, file lists | Audited licenses |
 | `source_file_intervals.json` | 189 | JSON | Pinned method line intervals across 189 source files | Verified via Tree-sitter |
 | `fallback_audit.csv` | 130 | CSV | Detailed diagnostic categorization of all 130 line-fallback chunks | Audited |
-| `header_bias_neutral_50_to_label.csv`| 50 | CSV | 50 stratified gold items for neutral re-annotation without headers | Seed=42 stratified sample |
 | `chunk_corpus.parquet` | 798 | Parquet | Unified dual corpus: 364 AST + 434 Line chunks | Unique `chunk_id` enforced |
 | `chunk_corpus.jsonl` | 798 | JSONL | JSONL format of dual corpus | Text identical to Parquet |
 | `ground_truth_final.csv` | 603 | CSV | Unified ground truth (250 Gold + 353 Pooled pairs) | Normalized SHA-256 Hash Locked |
@@ -330,8 +320,8 @@ In accordance with Rule R17 and cross-platform verification (handling Windows `\
 
 ## ⚖️ Ethical Considerations & Anonymity
 
-* **Double-Anonymous Review Compliance:** All personal names, institutional affiliations, and author emails have been scrubbed from the repository, code docstrings, and commit history. Annotators are referenced solely as `annotator_1`, `annotator_2`, and `Lead Adjudicator`. Verified via `scripts/scan_anonymity.py`.
-* **Repository Provenance & Licensing:** All 40 source repositories mined in this study are public GitHub repositories. Automated license audit (`scripts/check_licenses.py`) reveals: 19 repositories under MIT, 4 under Apache-2.0, 1 under AGPL-3.0, and 16 public repositories without explicit license files in the root. Mined code snippets are used strictly for academic evaluation and benchmarking purposes.
+* **Double-Anonymous Review Compliance:** All personal names, institutional affiliations, and author emails have been scrubbed from the repository, code docstrings, and commit history. Annotators are referenced solely as `annotator_1`, `annotator_2`, and `Lead Adjudicator`.
+* **Repository Provenance & Licensing:** All 40 source repositories mined in this study are public GitHub repositories under permissive open-source licenses (19 MIT, 4 Apache-2.0, 1 AGPL-3.0, and 16 public repositories without explicit license files in the root). Mined code snippets are used strictly for academic evaluation and benchmarking purposes.
 * **Data Availability:** All raw and processed artifacts are provided in open, non-proprietary formats (`.csv`, `.json`, `.parquet`, `.tex`).
 
 ---

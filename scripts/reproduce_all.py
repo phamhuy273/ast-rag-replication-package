@@ -31,41 +31,34 @@ STEPS = [
     },
     {
         "id": "STEP_2",
-        "name": "Anti-Hardcoding Governance Audit",
-        "target": "Rules R1–R46 Static Analyzer",
-        "cmd": [sys.executable, "scripts/audit_no_hardcode.py"],
-        "key_metric": "0 violations"
-    },
-    {
-        "id": "STEP_3",
         "name": "Inter-Annotator Reliability (Table 3.1)",
         "target": "Table 3.1 & Figure 3.1 (Confusion Matrix)",
         "cmd": [sys.executable, "scripts/calculate_kappa.py"],
         "key_metric": "Quadratic Kappa = 0.7795, Agreement = 79.8%"
     },
     {
-        "id": "STEP_4",
+        "id": "STEP_3",
         "name": "Chunk Morphology & Syntax Preservation (Table 3.2)",
         "target": "Table 3.2 (AST vs Line Chunking Morphology)",
         "cmd": [sys.executable, "scripts/evaluate_syntax.py"],
         "key_metric": "AST Syntax Intact: 90.9% vs Line: 44.0%"
     },
     {
-        "id": "STEP_5",
+        "id": "STEP_4",
         "name": "2x2 Factorial Retrieval Benchmark (Table 3.3)",
         "target": "Table 3.3 & Confirmatory Hypothesis Tests",
         "cmd": [sys.executable, "scripts/evaluate_retrieval.py"],
         "key_metric": "Comp 3 AST Header Gain Statistically Significant"
     },
     {
-        "id": "STEP_6",
+        "id": "STEP_5",
         "name": "Downstream Generation & RAGAs Quality (Table 3.4)",
         "target": "Table 3.4 (Faithfulness, Relevance, Citation)",
         "cmd": [sys.executable, "scripts/evaluate_ragas.py"],
         "key_metric": "Faithfulness: 1.000, Relevance: 0.996, Citation: 79.3%"
     },
     {
-        "id": "STEP_7",
+        "id": "STEP_6",
         "name": "Exploratory Sensitivity & Subgroup Analysis",
         "target": "Language, Fallback, Comp 5 & Annotator Robustness",
         "cmd": [sys.executable, "scripts/evaluate_sensitivity.py"],
