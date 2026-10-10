@@ -1,0 +1,17 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Downstream Generation Quality Evaluated via RAGAs Framework ($N=25$ Job Descriptions, Top-3 Retrieved Code Context).}
+\label{tab:ragas_generation}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Metric} & \textbf{Line (Baseline)} & \textbf{AST (Ours)} & $\Delta$ & \textbf{p-value} \\
+\midrule
+\textbf{Faithfulness} & 1.000 & \textbf{1.000} & +0.000 & 1.0000 \\
+\textbf{Answer Relevance} & 1.000 & \textbf{0.996} & -0.004 & 0.3173 \\
+\textbf{Citation Coverage} & 0.792 & \textbf{0.793} & +0.001 & 0.9839 \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize $^{\dagger}$Statistically significant improvement over Line baseline ($\alpha = 0.05$, two-sided paired Wilcoxon test).} \\
+\end{tabular}
+\vspace{-2mm}
+\end{table}
