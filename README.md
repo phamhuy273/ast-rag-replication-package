@@ -160,7 +160,7 @@ python scripts/calculate_kappa.py
 ### 4. Reproduce Table 3.2: Real Corpus Chunking Characteristics
 Extracts syntactic boundaries using Tree-sitter and tokenizes via BGE-M3 tokenizer on the actual 798 chunks:
 ```bash
-python scripts/generate_table_3_2_real.py
+python scripts/evaluate_syntax.py
 ```
 *Expected Output:*
 * Syntax Boundary Preservation: **90.9%** (AST) vs. **44.0%** (Line-based, 56.0% fragmented).
@@ -171,7 +171,7 @@ python scripts/generate_table_3_2_real.py
 ### 5. Reproduce Table 3.3: 2x2 Factorial Retrieval Benchmark & Hypothesis Testing
 Computes NDCG@{1, 3, 5, 10}, MRR@10, Precision@5, Recall@10, Context Precision@5, and runs the pre-registered Family of 4 Wilcoxon signed-rank tests with Holm-Bonferroni correction and 95% Bootstrap CIs (10,000 resamples):
 ```bash
-python scripts/evaluate_2x2.py
+python scripts/evaluate_retrieval.py
 ```
 *Expected Output:*
 * Comparison 3 (Header Effect on AST): $\Delta = \mathbf{+0.1120}$, 95% CI $[+0.0559, +0.1664]$, $p_{\text{Holm}} = \mathbf{0.0031} < 0.05$ (Statistically Significant positive contribution of Context Header).
