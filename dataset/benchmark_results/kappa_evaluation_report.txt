@@ -1,0 +1,28 @@
+
+================================================================================
+  INTER-ANNOTATOR AGREEMENT EVALUATION REPORT (TABLE 3.1)
+================================================================================
+• Total Evaluated Candidate Evidence Pairs (N): 603
+• Exact Consensus Matches (po)               : 481 / 603 (79.77%)
+• Minor Disagreements (|delta| = 1)          : 112 / 603 (18.57%)
+• Severe Disagreements (|delta| = 2)         : 10 / 603 (1.66%)
+--------------------------------------------------------------------------------
+• Unweighted Cohen's Kappa (kappa)            : 0.6890
+• Linear Weighted Kappa (kappa_linear)        : 0.7313
+• QUADRATIC WEIGHTED KAPPA (kappa_w)          : 0.7795  <-- [PRIMARY METRIC]
+• Agreement Level (Landis & Koch, 1977)       : Almost Perfect / Excellent Agreement [EXCELLENT]
+================================================================================
+
+CONFUSION MATRIX (3x3):
+   (Rows: Annotator 1  x  Columns: Annotator 2)
+   -----------------------------------------------------------------
+   Annotator 1 \ Annotator 2  |  Level 0   |  Level 1   |  Level 2   |  Row Sum 
+   -----------------------------------------------------------------
+   Level 0                    |    116     |     26     |     4      |    146   
+   Level 1                    |     11     |    193     |     29     |    233   
+   Level 2                    |     6      |     46     |    172     |    224   
+   -----------------------------------------------------------------
+   Column Sum (Annotator 2)   |    133     |    265     |    205     |    603   
+   -----------------------------------------------------------------
+
+Saved confusion matrix plot: confusion_matrix_kappa.png

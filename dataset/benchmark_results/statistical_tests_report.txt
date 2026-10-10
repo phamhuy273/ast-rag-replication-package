@@ -1,0 +1,28 @@
+
+FAMILY OF 4 STATISTICAL TESTING REPORT (PRIMARY METRIC: NDCG@10):
+------------------------------------------------------------------------------------------
+Comparison                                 |  Delta   |  95% Bootstrap CI  |  p_raw   |  p_holm  |  W/L/T 
+------------------------------------------------------------------------------------------
+Comp 1 (Full Proposed vs Full Baseline)    | -0.0138  | [-0.0882, +0.0575] |  0.8532  |  0.8532  | 12/13/0
+Comp 2 (Pure Chunking Effect)              | -0.1258  | [-0.1802, -0.0758] |  0.0000  |  0.0001  | 5/20/0 
+Comp 3 (Header Effect on AST)              | +0.1120  | [+0.0559, +0.1664] |  0.0010  |  0.0031  | 19/6/0 
+Comp 4 (Header Effect on Line)             | +0.0291  | [-0.0165, +0.0783] |  0.3666  |  0.7332  | 15/10/0
+------------------------------------------------------------------------------------------
+
+Detailed Declarations:
+• Comp 1 (Full Proposed vs Full Baseline):
+  System A (rerank_ast_with_header): 0.4566 vs System B (rerank_line_no_header): 0.4703
+  Delta = -0.0138, 95% CI: [-0.0882, +0.0575], Wilcoxon W = 155.0
+  p_raw = 8.5320e-01, p_holm = 8.5320e-01 -> Not Statistically Significant (p_holm = 0.8532 >= 0.05 or CI spans 0)
+• Comp 2 (Pure Chunking Effect):
+  System A (rerank_ast_no_header): 0.3445 vs System B (rerank_line_no_header): 0.4703
+  Delta = -0.1258, 95% CI: [-0.1802, -0.0758], Wilcoxon W = 22.0
+  p_raw = 3.1948e-05, p_holm = 1.2779e-04 -> Statistically Significant (p_holm = 0.0001, winner: rerank_line_no_header)
+• Comp 3 (Header Effect on AST):
+  System A (rerank_ast_with_header): 0.4566 vs System B (rerank_ast_no_header): 0.3445
+  Delta = +0.1120, 95% CI: [+0.0559, +0.1664], Wilcoxon W = 46.0
+  p_raw = 1.0271e-03, p_holm = 3.0813e-03 -> Statistically Significant (p_holm = 0.0031, winner: rerank_ast_with_header)
+• Comp 4 (Header Effect on Line):
+  System A (rerank_line_with_header): 0.4994 vs System B (rerank_line_no_header): 0.4703
+  Delta = +0.0291, 95% CI: [-0.0165, +0.0783], Wilcoxon W = 128.0
+  p_raw = 3.6659e-01, p_holm = 7.3317e-01 -> Not Statistically Significant (p_holm = 0.7332 >= 0.05 or CI spans 0)
