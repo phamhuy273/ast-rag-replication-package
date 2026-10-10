@@ -1,0 +1,52 @@
+================================================================================
+POOL DISCREPANCY RECONCILIATION REPORT
+================================================================================
+1. HIGH-LEVEL TOTALS:
+• pool_size_report.csv recorded sums : total=415, already_gold=35, new_to_label=380
+• Actual Top-3 of 8 Dense/Rerank runs: total=382, already_gold=29, new_to_label=353
+• Rows in to_label.csv               : 353
+• Total Ground Truth pairs (250+353) : 603
+
+2. EMPIRICAL VERIFICATION OF to_label.csv:
+• Are the 353 rows in to_label.csv EXACTLY the (Top-3 coordinates - Gold 250)? YES
+• Unmatched coordinates between Top-3 new items and to_label.csv: 0
+
+3. ROOT CAUSE ANALYSIS OF THE 27-ITEM GAP (380 in pool_size_report vs 353 in to_label):
+• When pool_size_report.csv was initially tabulated, candidates were tracked by chunk_id rather than deduplicated line coordinates.
+• In the dual corpus, AST-fallback chunks and Line chunks from identical file line ranges share the exact same (repo, file, start_line, end_line) coordinates but have different chunk_ids (e.g. AST fallback vs Line 50).
+• Coordinate-level collapsing: 33 coordinate pairs appear under multiple chunk identifiers across AST and Line pools.
+• Coordinate deduplication reduced 415 raw pool instances down to 382 unique coordinate pairs across the 25 queries.
+• Subtracting the 29 pairs that already overlapped with Gold 250 leaves EXACTLY 353 new unique items to label.
+• Mathematical identity: 382 unique pooled coordinates - 29 existing gold = 353 items in to_label.csv.
+
+4. PER-QUERY RECONCILIATION TABLE:
+JD_ID        | Rep_Tot | Act_Tot | Diff_Tot | Rep_Gold | Act_Gold | Rep_New | Act_New | Diff_New
+----------------------------------------------------------------------------------------
+JD_JAVA_01   |      15 |      14 |       +1 |        3 |        2 |      12 |      12 |       +0
+JD_JAVA_02   |      18 |      16 |       +2 |        0 |        0 |      18 |      16 |       +2
+JD_JAVA_03   |      17 |      17 |       +0 |        1 |        1 |      16 |      16 |       +0
+JD_JAVA_04   |      14 |      13 |       +1 |        2 |        2 |      12 |      11 |       +1
+JD_JAVA_05   |      16 |      15 |       +1 |        3 |        2 |      13 |      13 |       +0
+JD_JAVA_06   |      15 |      14 |       +1 |        2 |        2 |      13 |      12 |       +1
+JD_JAVA_07   |      13 |      13 |       +0 |        3 |        3 |      10 |      10 |       +0
+JD_JAVA_08   |      16 |      16 |       +0 |        0 |        0 |      16 |      16 |       +0
+JD_JAVA_09   |      19 |      17 |       +2 |        4 |        2 |      15 |      15 |       +0
+JD_JAVA_10   |      16 |      15 |       +1 |        3 |        2 |      13 |      13 |       +0
+JD_JAVA_11   |      17 |      17 |       +0 |        3 |        3 |      14 |      14 |       +0
+JD_JAVA_12   |      16 |      14 |       +2 |        0 |        0 |      16 |      14 |       +2
+JD_JAVA_13   |      17 |      17 |       +0 |        2 |        2 |      15 |      15 |       +0
+JD_JAVA_14   |      19 |      18 |       +1 |        5 |        4 |      14 |      14 |       +0
+JD_JAVA_15   |      16 |      16 |       +0 |        2 |        2 |      14 |      14 |       +0
+JD_REACT_01  |      21 |      18 |       +3 |        0 |        0 |      21 |      18 |       +3
+JD_REACT_02  |      16 |      13 |       +3 |        0 |        0 |      16 |      13 |       +3
+JD_REACT_03  |      20 |      17 |       +3 |        1 |        1 |      19 |      16 |       +3
+JD_REACT_04  |      17 |      13 |       +4 |        0 |        0 |      17 |      13 |       +4
+JD_REACT_05  |      12 |      11 |       +1 |        0 |        0 |      12 |      11 |       +1
+JD_REACT_06  |      16 |      16 |       +0 |        0 |        0 |      16 |      16 |       +0
+JD_REACT_07  |      20 |      16 |       +4 |        0 |        0 |      20 |      16 |       +4
+JD_REACT_08  |      17 |      16 |       +1 |        1 |        1 |      16 |      15 |       +1
+JD_REACT_09  |      18 |      16 |       +2 |        0 |        0 |      18 |      16 |       +2
+JD_REACT_10  |      14 |      14 |       +0 |        0 |        0 |      14 |      14 |       +0
+----------------------------------------------------------------------------------------
+TOTAL        |     415 |     382 |      +33 |       35 |       29 |     380 |     353 |      +27
+================================================================================

@@ -530,6 +530,8 @@ def main():
     latex_lines.extend([
         r"\bottomrule",
         r"\end{tabular}",
+        r"\vspace{1mm}\\",
+        r"\footnotesize{\textit{Note:} BM25 configurations were evaluated post-hoc as baseline comparisons and were not included in candidate pooling. Consequently, their Top-3 judged coverage is 18.7\%--34.7\% (vs. 100.0\% for Dense and Re-rank tiers). Following standard TREC pooling protocol, unjudged candidate items are assigned relevance score 0, which penalizes unpooled BM25 runs.}",
         r"\vspace{-2mm}",
         r"\end{table*}"
     ])

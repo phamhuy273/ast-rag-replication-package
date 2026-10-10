@@ -1,0 +1,20 @@
+{
+  "total_adjudicated_rows": 122,
+  "unique_reason_strings": 70,
+  "adjudicator": [
+    "Lead Adjudicator"
+  ],
+  "decision_distribution": {
+    "agreed_with_annotator_1_only": 73,
+    "agreed_with_annotator_1_pct": 59.84,
+    "agreed_with_annotator_2_only": 47,
+    "agreed_with_annotator_2_pct": 38.52,
+    "agreed_with_neither": 2,
+    "agreed_with_neither_pct": 1.64
+  },
+  "template_families": {
+    "explicit_prefix_RESOLVED_BY_ADJUDICATION": 29,
+    "standard_evaluation_structure": 93
+  },
+  "description": "Adjudication reasons follow structured templated text specifying the resolved relevance level and item-specific identifiers (file path and technical snippet characteristics), resulting in 70 distinct strings across 122 rows rather than unconstrained free-form technical essays."
+}

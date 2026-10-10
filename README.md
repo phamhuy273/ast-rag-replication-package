@@ -256,11 +256,13 @@ python scripts/evaluate_retrieval.py
   * **Comp 2 (Pure Chunking Effect without Headers):** $\Delta = \mathbf{-0.1258}$, $p_{\text{Holm}} = \mathbf{0.0001} < 0.05$ (Confirms severe degradation when syntax chunks lack context).
   * **Comp 1 (Full Proposed AST+Header vs. Baseline Line No-Header):** $\Delta = -0.0138$, 95% Bootstrap CI $[-0.0882, +0.0575]$, Wilcoxon $W = 155.0$, $p_{\text{Holm}} = 0.8532$ (Comparable re-ranking performance: $\text{NDCG@10} = 0.4566$ vs. $0.4703$, not statistically significant; Context Precision $\text{CP@5} = 0.913$ vs. $0.888$, $\text{MRR@10} = 0.940$ vs. $0.933$).
   * **Comp 4 (Header Effect on Line Chunks):** $\Delta = +0.0291$, $p_{\text{Holm}} = 0.7332 \ge 0.05$ (Not statistically significant).
+  * **Methodological Note on BM25 Coverage:** BM25 configurations were evaluated post-hoc as baseline comparisons and were not included in candidate pooling. Consequently, Top-3 judged coverage for BM25 runs is 18.7%–34.7% (with 220 unjudged slots across the 4 configurations), compared to 100.0% judged coverage for all 8 Dense and Re-ranking configurations. Under standard TREC pooling conventions (Rule R20), unjudged candidate items are assigned relevance score 0, which penalizes unpooled BM25 runs. Complete audit is in `dataset/benchmark_results/pool_coverage_report.csv`.
 * **Generated Artifacts:**
   * LaTeX Table: `paper/table_3_3_retrieval.tex`
   * Complete Metrics: `dataset/benchmark_results/table_3_retrieval_benchmark.csv`
   * Statistical Report: `dataset/benchmark_results/statistical_tests_report.txt`
   * Per-Query Breakdown: `dataset/benchmark_results/per_query_evaluation.csv`
+  * Pool Coverage Report: `dataset/benchmark_results/pool_coverage_report.csv`
 
 ---
 
@@ -317,7 +319,7 @@ python scripts/evaluate_sensitivity.py
 ### Ground Truth Normalized SHA-256 Hashes:
 In accordance with Rule R17 and cross-platform verification (handling Windows `\r\n` vs. Linux `\n`), the ground truth dataset is cryptographically locked on normalized newlines:
 * `ground_truth_final.csv` (Entire file): `70C01F773136F7D0352012B7D1F1DD9DB216708848C5A54E22A661DFD93DBB4D`
-* Gold subset (First 250 labels): `222A9F55353597AF4B0DA9118E81F94602C5E78DCC9AF95C5490DC7D8EC45638`
+* Gold subset (First 250 labels): `F9E3011EFA003C6AAB7D6DFD46CE94E1FFDDC741F193C02E0748D39D67650531`
 *(Automatically verified by `tests/test_gold_integrity.py`).*
 
 ---
@@ -325,9 +327,10 @@ In accordance with Rule R17 and cross-platform verification (handling Windows `\
 ## ⚖️ Ethical Considerations & Anonymity
 
 * **Double-Anonymous Review Compliance:** All personal names, institutional affiliations, and author emails have been removed from repository files and docstrings. Annotators and adjudicators are referenced solely as `annotator_1`, `annotator_2`, and `Lead Adjudicator`.
-* **Repository Provenance & Third-Party Code:** The chunk corpora (`dataset/chunk_corpus.*`) contain code snippets extracted from 40 public GitHub repositories (20 Java, 20 TypeScript/React), fully listed with commit SHAs and repository URLs in `dataset/manifest_repos.csv` and documented in `PROVENANCE.md`.
+* **Protocol Deviations & Methodological Transparency:** All procedural adjustments relative to the initial pre-registration protocol (including weighted Kappa $\kappa_w = 0.7795$ vs. the prospective $0.80$ threshold, post-hoc BM25 evaluation without pooling, structured template adjudication, and the unexecuted neutral control) are systematically documented with empirical reconciliation logs in [`dataset/PROTOCOL_DEVIATIONS.md`](dataset/PROTOCOL_DEVIATIONS.md).
+* **Repository Provenance & Third-Party Code:** The chunk corpora (`dataset/chunk_corpus.*`) contain code snippets extracted from 40 public GitHub repositories (20 Java, 20 TypeScript/React), fully listed with commit SHAs and repository URLs in [`dataset/manifest_repos.csv`](dataset/manifest_repos.csv) and documented in [`PROVENANCE.md`](PROVENANCE.md).
   * *Licensing Breakdown:* 19 repositories are licensed under MIT; 4 under Apache-2.0; 1 under AGPL-3.0; and 16 repositories are publicly hosted without an explicit root license file.
-  * *Fair Use & Research Exemption:* These code snippets are included strictly as an academic benchmarking and replication dataset under fair use principles (17 U.S. Code § 107 / Berne Convention academic citation rights). All copyrights remain with their original authors.
+  * *Third-Party Code Usage:* These code snippets are included solely for academic benchmarking and replication in this peer-reviewed study. Original copyrights remain with their respective upstream authors.
 * **Data Availability:** All raw and processed artifacts are provided in open, non-proprietary formats (`.csv`, `.json`, `.parquet`, `.tex`).
 
 ---
