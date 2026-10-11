@@ -16,7 +16,7 @@
 
 ## 📌 Executive Summary & Research Questions
 
-This replication package provides the curated code chunk corpora, precomputed retrieval runs, human ground truth annotations, LLM evaluation cache, Tree-sitter chunking engine, and reproduction scripts necessary to independently verify and reproduce all empirical tables, figures, and statistical tests reported in our paper.
+This replication package provides the curated code chunk corpora, precomputed retrieval runs, human ground truth annotations, Tree-sitter chunking engine, and reproduction scripts necessary to independently verify and reproduce all empirical tables, figures, and statistical tests reported in our paper.
 
 Our chunking strategy is **AST-first with line fallback**: it extracts method-level semantic AST blocks when available, and falls back to 50-LOC sliding windows when files lack parseable method structures (e.g. top-level JSX renders, styled components, interface contracts, and configuration objects). In our corpus of 364 AST chunks, 234 chunks (64.3%) are pure AST method extractions, while 130 chunks (35.7%) are handled via the pre-registered fallback mechanism (fully audited in `dataset/fallback_audit.csv`).
 
@@ -34,14 +34,11 @@ Our chunking strategy is **AST-first with line fallback**: it extracts method-le
   * *Exploratory Comp 5 (AST+Header vs. Line+Header):* $\Delta = -0.0428$, 95% Bootstrap CI $[-0.1056, +0.0211]$, Wilcoxon $W = 97.0, p = 0.1355 \ge 0.05$ (Line+Header wins 18 queries, AST+Header wins 6 queries, 1 tie; difference not statistically significant).
   * *Candidate Pool Random Baseline:* $\text{NDCG@10} = \mathbf{0.592} \pm 0.083$ across 1,000 permutations within pooled candidates. Note that this baseline operates strictly within pre-screened judged items (0% unjudged rate); in whole-corpus retrieval where ~45% of top-10 retrieved items are unjudged (imputed as 0 under standard Cranfield pooling rules), a corpus-wide random baseline scores $\mathbf{0.0195}$, and when systems are restricted to judged candidates (Shortlist evaluation), Line+Header achieves $\mathbf{0.6148}$, surpassing the pool random baseline.
 
-* **RQ3: Downstream Generation Faithfulness & RAGAs Quality (Table 3.4, Exploratory):** How does retrieved evidence grounding affect LLM skill evaluation reliability?
-  * *Empirical Finding:* Across 25 industry Job Descriptions, grounded LLM evaluation achieves high Faithfulness ($1.000 \pm 0.000$ on the evaluated sample) with high Answer Relevance ($0.996 \pm 0.020$ for AST vs. $1.000$ for Line) and robust citation auditability ($79.3\%$ of AST claims citing explicit code locations). Evaluated via an offline cache of LLM judgments on Top-3 retrieved contexts.
-
 * **Inter-Annotator Reliability (Table 3.1 & Figure 3.1):**
   * Evaluated on all 603 candidate pairs between Annotator 1 and Annotator 2: Exact Agreement = **79.77%** (481/603), Minor Disagreements = **18.57%** (112/603), Severe Disagreements = **1.66%** (10/603).
   * **Quadratic Weighted Cohen's Kappa ($\kappa_w$):** **`0.7795`** (*Substantial Agreement*, Landis & Koch 1977 [0.61–0.80]).
   * **Gold 250 Subset Kappa:** **`0.8808`** (*Almost Perfect Agreement*).
-  * Adjudication of 122 disagreements was conducted by a single Lead Adjudicator, recording 70 distinct technical rationales across the 122 items (detailed in `dataset/disagreements_adjudication.csv`). Annotator 1 scored pairs via the 3-point rubric directly, while Annotator 2 recorded 45 diagnostic notes.
+  * Adjudication of 122 disagreements was conducted by a single Lead Adjudicator, recording 70 distinct technical rationales across the 122 items (detailed in `dataset/disagreements_adjudication.csv` and summarized in `dataset/benchmark_results/adjudication_summary.json`). Annotator 1 scored pairs via the 3-point rubric directly, while Annotator 2 recorded 45 diagnostic notes.
 
 ---
 
@@ -54,13 +51,11 @@ Our chunking strategy is **AST-first with line fallback**: it extracts method-le
 │       ├── tree_sitter_loader.py               # Tree-sitter AST Progressive Disclosure & line fallback chunker
 │       └── __init__.py
 ├── dataset/                                    # Curated datasets, queries, and benchmark runs
-│   ├── jd_raw/                                 # 25 raw industry Job Description texts (15 Java, 10 TS/React)
 │   ├── queries_frozen.json                     # 25 pre-registered frozen queries with metadata
 │   ├── manifest_repos.csv                      # 40 GitHub repositories with commit SHAs & licenses
 │   ├── source_file_intervals.json              # Pinned method intervals across 189 files for boundary analysis
 │   ├── fallback_audit.csv                      # Detailed audit and categorization of 130 fallback chunks
 │   ├── chunk_corpus.parquet                    # Dual corpus: 798 chunks (364 AST + 434 Line-based)
-│   ├── chunk_corpus.jsonl                      # JSONL export of the dual corpus
 │   ├── ground_truth_final.csv                  # 603 unified labeled pairs (250 Gold + 353 Pooled)
 │   ├── ground_truth_annotator1.csv             # Anonymized annotations from Annotator 1 (603 pairs)
 │   ├── ground_truth_annotator2.csv             # Anonymized annotations from Annotator 2 (603 pairs)
@@ -71,6 +66,7 @@ Our chunking strategy is **AST-first with line fallback**: it extracts method-le
 │   ├── table_3_2_report.txt                    # Formatted text report for Table 3.2
 │   ├── sampling_frame_log.json                 # Sampling log for AST and Line chunking (Rule R10)
 │   ├── annotation_guidelines.md                # 3-tier relevance labeling guideline for annotators
+│   ├── PROTOCOL_DEVIATIONS.md                  # Comprehensive empirical audit of protocol adjustments
 │   ├── retrieval_runs/                         # 12 precomputed retrieval run JSON files (3 tiers x 4 conditions)
 │   │   ├── bm25_ast_no_header.json
 │   │   ├── bm25_ast_with_header.json
@@ -94,34 +90,34 @@ Our chunking strategy is **AST-first with line fallback**: it extracts method-le
 │       ├── per_query_evaluation.csv            # Per-query metrics (300 records: 12 configs x 25 JDs)
 │       ├── kappa_evaluation_report.txt         # Inter-annotator agreement evaluation report (Table 3.1)
 │       ├── confusion_matrix_kappa.png          # Heatmap visualization of annotator confusion matrix
-│       ├── ragas_evaluation_report.txt         # RAGAs evaluation report (Faithfulness, Relevance, Citation)
-│       ├── ragas_evaluation_summary.csv        # Summary table for RAGAs generation metrics
-│       ├── ragas_per_query_details.json        # Full generation and LLM-as-a-Judge audit logs
-│       └── ragas_evaluation_cache.json         # Offline cache for LLM responses (enables offline reproduction)
+│       ├── pool_coverage_report.csv            # Audit of candidate pool coverage across all 12 runs
+│       ├── pool_reconciliation_report.txt      # Mathematical reconciliation of candidate pool derivations
+│       └── adjudication_summary.json           # Template-level taxonomy of consensus adjudication
 ├── paper/                                      # Automatically generated LaTeX tables for the paper
 │   ├── table_3_2.tex                           # Corpus structural morphology comparison LaTeX table
-│   ├── table_3_3_retrieval.tex                 # 2x2 Factorial retrieval benchmark LaTeX table
-│   └── table_3_4_ragas.tex                     # RAGAs downstream generation quality LaTeX table
+│   └── table_3_3_retrieval.tex                 # 2x2 Factorial retrieval benchmark LaTeX table
 ├── scripts/                                    # Standalone reproduction & evaluation runners
-│   ├── reproduce_all.py                        # Master one-click runner executing all 6 steps end-to-end
+│   ├── reproduce_all.py                        # Master one-click runner executing all 5 steps end-to-end
 │   ├── calculate_kappa.py                      # Reproduces Table 3.1 & Figure 3.1 (Inter-annotator agreement)
 │   ├── evaluate_syntax.py                      # Reproduces Table 3.2 (AST pure, fallback, combined vs Line)
 │   ├── evaluate_retrieval.py                   # Reproduces Table 3.3 (2x2 retrieval metrics & Wilcoxon tests)
-│   ├── evaluate_ragas.py                       # Reproduces Table 3.4 (RAGAs downstream generation evaluation)
-│   └── evaluate_sensitivity.py                 # Evaluates exploratory subgroup & sensitivity analyses
+│   ├── evaluate_sensitivity.py                 # Evaluates exploratory subgroup & sensitivity analyses
+│   ├── report_pool_coverage.py                 # Generates candidate pool coverage analysis
+│   ├── reconcile_pool.py                       # Validates coordinate-level candidate pool reconciliation
+│   └── summarize_adjudication.py               # Analyzes structured template structure of adjudication
 ├── tests/                                      # Complete automated test suite (100% passing)
-│   ├── test_gold_integrity.py                  # SHA-256 cryptographic verification of ground truth
-│   ├── test_metrics_verification.py            # Unit tests for NDCG, MRR, CP against hand-calculated proofs
 │   ├── test_corpus_characteristics.py          # Verifies Table 3.2 measurements and subgroups
-│   ├── test_statistical_tests.py               # Verifies Wilcoxon and bootstrap implementations
-│   ├── test_parser_edge_cases.py               # Unit tests for Tree-sitter parsers and extractors
-│   ├── test_readme_numbers.py                  # Asserts README numerical claims match benchmark files
-│   ├── test_cache_invalidation.py              # Cache validation tests
+│   ├── test_doc_hashes.py                      # Verifies documentation SHA-256 hashes against locked keys
 │   ├── test_evaluation_phase5.py               # 2x2 Factorial benchmark verification
-│   ├── test_experimental_controls.py           # Controls across conditions
+│   ├── test_experimental_controls.py           # Verifies experimental controls across conditions
+│   ├── test_gold_integrity.py                  # Cryptographic SHA-256 integrity of ground truth
+│   ├── test_metrics.py                         # Unit tests for IR and agreement metrics
 │   ├── test_neutral_labeling.py                # Pooling budget tests
-│   ├── test_reproducibility.py                 # Determinism & seed consistency
-│   └── test_text_integrity.py                  # Dataset count cross-checks
+│   ├── test_parser.py                          # Unit tests for Tree-sitter parsers and extractors
+│   ├── test_pool_coverage.py                   # Verifies candidate pool coverage distribution
+│   ├── test_readme_numbers.py                  # Asserts README numerical claims match benchmark files
+│   ├── test_reproducibility.py                 # Determinism & seed consistency verification
+│   └── test_text_integrity.py                  # Dataset count cross-checks & claim safeguards
 ├── analysis_plan.md                            # Pre-registered experimental analysis plan (frozen at Phase 0)
 ├── analysis_plan_addendum.md                   # Exploratory analysis protocol addendum (Path B)
 ├── PROVENANCE.md                               # Comprehensive audit trail of data sources, licensing, and annotations
@@ -178,22 +174,21 @@ python scripts/reproduce_all.py
 ```
 *(Alternatively, on Windows run `run_all.bat`, or on Linux/macOS run `bash run_all.sh`).*
 
-### Typical Output (~28 seconds on commodity CPU):
+### Typical Output (~25 seconds on commodity CPU):
 ```text
 ===============================================================================================
   MASTER REPRODUCTION SUMMARY
 ===============================================================================================
 Step     | Target Paper Item                              | Status   | Duration | Key Empirical Verification
 -----------------------------------------------------------------------------------------------
-STEP_1   | Unit Tests & Experimental Controls             | PASS     |    3.1s  | All tests passed
+STEP_1   | Unit Tests & Experimental Controls             | PASS     |    2.5s  | All tests passed
 STEP_2   | Table 3.1 & Figure 3.1 (Confusion Matrix)     | PASS     |    3.3s  | Quadratic Kappa = 0.7795, Agreement = 79.8%
 STEP_3   | Table 3.2 (AST vs Line Chunking Morphology)   | PASS     |   14.1s  | AST Syntax Intact: 90.9% vs Line: 44.0%
 STEP_4   | Table 3.3 & Confirmatory Hypothesis Tests     | PASS     |    3.3s  | Comp 3 AST Header Gain Statistically Significant
-STEP_5   | Table 3.4 (Faithfulness, Relevance, Citation) | PASS     |    2.2s  | Faithfulness: 1.000, Relevance: 0.996, Citation: 79.3%
-STEP_6   | Language, Fallback, Comp 5 & Annotator Robust  | PASS     |    2.3s  | Comp 5 Delta = -0.0428, Top Fallback: JSX render
+STEP_5   | Language, Fallback, Comp 5 & Annotator Robust  | PASS     |    2.3s  | Comp 5 Delta = -0.0428, Top Fallback: JSX render
 ===============================================================================================
-Total Reproduction Time: 28.3s
-RESULT: ALL 6 EMPIRICAL REPRODUCTION STEPS COMPLETED AND VERIFIED SUCCESSFULLY [PASS]
+Total Reproduction Time: 25.5s
+RESULT: ALL 5 EMPIRICAL REPRODUCTION STEPS COMPLETED AND VERIFIED SUCCESSFULLY [PASS]
 ===============================================================================================
 ```
 
@@ -266,24 +261,7 @@ python scripts/evaluate_retrieval.py
 
 ---
 
-### Step 5: Reproduce Table 3.4 — Downstream Generation & RAGAs Quality (Exploratory)
-Evaluates grounded candidate skill matching reports generated by LLMs using Top-3 retrieved code snippets as context:
-```bash
-python scripts/evaluate_ragas.py
-```
-*(Loads cached responses from `dataset/benchmark_results/ragas_evaluation_cache.json` for deterministic offline reproduction. Online evaluation supported by providing `GEMINI_API_KEY`).*
-* **Key Verified Results:**
-  * **Faithfulness:** **`1.000`** (AST) vs. **`1.000`** (Line) — 100% grounded in code context across the evaluated sample.
-  * **Answer Relevance:** **`0.996`** (AST) vs. **`1.000`** (Line).
-  * **Citation Coverage:** **`79.3%`** (AST) vs. **`79.2%`** (Line) — over 79% of claims cite explicit code file/line locations.
-* **Generated Artifacts:**
-  * LaTeX Table: `paper/table_3_4_ragas.tex`
-  * Generation Summary: `dataset/benchmark_results/ragas_evaluation_summary.csv`
-  * Full Audit Details: `dataset/benchmark_results/ragas_per_query_details.json`
-
----
-
-### Step 6: Exploratory Sensitivity & Subgroup Analysis
+### Step 5: Reproduce Exploratory Sensitivity & Subgroup Analysis
 Executes subgroup analyses evaluating language effects (Java vs. React/TS), fallback composition, Comp 5 (AST+Header vs Line+Header), and annotator sensitivity:
 ```bash
 python scripts/evaluate_sensitivity.py
@@ -311,7 +289,6 @@ python scripts/evaluate_sensitivity.py
 | `source_file_intervals.json` | 189 | JSON | Pinned method line intervals across 189 source files | Verified via Tree-sitter |
 | `fallback_audit.csv` | 130 | CSV | Detailed diagnostic categorization of all 130 line-fallback chunks | Audited |
 | `chunk_corpus.parquet` | 798 | Parquet | Unified dual corpus: 364 AST + 434 Line chunks | Unique `chunk_id` enforced |
-| `chunk_corpus.jsonl` | 798 | JSONL | JSONL format of dual corpus | Text identical to Parquet |
 | `ground_truth_final.csv` | 603 | CSV | Unified ground truth (250 Gold + 353 Pooled pairs) | Normalized SHA-256 Hash Locked |
 | `disagreements_adjudication.csv`| 122 | CSV | 122 resolved disagreements with technical rationales | 93 technical, 29 templated |
 | `retrieval_runs/*.json` | 12 files | JSON | Top-10 ranking outputs for 3 retrieval tiers $\times$ 4 conditions | Deterministic scoring |

@@ -11,9 +11,11 @@ import json
 from pathlib import Path
 import pytest
 
+import pandas as pd
+
 ROOT_DIR = Path(__file__).resolve().parent.parent
 DATASET_DIR = ROOT_DIR / "dataset"
-CORPUS_JSONL = DATASET_DIR / "chunk_corpus.jsonl"
+CORPUS_PARQUET = DATASET_DIR / "chunk_corpus.parquet"
 SAMPLING_LOG = DATASET_DIR / "sampling_frame_log.json"
 TABLE_3_2_JSON = DATASET_DIR / "table_3_2_measured.json"
 TABLE_3_2_TEX = ROOT_DIR / "paper" / "table_3_2.tex"
@@ -23,9 +25,9 @@ class TestCorpusCharacteristics:
     """Verifies Phase 2 corpus integrity, 4 text variants, and empirical Table 3.2 measurements."""
 
     def test_corpus_size_and_strategies(self):
-        assert CORPUS_JSONL.exists(), f"Corpus JSONL missing: {CORPUS_JSONL}"
-        with open(CORPUS_JSONL, "r", encoding="utf-8") as f:
-            chunks = [json.loads(line) for line in f]
+        assert CORPUS_PARQUET.exists(), f"Corpus Parquet missing: {CORPUS_PARQUET}"
+        df = pd.read_parquet(CORPUS_PARQUET).fillna("")
+        chunks = df.to_dict(orient="records")
 
         assert len(chunks) == 798, f"Expected 798 unified chunks, got {len(chunks)}"
 
@@ -35,14 +37,13 @@ class TestCorpusCharacteristics:
         assert len(line_chunks) == 434, f"Expected 434 Line chunks, got {len(line_chunks)}"
 
     def test_chunk_id_uniqueness(self):
-        with open(CORPUS_JSONL, "r", encoding="utf-8") as f:
-            chunks = [json.loads(line) for line in f]
-        chunk_ids = [c["chunk_id"] for c in chunks]
+        df = pd.read_parquet(CORPUS_PARQUET)
+        chunk_ids = df["chunk_id"].tolist()
         assert len(chunk_ids) == len(set(chunk_ids)), "Duplicate chunk IDs found!"
 
     def test_four_text_variants_present(self):
-        with open(CORPUS_JSONL, "r", encoding="utf-8") as f:
-            chunks = [json.loads(line) for line in f]
+        df = pd.read_parquet(CORPUS_PARQUET)
+        chunks = df.to_dict(orient="records")
 
         for c in chunks:
             assert "text_with_header" in c and len(c["text_with_header"]) > 5

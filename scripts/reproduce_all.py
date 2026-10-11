@@ -52,13 +52,6 @@ STEPS = [
     },
     {
         "id": "STEP_5",
-        "name": "Downstream Generation & RAGAs Quality (Table 3.4)",
-        "target": "Table 3.4 (Faithfulness, Relevance, Citation)",
-        "cmd": [sys.executable, "scripts/evaluate_ragas.py"],
-        "key_metric": "Faithfulness: 1.000, Relevance: 0.996, Citation: 79.3%"
-    },
-    {
-        "id": "STEP_6",
         "name": "Exploratory Sensitivity & Subgroup Analysis",
         "target": "Language, Fallback, Comp 5 & Annotator Robustness",
         "cmd": [sys.executable, "scripts/evaluate_sensitivity.py"],

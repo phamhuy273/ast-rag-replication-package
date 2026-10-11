@@ -39,7 +39,7 @@ Source code snippets mined from these 40 repositories are included in `dataset/c
 
 ## 3. Query Universe (Job Descriptions)
 
-The query set consists of **25 frozen industry Job Descriptions (JDs)** documented in [`dataset/queries_frozen.json`](dataset/queries_frozen.json) and raw text in `dataset/jd_raw/`:
+The query set consists of **25 frozen industry Job Descriptions (JDs)** documented in [`dataset/queries_frozen.json`](dataset/queries_frozen.json):
 * **15 Java Backend JDs (`JD_JAVA_01` – `JD_JAVA_15`):** Cover competencies such as Spring Boot MVC/WebFlux, Spring Security (JWT, OAuth2, RBAC), JPA/Hibernate transactions, distributed messaging (Kafka/RabbitMQ), and microservice resilience.
 * **10 React/TypeScript JDs (`JD_REACT_01` – `JD_REACT_10`):** Cover competencies including React 18 functional components, custom hooks (`useAuth`, `useFetch`), asynchronous state management, TypeScript type narrowing, and UI performance optimization.
 * **Seniority Stratification:** Balanced across Junior, Mid-Level, and Senior roles.
@@ -48,7 +48,7 @@ The query set consists of **25 frozen industry Job Descriptions (JDs)** document
 
 ## 4. Chunk Corpora Architecture
 
-The study evaluates two chunking paradigms across identical source files, comprising a unified corpus of **798 chunks** stored in [`dataset/chunk_corpus.parquet`](dataset/chunk_corpus.parquet) and [`dataset/chunk_corpus.jsonl`](dataset/chunk_corpus.jsonl):
+The study evaluates two chunking paradigms across identical source files, comprising a unified corpus of **798 chunks** stored in [`dataset/chunk_corpus.parquet`](dataset/chunk_corpus.parquet):
 
 ### 4.1 AST-First Progressive Disclosure Corpus (364 Chunks)
 * **Strategy:** Extracts semantic function/method/constructor nodes via Tree-sitter AST parsers with progressive context headers (`// Class: ...`, `// Method: ...`). Falls back to 50-LOC sliding windows when files lack parseable method structures.
@@ -113,15 +113,14 @@ To prevent post-hoc label drift, ground truth files are locked on normalized new
 
 ---
 
-## 6. Precomputed Retrieval Runs and Downstream Cache
-
+## 6. Precomputed Retrieval Runs
+ 
 * **Retrieval Runs (`dataset/retrieval_runs/*.json`):** 12 deterministic JSON ranking files containing Top-10 retrieved candidate lists across 3 retrieval tiers (BM25 with Rank-BM25, Dense with BAAI/bge-m3, and Re-ranking with BAAI/bge-reranker-base) $\times$ 4 factorial conditions.
-* **RAGAs Evaluation Cache (`dataset/benchmark_results/ragas_evaluation_cache.json`):** Deterministic evaluation cache of LLM-as-a-Judge outputs on Top-3 retrieved code contexts, measuring Faithfulness ($1.000$ on evaluated sample), Answer Relevance ($0.996$ AST vs $1.000$ Line), and Citation Coverage ($79.3\%$ AST vs $79.2\%$ Line).
 
 ---
 
 ## 7. Reproduction Pipeline Boundaries
 
 This replication package is architected to reproduce and verify all empirical findings, tables, figures, sensitivity analyses, and statistical hypothesis tests from the frozen curated artifacts:
-* **Included:** Live Tree-sitter AST parsing, syntax morphology analysis, full 2×2 factorial retrieval evaluation, bootstrap confidence intervals, Wilcoxon signed-rank tests, Holm-Bonferroni corrections, RAGAs generation metric evaluation, subgroup sensitivity analysis, and automated pytest integrity test suite.
+* **Included:** Live Tree-sitter AST parsing, syntax morphology analysis, full 2×2 factorial retrieval evaluation, bootstrap confidence intervals, Wilcoxon signed-rank tests, Holm-Bonferroni corrections, subgroup sensitivity analysis, and automated pytest integrity test suite.
 * **Excluded by Design:** The initial raw web scraping of 40 GitHub repositories and the iterative interactive pooling workflow are excluded because they rely on external network services and live GitHub APIs that are subject to upstream repository changes, rate limits, and network volatility. Providing the frozen curated corpora and ground truth ensures permanent, deterministic, offline reproducibility for conference reviewers.

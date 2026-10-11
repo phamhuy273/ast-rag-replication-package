@@ -33,7 +33,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATASET_DIR = PROJECT_ROOT / "dataset"
 RUNS_DIR = DATASET_DIR / "retrieval_runs"
 RESULTS_DIR = DATASET_DIR / "benchmark_results"
-CORPUS_FILE = DATASET_DIR / "chunk_corpus.jsonl"
+CORPUS_FILE = DATASET_DIR / "chunk_corpus.parquet"
 GT_FINAL = DATASET_DIR / "ground_truth_final.csv"
 GT_A1 = DATASET_DIR / "ground_truth_annotator1.csv"
 GT_A2 = DATASET_DIR / "ground_truth_annotator2.csv"
@@ -71,9 +71,8 @@ def main():
     print("=" * 80)
 
     # Load corpus to map chunk_id -> chunk_type
-    with open(CORPUS_FILE, "r", encoding="utf-8") as f:
-        chunks = [json.loads(line) for line in f]
-    chunk_types = {c["chunk_id"]: c["chunk_type"] for c in chunks}
+    df_corpus = pd.read_parquet(CORPUS_FILE)
+    chunk_types = dict(zip(df_corpus["chunk_id"], df_corpus["chunk_type"]))
 
     # Load ground truth maps
     gt_rows = list(csv.DictReader(open(GT_FINAL, encoding="utf-8")))

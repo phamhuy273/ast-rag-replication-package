@@ -14,10 +14,11 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Any, Tuple
 import numpy as np
+import pandas as pd
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 DATASET_DIR = ROOT_DIR / "dataset"
-CORPUS_JSONL = DATASET_DIR / "chunk_corpus.jsonl"
+CORPUS_PARQUET = DATASET_DIR / "chunk_corpus.parquet"
 MANIFEST_FILE = DATASET_DIR / "manifest_repos.csv"
 CLONE_ROOT = ROOT_DIR / "ai-engine" / "temp_repos"
 
@@ -122,10 +123,10 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained("BAAI/bge-m3")
 
     # 2. Load chunk corpus
-    with open(CORPUS_JSONL, "r", encoding="utf-8") as f:
-        chunks = [json.loads(line) for line in f]
+    df_chunks = pd.read_parquet(CORPUS_PARQUET).fillna("")
+    chunks = df_chunks.to_dict(orient="records")
 
-    print(f"Loaded {len(chunks)} total chunks from {CORPUS_JSONL.name}")
+    print(f"Loaded {len(chunks)} total chunks from {CORPUS_PARQUET.name}")
 
     ast_chunks = [c for c in chunks if c["strategy"] == "AST"]
     line_chunks = [c for c in chunks if c["strategy"] == "LINE"]
