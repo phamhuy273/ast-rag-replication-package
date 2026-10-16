@@ -1,0 +1,29 @@
+\begin{table}[t]
+\caption{Retrieval effectiveness ($N=25$ JDs). Rerank tier first; Dense and BM25 are reference tiers.}
+\label{tab:main}
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{threeparttable}
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+Chunk & Header & NDCG@10 [95\% CI] & NDCG@1 & MRR@10 & J@10\tnote{a} \\
+\midrule
+Line & Yes & \textbf{0.499} [0.450, 0.543] & \textbf{0.800} & \textbf{0.980} & 0.552 \\
+Line & No  & \textit{0.470} [0.414, 0.524] & \textit{0.740} & 0.933 & 0.564 \\
+AST  & Yes & 0.457 [0.405, 0.509] & 0.720 & \textit{0.940} & 0.564 \\
+AST  & No  & 0.345 [0.299, 0.390] & 0.460 & 0.846 & 0.536 \\
+\midrule
+\multicolumn{6}{l}{\textit{Reference Tiers (Line+Header / AST+Header)}} \\
+Dense & Yes (Line) & 0.450 [0.398, 0.502] & 0.580 & 0.913 & 0.572 \\
+Dense & Yes (AST)  & 0.408 [0.346, 0.463] & 0.660 & 0.900 & 0.544 \\
+BM25$^{\dagger}$ & Yes (Line) & 0.129 [0.094, 0.165] & 0.140 & 0.405 & 0.180 \\
+BM25$^{\dagger}$ & Yes (AST)  & 0.170 [0.122, 0.221] & 0.080 & 0.395 & 0.244 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item[] Bold: best; italic: second best within the reranking tier.
+\item[a] Judged@10: share of top-10 items with a human label (unjudged count as 0).
+\item[$\dagger$] BM25 was not used for pooling; scores are not an unpenalized baseline.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

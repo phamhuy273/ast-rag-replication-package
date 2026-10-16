@@ -62,3 +62,21 @@
   * Gold Overlap: Of these 382 coordinate pairs, exactly **29** already existed in the Gold 250 subset (35 - 6 coordinate duplicates = 29).
   * Exact Identity: $382 - 29 = \mathbf{353}$ new items to label.
   * Validation: Every single one of the 353 coordinate pairs matches `to_label.csv` with zero unmatched items ($0$ false positives, $0$ false negatives).
+
+---
+
+## 6. Legacy Gold Extraction Chunk Alignment (78 Unmatched Pairs)
+
+* **Finding:** When matching all 603 ground-truth pairs against `dataset/chunk_corpus.parquet` by line coordinates `(repo_name, file_path, start_line, end_line)`:
+  * All 353 pooled pairs ($100.0\%$) match current corpus chunks exactly.
+  * Exactly **78 of the 250 initial Gold pairs ($31.2\%$)** reference chunk boundaries from an earlier extraction pass (e.g., initial line windows) that do not correspond to any chunk in the frozen `chunk_corpus.parquet`.
+  * Among these 78 unmatched pairs, **51 pairs** have relevant ground-truth labels ($\ge 1$) out of 452 total relevant pairs in the benchmark.
+* **Sensitivity Impact (Reachable Qrels Analysis):**
+  * Because unretrievable gold labels enter the denominator (IDCG) of all systems equally, they uniformly scale down absolute NDCG@10 scores without altering relative system rankings.
+  * Restricting judgments strictly to the **525 retrievable pairs** (`scripts/evaluate_sensitivity.py`) confirms that all pairwise contrasts remain essentially invariant:
+    * **Line No-Header:** $0.470 \to 0.485$
+    * **Line+Header:** $0.499 \to 0.514$
+    * **AST No-Header:** $0.345 \to 0.356$
+    * **AST+Header:** $0.457 \to 0.470$
+    * Pairwise differences: Comp 1 $\Delta = -0.015$ ($p = 0.8532$), Comp 2 $\Delta = -0.129$ ($p < 0.0001$), Comp 3 $\Delta = +0.114$ ($p = 0.0013$), Comp 4 $\Delta = +0.029$ ($p = 0.3957$), Comp 5 $\Delta = -0.044$ ($p = 0.1374$).
+* **Resolution & Safeguards:** Documented transparently in Section V.B (Threats to Validity), audited in `scripts/evaluate_sensitivity.py`, and verified by unit test `test_unmatched_gold_pairs_count` in `tests/test_gold_integrity.py`.

@@ -1,0 +1,41 @@
+================================================================================
+  STATISTICAL POWER & MINIMUM DETECTABLE EFFECT (MDE) REPORT
+  Sample size N = 25 JDs, Paired t-test approximation, Power = 80%
+================================================================================
+Comp 1: rerank_ast_with_header vs. rerank_line_no_header
+  Mean diff     : -0.0138
+  SD diff       : 0.1894
+  Cohen's d_z   : -0.0727
+  MDE (a=0.0500): 0.1101
+  MDE (a=0.0125): 0.1342
+--------------------------------------------------------------------------------
+Comp 2: rerank_ast_no_header vs. rerank_line_no_header
+  Mean diff     : -0.1258
+  SD diff       : 0.1362
+  Cohen's d_z   : -0.9234
+  MDE (a=0.0500): 0.0792
+  MDE (a=0.0125): 0.0965
+--------------------------------------------------------------------------------
+Comp 3: rerank_ast_with_header vs. rerank_ast_no_header
+  Mean diff     : +0.1120
+  SD diff       : 0.1431
+  Cohen's d_z   : +0.7828
+  MDE (a=0.0500): 0.0832
+  MDE (a=0.0125): 0.1014
+--------------------------------------------------------------------------------
+Comp 4: rerank_line_with_header vs. rerank_line_no_header
+  Mean diff     : +0.0291
+  SD diff       : 0.1236
+  Cohen's d_z   : +0.2352
+  MDE (a=0.0500): 0.0718
+  MDE (a=0.0125): 0.0876
+--------------------------------------------------------------------------------
+Comp 5: rerank_ast_with_header vs. rerank_line_with_header
+  Mean diff     : -0.0428
+  SD diff       : 0.1631
+  Cohen's d_z   : -0.2627
+  MDE (a=0.0500): 0.0948
+  MDE (a=0.0125): 0.1155
+--------------------------------------------------------------------------------
+OVERALL MDE RANGE: 0.072 to 0.134 NDCG@10
+================================================================================

@@ -1,0 +1,36 @@
+\section{Research Plan and Risks}
+\label{sec:plan}
+
+\subsection{Research Roadmap}
+Table~\ref{tab:roadmap} delineates the planned phases, target data, and analytical methods addressing RQ3 and RQ4.
+
+\begin{table}[t]
+\caption{Structured Research Roadmap and Milestones}
+\label{tab:roadmap}
+\centering\footnotesize
+\setlength{\tabcolsep}{2pt}
+\begin{threeparttable}
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.82in}>{\raggedright\arraybackslash}p{1.02in}>{\raggedright\arraybackslash}p{1.02in}@{}}
+\toprule
+Phase & Objective & Target Data & Analysis Method \\
+\midrule
+\textbf{P1} & Expand corpus and languages (RQ3) & 100 repositories, 50 JDs, add Python and Go & Replicate the $2 \times 2$ factorial design \\
+\textbf{P2} & Refine the AST parser & Add queries for JSX, higher-order components, exported objects & Re-run on pure AST chunks; target fallback $<10\%$ \\
+\textbf{P3} & Ablate header components (RQ3) & Path, class, and signature sub-headers & Paired tests with correction; mixed-effects model \\
+\textbf{P4} & Human validation (RQ4) & About 20 practitioners verify requirement-evidence pairs & Verification accuracy, time, confidence \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{table}
+
+Phase~1 expands the corpus to 100 repositories and adds Python and Go. 
+Phase~2 refines the AST parser to reduce fallbacks below $10\%$ and repeats the comparison on pure AST chunks. 
+Phase~3 (RQ3) ablates header components (path, class, signature). 
+Phase~4 (RQ4) asks about 20 practitioners to verify requirement-evidence pairs with and without retrieved evidence and measures accuracy, time, and confidence. 
+Citation-grounded generation is left to future work.
+
+\subsection{Risks and Mitigation}
+\textbf{Annotation Overhead:} Mitigated via pooling depth $k=3$ and dual annotation of newly pooled candidates. 
+\textbf{License Governance:} In later phases, we will include only repositories whose licenses explicitly permit redistribution. 
+\textbf{Ethics:} The study evaluates evidence retrieval for requirements; it does not score individual people, and any future study with human subjects will be reviewed and informed consent obtained. 
+\textbf{LLM Reliability:} The query extractor and any LLM judge will be validated against human labels.

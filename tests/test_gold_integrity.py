@@ -105,3 +105,27 @@ class TestGoldIntegrity:
             kappa_gold = cohen_kappa_score(labels1[:250], labels2[:250], weights="quadratic")
             assert pytest.approx(kappa_gold, abs=0.01) == 0.88, f"Unexpected Gold Kappa {kappa_gold}, expected ~0.88"
 
+    def test_unmatched_gold_pairs_count(self):
+        """Enforces Việc 0: 78 legacy gold pairs refer to an earlier chunk extraction, 0 pooled."""
+        import pandas as pd
+        corpus_path = ROOT_DIR / "dataset" / "chunk_corpus.parquet"
+        assert corpus_path.exists(), "chunk_corpus.parquet missing"
+        corpus = pd.read_parquet(corpus_path)
+        coords = {(r.repo_name, r.file_path, int(r.start_line), int(r.end_line)) for r in corpus.itertuples()}
+
+        with open(GOLD_FILE, "r", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+
+        gold_rows = rows[:250]
+        pool_rows = rows[250:]
+
+        gold_unmatched = [r for r in gold_rows if (r["repo_name"], r["file_path"], int(r["start_line"]), int(r["end_line"])) not in coords]
+        pool_unmatched = [r for r in pool_rows if (r["repo_name"], r["file_path"], int(r["start_line"]), int(r["end_line"])) not in coords]
+
+        assert len(gold_unmatched) == 78, f"Expected exactly 78 unmatched gold pairs, found {len(gold_unmatched)}"
+        assert len(pool_unmatched) == 0, f"Expected 0 unmatched pool pairs, found {len(pool_unmatched)}"
+
+        # Verify relevant label count in unmatched
+        unmatched_rel = sum(1 for r in gold_unmatched if int(r["ground_truth_label"]) >= 1)
+        assert unmatched_rel == 51, f"Expected 51 relevant unmatched gold pairs, found {unmatched_rel}"
+

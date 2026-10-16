@@ -1,0 +1,32 @@
+\begin{table*}[t]
+\caption{Candidate pool judgment coverage and unjudged candidate exposure across 12 retrieval configurations.}
+\label{tab:candidate_pool_coverage}
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{threeparttable}
+\begin{tabular}{@{}llcccccc@{}}
+\toprule
+Configuration ID & Pipeline Tier & Top-3 Evaluated & Top-3 Unjudged & Judged@3 (\%) & Top-10 Evaluated & Top-10 Unjudged & Judged@10 (\%) \\
+\midrule
+\texttt{bm25\_line\_no\_header} & BM25$^{\dagger}$ & 75 & 61 & 18.7\% & 250 & 216 & 13.6\% \\
+\texttt{bm25\_line\_with\_header} & BM25$^{\dagger}$ & 75 & 57 & 24.0\% & 250 & 205 & 18.0\% \\
+\texttt{bm25\_ast\_no\_header} & BM25$^{\dagger}$ & 75 & 49 & 34.7\% & 250 & 174 & 30.4\% \\
+\texttt{bm25\_ast\_with\_header} & BM25$^{\dagger}$ & 75 & 53 & 29.3\% & 250 & 189 & 24.4\% \\
+\cmidrule(lr){1-8}
+\texttt{dense\_line\_no\_header} & Dense & 75 & 0 & 100.0\% & 250 & 102 & 59.2\% \\
+\texttt{dense\_line\_with\_header} & Dense & 75 & 0 & 100.0\% & 250 & 107 & 57.2\% \\
+\texttt{dense\_ast\_no\_header} & Dense & 75 & 0 & 100.0\% & 250 & 113 & 54.8\% \\
+\texttt{dense\_ast\_with\_header} & Dense & 75 & 0 & 100.0\% & 250 & 114 & 54.4\% \\
+\cmidrule(lr){1-8}
+\texttt{rerank\_line\_no\_header} & Rerank & 75 & 0 & 100.0\% & 250 & 109 & 56.4\% \\
+\texttt{rerank\_line\_with\_header} & Rerank & 75 & 0 & 100.0\% & 250 & 112 & 55.2\% \\
+\texttt{rerank\_ast\_no\_header} & Rerank & 75 & 0 & 100.0\% & 250 & 116 & 53.6\% \\
+\texttt{rerank\_ast\_with\_header} & Rerank & 75 & 0 & 100.0\% & 250 & 109 & 56.4\% \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item[] Note: Evaluated across 25 JDs (75 total top-3 slots, 250 total top-10 slots). Top-3 pool judgment was completely exhaustive (100.0\%) across all 8 Dense and Re-rank configurations.
+\item[$^{\dagger}$] BM25 configurations were excluded from candidate pooling; unjudged items (220 top-3 slots) are treated as 0 (not relevant). Derived dynamically from \texttt{pool\_coverage\_report.csv}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table*}

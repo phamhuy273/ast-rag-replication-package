@@ -1,0 +1,25 @@
+\begin{table*}[t]
+\caption{AST fallback composition in top-10 retrieval results across pipeline tiers and header conditions.}
+\label{tab:fallback_composition}
+\centering\footnotesize
+\setlength{\tabcolsep}{6pt}
+\begin{threeparttable}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Pipeline Tier & Header Condition & Total Top-10 ($N$) & AST Pure (\%) & Line-Fallback (\%) \\
+\midrule
+BM25 & No-Header & 250 & 59 (23.6\%) & 191 (76.4\%) \\
+BM25 & With-Header & 250 & 130 (52.0\%) & 120 (48.0\%) \\
+\cmidrule(lr){1-5}
+Dense (BGE-M3) & No-Header & 250 & 77 (30.8\%) & 173 (69.2\%) \\
+Dense (BGE-M3) & With-Header & 250 & 166 (66.4\%) & 84 (33.6\%) \\
+\cmidrule(lr){1-5}
+Re-ranking (Cross-Encoder) & No-Header & 250 & 75 (30.0\%) & 175 (70.0\%) \\
+Re-ranking (Cross-Encoder) & With-Header & 250 & 135 (54.0\%) & 115 (46.0\%) \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item[] Note: Evaluated across 25 JDs (250 total top-10 slots per configuration). Line-Fallback chunks occur when AST parsing fails or exceeds maximum LOC thresholds, defaulting to sliding-window chunks. Derived dynamically from \texttt{sensitivity\_analysis\_report.json}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table*}

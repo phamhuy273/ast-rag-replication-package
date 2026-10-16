@@ -1,0 +1,26 @@
+\begin{table*}[t]
+\caption{Sensitivity analysis across ground truth curation subsets, single-annotator qrels, and judged-only pools.}
+\label{tab:qrel_sensitivity}
+\centering\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\begin{threeparttable}
+\begin{tabular}{@{}lcccccl@{}}
+\toprule
+Evaluation Subset & Line+Hdr & Line No-Hdr & AST+Hdr & AST No-Hdr & AST Header Gain ($\Delta$) & Statistical Decision \\
+\midrule
+\multicolumn{7}{l}{\textit{Panel A: Consensus-Only Ground Truth (122 Disagreements Excluded, $N=481$ Pairs)}} \\\\[2pt]
+Consensus Pairs & 0.426 & 0.413 & 0.369 & 0.294 & $+0.0749$ ($p = 0.0851$) & \textbf{Non-Significant} ($p \ge 0.05$) \\[2pt]
+\midrule
+\multicolumn{7}{l}{\textit{Panel B: Single-Annotator Ground Truth Variants}} \\\\[2pt]
+Annotator 1 Only & --- & --- & 0.455 & 0.346 & $+0.1094$ ($p < 0.001$) & Significant ($p < 0.001$) \\[2pt]
+Annotator 2 Only & --- & --- & 0.475 & 0.378 & $+0.0972$ ($p = 0.0012$) & Significant ($p < 0.01$) \\[2pt]
+\midrule
+\multicolumn{7}{l}{\textit{Panel C: Judged-Only Candidate Evaluation (Unjudged Candidates Removed)}} \\\\[2pt]
+Judged-Only Pool & 0.615 & 0.590 & 0.546 & 0.454 & $+0.0926$ ($p = 0.0034$) & Significant ($p < 0.01$) \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item[] Note: NDCG@10 at the two-stage re-ranking tier computed using linear gain $\mathrm{rel}/\log_2(i+1)$. In Panel A, removing 122 disputed items reduces the AST header effect to $\Delta = +0.075$ ($p = 0.0851$, statistically non-significant). In Panel C, removing unjudged candidates yields Comp 1 $\Delta = -0.043$ ($p = 0.3666$, non-significant) and exploratory Comp 5 $\Delta = -0.069$ ($p_{\mathrm{raw}} = 0.0318$). Data derived dynamically from \texttt{sensitivity\_analysis\_report.json}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table*}

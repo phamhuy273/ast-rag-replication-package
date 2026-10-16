@@ -280,6 +280,60 @@ def main():
         }
     }
 
+    # 6. Reachable Qrels Sensitivity (Exploratory: 78 legacy gold pairs without corpus chunk)
+    coords = {(r.repo_name, r.file_path, int(r.start_line), int(r.end_line)) for r in df_corpus.itertuples()}
+    gt_reach = {k: v for k, v in gt_map.items() if (k[1], k[2], k[3], k[4]) in coords}
+    n_unmatched = len(gt_map) - len(gt_reach)
+    n_unmatched_rel = sum(1 for k, v in gt_map.items() if (k[1], k[2], k[3], k[4]) not in coords and v >= 1)
+
+    def per_jd_ndcg10_qrels(cfg, qrels_dict):
+        ideal = {}
+        for k, v in qrels_dict.items():
+            if v > 0:
+                ideal.setdefault(k[0], []).append(v)
+        for j in ideal:
+            ideal[j].sort(reverse=True)
+        out = {}
+        for jd in query_ids:
+            items = runs_data[cfg].get(jd, [])
+            rel = [qrels_dict.get((jd, it["repo_name"], it["file_path"], int(it["start_line"]), int(it["end_line"])), 0) for it in items]
+            idl = ideal.get(jd, [])
+            out[jd] = dcg_at_k(rel, 10) / dcg_at_k(idl, 10) if dcg_at_k(idl, 10) > 0 else 0.0
+        return pd.Series(out).sort_index()
+
+    eval_cfgs = ["rerank_line_no_header", "rerank_line_with_header", "rerank_ast_no_header", "rerank_ast_with_header"]
+    scores_all = {c: per_jd_ndcg10_qrels(c, gt_map) for c in eval_cfgs}
+    scores_reach = {c: per_jd_ndcg10_qrels(c, gt_reach) for c in eval_cfgs}
+
+    reach_comps = {}
+    comp_pairs = {
+        "C1": (eval_cfgs[3], eval_cfgs[0]),
+        "C2": (eval_cfgs[2], eval_cfgs[0]),
+        "C3": (eval_cfgs[3], eval_cfgs[2]),
+        "C4": (eval_cfgs[1], eval_cfgs[0]),
+        "C5": (eval_cfgs[3], eval_cfgs[1]),
+    }
+    for name, (x, y) in comp_pairs.items():
+        diff_all = scores_all[x] - scores_all[y]
+        diff_reach = scores_reach[x] - scores_reach[y]
+        p_val = float(wilcoxon(scores_reach[x], scores_reach[y]).pvalue)
+        reach_comps[name] = {
+            "comparison": f"{x} vs {y}",
+            "delta_all": float(diff_all.mean()),
+            "delta_reach": float(diff_reach.mean()),
+            "p_reach": p_val
+        }
+
+    reachable_qrels_results = {
+        "exploratory": True,
+        "n_unmatched_pairs": int(n_unmatched),
+        "n_unmatched_rel_pairs": int(n_unmatched_rel),
+        "n_reachable_pairs": len(gt_reach),
+        "ndcg10_all": {c: float(scores_all[c].mean()) for c in eval_cfgs},
+        "ndcg10_reachable": {c: float(scores_reach[c].mean()) for c in eval_cfgs},
+        "comparisons": reach_comps
+    }
+
     # Format text report
     p_cons = robustness_results['consensus_only_no_disagreements']['p_value']
     cons_sig = "Confirmed Significant" if p_cons < 0.05 else "Not Significant at alpha = 0.05"
@@ -332,6 +386,20 @@ rerank_ast_with_header      | {fallback_composition['rerank_ast_with_header']['t
 • AST Header Effect       : Delta = {judged_only_results['ast_header_gain']['delta']:+.4f}, p = {judged_only_results['ast_header_gain']['p_value']:.4f}
 • Comp 1 (AST+H vs Line)  : Delta = {judged_only_results['comp_1_ast_vs_line_no_header']['delta']:+.4f}, p = {judged_only_results['comp_1_ast_vs_line_no_header']['p_value']:.4f}
 • Comp 5 (AST+H vs Line+H): Delta = {judged_only_results['comp_5_ast_vs_line_with_header']['delta']:+.4f}, p = {judged_only_results['comp_5_ast_vs_line_with_header']['p_value']:.4f}
+--------------------------------------------------------------------------------
+
+6. REACHABLE QRELS SENSITIVITY (Excluding 78 legacy pairs absent from current chunk corpus):
+• Unmatched pairs: {reachable_qrels_results['n_unmatched_pairs']} ({reachable_qrels_results['n_unmatched_rel_pairs']} relevant label >= 1, all from gold 250)
+• Reachable pairs: {reachable_qrels_results['n_reachable_pairs']}
+• Line No-Header: all = {scores_all['rerank_line_no_header'].mean():.4f}, reachable = {scores_reach['rerank_line_no_header'].mean():.4f}
+• Line+Header:    all = {scores_all['rerank_line_with_header'].mean():.4f}, reachable = {scores_reach['rerank_line_with_header'].mean():.4f}
+• AST No-Header:  all = {scores_all['rerank_ast_no_header'].mean():.4f}, reachable = {scores_reach['rerank_ast_no_header'].mean():.4f}
+• AST+Header:     all = {scores_all['rerank_ast_with_header'].mean():.4f}, reachable = {scores_reach['rerank_ast_with_header'].mean():.4f}
+• C1 (AST+H vs Line):   delta_all = {reach_comps['C1']['delta_all']:+.4f}, delta_reach = {reach_comps['C1']['delta_reach']:+.4f} (p = {reach_comps['C1']['p_reach']:.4f})
+• C2 (AST noH vs Line): delta_all = {reach_comps['C2']['delta_all']:+.4f}, delta_reach = {reach_comps['C2']['delta_reach']:+.4f} (p = {reach_comps['C2']['p_reach']:.4f})
+• C3 (Header on AST):   delta_all = {reach_comps['C3']['delta_all']:+.4f}, delta_reach = {reach_comps['C3']['delta_reach']:+.4f} (p = {reach_comps['C3']['p_reach']:.4f})
+• C4 (Header on Line):  delta_all = {reach_comps['C4']['delta_all']:+.4f}, delta_reach = {reach_comps['C4']['delta_reach']:+.4f} (p = {reach_comps['C4']['p_reach']:.4f})
+• C5 (AST+H vs Line+H): delta_all = {reach_comps['C5']['delta_all']:+.4f}, delta_reach = {reach_comps['C5']['delta_reach']:+.4f} (p = {reach_comps['C5']['p_reach']:.4f})
 ================================================================================
 """
 
@@ -344,7 +412,8 @@ rerank_ast_with_header      | {fallback_composition['rerank_ast_with_header']['t
         "fallback_composition": fallback_composition,
         "comp_5_ast_vs_line_with_header": comp_5_results,
         "annotator_robustness": robustness_results,
-        "judged_only_evaluation": judged_only_results
+        "judged_only_evaluation": judged_only_results,
+        "reachable_qrels_sensitivity": reachable_qrels_results
     }
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(all_data, f, indent=2)

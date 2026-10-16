@@ -1,0 +1,51 @@
+\documentclass[10pt,conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,graphicx,booktabs,multirow,makecell,array}
+\usepackage{siunitx,threeparttable,xcolor,microtype,enumitem,url}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdfauthor={},pdfcreator={}}
+
+\newcommand{\astH}{AST+Header}
+\newcommand{\astN}{AST No-Header}
+\newcommand{\lineH}{Line+Header}
+\newcommand{\lineN}{Line No-Header}
+\newcommand{\castname}{cAST}
+
+\begin{document}
+
+\title{An Empirical Evaluation of Source Code Chunking and Context Headers for Requirement Evidence Retrieval}
+
+\author{\IEEEauthorblockN{Anonymous Authors}}
+
+\maketitle
+
+\begin{abstract}
+Locating source code that evidences a technical requirement is a common need in software analysis. 
+Syntax-aware chunking is motivated by its preservation of code structure, yet chunk boundaries are confounded with the context metadata prepended to each chunk. 
+In this Research Preview, we cross two chunking strategies, abstract syntax tree (AST)-first chunking with line fallback and 50-line windows, with and without a hierarchical context header. 
+We evaluate them on 25 job descriptions, whose required skills serve as requirements, and 40 public repositories (798 chunks), using BM25, dense retrieval, and cross-encoder reranking against 603 human-labeled pairs. 
+After reranking, headers improved NDCG@10 for AST chunks from 0.345 to 0.457 (Holm-adjusted $p = 0.0031$), and without headers, line windows outperformed AST chunks (0.470 vs. 0.345, $p_{\mathrm{Holm}} = 0.0001$). 
+We found no evidence that AST chunks with headers differ from line windows without headers ($\Delta = -0.014$, $p_{\mathrm{Holm}} = 0.85$). 
+Line windows with headers scored highest (0.499), not significantly above AST with headers in an exploratory comparison. 
+About 36\% of AST-arm chunks fell back to line windows, and 25 queries limit power for small differences. 
+We outline a plan to isolate header components, reduce fallbacks, and validate retrieved evidence with human judgments.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Source code retrieval, code chunking, abstract syntax trees, context headers, requirements traceability, empirical software engineering
+\end{IEEEkeywords}
+
+\input{section_intro.tex}
+\input{section_related_work.tex}
+\input{section_approach.tex}
+\input{section_results.tex}
+\input{section_discussion_threats.tex}
+\input{section_plan.tex}
+\input{section_conclusion.tex}
+
+\clearpage
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\end{document}

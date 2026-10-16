@@ -11,6 +11,7 @@ Target: IEEE SANER 2027 (ERA Track) & Double-Anonymous Peer Review
 
 import os
 import sys
+import json
 import argparse
 from pathlib import Path
 import numpy as np
@@ -155,19 +156,41 @@ def main():
     n_pairs = len(y_a1)
     labels = [0, 1, 2]
 
-    # Metrics
-    kappa_quadratic = cohen_kappa_score(y_a1, y_a2, weights='quadratic', labels=labels)
-    kappa_linear = cohen_kappa_score(y_a1, y_a2, weights='linear', labels=labels)
-    kappa_unweighted = cohen_kappa_score(y_a1, y_a2, labels=labels)
+    def compute_partition_stats(ya, yb, name):
+        n = len(ya)
+        kw = float(cohen_kappa_score(ya, yb, weights='quadratic', labels=labels))
+        kl = float(cohen_kappa_score(ya, yb, weights='linear', labels=labels))
+        ku = float(cohen_kappa_score(ya, yb, labels=labels))
+        matches = int(np.sum(ya == yb))
+        po = float(matches / n)
+        diffs = np.abs(ya - yb)
+        dev1 = int(np.sum(diffs == 1))
+        dev2 = int(np.sum(diffs == 2))
+        level, icon = interpret_kappa(kw)
+        return {
+            "partition": name,
+            "n": n,
+            "exact_matches": matches,
+            "exact_agreement_pct": round(po * 100.0, 2),
+            "disagreement_delta_1": dev1,
+            "disagreement_delta_1_pct": round(dev1 / n * 100.0, 2),
+            "disagreement_delta_2": dev2,
+            "disagreement_delta_2_pct": round(dev2 / n * 100.0, 2),
+            "unweighted_kappa": round(ku, 4),
+            "linear_weighted_kappa": round(kl, 4),
+            "quadratic_weighted_kappa": round(kw, 4),
+            "agreement_level": level,
+            "status_icon": icon,
+        }
 
-    raw_matches = int(np.sum(y_a1 == y_a2))
-    po = raw_matches / n_pairs
-    diffs = np.abs(y_a1 - y_a2)
-    minor_disagreements = int(np.sum(diffs == 1))
-    severe_disagreements = int(np.sum(diffs == 2))
+    total_stats = compute_partition_stats(y_a1, y_a2, "Complete Unified Ground Truth (Total)")
+
+    subsets = {}
+    if n_pairs == 603:
+        subsets["gold_250"] = compute_partition_stats(y_a1[:250], y_a2[:250], "Pre-registered Gold Standard (Initial)")
+        subsets["pooled_353"] = compute_partition_stats(y_a1[250:], y_a2[250:], "Pooled Retrieval Candidates (Expansion)")
 
     cm = confusion_matrix(y_a1, y_a2, labels=labels)
-    level_desc, status_icon = interpret_kappa(kappa_quadratic)
 
     report_lines = []
     def log(msg=""):
@@ -177,16 +200,28 @@ def main():
     log("\n" + "=" * 80)
     log("  INTER-ANNOTATOR AGREEMENT EVALUATION REPORT (TABLE 3.1)")
     log("=" * 80)
-    log(f"• Total Evaluated Candidate Evidence Pairs (N): {n_pairs}")
-    log(f"• Exact Consensus Matches (po)               : {raw_matches} / {n_pairs} ({po*100:.2f}%)")
-    log(f"• Minor Disagreements (|delta| = 1)          : {minor_disagreements} / {n_pairs} ({(minor_disagreements/n_pairs)*100:.2f}%)")
-    log(f"• Severe Disagreements (|delta| = 2)         : {severe_disagreements} / {n_pairs} ({(severe_disagreements/n_pairs)*100:.2f}%)")
+    log(f"• Total Evaluated Candidate Evidence Pairs (N): {total_stats['n']}")
+    log(f"• Exact Consensus Matches (po)               : {total_stats['exact_matches']} / {total_stats['n']} ({total_stats['exact_agreement_pct']:.2f}%)")
+    log(f"• Minor Disagreements (|delta| = 1)          : {total_stats['disagreement_delta_1']} / {total_stats['n']} ({total_stats['disagreement_delta_1_pct']:.2f}%)")
+    log(f"• Severe Disagreements (|delta| = 2)         : {total_stats['disagreement_delta_2']} / {total_stats['n']} ({total_stats['disagreement_delta_2_pct']:.2f}%)")
     log("-" * 80)
-    log(f"• Unweighted Cohen's Kappa (kappa)            : {kappa_unweighted:.4f}")
-    log(f"• Linear Weighted Kappa (kappa_linear)        : {kappa_linear:.4f}")
-    log(f"• QUADRATIC WEIGHTED KAPPA (kappa_w)          : {kappa_quadratic:.4f}  <-- [PRIMARY METRIC]")
-    log(f"• Agreement Level (Landis & Koch, 1977)       : {level_desc} [{status_icon}]")
+    log(f"• Unweighted Cohen's Kappa (kappa)            : {total_stats['unweighted_kappa']:.4f}")
+    log(f"• Linear Weighted Kappa (kappa_linear)        : {total_stats['linear_weighted_kappa']:.4f}")
+    log(f"• QUADRATIC WEIGHTED KAPPA (kappa_w)          : {total_stats['quadratic_weighted_kappa']:.4f}  <-- [PRIMARY METRIC]")
+    log(f"• Agreement Level (Landis & Koch, 1977)       : {total_stats['agreement_level']} [{total_stats['status_icon']}]")
     log("=" * 80)
+
+    if subsets:
+        log("\nPARTITION BREAKDOWN:")
+        log("   " + "-" * 75)
+        log(f"   {'Partition':<35} | {'N':^5} | {'Exact (%)':^12} | {'kappa_w':^8} | {'Landis & Koch':^15}")
+        log("   " + "-" * 75)
+        g = subsets["gold_250"]
+        p = subsets["pooled_353"]
+        log(f"   {g['partition']:<35} | {g['n']:^5} | {g['exact_matches']} ({g['exact_agreement_pct']:.1f}%) | {g['quadratic_weighted_kappa']:.4f} | {g['agreement_level']:<15}")
+        log(f"   {p['partition']:<35} | {p['n']:^5} | {p['exact_matches']} ({p['exact_agreement_pct']:.1f}%) | {p['quadratic_weighted_kappa']:.4f} | {p['agreement_level']:<15}")
+        log(f"   {total_stats['partition']:<35} | {total_stats['n']:^5} | {total_stats['exact_matches']} ({total_stats['exact_agreement_pct']:.1f}%) | {total_stats['quadratic_weighted_kappa']:.4f} | {total_stats['agreement_level']:<15}")
+        log("   " + "-" * 75)
 
     log("\nCONFUSION MATRIX (3x3):")
     log("   (Rows: Annotator 1  x  Columns: Annotator 2)")
@@ -211,6 +246,17 @@ def main():
     with open(report_path, "w", encoding="utf-8") as f:
         f.write("\n".join(report_lines))
     log(f"Saved evaluation report: {report_path.name}")
+
+    # Write json report file
+    json_path = report_path.with_suffix(".json")
+    json_data = {
+        "total": total_stats,
+        "subsets": subsets,
+        "confusion_matrix": cm.tolist()
+    }
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(json_data, f, indent=2)
+    log(f"Saved evaluation JSON report: {json_path.name}")
 
 
 if __name__ == "__main__":

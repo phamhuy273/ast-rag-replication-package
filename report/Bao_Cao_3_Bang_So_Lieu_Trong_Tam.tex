@@ -1,0 +1,96 @@
+\documentclass[11pt,a4paper,landscape]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese,english]{babel}
+\usepackage[landscape,margin=1.2cm,top=0.55cm,bottom=0.55cm]{geometry}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{threeparttable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{placeins}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    citecolor=blue!70!black,
+    urlcolor=blue!70!black,
+    pdfauthor={},
+    pdfcreator={}
+}
+
+% Use non-floating table environment so content stays strictly in order
+\makeatletter
+\renewenvironment{table*}[1][]{%
+  \par\addvspace{0.05cm}\centering
+  \def\@captype{table}%
+}{%
+  \par\addvspace{0.05cm}
+}
+\makeatother
+
+\begin{document}
+\selectlanguage{vietnamese}
+
+% ========================================================================
+% TRANG 1: BẢNG 4 - KIỂM ĐỊNH GIẢ THUYẾT THỐNG KÊ
+% ========================================================================
+\begin{center}
+{\Large\textbf{BÁO CÁO KẾT QUẢ THỰC NGHIỆM: 3 BẢNG SỐ LIỆU TRỌNG TÂM}}\\[0.12cm]
+{\large\textbf{Đề tài:} So sánh Đánh giá Hiệu năng Phân mảnh Cú pháp AST vs. Dòng (Line-based) trong Code RAG}\\[0.08cm]
+{\normalsize\textit{Tài liệu tóm lược 3 bảng số liệu thực nghiệm trọng tâm (Bảng 4, Bảng 3, Bảng 2)}}
+\end{center}
+\vspace{-0.1cm}
+
+\noindent{\large\textbf{1. Bảng 4 (Table IV): Kết quả Kiểm định Giả thuyết Thống kê (Wilcoxon Signed-Rank Test)}}\\[0.05cm]
+\input{tables/table_T4.tex}
+\vspace{-0.1cm}
+{\small
+\noindent\textbf{Tóm tắt Kết luận Thực nghiệm \& Ý nghĩa Khoa học (Bảng 4):}
+\begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
+    \item \textbf{Kiểm định Giả thuyết Cốt lõi (Comp 1):} So sánh phương pháp đề xuất toàn diện (AST+Header) với baseline dòng toàn diện (Line No-Header) cho thấy $\Delta = -0.0138$ (95\% CI $[-0.088, 0.058]$, $p_{\mathrm{raw}} = 0.8532$, $p_{\mathrm{Holm}} = 0.8532$, $W = 155.0$). \textbf{Giả thuyết đặt ra ban đầu rằng AST vượt trội hơn Line không đạt ý nghĩa thống kê} (không bác bỏ được $H_0$).
+    \item \textbf{Hiệu ứng Cú pháp Thuần túy (Comp 2):} Khi loại bỏ Context Header ở cả 2 bên, phân mảnh theo AST thuần túy kém hơn Line cố định có ý nghĩa thống kê rất cao ($\Delta = -0.1258$, $p_{\mathrm{Holm}} < 0.001$, Line thắng 20/25 JD). Điều này chứng minh cấu trúc cây cú pháp đơn thuần không tự động giúp mô hình embedding hiểu code tốt hơn.
+    \item \textbf{Context Header là Yếu tố Cứu vãn (Comp 3):} Việc gắn thêm Context Header (tên class, gói, chữ ký) giúp AST tăng vọt $\Delta = +0.1120$ ($p_{\mathrm{Holm}} = 0.0031$, AST có Header thắng 19/25 JD). Header chính là nguồn cung cấp thông tin ngữ nghĩa cốt lõi.
+    \item \textbf{Đối chứng Mở rộng (Comp 5):} Khi cả 2 phương pháp đều được trang bị Context Header, Line+Header vẫn đạt điểm cao hơn AST+Header ($\Delta = +0.0428$, $p_{\mathrm{raw}} = 0.1355$, $W = 97.0$).
+\end{itemize}
+}
+\clearpage
+
+% ========================================================================
+% TRANG 2: BẢNG 3 - MA TRẬN ĐÁNH GIÁ HIỆU NĂNG TRUY XUẤT 2x2
+% ========================================================================
+\noindent{\large\textbf{2. Bảng 3 (Table III): Ma trận Thực nghiệm Đánh giá Hiệu năng Truy xuất $2 \times 2$ ($N=25$ Job Descriptions)}}\\[0.05cm]
+\input{tables/table_T3.tex}
+\vspace{-0.1cm}
+{\footnotesize
+\noindent\textbf{Tóm tắt Kết luận Thực nghiệm \& Ý nghĩa Khoa học (Bảng 3):}
+\begin{itemize}[nosep,topsep=1pt,partopsep=0pt,itemsep=1pt]
+    \item \textbf{Phương pháp Đạt Hiệu năng Toàn diện Cao nhất:} \textbf{Line With-Header} dẫn đầu trên mọi thước đo độ chính xác tại tầng Re-ranking (NDCG@10 = 0.499 [0.450, 0.543], NDCG@1 = 0.800, MRR@10 = 0.980, Context Precision CP@5 = 0.935).
+    \item \textbf{Hiệu năng của AST:} \textbf{AST With-Header} xếp thứ hai (NDCG@10 = 0.457 [0.405, 0.509], NDCG@1 = 0.720, MRR@10 = 0.940). Nếu không có Header, AST bị tụt dốc nghiêm trọng xuống 0.345.
+    \item \textbf{Vai trò Then chốt của Bộ Re-ranker:} Tầng Re-ranker Cross-Encoder (\texttt{bge-reranker-large}) nâng hiệu năng vượt bậc cho toàn bộ 4 cấu hình, đưa NDCG@10 từ 0.104--0.187 (BM25) và 0.320--0.450 (Dense BGE-M3) lên 0.345--0.499.
+    \item \textbf{Kiểm toán Baseline Ngẫu nhiên:} Random selection trên toàn corpus (798 chunks) đạt NDCG@10 = 0.019; trên tập ứng viên pool đạt 0.592 (chỉ gồm các mục có nhãn người $\ge 0$, không bị phạt unjudged).
+\end{itemize}
+}
+\clearpage
+
+% ========================================================================
+% TRANG 3: BẢNG 2 - ĐẶC TRƯNG HÌNH THÁI PHÂN MẢNH & TÍNH TOÀN VẸN CÚ PHÁP
+% ========================================================================
+\noindent{\large\textbf{3. Bảng 2 (Table II): Đặc trưng Hình thái Phân mảnh \& Tính Toàn vẹn Cú pháp (Chunk Morphology)}}\\[0.05cm]
+\input{tables/table_T2.tex}
+\vspace{-0.1cm}
+{\small
+\noindent\textbf{Tóm tắt Kết luận Thực nghiệm \& Ý nghĩa Khoa học (Bảng 2):}
+\begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
+    \item \textbf{Tính Toàn vẹn Cú pháp:} AST thuần túy đạt tỷ lệ parse sạch gần như tuyệt đối (97.9\% bởi Tree-sitter) và 100.0\% nguyên vẹn ranh giới khối mã. Trong khi đó, phân mảnh theo dòng 50 LOC cắt ngang qua thân cú pháp ở 56.0\% số chunk (chỉ 22.4\% parse sạch, 44.0\% giữ được ranh giới).
+    \item \textbf{Bảo toàn Ngữ cảnh Cấu trúc:} AST lưu giữ 100.0\% Context Header bao bọc (class, interface, signature). Phân mảnh theo dòng hoàn toàn đánh mất ngữ cảnh này (0.0\%).
+    \item \textbf{Bắt buộc Phải có Cơ chế Fallback:} Trong mã nguồn thực tế, các hàm dài vượt quá ngữ cảnh 512 token của mô hình embedding. AST bắt buộc phải kích hoạt fallback cửa sổ trượt (tỷ lệ fallback chung 35.7\%, trong đó Java là 13.1\%, React/TS là 52.1\%). Việc các hàm dài bị xẻ nhỏ thành fallback dòng đã làm suy giảm ưu thế cú pháp của AST trên thực tế.
+\end{itemize}
+}
+
+\end{document}

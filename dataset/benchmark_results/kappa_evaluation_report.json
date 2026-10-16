@@ -1,0 +1,66 @@
+{
+  "total": {
+    "partition": "Complete Unified Ground Truth (Total)",
+    "n": 603,
+    "exact_matches": 481,
+    "exact_agreement_pct": 79.77,
+    "disagreement_delta_1": 112,
+    "disagreement_delta_1_pct": 18.57,
+    "disagreement_delta_2": 10,
+    "disagreement_delta_2_pct": 1.66,
+    "unweighted_kappa": 0.689,
+    "linear_weighted_kappa": 0.7313,
+    "quadratic_weighted_kappa": 0.7795,
+    "agreement_level": "Substantial Agreement",
+    "status_icon": "SUBSTANTIAL"
+  },
+  "subsets": {
+    "gold_250": {
+      "partition": "Pre-registered Gold Standard (Initial)",
+      "n": 250,
+      "exact_matches": 221,
+      "exact_agreement_pct": 88.4,
+      "disagreement_delta_1": 27,
+      "disagreement_delta_1_pct": 10.8,
+      "disagreement_delta_2": 2,
+      "disagreement_delta_2_pct": 0.8,
+      "unweighted_kappa": 0.8234,
+      "linear_weighted_kappa": 0.8505,
+      "quadratic_weighted_kappa": 0.8808,
+      "agreement_level": "Almost Perfect Agreement",
+      "status_icon": "ALMOST_PERFECT"
+    },
+    "pooled_353": {
+      "partition": "Pooled Retrieval Candidates (Expansion)",
+      "n": 353,
+      "exact_matches": 260,
+      "exact_agreement_pct": 73.65,
+      "disagreement_delta_1": 85,
+      "disagreement_delta_1_pct": 24.08,
+      "disagreement_delta_2": 8,
+      "disagreement_delta_2_pct": 2.27,
+      "unweighted_kappa": 0.5799,
+      "linear_weighted_kappa": 0.6266,
+      "quadratic_weighted_kappa": 0.6826,
+      "agreement_level": "Substantial Agreement",
+      "status_icon": "SUBSTANTIAL"
+    }
+  },
+  "confusion_matrix": [
+    [
+      116,
+      26,
+      4
+    ],
+    [
+      11,
+      193,
+      29
+    ],
+    [
+      6,
+      46,
+      172
+    ]
+  ]
+}

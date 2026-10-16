@@ -1,0 +1,11 @@
+term,meaning,forbidden_alternatives
+chunk,unit of retrieved text,snippet, segment, passage
+context header,hierarchical context prefix (file path class method),prefix, metadata
+AST-first chunking with line fallback,AST arm falling back to line windows when methods absent,AST chunking (when referring to hybrid arm)
+line-window chunking,fixed 50-LOC window with 10-LOC overlap,fixed chunking, naive chunking
+pooled judgments,annotations collected via candidate pooling,full ground truth, complete gold labels
+unjudged,retrieved candidates outside candidate pool,missing labels, unannotated
+judged@k,proportion of evaluated items in top-k,label coverage
+requirement,mandatory skill extracted from JD,skill match, capability demand
+evidence,source code chunk demonstrating competency,proof, verification
+relevance label (0-2),ordinal human relevance judgment,score, rating

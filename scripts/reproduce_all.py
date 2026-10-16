@@ -53,9 +53,23 @@ STEPS = [
     {
         "id": "STEP_5",
         "name": "Exploratory Sensitivity & Subgroup Analysis",
-        "target": "Language, Fallback, Comp 5 & Annotator Robustness",
+        "target": "Language, Fallback, Comp 5 & Reachable Qrels",
         "cmd": [sys.executable, "scripts/evaluate_sensitivity.py"],
-        "key_metric": "Comp 5 Delta = -0.0428, Top Fallback: JSX render"
+        "key_metric": "Comp 5 Delta = -0.0428, Reachable C1-C5 Invariant"
+    },
+    {
+        "id": "STEP_6",
+        "name": "Binary Preference (Bpref) for Unjudged BM25 Items",
+        "target": "Bpref Metric across BM25, Dense, and Rerank",
+        "cmd": [sys.executable, "scripts/compute_bpref.py"],
+        "key_metric": "BM25 Bpref: 0.152-0.241, Gap to Neural narrows"
+    },
+    {
+        "id": "STEP_7",
+        "name": "Statistical Power Analysis & Minimum Detectable Effect",
+        "target": "MDE Analysis across 5 Comparisons",
+        "cmd": [sys.executable, "scripts/power_analysis.py"],
+        "key_metric": "MDE Range: 0.072 to 0.134 NDCG@10 (80% power)"
     }
 ]
 

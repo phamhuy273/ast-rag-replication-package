@@ -129,5 +129,55 @@
       "delta": -0.06853828690117914,
       "p_value": 0.03180783987045288
     }
+  },
+  "reachable_qrels_sensitivity": {
+    "exploratory": true,
+    "n_unmatched_pairs": 78,
+    "n_unmatched_rel_pairs": 51,
+    "n_reachable_pairs": 525,
+    "ndcg10_all": {
+      "rerank_line_no_header": 0.470324027969814,
+      "rerank_line_with_header": 0.49940095934591305,
+      "rerank_ast_no_header": 0.34453177145782804,
+      "rerank_ast_with_header": 0.4565543035567399
+    },
+    "ndcg10_reachable": {
+      "rerank_line_no_header": 0.4848176146481996,
+      "rerank_line_with_header": 0.5138415832714991,
+      "rerank_ast_no_header": 0.35624136715344745,
+      "rerank_ast_with_header": 0.4698068146928992
+    },
+    "comparisons": {
+      "C1": {
+        "comparison": "rerank_ast_with_header vs rerank_line_no_header",
+        "delta_all": -0.013769724413074034,
+        "delta_reach": -0.01501079995530035,
+        "p_reach": 0.8531995415687561
+      },
+      "C2": {
+        "comparison": "rerank_ast_no_header vs rerank_line_no_header",
+        "delta_all": -0.12579225651198592,
+        "delta_reach": -0.12857624749475213,
+        "p_reach": 3.1948089599609375e-05
+      },
+      "C3": {
+        "comparison": "rerank_ast_with_header vs rerank_ast_no_header",
+        "delta_all": 0.1120225320989119,
+        "delta_reach": 0.11356544753945176,
+        "p_reach": 0.0012963414192199707
+      },
+      "C4": {
+        "comparison": "rerank_line_with_header vs rerank_line_no_header",
+        "delta_all": 0.029076931376099076,
+        "delta_reach": 0.02902396862329942,
+        "p_reach": 0.39571136236190796
+      },
+      "C5": {
+        "comparison": "rerank_ast_with_header vs rerank_line_with_header",
+        "delta_all": -0.04284665578917309,
+        "delta_reach": -0.044034768578599774,
+        "p_reach": 0.1373547103361862
+      }
+    }
   }
 }

@@ -274,11 +274,53 @@ python scripts/evaluate_sensitivity.py
   * **Fallback Composition:** 110 of the 130 fallback chunks (84.6%) are from React/TS files (52.1% of React AST chunks). Top fallback trigger is top-level JSX renders (51/130, 39.2%), followed by styled-components (23/130, 17.7%) and object configurations (13/130, 10.0%).
   * **Annotator Robustness ($N=481$ Consensus Pairs):** Ranking order is invariant: Line+Header (**0.4262**) > Line No-Header (**0.4128**) > AST+Header (**0.3687**) > AST No-Header (**0.2938**). Header effect on AST: $\Delta = +0.0749, p = 0.0851 \ge 0.05$ (Not statistically significant at $\alpha = 0.05$).
   * **Judged-Only (Shortlist) Evaluation:** When evaluated strictly within pre-screened judged candidates (fair comparison against the 0.592 pool random baseline where unjudged items are excluded): Line+Header (**0.6148**) > Line No-Header (**0.5896**) > AST+Header (**0.5463**) > AST No-Header (**0.4537**). AST header effect remains significant ($\Delta = +0.0926, p = 0.0034$), Comp 1 remains non-significant ($\Delta = -0.0433, p = 0.3666$), and Comp 5 favors Line ($\Delta = -0.0685, p = 0.0318$).
+  * **Reachable Qrels Sensitivity:** Restricting ground truth strictly to the 525 retrievable pairs (excluding 78 legacy gold pairs) yields Line No-Header = 0.485, Line+Header = 0.514, AST No-Header = 0.356, AST+Header = 0.470 (C1: -0.015, C2: -0.129, C3: +0.114, C4: +0.029, C5: -0.044).
 * **Generated Artifacts:**
   * Report: `dataset/benchmark_results/sensitivity_analysis_report.txt`
   * JSON: `dataset/benchmark_results/sensitivity_analysis_report.json`
 
 ---
+
+### Step 6: Binary Preference (Bpref) Analysis for Unjudged BM25 Items
+Evaluates the binary preference metric (Buckley & Voorhees, SIGIR 2004) to assess retrieval effectiveness independently of unjudged pooling penalties:
+```bash
+python scripts/compute_bpref.py
+```
+* **Key Verified Results:**
+  * BM25 tier: bpref ranges from **0.152** to **0.241** across all four configurations.
+  * Dense tier: bpref ranges from **0.278** to **0.350**.
+  * Rerank tier: bpref ranges from **0.285** to **0.356** (Line+Header 0.356 > Line No-Header 0.343 > AST+Header 0.314 > AST No-Header 0.285).
+* **Generated Artifacts:**
+  * Summary: `dataset/benchmark_results/bpref_summary.csv`
+  * Report: `dataset/benchmark_results/bpref_report.txt`
+  * JSON: `dataset/benchmark_results/bpref_report.json`
+
+---
+
+### Step 7: Statistical Power & Minimum Detectable Effect (MDE)
+Calculates the minimum detectable effect size at 80% statistical power across all 5 pairwise comparisons:
+```bash
+python scripts/power_analysis.py
+```
+* **Key Verified Results:**
+  * Detectable effect size ranges from **0.072** to **0.134** NDCG@10 across the 5 comparisons ($\alpha = 0.05$ to $0.0125$).
+* **Generated Artifacts:**
+  * Report: `dataset/benchmark_results/power_analysis.txt`
+  * JSON: `dataset/benchmark_results/power_analysis.json`
+
+---
+
+### Step 8: Pure AST & Closed-Pool Header Ablation Pipelines
+Verification suite and execution harnesses for the exploratory pure-AST re-run and closed-pool header component ablation:
+```bash
+python -m pytest tests/test_pure_ast.py -v
+```
+* **Pipeline Scripts:**
+  * `scripts/pure_ast_run.py`: Runs retrieval on pure AST chunks (234) vs. line windows from the same 130 files (238).
+  * `scripts/pure_ast_pool.py`: Pools unjudged top-$k$ items into neutral format for annotation.
+  * `scripts/pure_ast_eval.py`: Evaluates pure-AST runs under shared and arm ideals.
+  * `scripts/header_ablation.py`: Closed-pool re-scoring across header field variants.
+
 
 ## 📊 Dataset Provenance & Integrity Specifications
 

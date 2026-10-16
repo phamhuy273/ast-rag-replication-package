@@ -1,0 +1,49 @@
+\section{Approach and Study Design}
+\label{sec:approach}
+
+To separate chunk boundaries from context metadata, we use a $2 \times 2$ factorial design evaluated at three retrieval tiers, with an analysis plan frozen before the evaluation runs.
+
+\subsection{Corpus and Query Curation}
+Our corpus comprises 40 open-source GitHub repositories (20 Java Spring Boot, 20 React/TypeScript), encompassing 189 source files. 
+Repository licenses include 19 MIT (47.5\%), 16 Public GitHub default copyright (40.0\%), 4 Apache-2.0 (10.0\%), and 1 GNU AGPL-3.0 (2.5\%). 
+Requirements are extracted from 25 public job descriptions (15 Java backend, 10 React/TypeScript frontend) with a frozen prompt run on \texttt{gemini-1.5-flash} (recorded in \texttt{queries\_frozen.json}); each query lists the mandatory skills.
+
+\subsection{Factorial Conditions and Retrieval Pipeline}
+We evaluate two orthogonal factors:
+\begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=1pt]
+    \item \textbf{Chunking Strategy:}
+    \textit{Line-window chunking} slices source code into 50-LOC windows with a 10-LOC overlap (step 40 LOC), representing the standard language-agnostic baseline. 
+    \textit{AST-first chunking with line fallback (AST arm)} uses Tree-sitter to parse source files into concrete syntax trees, extracting discrete functional boundaries (\texttt{method\_declaration}, \texttt{constructor\_declaration}, \texttt{arrow\_function}, and function expressions). 
+    When a file has no extractable function (e.g., top-level JSX, styled-components, type declarations, or configuration objects), the parser falls back to 50-LOC windows so that such files remain searchable. 
+    In total, our corpus yields 434 line chunks and 364 AST-arm chunks (234 pure AST method extractions, 130 line-window fallback chunks).
+    \item \textbf{Context Header Condition:}
+    In the \textit{Without Header} condition, chunks contain solely the raw code text. 
+    In the \textit{With Header} condition, chunks are prepended with a standardized hierarchical context prefix: \texttt{// File: <path> \textbackslash n // Class: <name> \textbackslash n // Method: <name> \textbackslash n // Lines: <start>-<end>}.
+\end{enumerate}
+
+Each of the four resulting factorial configurations is evaluated across three retrieval tiers:
+\textit{Tier 1 (Lexical):} Okapi BM25.
+\textit{Tier 2 (Dense Bi-Encoder):} BAAI/bge-m3~\cite{chen2024bgem3} (1024-dimensional embeddings, cosine similarity).
+\textit{Tier 3 (Two-Stage Cross-Encoder Reranking):} BAAI/bge-reranker-base~\cite{xiao2023cpack}, which jointly encodes the query and chunk and rescores the top-20 candidates from Tier 2.
+
+\subsection{Human Annotation and Pooling Protocol}
+For the 353 items added by pooling, annotators saw only the JD requirement, the file path, the line range, and the code; chunking strategy, header condition, retrieval tier, and scores were hidden. 
+The 250 gold items were labeled earlier, and those annotators may have seen header information; we did not run a header-bias check. 
+Two software engineering annotators labeled each pair independently on a 0--2 relevance scale (0: irrelevant; 1: partially relevant; 2: relevant), and a Lead Adjudicator resolved 122 disagreements using structured templates. 
+Quadratic-weighted Cohen's kappa is 0.78 on all 603 pairs (79.8\% exact agreement), 0.88 on the 250 gold items, and 0.68 on the 353 pooled items: substantial agreement overall on the Landis-Koch scale~\cite{landis1977measurement}, but the target of 0.80 set in the annotation guidelines was met only on the gold subset.
+
+\subsection{Evaluation Metrics and Statistical Testing}
+The primary evaluation metric is Normalized Discounted Cumulative Gain at rank 10 ($\text{NDCG@10}$), computed with linear relevance gain ($rel_i / \log_2(i+1)$). 
+Unjudged items are counted as relevance 0. 
+Secondary metrics are $\text{NDCG@1}$ and $\text{MRR@10}$ (Table~\ref{tab:main}).
+
+The confirmatory family specified in the frozen analysis plan comprises four paired comparisons over the 25 JDs at the reranking tier:
+\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=1pt]
+    \item \textbf{Comp 1:} \astH\ vs. \lineN.
+    \item \textbf{Comp 2:} \astN\ vs. \lineN.
+    \item \textbf{Comp 3:} \astH\ vs. \astN.
+    \item \textbf{Comp 4:} \lineH\ vs. \lineN.
+\end{itemize}
+Hypotheses are tested via two-sided Wilcoxon signed-rank tests~\cite{wilcoxon1945individual} with Holm correction~\cite{holm1979simple} ($\alpha = 0.05$). 
+We report paired effect sizes $\Delta = \mathrm{mean}(A) - \mathrm{mean}(B)$ alongside 95\% bootstrap confidence intervals (10,000 resamples across queries). 
+In addition, we report one exploratory contrast outside the confirmatory family: \textbf{Comp 5} (\astH\ vs. \lineH).

@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\caption{Chunk morphology, syntactic validity, and context header preservation across chunking strategies.}
+\label{tab:chunk_morphology}
+\centering\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{threeparttable}
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+Strategy Group & Total (J/R) & Mean LOC $\pm$ SD & Tokens (Content) & Tokens (Header) & Clean Parse (\%) & Intact Bnd (\%) & Header (\%) & Trunc $>512$ (\%) \\
+\midrule
+Line (50 LOC Baseline) & 434 (120/314) & 41.0 $\pm$ 13.1 & 390.8 (388) & 419.5 (420) & 22.4\% & 44.0\% & 0.0\% & 124 (28.6\%) \\
+\cmidrule(lr){1-9}
+AST Pure (Methods/Funcs) & 234 (133/101) & 19.8 $\pm$ 16.7 & 211.3 (157) & 254.5 (202) & 97.9\% & 100.0\% & 100.0\% & 14 (6.0\%) \\
+AST Fallback (Line 50) & 130 (20/110) & 42.9 $\pm$ 13.0 & 367.0 (372) & 394.5 (400) & 20.0\% & 74.6\% & 0.0\% & 26 (20.0\%) \\
+AST Combined (Full Branch) & 364 (153/211) & 28.1 $\pm$ 19.0 & 266.9 (222) & 304.5 (260) & 70.1\% & 90.9\% & 64.3\% & 40 (11.0\%) \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item[] Note: Evaluated over 40 GitHub repositories (189 source files). Tokenizer: \texttt{BAAI/bge-m3} (maximum context length 512). Chunk count breakdown: Total (Java / React-TS). Boundary Preservation reflects percentage of chunks not artificially sliced across syntactic statement boundaries. Clean Parse denotes syntactically valid code blocks parsable by tree-sitter without syntax errors. Data dynamically derived from \texttt{table\_3\_2\_measured.json} and \texttt{chunk\_corpus.parquet}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table*}

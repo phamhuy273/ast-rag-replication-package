@@ -1,0 +1,40 @@
+\begin{table*}[t]
+\caption{Retrieval effectiveness across chunking strategies, context header conditions, and pipeline tiers ($N=25$ job descriptions).}
+\label{tab:main_retrieval_benchmark}
+\centering\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\begin{threeparttable}
+\begin{tabular}{@{}llcccccccc@{}}
+\toprule
+Chunking Strategy & Header Condition & NDCG@10$\uparrow$ & NDCG@1$\uparrow$ & NDCG@3$\uparrow$ & NDCG@5$\uparrow$ & MRR@10$\uparrow$ & P@5$\uparrow$ & Recall@10$\uparrow$ & Judged@10 \\
+\midrule
+\multicolumn{10}{l}{\textit{Panel A: Two-Stage Re-ranking Tier (Cross-Encoder BGE-Reranker-Large)}} \\[2pt]
+Line (50 LOC) & No-Header & \makecell{\underline{0.470}\\\scriptsize [0.414, 0.524]} & \underline{0.740} & \underline{0.703} & \underline{0.587} & 0.933 & \underline{0.656} & 0.246 & \textbf{0.564} \\[1pt]
+Line (50 LOC) & With-Header & \makecell{\textbf{0.499}\\\scriptsize [0.450, 0.543]} & \textbf{0.800} & \textbf{0.736} & \textbf{0.630} & \textbf{0.980} & \textbf{0.704} & \textbf{0.262} & 0.552 \\[1pt]
+AST Method & No-Header & \makecell{0.345\\\scriptsize [0.299, 0.390]} & 0.460 & 0.477 & 0.399 & 0.846 & 0.560 & 0.220 & 0.536 \\[1pt]
+AST Method & With-Header & \makecell{0.457\\\scriptsize [0.405, 0.509]} & 0.720 & 0.675 & 0.564 & \underline{0.940} & 0.648 & \underline{0.253} & \underline{0.564} \\[1pt]
+\midrule
+\multicolumn{10}{l}{\textit{Panel B: Dense Bi-Encoder Tier (BGE-M3 Embeddings)}} \\[2pt]
+Line (50 LOC) & No-Header & \makecell{\underline{0.446}\\\scriptsize [0.377, 0.511]} & \underline{0.600} & 0.593 & \underline{0.512} & \underline{0.903} & \underline{0.640} & \underline{0.265} & \textbf{0.592} \\[1pt]
+Line (50 LOC) & With-Header & \makecell{\textbf{0.450}\\\scriptsize [0.398, 0.502]} & 0.580 & \textbf{0.600} & \textbf{0.539} & \textbf{0.913} & \textbf{0.704} & \textbf{0.273} & \underline{0.572} \\[1pt]
+AST Method & No-Header & \makecell{0.320\\\scriptsize [0.265, 0.369]} & 0.480 & 0.426 & 0.378 & 0.807 & 0.568 & 0.217 & 0.548 \\[1pt]
+AST Method & With-Header & \makecell{0.408\\\scriptsize [0.346, 0.463]} & \textbf{0.660} & \underline{0.594} & 0.491 & 0.900 & 0.584 & 0.236 & 0.544 \\[1pt]
+\midrule
+\multicolumn{10}{l}{\textit{Panel C: Lexical Sparse Baseline Tier (BM25)$^{\dagger}$}} \\[2pt]
+Line (50 LOC) & No-Header & \makecell{0.104\\\scriptsize [0.070, 0.141]} & \textbf{0.140} & 0.113 & 0.106 & 0.337 & 0.128 & 0.071 & 0.136 \\[1pt]
+Line (50 LOC) & With-Header & \makecell{0.129\\\scriptsize [0.094, 0.165]} & \textbf{0.140} & 0.144 & 0.126 & \underline{0.405} & 0.168 & 0.092 & 0.180 \\[1pt]
+AST Method & No-Header & \makecell{\textbf{0.187}\\\scriptsize [0.145, 0.230]} & \underline{0.080} & \textbf{0.171} & \textbf{0.173} & \textbf{0.409} & \textbf{0.288} & \textbf{0.148} & \textbf{0.304} \\[1pt]
+AST Method & With-Header & \makecell{\underline{0.170}\\\scriptsize [0.122, 0.221]} & \underline{0.080} & \underline{0.151} & \underline{0.167} & 0.395 & \underline{0.248} & \underline{0.120} & \underline{0.244} \\[1pt]
+\midrule
+\multicolumn{10}{l}{\textit{Pre-registered Random Baselines}} \\[1pt]
+Random Selection & Full Corpus (798 Chunks) & 0.019 & --- & --- & --- & --- & --- & --- & --- \\[1pt]
+Random Selection & Judged Pool Candidates$^{\ddagger}$ & 0.592 & --- & --- & --- & --- & --- & --- & --- \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\scriptsize
+\item[] Note: 95\% bootstrap confidence intervals across 25 JDs (10,000 resamples, seed 42) shown in brackets below NDCG@10. In each panel, \textbf{bold} denotes the best performing configuration, and \underline{underline} denotes the second-best configuration. Linear relevance gain $\mathrm{rel}/\log_2(i+1)$ is employed across all NDCG calculations.
+\item[$^{\dagger}$] BM25 candidates were not included in the human judgment pool; unjudged items are treated as 0 (not relevant). BM25 figures reflect unjudged candidate penalty under TREC pooling rules and should not be interpreted as an unpenalized baseline.
+\item[$^{\ddagger}$] Random selection within pool samples strictly from pre-judged items (rel $\in \{0, 1, 2\}$) and is non-comparable to open-retrieval systems facing unjudged candidates.
+\end{tablenotes}
+\end{threeparttable}
+\end{table*}

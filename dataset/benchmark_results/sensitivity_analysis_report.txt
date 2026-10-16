@@ -46,4 +46,18 @@ rerank_ast_with_header      | 250          | 54.0%          | 46.0% (115 chunks)
 • AST Header Effect       : Delta = +0.0926, p = 0.0034
 • Comp 1 (AST+H vs Line)  : Delta = -0.0433, p = 0.3666
 • Comp 5 (AST+H vs Line+H): Delta = -0.0685, p = 0.0318
+--------------------------------------------------------------------------------
+
+6. REACHABLE QRELS SENSITIVITY (Excluding 78 legacy pairs absent from current chunk corpus):
+• Unmatched pairs: 78 (51 relevant label >= 1, all from gold 250)
+• Reachable pairs: 525
+• Line No-Header: all = 0.4703, reachable = 0.4848
+• Line+Header:    all = 0.4994, reachable = 0.5138
+• AST No-Header:  all = 0.3445, reachable = 0.3562
+• AST+Header:     all = 0.4566, reachable = 0.4698
+• C1 (AST+H vs Line):   delta_all = -0.0138, delta_reach = -0.0150 (p = 0.8532)
+• C2 (AST noH vs Line): delta_all = -0.1258, delta_reach = -0.1286 (p = 0.0000)
+• C3 (Header on AST):   delta_all = +0.1120, delta_reach = +0.1136 (p = 0.0013)
+• C4 (Header on Line):  delta_all = +0.0291, delta_reach = +0.0290 (p = 0.3957)
+• C5 (AST+H vs Line+H): delta_all = -0.0428, delta_reach = -0.0440 (p = 0.1374)
 ================================================================================

@@ -111,6 +111,12 @@ To prevent post-hoc label drift, ground truth files are locked on normalized new
 * Gold 250 subset (SHA-256): `F9E3011EFA003C6AAB7D6DFD46CE94E1FFDDC741F193C02E0748D39D67650531`
 *(Verified dynamically by `tests/test_gold_integrity.py` and `tests/test_doc_hashes.py`).*
 
+### 5.6 Retrievability & Reachable Qrels Audit (78 Legacy Gold Pairs)
+When mapping the 603 ground-truth pairs to the active `chunk_corpus.parquet` by line coordinates `(repo_name, file_path, start_line, end_line)`:
+* All 353 pooled pairs ($100.0\%$) match current corpus chunks.
+* Exactly **78 of the 250 initial Gold pairs** refer to chunk boundaries from an earlier extraction pass that do not match the current corpus (including 51 pairs labeled relevant $\ge 1$).
+* Restricting the ground truth to the 525 reachable pairs yields virtually unchanged effect sizes across all five pairwise comparisons (see Section 6 of `dataset/PROTOCOL_DEVIATIONS.md` and `scripts/evaluate_sensitivity.py`). Enforced by unit test in `tests/test_gold_integrity.py`.
+
 ---
 
 ## 6. Precomputed Retrieval Runs

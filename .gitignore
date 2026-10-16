@@ -12,3 +12,16 @@ __pycache__/
 # OS files
 .DS_Store
 Thumbs.db
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Reference literature papers
+*Ta*li*u NCKh*

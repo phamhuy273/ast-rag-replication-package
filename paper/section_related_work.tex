@@ -1,0 +1,28 @@
+\section{Related Work}
+\label{sec:related_work}
+
+We organize related work into four areas: code chunking for retrieval-augmented generation, dense code retrieval with reranking, context enrichment, and requirements traceability with skill mining.
+
+\subsection{Code Chunking for Retrieval-Augmented Generation}
+Line-based chunking can split functions or merge unrelated code~\cite{zhang2025cast}. 
+\castname~\cite{zhang2025cast} addresses this by recursively splitting large AST nodes and merging sibling nodes under size limits, and reports gains on RepoEval retrieval and SWE-bench generation. 
+Later controlled evidence is less favorable to structure: Wu et al.~\cite{wu2026chunking} compared four chunking strategies (function, declaration, sliding window, and \castname) for retrieval-augmented code completion and found that structure-aware strategies did not outperform a sliding window, with function-level chunking performing worst; Galimzyanov et al.~\cite{galimzyanov2025practical} likewise report that line-based chunking matches syntax-aware splitting across context budgets. 
+These studies target code completion and related tasks. 
+We study human-labeled requirement-to-code evidence retrieval and also cross chunking with context headers.
+
+\subsection{Dense Code Retrieval and Reranking}
+Neural code search maps natural-language queries and code into a shared vector space~\cite{feng2020codebert,guo2022unixcoder,husain2019codesearchnet}, and multilingual embedders such as BGE-M3~\cite{chen2024bgem3} encode queries and chunks independently. 
+Because a bi-encoder compresses a chunk into one vector, pipelines often add a cross-encoder that re-ranks the top candidates~\cite{hu2023revisiting,costv2024apsec}: TOSS~\cite{hu2023revisiting} combines IR-based and bi-encoder recall with cross-encoder reranking, and CoSTV~\cite{costv2024apsec} uses a two-stage design to reduce search time while retaining accuracy. 
+We use the same recall-then-rerank structure and ask how chunk shape and headers interact with the reranker.
+
+\subsection{Context Enrichment}
+Isolated chunks can lack the surrounding class and package context. 
+RepoCoder~\cite{zhang2023repocoder} retrieves repository context iteratively to improve completion, and RepoBench~\cite{liu2024repobench} and CrossCodeEval~\cite{ding2023crosscodeeval} benchmark repository-level completion that needs cross-file context. 
+These works enrich the prompt with retrieved context. 
+We ask a narrower question: does a short hierarchical header prepended to each chunk change retrieval, and does it do so equally for AST chunks and line windows?
+
+\subsection{Requirements Traceability and Skill Mining}
+Tracing natural-language requirements to code is a long-standing problem~\cite{antoniol2002traceability}; recent work addresses the abstraction gap between artifacts~\cite{gao2024triad} and the evolution of trace links~\cite{kuang2023analyzing}. 
+Separately, repository mining has been used to estimate developer expertise; for example, Montandon et al.~\cite{montandon2019identifying} predicted expertise in libraries and frameworks from GitHub activity using machine-learning classifiers with survey-based ground truth. 
+We take the traceability view: a required skill is treated as a requirement, and we ask which code chunks evidence it. 
+We do not assess individual developers.
