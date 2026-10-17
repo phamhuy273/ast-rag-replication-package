@@ -436,7 +436,7 @@ def generate_table_T3(data: Dict[str, Any]) -> str:
 
     # Panels configuration
     panels = [
-        ("Panel A: Two-Stage Re-ranking Tier (Cross-Encoder BGE-Reranker-Large)", [
+        ("Panel A: Two-Stage Re-ranking Tier (Cross-Encoder BGE-Reranker-Base)", [
             ("rerank_line_no_header", "Line (50 LOC)", "No-Header"),
             ("rerank_line_with_header", "Line (50 LOC)", "With-Header"),
             ("rerank_ast_no_header", "AST Method", "No-Header"),
@@ -512,7 +512,7 @@ def generate_table_T3(data: Dict[str, Any]) -> str:
         r"\end{tabular}",
         r"\begin{tablenotes}\scriptsize",
         r"\item[] Note: 95\% bootstrap confidence intervals across 25 JDs (10,000 resamples, seed 42) shown in brackets below NDCG@10. In each panel, \textbf{bold} denotes the best performing configuration, and \underline{underline} denotes the second-best configuration. Linear relevance gain $\mathrm{rel}/\log_2(i+1)$ is employed across all NDCG calculations.",
-        r"\item[$^{\dagger}$] BM25 candidates were not included in the human judgment pool; unjudged items are treated as 0 (not relevant). BM25 figures reflect unjudged candidate penalty under TREC pooling rules and should not be interpreted as an unpenalized baseline.",
+        r"\item[] All 12 configurations across lexical (BM25), dense bi-encoder (BGE-M3), and two-stage cross-encoder (BGE-Reranker-Base) tiers were pooled uniformly at Top-5 ($N=25$ JDs, $N=882$ unique graded candidate spans, Judged@5 = 100.0\%). All metrics are evaluated against the adjudicated unified ground truth.",
         r"\item[$^{\ddagger}$] Random selection within pool samples strictly from pre-judged items (rel $\in \{0, 1, 2\}$) and is non-comparable to open-retrieval systems facing unjudged candidates.",
         r"\end{tablenotes}",
         r"\end{threeparttable}",
@@ -1166,13 +1166,6 @@ def generate_paper_figures(data: Dict[str, Any]):
     plt.close(fig)
     print(f"   Saved compact {fig1_path.name} ({fig1_path.stat().st_size:,} bytes)")
 
-    for i in range(1, 5):
-        src = FIGS_DIR / f"fig_F{i}.pdf"
-        dst = PAPER_FIGS_DIR / f"fig_F{i}.pdf"
-        if src.exists():
-            shutil.copy2(src, dst)
-            print(f"   Synchronized {dst.name}")
-
 
 def update_claim_ledger(data: Dict[str, Any], output_path: Path):
     """
@@ -1358,7 +1351,7 @@ def update_protocol_deviations(data: Dict[str, Any], output_path: Path):
 * **Prospective Plan (`analysis_plan.md` & `annotation_guidelines.md`):** Initially outlined multi-wave annotation with 250 unblinded gold items and top-3 candidate pooling across 8 dense and reranking systems.
 * **Modernized Reality (Single-Wave 100% Blinded Protocol):**
   * All legacy annotations (both the 250 legacy gold pairs and 353 initial pooled pairs) were discarded.
-  * We executed a **100% fresh, single-wave, blinded Cranfield/TREC pooling protocol** pooling the **Top-5 candidates per query across ALL 12 retrieval configurations** (BM25, Dense `BAAI/bge-m3`, and Re-ranking `BAAI/bge-reranker-large` under both AST and Line chunking, with and without headers).
+  * We executed a **100% fresh, single-wave, blinded Cranfield/TREC pooling protocol** pooling the **Top-5 candidates per query across ALL 12 retrieval configurations** (BM25, Dense `BAAI/bge-m3`, and Re-ranking `BAAI/bge-reranker-base` under both AST and Line chunking, with and without headers).
   * 1,500 raw candidate instances ($25 \\times 12 \\times 5$) were pooled and deduplicated by span coordinates `(query_id, repo_name, file_path, start_line, end_line)`, collapsing into **882 unique candidate spans**.
   * Eliminates BM25 candidate pooling exclusion: Candidate judgment coverage is **100.0% at Judged@3 and Judged@5 across all 12 retrieval configurations**.
   * All 882 pairs were labeled from scratch under strict double-blinding by 2 independent annotators with neutral sequential pair IDs (`P0001`–`P0882`).
@@ -1370,6 +1363,7 @@ def update_protocol_deviations(data: Dict[str, Any], output_path: Path):
 * **Prospective Plan (`annotation_guidelines.md`, Section 4.2):** Target threshold set to Quadratic Weighted Cohen's Kappa $\\kappa_w \\ge 0.80$ (Almost Perfect Agreement).
 * **Observed Reality (`scripts/calculate_kappa.py`):**
   * Unified Candidate Pool ($N=882$ pairs): Quadratic $\\kappa_w = \\mathbf{{{kappa['total']['quadratic_weighted_kappa']:.4f}}}$ (Almost Perfect Agreement per Landis & Koch 1977 [0.81–1.00]).
+  * Linear $\\kappa = {kappa['total']['linear_weighted_kappa']:.4f}$, Unweighted $\\kappa = {kappa['total']['unweighted_kappa']:.4f}$.
   * Exact agreement: ${kappa['total']['exact_agreement_pct']:.2f}\\%$ ({kappa['total']['exact_matches']}/882 pairs).
   * Minor 1-point disagreements: ${kappa['total']['disagreement_delta_1_pct']:.2f}\\%$ ({kappa['total']['disagreement_delta_1']}/882 pairs).
   * Severe 2-point disagreements: ${kappa['total']['disagreement_delta_2_pct']:.2f}\\%$ ({kappa['total']['disagreement_delta_2']}/882 pairs).
@@ -1687,7 +1681,7 @@ The investigation evaluates candidate skill matching via source code across a $2
     \item \textbf{Chunking Strategy:} Fixed-window sliding lines (50 LOC baseline, 10 LOC overlap) versus AST-based method extraction with syntactic fallback.
     \item \textbf{Context Header:} Raw chunk contents (No-Header) versus structural hierarchical context headers (With-Header).
 \end{itemize}
-Each condition is replicated across three retrieval tiers: (1) Lexical Sparse (BM25), (2) Dense Bi-Encoder (\texttt{BAAI/bge-m3}), and (3) Two-Stage Re-ranking (\texttt{BAAI/bge-reranker-large}). The benchmark comprises $N=25$ professional job descriptions (15 Java, 10 React/TypeScript) and 40 open-source repositories.
+Each condition is replicated across three retrieval tiers: (1) Lexical Sparse (BM25), (2) Dense Bi-Encoder (\texttt{BAAI/bge-m3}), and (3) Two-Stage Re-ranking (\texttt{BAAI/bge-reranker-base}). The benchmark comprises $N=25$ professional job descriptions (15 Java, 10 React/TypeScript) and 40 open-source repositories.
 
 \subsection{Primary Metric \& Statistical Protocol}
 The primary evaluation metric is \textbf{NDCG@10 at the Re-ranking tier}, computed using linear relevance gain $\mathrm{rel}/\log_2(i+1)$ without exponential inflation. 
@@ -2535,21 +2529,7 @@ def main():
         fp.write(compendium_tex)
     print(f"   Saved {compendium_path.name}")
 
-    # 7. Generate Core 3-Tables LaTeX file (Bao_Cao_3_Bang_So_Lieu_Trong_Tam.tex)
-    print("\n7. Generating core 3-tables LaTeX document (Bao_Cao_3_Bang_So_Lieu_Trong_Tam.tex)...")
-    core_tex = generate_core_three_tables_latex(data)
-    formal_path = REPORT_DIR / "Bao_Cao_3_Bang_So_Lieu_Trong_Tam.tex"
-    with open(formal_path, "w", encoding="utf-8") as fp:
-        fp.write(core_tex)
-    print(f"   Saved {formal_path.name}")
 
-    # 8. Generate Comprehensive Vietnamese Markdown Report
-    print("\n8. Generating Vietnamese Markdown Report (BAO_CAO_TONG_HOP_BANG_SO_LIEU.md)...")
-    vn_md = generate_vietnamese_markdown_report(data)
-    vn_md_path = REPORT_DIR / "BAO_CAO_TONG_HOP_BANG_SO_LIEU.md"
-    with open(vn_md_path, "w", encoding="utf-8") as fp:
-        fp.write(vn_md)
-    print(f"   Saved {vn_md_path.name}")
 
     # 8b. Generate Paper Artifacts (Tables 1, 2, 4, Fig 1, Claim Ledger, Protocol Deviations)
     print("\n8b. Generating paper artifacts (tables, figures, claim ledger, protocol deviations)...")
@@ -2589,9 +2569,7 @@ def main():
     if not build_pdf(REPORT_DIR, "tables_compendium.tex"):
         sys.exit(1)
 
-    print("\n11. Compiling core 3-tables PDF document (Bao_Cao_3_Bang_So_Lieu_Trong_Tam.pdf)...")
-    if not build_pdf(REPORT_DIR, "Bao_Cao_3_Bang_So_Lieu_Trong_Tam.tex"):
-        sys.exit(1)
+
 
     # 12. Render PDF pages as images for visual inspection
     print("\n12. Rendering PDF pages to PNG for visual inspection...")

@@ -62,7 +62,7 @@ STEPS = [
         "name": "Binary Preference (Bpref) for Unjudged BM25 Items",
         "target": "Bpref Metric across BM25, Dense, and Rerank",
         "cmd": [sys.executable, "scripts/compute_bpref.py"],
-        "key_metric": "BM25 Bpref: 0.152-0.241, Gap to Neural narrows"
+        "key_metric": "BM25 Bpref: 0.129-0.255, Rerank Bpref: 0.170-0.353"
     },
     {
         "id": "STEP_7",

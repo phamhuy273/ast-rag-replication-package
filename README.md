@@ -37,7 +37,7 @@ Our chunking strategy is **AST-first with progressive context disclosure**: it e
 * **Inter-Annotator Reliability (Table 3.1 & Figure 3.1):**
   * Evaluated on all 882 candidate pairs between Annotator 1 and Annotator 2 across all 12 systems pooled at Top-5: Exact Agreement = **98.07%** (865/882), Minor Disagreements = **1.81%** (16/882), Severe Disagreements = **0.11%** (1/882).
   * **Quadratic Weighted Cohen's Kappa ($\kappa_w$):** **`0.9822`** (*Almost Perfect Agreement*, Landis & Koch 1977 [>0.80]).
-  * **Linear Weighted Kappa:** **`0.9634`** | **Unweighted Kappa:** **`0.9453`**.
+  * **Linear Weighted Kappa:** **`0.9764`** | **Unweighted Kappa:** **`0.9708`**.
   * **Subgroup Kappa:** Java $\kappa_w = \mathbf{0.9805}$ ($N=543$, 98.16% exact agreement), React/TS $\kappa_w = \mathbf{0.9789}$ ($N=339$, 97.94% exact agreement).
   * Adjudication of 17 disagreements was conducted by a single Lead Adjudicator based on the technical rubric (detailed in `dataset/disagreements_adjudication.csv` and summarized in `dataset/benchmark_results/adjudication_summary.json`). Annotator 1 scored pairs via the 3-point rubric directly, while Annotator 2 recorded diagnostic technical notes.
 

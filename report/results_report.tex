@@ -33,7 +33,7 @@ The investigation evaluates candidate skill matching via source code across a $2
     \item \textbf{Chunking Strategy:} Fixed-window sliding lines (50 LOC baseline, 10 LOC overlap) versus AST-based method extraction with syntactic fallback.
     \item \textbf{Context Header:} Raw chunk contents (No-Header) versus structural hierarchical context headers (With-Header).
 \end{itemize}
-Each condition is replicated across three retrieval tiers: (1) Lexical Sparse (BM25), (2) Dense Bi-Encoder (\texttt{BAAI/bge-m3}), and (3) Two-Stage Re-ranking (\texttt{BAAI/bge-reranker-large}). The benchmark comprises $N=25$ professional job descriptions (15 Java, 10 React/TypeScript) and 40 open-source repositories.
+Each condition is replicated across three retrieval tiers: (1) Lexical Sparse (BM25), (2) Dense Bi-Encoder (\texttt{BAAI/bge-m3}), and (3) Two-Stage Re-ranking (\texttt{BAAI/bge-reranker-base}). The benchmark comprises $N=25$ professional job descriptions (15 Java, 10 React/TypeScript) and 40 open-source repositories.
 
 \subsection{Primary Metric \& Statistical Protocol}
 The primary evaluation metric is \textbf{NDCG@10 at the Re-ranking tier}, computed using linear relevance gain $\mathrm{rel}/\log_2(i+1)$ without exponential inflation. 

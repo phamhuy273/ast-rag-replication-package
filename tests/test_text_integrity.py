@@ -109,3 +109,39 @@ class TestTextIntegrity:
             except Exception:
                 pass
 
+    def test_linear_and_unweighted_kappa_concordance(self):
+        """Verify linear (0.9764) and unweighted (0.9708) kappa concordance and absence of stale drafts."""
+        approach_tex = (ROOT_DIR / "paper" / "section_approach.tex").read_text(encoding="utf-8")
+        readme_text = (ROOT_DIR / "README.md").read_text(encoding="utf-8")
+
+        assert "0.9764" in approach_tex and "0.9708" in approach_tex
+        assert "0.9764" in readme_text and "0.9708" in readme_text
+
+        for f in (ROOT_DIR / "paper").rglob("*"):
+            if f.suffix in [".tex", ".md", ".txt"]:
+                t = f.read_text(encoding="utf-8")
+                assert "0.9634" not in t, f"Found stale 0.9634 in {f}"
+                assert "0.9453" not in t, f"Found stale 0.9453 in {f}"
+        assert "0.9634" not in readme_text, "Found stale 0.9634 in README.md"
+        assert "0.9453" not in readme_text, "Found stale 0.9453 in README.md"
+
+    def test_no_bge_reranker_large_in_codebase(self):
+        """Ensure BAAI/bge-reranker-base is used consistently and bge-reranker-large does not appear."""
+        for d in ["paper", "report", "scripts"]:
+            target_dir = ROOT_DIR / d
+            if not target_dir.exists():
+                continue
+            for f in target_dir.rglob("*"):
+                if f.suffix in [".tex", ".md", ".py", ".txt"]:
+                    t = f.read_text(encoding="utf-8")
+                    assert "bge-reranker-large" not in t.lower(), f"Found bge-reranker-large in {f}"
+
+    def test_sensitivity_report_no_stale_text(self):
+        """Ensure sensitivity_analysis_report.txt contains zero legacy strings."""
+        sens_file = ROOT_DIR / "dataset" / "benchmark_results" / "sensitivity_analysis_report.txt"
+        assert sens_file.exists(), f"Missing sensitivity report: {sens_file}"
+        sens_txt = sens_file.read_text(encoding="utf-8")
+        assert "78 legacy" not in sens_txt.lower(), "Found '78 legacy' in sensitivity report"
+        assert "18/25 queries" not in sens_txt, "Found '18/25 queries' in sensitivity report"
+
+

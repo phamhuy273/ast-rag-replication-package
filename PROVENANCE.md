@@ -91,8 +91,8 @@ To construct an unbiased ground truth without favoring any single retrieval para
   * Minor 1-point disagreements: **1.81%** (16/882 pairs).
   * Severe 2-point disagreements: **0.11%** (1/882 pairs).
   * **Quadratic Weighted Cohen's Kappa:** $\kappa_w = \mathbf{0.9822}$ (*Almost Perfect Agreement*, Landis & Koch 1977 [>0.80]).
-  * Linear Weighted Kappa: $\kappa = \mathbf{0.9634}$.
-  * Unweighted Cohen's Kappa: $\kappa = \mathbf{0.9453}$.
+  * Linear Weighted Kappa: $\kappa = \mathbf{0.9764}$.
+  * Unweighted Cohen's Kappa: $\kappa = \mathbf{0.9708}$.
   * Java Subgroup Kappa: $\kappa_w = \mathbf{0.9805}$ ($N=543$, 98.16% exact agreement).
   * React/TS Subgroup Kappa: $\kappa_w = \mathbf{0.9789}$ ($N=339$, 97.94% exact agreement).
 
