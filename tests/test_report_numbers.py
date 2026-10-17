@@ -104,25 +104,25 @@ class TestReportNumbers:
         line = self.table_3_2["line_based"]
 
         # Chunk counts
-        assert f"{pure['chunk_count']}" in t2_content  # 234
-        assert f"{fallback['chunk_count']}" in t2_content  # 130
-        assert f"{combined['chunk_count']}" in t2_content  # 364
+        assert f"{pure['chunk_count']}" in t2_content  # 438
+        assert f"{fallback['chunk_count']}" in t2_content  # 0
+        assert f"{combined['chunk_count']}" in t2_content  # 438
         assert f"{line['chunk_count']}" in t2_content  # 434
 
         # Intact & truncated percentages
-        assert f"{pure['syntax_intact_rate_pct']:.1f}\\%" in t2_content  # 97.9%
-        assert f"{fallback['syntax_intact_rate_pct']:.1f}\\%" in t2_content  # 20.0%
-        assert f"{combined['syntax_intact_rate_pct']:.1f}\\%" in t2_content  # 70.1%
+        assert f"{pure['syntax_intact_rate_pct']:.1f}\\%" in t2_content  # 78.1%
+        assert f"{fallback['syntax_intact_rate_pct']:.1f}\\%" in t2_content  # 100.0%
+        assert f"{combined['syntax_intact_rate_pct']:.1f}\\%" in t2_content  # 78.1%
         assert f"{line['syntax_intact_rate_pct']:.1f}\\%" in t2_content  # 22.4%
 
-        assert f"{pure['boundary_intact_rate_pct']:.1f}\\%" in t2_content  # 100.0%
-        assert f"{fallback['boundary_intact_rate_pct']:.1f}\\%" in t2_content  # 74.6%
-        assert f"{combined['boundary_intact_rate_pct']:.1f}\\%" in t2_content  # 90.9%
+        assert f"{pure['boundary_intact_rate_pct']:.1f}\\%" in t2_content  # 87.2%
+        assert f"{fallback['boundary_intact_rate_pct']:.1f}\\%" in t2_content  # 100.0%
+        assert f"{combined['boundary_intact_rate_pct']:.1f}\\%" in t2_content  # 87.2%
         assert f"{line['boundary_intact_rate_pct']:.1f}\\%" in t2_content  # 44.0%
 
-        assert f"{pure['truncated_512_count']}" in t2_content  # 14
-        assert f"{fallback['truncated_512_count']}" in t2_content  # 26
-        assert f"{combined['truncated_512_count']}" in t2_content  # 40
+        assert f"{pure['truncated_512_count']}" in t2_content  # 69
+        assert f"{fallback['truncated_512_count']}" in t2_content  # 0
+        assert f"{combined['truncated_512_count']}" in t2_content  # 69
         assert f"{line['truncated_512_count']}" in t2_content  # 124
 
     def test_t3_benchmark_concordance(self):
@@ -131,22 +131,22 @@ class TestReportNumbers:
         retrieval_map = {r["config_id"]: r for r in self.retrieval_json}
 
         # Check Re-ranking tier NDCG@10
-        assert f"{retrieval_map['rerank_line_no_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.470
-        assert f"{retrieval_map['rerank_line_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.499
-        assert f"{retrieval_map['rerank_ast_no_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.345
-        assert f"{retrieval_map['rerank_ast_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.457
+        assert f"{retrieval_map['rerank_line_no_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.580
+        assert f"{retrieval_map['rerank_line_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.621
+        assert f"{retrieval_map['rerank_ast_no_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.341
+        assert f"{retrieval_map['rerank_ast_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.487
 
         # Check Dense tier NDCG@10
-        assert f"{retrieval_map['dense_line_no_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.446
-        assert f"{retrieval_map['dense_line_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.450
-        assert f"{retrieval_map['dense_ast_no_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.320
-        assert f"{retrieval_map['dense_ast_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.408
+        assert f"{retrieval_map['dense_line_no_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.521
+        assert f"{retrieval_map['dense_line_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.551
+        assert f"{retrieval_map['dense_ast_no_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.358
+        assert f"{retrieval_map['dense_ast_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.450
 
         # Check BM25 tier NDCG@10
-        assert f"{retrieval_map['bm25_line_no_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.104
-        assert f"{retrieval_map['bm25_line_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.129
-        assert f"{retrieval_map['bm25_ast_no_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.187
-        assert f"{retrieval_map['bm25_ast_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.170
+        assert f"{retrieval_map['bm25_line_no_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.405
+        assert f"{retrieval_map['bm25_line_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.433
+        assert f"{retrieval_map['bm25_ast_no_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.305
+        assert f"{retrieval_map['bm25_ast_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.311
 
         # Baselines
         assert "0.022" in t3_content  # Whole corpus

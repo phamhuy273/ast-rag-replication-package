@@ -2,13 +2,13 @@
 """Header-component ablation by RE-SCORING already judged pairs (closed pool; EXPLORATORY).
 
 Why closed pool: re-running retrieval with a new header would surface unlabeled items, so we only re-score
-the 603 pairs that already have a human label. Per JD we rank its judged pairs under each header variant and
+the 882 pairs that already have a human label. Per JD we rank its judged pairs under each header variant and
 compute ROC-AUC (relevant = label>=1 vs 0; baseline 0.5) and NDCG@5 (graded). NDCG@10 is NOT used because
 most JDs have <=10 judged pairs, so the random-order NDCG@10 baseline is already about 0.8.
 
 Subsets / variants (header lines are taken from the corpus column context_header):
-  all (603 pairs)       : none, path, full
-  pure_ast (188 pairs)  : none, path, class, method, path_class, no_lines, full
+  all (882 pairs)       : none, path, full
+  pure_ast (438 pairs)  : none, path, class, method, path_class, no_lines, full
 """
 import argparse, json, sys
 from pathlib import Path

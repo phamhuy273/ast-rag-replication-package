@@ -34,14 +34,14 @@ STEPS = [
         "name": "Inter-Annotator Reliability (Table 3.1)",
         "target": "Table 3.1 & Figure 3.1 (Confusion Matrix)",
         "cmd": [sys.executable, "scripts/calculate_kappa.py"],
-        "key_metric": "Quadratic Kappa = 0.7795, Agreement = 79.8%"
+        "key_metric": "Quadratic Kappa = 0.9822, Agreement = 98.1%"
     },
     {
         "id": "STEP_3",
         "name": "Chunk Morphology & Syntax Preservation (Table 3.2)",
         "target": "Table 3.2 (AST vs Line Chunking Morphology)",
         "cmd": [sys.executable, "scripts/evaluate_syntax.py"],
-        "key_metric": "AST Syntax Intact: 90.9% vs Line: 44.0%"
+        "key_metric": "AST Syntax Intact: 78.1% vs Line: 22.4%"
     },
     {
         "id": "STEP_4",
@@ -55,7 +55,7 @@ STEPS = [
         "name": "Exploratory Sensitivity & Subgroup Analysis",
         "target": "Language, Fallback, Comp 5 & Reachable Qrels",
         "cmd": [sys.executable, "scripts/evaluate_sensitivity.py"],
-        "key_metric": "Comp 5 Delta = -0.0428, Reachable C1-C5 Invariant"
+        "key_metric": "Comp 5 Delta = -0.1339, 0.0% AST Fallback"
     },
     {
         "id": "STEP_6",
@@ -69,7 +69,7 @@ STEPS = [
         "name": "Statistical Power Analysis & Minimum Detectable Effect",
         "target": "MDE Analysis across 5 Comparisons",
         "cmd": [sys.executable, "scripts/power_analysis.py"],
-        "key_metric": "MDE Range: 0.072 to 0.134 NDCG@10 (80% power)"
+        "key_metric": "MDE Range: 0.080 to 0.130 NDCG@10 (80% power)"
     }
 ]
 

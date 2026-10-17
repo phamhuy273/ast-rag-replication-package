@@ -24,7 +24,7 @@ CLONE_ROOT = ROOT_DIR / "ai-engine" / "temp_repos"
 
 OUTPUT_JSON = DATASET_DIR / "table_3_2_measured.json"
 OUTPUT_REPORT = DATASET_DIR / "table_3_2_report.txt"
-OUTPUT_TEX = ROOT_DIR / "paper" / "table_3_2.tex"
+OUTPUT_TEX = ROOT_DIR / "report" / "tables" / "table_T2.tex"
 OUTPUT_TEX.parent.mkdir(parents=True, exist_ok=True)
 
 sys.path.append(str(ROOT_DIR / "ai-engine"))

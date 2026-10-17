@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Evaluate the pure-AST re-run (EXPLORATORY; not part of the frozen confirmatory family).
 
-Qrels = the 603 existing labels + the new labels from the annotators (final label = adjudicated label if
+Qrels = the 882 existing labels + any new labels from the annotators (final label = adjudicated label if
 present, otherwise the two annotator labels when they agree; any other case aborts).
 Restriction: only files that contain at least one pure AST chunk. Two ideals:
   shared (primary)  : every judged relevant item in those files, for both arms

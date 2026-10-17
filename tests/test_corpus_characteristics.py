@@ -18,7 +18,7 @@ DATASET_DIR = ROOT_DIR / "dataset"
 CORPUS_PARQUET = DATASET_DIR / "chunk_corpus.parquet"
 SAMPLING_LOG = DATASET_DIR / "sampling_frame_log.json"
 TABLE_3_2_JSON = DATASET_DIR / "table_3_2_measured.json"
-TABLE_3_2_TEX = ROOT_DIR / "paper" / "table_3_2.tex"
+TABLE_3_2_TEX = ROOT_DIR / "report" / "tables" / "table_T2.tex"
 
 
 class TestCorpusCharacteristics:

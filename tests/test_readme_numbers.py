@@ -51,13 +51,13 @@ class TestReadmeNumbers:
         combined_n = self.table_3_2["ast_combined"]["chunk_count"]
         line_n = self.table_3_2["line_based"]["chunk_count"]
 
-        assert str(pure_n) in self.readme  # 234
-        assert str(fallback_n) in self.readme  # 130
-        assert str(combined_n) in self.readme  # 364
+        assert str(pure_n) in self.readme  # 438
+        assert str(fallback_n) in self.readme  # 0
+        assert str(combined_n) in self.readme  # 438
         assert str(line_n) in self.readme  # 434
 
         fallback_rate = float(fallback_n / combined_n * 100)
-        assert f"{fallback_rate:.1f}%" in self.readme  # 35.7%
+        assert f"{fallback_rate:.1f}%" in self.readme  # 0.0%
 
     def test_table_3_2_syntax_metrics_in_readme(self):
         """Verify morphology percentages in README match table_3_2_measured.json."""
@@ -67,25 +67,25 @@ class TestReadmeNumbers:
         line = self.table_3_2["line_based"]
 
         # Pure
-        assert f"{pure['boundary_intact_rate_pct']:.1f}%" in self.readme  # 100.0%
-        assert f"{pure['syntax_intact_rate_pct']:.1f}%" in self.readme  # 97.9%
-        assert f"{pure['loc_dist']['mean']:.1f}" in self.readme  # 19.8
-        assert f"{pure['tokens_content_dist']['mean']:.1f}" in self.readme  # 211.3
-        assert f"{pure['truncated_512_rate_pct']:.1f}%" in self.readme  # 6.0%
+        assert f"{pure['boundary_intact_rate_pct']:.1f}%" in self.readme  # 87.2%
+        assert f"{pure['syntax_intact_rate_pct']:.1f}%" in self.readme  # 78.1%
+        assert f"{pure['loc_dist']['mean']:.1f}" in self.readme  # 26.7
+        assert f"{pure['tokens_content_dist']['mean']:.1f}" in self.readme  # 250.9
+        assert f"{pure['truncated_512_rate_pct']:.1f}%" in self.readme  # 15.8%
 
         # Fallback
-        assert f"{fallback['boundary_intact_rate_pct']:.1f}%" in self.readme  # 74.6%
-        assert f"{fallback['syntax_intact_rate_pct']:.1f}%" in self.readme  # 20.0%
-        assert f"{fallback['loc_dist']['mean']:.1f}" in self.readme  # 42.9
-        assert f"{fallback['tokens_content_dist']['mean']:.1f}" in self.readme  # 367.0
-        assert f"{fallback['truncated_512_rate_pct']:.1f}%" in self.readme  # 20.0%
+        assert f"{fallback['boundary_intact_rate_pct']:.1f}%" in self.readme  # 100.0%
+        assert f"{fallback['syntax_intact_rate_pct']:.1f}%" in self.readme  # 100.0%
+        assert f"{fallback['loc_dist']['mean']:.1f}" in self.readme  # 0.0
+        assert f"{fallback['tokens_content_dist']['mean']:.1f}" in self.readme  # 0.0
+        assert f"{fallback['truncated_512_rate_pct']:.1f}%" in self.readme  # 0.0%
 
         # Combined
-        assert f"{combined['boundary_intact_rate_pct']:.1f}%" in self.readme  # 90.9%
-        assert f"{combined['syntax_intact_rate_pct']:.1f}%" in self.readme  # 70.1%
-        assert f"{combined['loc_dist']['mean']:.1f}" in self.readme  # 28.1
-        assert f"{combined['tokens_content_dist']['mean']:.1f}" in self.readme  # 266.9
-        assert f"{combined['truncated_512_rate_pct']:.1f}%" in self.readme  # 11.0%
+        assert f"{combined['boundary_intact_rate_pct']:.1f}%" in self.readme  # 87.2%
+        assert f"{combined['syntax_intact_rate_pct']:.1f}%" in self.readme  # 78.1%
+        assert f"{combined['loc_dist']['mean']:.1f}" in self.readme  # 26.7
+        assert f"{combined['tokens_content_dist']['mean']:.1f}" in self.readme  # 250.9
+        assert f"{combined['truncated_512_rate_pct']:.1f}%" in self.readme  # 15.8%
 
         # Line
         assert f"{line['boundary_intact_rate_pct']:.1f}%" in self.readme  # 44.0%
@@ -103,18 +103,18 @@ class TestReadmeNumbers:
         rerank_line_no = retrieval_map["rerank_line_no_header"]
 
         # NDCG@10 values
-        assert f"{rerank_line_h['ndcg_10_mean']:.4f}" in self.readme  # 0.4994
-        assert f"{rerank_ast_h['ndcg_10_mean']:.4f}" in self.readme  # 0.4566
-        assert f"{rerank_ast_no['ndcg_10_mean']:.4f}" in self.readme  # 0.3445
-        assert f"{rerank_line_no['ndcg_10_mean']:.4f}" in self.readme  # 0.4704
+        assert f"{rerank_line_h['ndcg_10_mean']:.4f}" in self.readme  # 0.6206
+        assert f"{rerank_ast_h['ndcg_10_mean']:.4f}" in self.readme  # 0.4866
+        assert f"{rerank_ast_no['ndcg_10_mean']:.4f}" in self.readme  # 0.3407
+        assert f"{rerank_line_no['ndcg_10_mean']:.4f}" in self.readme  # 0.5797
 
         # Key precision metrics
-        assert f"{rerank_ast_h['ndcg_1_mean']:.3f}" in self.readme  # 0.720
+        assert f"{rerank_ast_h['ndcg_1_mean']:.3f}" in self.readme  # 0.740
         assert f"{rerank_line_h['ndcg_1_mean']:.3f}" in self.readme  # 0.800
-        assert f"{rerank_ast_h['mrr_10_mean']:.3f}" in self.readme  # 0.940
-        assert f"{rerank_line_h['mrr_10_mean']:.3f}" in self.readme  # 0.980
-        assert f"{rerank_ast_h['cp_5_mean']:.3f}" in self.readme  # 0.913
-        assert f"{rerank_line_h['cp_5_mean']:.3f}" in self.readme  # 0.935
+        assert f"{rerank_ast_h['mrr_10_mean']:.3f}" in self.readme  # 0.896
+        assert f"{rerank_line_h['mrr_10_mean']:.3f}" in self.readme  # 0.950
+        assert f"{rerank_ast_h['cp_5_mean']:.3f}" in self.readme  # 0.869
+        assert f"{rerank_line_h['cp_5_mean']:.3f}" in self.readme  # 0.933
 
     def test_statistical_test_numbers_in_readme(self):
         """Verify Wilcoxon, Holm p-values, and CIs in README."""
@@ -126,33 +126,33 @@ class TestReadmeNumbers:
 
         # Comp 3
         comp3 = stats_map["Comp 3"]
-        assert f"{comp3['mean_diff']:+.4f}" in self.readme  # +0.1120
-        assert f"{comp3['p_holm']:.4f}" in self.readme  # 0.0031
-        assert f"{comp3['ci_95_low']:+.4f}" in self.readme  # +0.0559
-        assert f"{comp3['ci_95_high']:+.4f}" in self.readme  # +0.1664
+        assert f"{comp3['mean_diff']:+.4f}" in self.readme  # +0.1459
+        assert f"{comp3['p_holm']:.4f}" in self.readme  # 0.0001
+        assert f"{comp3['ci_95_low']:+.4f}" in self.readme  # +0.0862
+        assert f"{comp3['ci_95_high']:+.4f}" in self.readme  # +0.2071
 
         # Comp 2
         comp2 = stats_map["Comp 2"]
-        assert f"{comp2['mean_diff']:+.4f}" in self.readme  # -0.1258
-        assert f"{comp2['p_holm']:.4f}" in self.readme  # 0.0001
+        assert f"{comp2['mean_diff']:+.4f}" in self.readme  # -0.2390
+        assert f"{comp2['p_holm']:.4f}" in self.readme  # 0.0000
 
         # Comp 1
         comp1 = stats_map["Comp 1"]
-        assert f"{comp1['mean_diff']:+.4f}" in self.readme  # -0.0138
-        assert f"{comp1['p_holm']:.4f}" in self.readme  # 0.8532
+        assert f"{comp1['mean_diff']:+.4f}" in self.readme  # -0.0930
+        assert f"{comp1['p_holm']:.4f}" in self.readme  # 0.0438
 
         # Comp 4
         comp4 = stats_map["Comp 4"]
-        assert f"{comp4['mean_diff']:+.4f}" in self.readme  # +0.0291
-        assert f"{comp4['p_holm']:.4f}" in self.readme  # 0.7332
+        assert f"{comp4['mean_diff']:+.4f}" in self.readme  # +0.0409
+        assert f"{comp4['p_holm']:.4f}" in self.readme  # 0.2411
 
         # Comp 5 (Exploratory)
         comp5 = self.sensitivity["comp_5_ast_vs_line_with_header"]
-        assert f"{comp5['delta']:+.4f}" in self.readme  # -0.0428
-        assert f"{comp5['p_value']:.4f}" in self.readme  # 0.1355
-        assert f"{comp5['ci_95'][0]:+.4f}" in self.readme  # -0.1056
-        assert f"{comp5['ci_95'][1]:+.4f}" in self.readme  # +0.0211
-        assert "97.0" in self.readme  # Wilcoxon W = 97.0
+        assert f"{comp5['delta']:+.4f}" in self.readme  # -0.1339
+        assert f"{comp5['p_value']:.4f}" in self.readme  # 0.0003
+        assert f"{comp5['ci_95'][0]:+.4f}" in self.readme  # -0.1992
+        assert f"{comp5['ci_95'][1]:+.4f}" in self.readme  # -0.0704
+        assert "36.0" in self.readme  # Wilcoxon W = 36.0
 
     def test_sensitivity_numbers_in_readme(self):
         """Verify language breakdown, consensus scores, and judged-only sensitivity."""
@@ -172,8 +172,8 @@ class TestReadmeNumbers:
 
         # Judged-only shortlist scores
         jo = self.sensitivity["judged_only_evaluation"]
-        assert f"{jo['rerank_line_with_header']:.4f}" in self.readme  # 0.7242
-        assert f"{jo['rerank_line_no_header']:.4f}" in self.readme  # 0.6702
+        assert f"{jo['rerank_line_with_header']:.4f}" in self.readme  # 0.7243
+        assert f"{jo['rerank_line_no_header']:.4f}" in self.readme  # 0.6696
         assert f"{jo['rerank_ast_with_header']:.4f}" in self.readme  # 0.5774
         assert f"{jo['rerank_ast_no_header']:.4f}" in self.readme  # 0.4156
 

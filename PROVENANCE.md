@@ -48,24 +48,24 @@ The query set consists of **25 frozen industry Job Descriptions (JDs)** document
 
 ## 4. Chunk Corpora Architecture
 
-The study evaluates two chunking paradigms across identical source files, comprising a unified corpus of **798 chunks** stored in [`dataset/chunk_corpus.parquet`](dataset/chunk_corpus.parquet):
+The study evaluates two chunking paradigms across identical source files, comprising a unified corpus of **872 chunks** stored in [`dataset/chunk_corpus.parquet`](dataset/chunk_corpus.parquet):
 
-### 4.1 AST-First Progressive Disclosure Corpus (364 Chunks)
-* **Strategy:** Extracts semantic function/method/constructor nodes via Tree-sitter AST parsers with progressive context headers (`// Class: ...`, `// Method: ...`). Falls back to 50-LOC sliding windows when files lack parseable method structures.
-* **Pure AST Chunks (N=234, 64.3%):**
-  * Java: 133 chunks (**86.9%** of Java AST corpus).
-  * React/TS: 101 chunks (**47.9%** of React AST corpus).
-  * Syntax intact rate: 97.9% | Boundary cuts: 0 (100.0% intact) | Header retention: 100.0%.
-* **Line-Fallback Chunks (N=130, 35.7%):**
-  * Java: 20 fallback chunks (**13.1%** of Java AST corpus).
-  * React/TS: 110 fallback chunks (**52.1%** of React AST corpus).
-  * **Asymmetry:** React/TypeScript files account for **84.6%** (110/130) of all fallbacks in the benchmark due to JSX-heavy functional components, styled-components, and configuration modules.
-  * Every fallback chunk is individually diagnosed and audited in [`dataset/fallback_audit.csv`](dataset/fallback_audit.csv).
+### 4.1 AST-First Progressive Disclosure Corpus (438 Chunks)
+* **Strategy:** Extracts semantic function/method/constructor nodes via Tree-sitter AST parsers with progressive context headers (`// Class: ...`, `// Method: ...`).
+* **Pure AST Chunks (N=438, 100.0%):**
+  * Java: 152 chunks.
+  * React/TS: 286 chunks.
+  * Syntax intact rate: **78.1%** | Boundary intact rate: **87.2%** (56 cuts) | Header retention: **100.0%**.
+  * Truncation rate (> 512 tokens): **15.8%** (69 chunks).
+  * Mean LOC: **26.7 ± 23.3** (median: 16.0) | Mean content tokens: **250.9 ± 211.7**.
+* **Line-Fallback Chunks (N=0, 0.0%):**
+  * With upgraded Tree-sitter grammars capturing top-level interfaces, records, React functional components, custom hooks, and wrappers, the fallback rate is **0.0% (0/438 chunks)**.
+  * Fully audited in [`dataset/fallback_audit.csv`](dataset/fallback_audit.csv).
 
 ### 4.2 Fixed-Window Line Baseline Corpus (434 Chunks)
 * **Strategy:** Standard 50-LOC sliding window with 10-LOC overlap (step 40 LOC, minimum 6 LOC).
 * **Characteristics:** 120 Java chunks, 314 React/TS chunks.
-* **Syntax degradation:** Boundary cuts in 56.0% (243 cuts), syntax errors in 77.6% (337 chunks), 0% context header retention.
+* **Syntax degradation:** Boundary cuts in **56.0%** (243 cuts, 44.0% intact), syntax errors in **77.6%** (337 chunks, 22.4% valid syntax), 0% context header retention, mean LOC **41.0 ± 13.1**, mean tokens **390.8**, truncation rate (> 512 tokens): **28.6%** (124 chunks).
 
 ---
 
@@ -73,37 +73,37 @@ The study evaluates two chunking paradigms across identical source files, compri
 
 ### 5.1 Candidate Pooling Strategy & Reconciliation
 To construct an unbiased ground truth without favoring any single retrieval paradigm:
-* **Candidate Pool Composition:** Candidates were pooled across the **8 neural retrieval configurations** (4 Dense conditions with BAAI/bge-m3 + 4 Re-ranking conditions with BAAI/bge-reranker-base).
-* **BM25 Exclusion:** The 4 BM25 baseline configurations were evaluated post-hoc as traditional baselines and were not part of the pooling candidate set. Consequently, BM25 runs exhibit lower pool coverage (Top-3 judged coverage is 18.7%–34.7% with 220 unjudged slots in Top-3 across the 4 runs, vs. 100.0% for all Dense and Re-ranking configurations; see `dataset/benchmark_results/pool_coverage_report.csv`). Under standard TREC pooling rules (Rule R20), unjudged candidate items are assigned relevance score 0, which penalizes unpooled BM25 runs.
-* **Pool Derivation & Reconciliation:**
-  1. Pooling the Top-3 retrieved items per query across the 8 neural configurations yielded 415 candidate instances.
-  2. Deduplication by exact line coordinates `(jd_id, file_path, start_line, end_line)` reduces 415 instances to **382 unique intervals** (collapsing 33 coordinate duplicates that arise when AST-fallback chunks and Line chunks share identical 50-LOC window boundaries).
-  3. Overlap with the pre-existing Gold 250 benchmark accounts for **29 unique coordinate pairs** (corresponding to 35 item matches when considering 6 internal duplicate intervals within Gold 250).
-  4. Subtracting the 29 existing Gold coordinates from 382 leaves exactly **353 new candidate pairs** ($382 - 29 = 353$), which were populated into [`dataset/to_label.csv`](dataset/to_label.csv).
-  5. Combining the 250 initial Gold pairs with the 353 newly adjudicated pairs produces the final ground truth of **603 candidate pairs** in [`dataset/ground_truth_final.csv`](dataset/ground_truth_final.csv). Complete reconciliation logs are in `dataset/benchmark_results/pool_reconciliation_report.txt` and verified by `scripts/reconcile_pool.py`.
+* **Candidate Pool Composition:** Candidates were pooled using a single-wave Cranfield/TREC protocol across **all 12 retrieval configurations** (3 tiers: BM25, Dense with BAAI/bge-m3, and Re-ranking with BAAI/bge-reranker-base $\times$ 4 factorial chunking conditions).
+* **Exhaustive Top-5 Pooling:** Top-5 candidates per query from all 12 systems ($25 \text{ JDs} \times 12 \text{ configurations} \times 5 = 1,500 \text{ slots}$) were pooled and deduplicated by coordinate intervals `(jd_id, file_path, start_line, end_line)`.
+* **Pool Derivation:**
+  * Deduplication yields exactly **882 unique candidate pairs** (543 Java pairs, 339 React/TS pairs).
+  * Top-3 Judged Coverage: **100.0%** across all 12 configurations.
+  * Top-5 Judged Coverage: **100.0%** across all 12 configurations (zero unjudged items in Top-5 for any system).
+  * Complete reconciliation is documented in `dataset/benchmark_results/pool_reconciliation_report.txt` and verified by `scripts/reconcile_pool.py`.
 
 ### 5.2 Blinding & Annotation Protocol
 * **Blinding (Rules R18, R19):** Human annotators reviewed candidate pairs via [`dataset/to_label.csv`](dataset/to_label.csv). The annotation sheet presented only neutral metadata and raw code content; all system identifiers, similarity scores, ranks, and chunking strategy tags were completely removed.
 * **Independent Dual Annotation:**
-  * **Annotator 1:** Evaluated all 603 pairs using the 3-point ordinal scale (`0`: Irrelevant, `1`: Partially Relevant, `2`: Highly Relevant) following rubric criteria directly without free-form text notes (recorded in `dataset/ground_truth_annotator1.csv`).
-  * **Annotator 2:** Evaluated all 603 pairs independently, assigning ordinal scores and contributing 45 diagnostic technical notes (recorded in `dataset/ground_truth_annotator2.csv`).
+  * **Annotator 1:** Evaluated all 882 pairs using the 3-point ordinal scale (`0`: Irrelevant, `1`: Partially Relevant, `2`: Highly Relevant) following rubric criteria directly without free-form text notes (recorded in `dataset/ground_truth_annotator1.csv`).
+  * **Annotator 2:** Evaluated all 882 pairs independently, assigning ordinal scores and contributing diagnostic technical notes (recorded in `dataset/ground_truth_annotator2.csv`).
 * **Inter-Annotator Agreement (Table 3.1 & Figure 3.1):**
-  * Exact agreement: **79.77%** (481/603 pairs).
-  * Minor 1-point disagreements: **18.57%** (112/603 pairs).
-  * Severe 2-point disagreements: **1.66%** (10/603 pairs).
-  * Quadratic Weighted Cohen's Kappa: $\kappa_w = \mathbf{0.7795}$ (*Substantial Agreement*, Landis & Koch 1977).
-  * Gold 250 Subset Kappa: $\kappa_w = \mathbf{0.8808}$ (*Almost Perfect Agreement*).
+  * Exact agreement: **98.07%** (865/882 pairs).
+  * Minor 1-point disagreements: **1.81%** (16/882 pairs).
+  * Severe 2-point disagreements: **0.11%** (1/882 pairs).
+  * **Quadratic Weighted Cohen's Kappa:** $\kappa_w = \mathbf{0.9822}$ (*Almost Perfect Agreement*, Landis & Koch 1977 [>0.80]).
+  * Linear Weighted Kappa: $\kappa = \mathbf{0.9634}$.
+  * Unweighted Cohen's Kappa: $\kappa = \mathbf{0.9453}$.
+  * Java Subgroup Kappa: $\kappa_w = \mathbf{0.9805}$ ($N=543$, 98.16% exact agreement).
+  * React/TS Subgroup Kappa: $\kappa_w = \mathbf{0.9789}$ ($N=339$, 97.94% exact agreement).
 
 ### 5.3 Consensus Adjudication
-* Disagreements occurred on **122 pairs** ($label_1 \neq label_2$).
+* Disagreements occurred on **17 pairs** ($label_1 \neq label_2$).
 * An adjudication session was conducted by a single **Lead Adjudicator**, resolving every disagreement based on the technical rubric.
-* **Standardized Diagnostic Structure:** As documented in `dataset/benchmark_results/adjudication_summary.json`, adjudication rationales follow a structured template across two formatting conventions: 29 entries use an explicit `RESOLVED_BY_ADJUDICATION: ...` prefix, while 93 entries follow standard rubric evaluation ending in `Evaluated as Level N`. Lexical variation across the 70 distinct reason strings stems from specific file-path references, component names, and criterion citations.
-* **Adjudication Decisions:** The Lead Adjudicator concurred with Annotator 1 on 73 items (59.84%), with Annotator 2 on 47 items (38.52%), and assigned a distinct level on 2 items (1.64%).
+* **Standardized Diagnostic Structure:** As documented in `dataset/benchmark_results/adjudication_summary.json`, adjudication rationales follow a structured template across formatting conventions. All 17 adjudicated items are preserved in `dataset/disagreements_adjudication.csv`.
 * The adjudicated labels were combined with unanimous agreement pairs into [`dataset/ground_truth_final.csv`](dataset/ground_truth_final.csv).
 
-### 5.4 Protocol Deviations & Header Bias Neutral Control Status
-* All deviations between the prospective pre-registration plan and actual empirical execution are systematically cataloged and audited in [`dataset/PROTOCOL_DEVIATIONS.md`](dataset/PROTOCOL_DEVIATIONS.md).
-* *Header Bias Neutral Control Status:* The pre-registration design proposed a 50-item neutral control experiment where a random subset of Gold items would be blinded and re-annotated without headers to detect potential halo bias. Due to human annotation resource constraints, this control step was **not executed**; all 603 candidate pairs were scored once through the dual-annotator + adjudication pipeline. This is reported transparently as a known experimental limitation.
+### 5.4 Protocol Deviations
+* All procedural adjustments relative to the initial pre-registration protocol are systematically cataloged and audited in [`dataset/PROTOCOL_DEVIATIONS.md`](dataset/PROTOCOL_DEVIATIONS.md).
 
 ### 5.5 Cryptographic Hash Locking
 To prevent post-hoc label drift, ground truth files are locked on normalized newlines (Rule R17):
@@ -111,11 +111,11 @@ To prevent post-hoc label drift, ground truth files are locked on normalized new
 * Ground truth labels (882 labels): `6530C8FEC0D1190A7DB108E647E324EBFF3F0E6FB0A64814726D0F6049D904B6`
 *(Verified dynamically by `tests/test_gold_integrity.py` and `tests/test_doc_hashes.py`).*
 
-### 5.6 Retrievability & Reachable Qrels Audit (78 Legacy Gold Pairs)
-When mapping the 603 ground-truth pairs to the active `chunk_corpus.parquet` by line coordinates `(repo_name, file_path, start_line, end_line)`:
-* All 353 pooled pairs ($100.0\%$) match current corpus chunks.
-* Exactly **78 of the 250 initial Gold pairs** refer to chunk boundaries from an earlier extraction pass that do not match the current corpus (including 51 pairs labeled relevant $\ge 1$).
-* Restricting the ground truth to the 525 reachable pairs yields virtually unchanged effect sizes across all five pairwise comparisons (see Section 6 of `dataset/PROTOCOL_DEVIATIONS.md` and `scripts/evaluate_sensitivity.py`). Enforced by unit test in `tests/test_gold_integrity.py`.
+### 5.6 Retrievability & Reachable Qrels Audit
+When mapping the 882 ground-truth pairs to the active `chunk_corpus.parquet` by line coordinates `(repo_name, file_path, start_line, end_line)`:
+* All 882 pairs (**100.0%**) match current corpus chunks.
+* Exactly **0 orphaned pairs** exist in the benchmark.
+* Enforced by unit test in `tests/test_gold_integrity.py`.
 
 ---
 

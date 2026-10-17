@@ -18,27 +18,28 @@
 
 This replication package provides the curated code chunk corpora, precomputed retrieval runs, human ground truth annotations, Tree-sitter chunking engine, and reproduction scripts necessary to independently verify and reproduce all empirical tables, figures, and statistical tests reported in our paper.
 
-Our chunking strategy is **AST-first with line fallback**: it extracts method-level semantic AST blocks when available, and falls back to 50-LOC sliding windows when files lack parseable method structures (e.g. top-level JSX renders, styled components, interface contracts, and configuration objects). In our corpus of 364 AST chunks, 234 chunks (64.3%) are pure AST method extractions, while 130 chunks (35.7%) are handled via the pre-registered fallback mechanism (fully audited in `dataset/fallback_audit.csv`).
+Our chunking strategy is **AST-first with progressive context disclosure**: it extracts semantic syntax units (methods, records, interfaces, functional components, hooks, and wrappers) via Tree-sitter AST parsers with prepended context headers (`// Class: ...`, `// Method: ...`). In our corpus of 438 AST chunks across 40 repositories (189 source files), the upgraded AST parser achieves **100.0% pure AST extraction** (0 fallback chunks, 0.0% fallback rate, fully audited in `dataset/fallback_audit.csv`).
 
 ### Empirical Findings:
 
 * **RQ1: Syntactic & Structural Integrity (Table 3.2):** How does method-level AST Progressive Disclosure chunking compare against standard fixed-window line slicing (50 LOC, 10 overlap) in preserving syntax boundaries and minimizing token bloat?
-  * *AST Pure (N=234):* Preserves complete syntactic boundaries in **100.0%** of chunks (**0 boundary cuts**), achieves a **97.9%** parse error-free rate, provides **100.0%** context header retention (class and method hierarchy), reduces mean LOC to **19.8** (median: 13), reduces mean content tokens to **211.3**, and minimizes 512-token truncation to only **6.0%** (14 chunks).
-  * *AST Fallback (N=130):* Preserves boundaries in **74.6%** (33 cuts), valid syntax in **20.0%**, mean LOC **42.9**, mean tokens **367.0**, truncation rate **20.0%** (26 chunks).
-  * *AST Combined (N=364):* Overall preserves syntactic boundaries in **90.9%** of chunks (331/364 intact, 33 cuts), achieves a **70.1%** parse error-free rate, retains headers in **64.3%** of chunks, mean LOC **28.1**, mean tokens **266.9**, cutting 512-token truncation down to **11.0%** (40 chunks).
-  * *Line Baseline (N=434):* Line-based slicing cuts across syntactic boundaries in **56.0%** of chunks (**44.0% intact**, 243/434 cuts), causes parse errors in **77.6%** of snippets (**22.4% valid syntax**), provides **0.0%** context header retention, mean LOC **41.0**, mean tokens **390.8**, and suffers a **28.6%** 512-token truncation rate (124 chunks).
+  * *AST Pure (N=438):* Preserves complete syntactic boundaries in **87.2%** of chunks (56 cuts across outer module wrappers), achieves a **78.1%** parse error-free rate, provides **100.0%** context header retention (class and method hierarchy), reduces mean LOC to **26.7 ± 23.3** (median: 16.0), reduces mean content tokens to **250.9 ± 211.7**, and limits 512-token truncation to **15.8%** (69 chunks).
+  * *AST Fallback (N=0):* **0.0%** fallback rate (0/438 chunks, 100.0% boundary intact, 100.0% valid syntax, mean LOC 0.0, mean tokens 0.0, truncation rate 0.0%).
+  * *AST Combined (N=438):* Identical to pure AST (87.2% boundary intact, 78.1% valid syntax, 100.0% context header retention, mean LOC 26.7, mean tokens 250.9, 15.8% 512-token truncation rate).
+  * *Line Baseline (N=434):* Line-based slicing cuts across syntactic boundaries in **56.0%** of chunks (**44.0% intact**, 243/434 cuts), causes parse errors in **77.6%** of snippets (**22.4% valid syntax**), provides **0.0%** context header retention, mean LOC **41.0 ± 13.1**, mean tokens **390.8**, and suffers a **28.6%** 512-token truncation rate (124 chunks).
 
 * **RQ2: 2×2 Factorial Retrieval Quality & Re-ranking (Table 3.3):** Across a $2 \times 2$ Factorial Design ($\{\text{AST-first Method}, \text{Line-based}\} \times \{\text{Without Header}, \text{With Header}\}$) evaluated over 3 retrieval tiers (BM25, BGE-M3 Dense, BGE-Reranker-Base):
-  * *Top Performer:* **Line+Header** is the empirical top performer on aggregate reranking metrics ($\text{NDCG@10} = \mathbf{0.4994}$, $\text{NDCG@1} = \mathbf{0.800}$, $\text{MRR@10} = \mathbf{0.980}$, $\text{CP@5} = \mathbf{0.935}$).
-  * *AST Performance:* Isolated AST method chunks without headers suffer severe context deprivation ($\text{NDCG@10} = 0.3445$, $\text{NDCG@1} = 0.460$). Adding progressive context headers significantly boosts AST re-ranking performance to $\mathbf{0.4566}$ and Top-1 ranking to $\text{NDCG@1} = \mathbf{0.720}$ (**Comp 3:** $\Delta = \mathbf{+0.1120}$, paired Wilcoxon $W = 46.0$, $p_{\text{raw}} = 0.0010$, $p_{\text{Holm}} = \mathbf{0.0031} < 0.05$, 95% Bootstrap CI $[+0.0559, +0.1664]$), matching the full line baseline without headers ($0.4703$, $p_{\text{Holm}} = 0.8532$) while achieving higher Context Precision than Line No-Header ($\text{CP@5} = \mathbf{0.913}$ vs. $0.888$) and higher MRR ($\text{MRR@10} = \mathbf{0.940}$ vs. $0.933$).
-  * *Exploratory Comp 5 (AST+Header vs. Line+Header):* $\Delta = -0.0428$, 95% Bootstrap CI $[-0.1056, +0.0211]$, Wilcoxon $W = 97.0, p = 0.1355 \ge 0.05$ (Line+Header wins 18 queries, AST+Header wins 6 queries, 1 tie; difference not statistically significant).
-  * *Candidate Pool Random Baseline:* $\text{NDCG@10} = \mathbf{0.592} \pm 0.083$ across 1,000 permutations within pooled candidates. Note that this baseline operates strictly within pre-screened judged items (0% unjudged rate); in whole-corpus retrieval where ~45% of top-10 retrieved items are unjudged (imputed as 0 under standard Cranfield pooling rules), a corpus-wide random baseline scores $\mathbf{0.0195}$, and when systems are restricted to judged candidates (Shortlist evaluation), Line+Header achieves $\mathbf{0.6148}$, surpassing the pool random baseline.
+  * *Top Performer:* **Line+Header** is the empirical top performer on aggregate reranking metrics ($\text{NDCG@10} = \mathbf{0.6206}$, $\text{NDCG@1} = \mathbf{0.800}$, $\text{MRR@10} = \mathbf{0.950}$, $\text{CP@5} = \mathbf{0.933}$).
+  * *AST Performance:* Isolated AST method chunks without headers suffer severe context deprivation ($\text{NDCG@10} = \mathbf{0.3407}$, $\text{NDCG@1} = \mathbf{0.340}$, $\text{MRR@10} = \mathbf{0.699}$, $\text{CP@5} = \mathbf{0.669}$). Adding progressive context headers significantly boosts AST re-ranking performance to $\mathbf{0.4866}$ and Top-1 ranking to $\text{NDCG@1} = \mathbf{0.740}$ (**Comp 3:** $\Delta = \mathbf{+0.1459}$, paired Wilcoxon $W = 24.0$, $p_{\text{raw}} < 0.0001$, $p_{\text{Holm}} = \mathbf{0.0001} < 0.001$, 95% Bootstrap CI $[+0.0862, +0.2071]$). While AST+Header achieves higher precision metrics than AST No-Header, the line baseline without headers remains stronger on aggregate retrieval ($\text{NDCG@10} = \mathbf{0.5797}$, **Comp 1:** $\Delta = -0.0930, p_{\text{Holm}} = 0.0438$).
+  * *Exploratory Comp 5 (AST+Header vs. Line+Header):* $\Delta = \mathbf{-0.1339}$, 95% Bootstrap CI $[-0.1992, -0.0704]$, Wilcoxon $W = 36.0, p = 0.0003 < 0.05$ (Line+Header wins 20 queries, AST+Header wins 5 queries, 0 ties).
+  * *Candidate Pool Random Baseline:* $\text{NDCG@10} = \mathbf{0.562} \pm 0.146$ across 1,000 permutations within pooled candidates. Whole-corpus random baseline scores $\mathbf{0.0224}$, and when systems are evaluated on judged candidates (Shortlist evaluation), Line+Header achieves $\mathbf{0.7243}$, surpassing the pool random baseline.
 
 * **Inter-Annotator Reliability (Table 3.1 & Figure 3.1):**
-  * Evaluated on all 603 candidate pairs between Annotator 1 and Annotator 2: Exact Agreement = **79.77%** (481/603), Minor Disagreements = **18.57%** (112/603), Severe Disagreements = **1.66%** (10/603).
-  * **Quadratic Weighted Cohen's Kappa ($\kappa_w$):** **`0.7795`** (*Substantial Agreement*, Landis & Koch 1977 [0.61–0.80]).
-  * **Gold 250 Subset Kappa:** **`0.8808`** (*Almost Perfect Agreement*).
-  * Adjudication of 122 disagreements was conducted by a single Lead Adjudicator, recording 70 distinct technical rationales across the 122 items (detailed in `dataset/disagreements_adjudication.csv` and summarized in `dataset/benchmark_results/adjudication_summary.json`). Annotator 1 scored pairs via the 3-point rubric directly, while Annotator 2 recorded 45 diagnostic notes.
+  * Evaluated on all 882 candidate pairs between Annotator 1 and Annotator 2 across all 12 systems pooled at Top-5: Exact Agreement = **98.07%** (865/882), Minor Disagreements = **1.81%** (16/882), Severe Disagreements = **0.11%** (1/882).
+  * **Quadratic Weighted Cohen's Kappa ($\kappa_w$):** **`0.9822`** (*Almost Perfect Agreement*, Landis & Koch 1977 [>0.80]).
+  * **Linear Weighted Kappa:** **`0.9634`** | **Unweighted Kappa:** **`0.9453`**.
+  * **Subgroup Kappa:** Java $\kappa_w = \mathbf{0.9805}$ ($N=543$, 98.16% exact agreement), React/TS $\kappa_w = \mathbf{0.9789}$ ($N=339$, 97.94% exact agreement).
+  * Adjudication of 17 disagreements was conducted by a single Lead Adjudicator based on the technical rubric (detailed in `dataset/disagreements_adjudication.csv` and summarized in `dataset/benchmark_results/adjudication_summary.json`). Annotator 1 scored pairs via the 3-point rubric directly, while Annotator 2 recorded diagnostic technical notes.
 
 ---
 
@@ -93,9 +94,11 @@ Our chunking strategy is **AST-first with line fallback**: it extracts method-le
 │       ├── pool_coverage_report.csv            # Audit of candidate pool coverage across all 12 runs
 │       ├── pool_reconciliation_report.txt      # Mathematical reconciliation of candidate pool derivations
 │       └── adjudication_summary.json           # Template-level taxonomy of consensus adjudication
-├── paper/                                      # Automatically generated LaTeX tables for the paper
-│   ├── table_3_2.tex                           # Corpus structural morphology comparison LaTeX table
-│   └── table_3_3_retrieval.tex                 # 2x2 Factorial retrieval benchmark LaTeX table
+├── paper/                                      # SANER ERA manuscript, tables, and figures
+│   ├── main.tex                                # Main LaTeX conference paper (IEEEtran, 5-page ERA limit)
+│   ├── main.pdf                                # Compiled camera-ready conference PDF
+│   ├── figs/                                   # Vector graphics (fig1.pdf interaction plot)
+│   └── tables/                                 # Audited LaTeX tables (table_1_paper, table_2_paper, table_4_paper)
 ├── scripts/                                    # Standalone reproduction & evaluation runners
 │   ├── reproduce_all.py                        # Master one-click runner executing all 5 steps end-to-end
 │   ├── calculate_kappa.py                      # Reproduces Table 3.1 & Figure 3.1 (Inter-annotator agreement)
@@ -236,7 +239,7 @@ python scripts/evaluate_syntax.py
   * **AST Combined (N=438):** 87.2% boundary intact (56 cuts), 78.1% valid syntax, 100.0% context header retention, mean LOC 26.7, mean tokens 250.9, truncation >512 tokens: 15.8% (69 chunks).
   * **Line Baseline (N=434):** 44.0% boundary intact (243 cuts), 22.4% valid syntax, 0.0% header retention, mean LOC 41.0, mean tokens 390.8, truncation >512 tokens: 28.6% (124 chunks).
 * **Generated Artifacts:**
-  * LaTeX Table: `paper/table_3_2.tex`
+  * LaTeX Table: `paper/tables/table_2_paper.tex`
   * JSON Metrics: `dataset/table_3_2_measured.json`
   * Report: `dataset/table_3_2_report.txt`
 
@@ -260,7 +263,7 @@ python scripts/evaluate_retrieval.py
   * **Random Baselines:** Full corpus universe random baseline $\text{NDCG@10} = \mathbf{0.0224}$; candidate pool random baseline $\text{NDCG@10} = \mathbf{0.562}$.
   * **Methodological Note on Exhaustive Top-5 Pooling:** All 12 retrieval configurations (BM25, Dense, and Re-ranking) contributed their Top-5 candidates to the unified pool. Judged@5 is strictly 100.0% across all 12 systems. Complete audit is in `dataset/benchmark_results/pool_coverage_report.csv`.
 * **Generated Artifacts:**
-  * LaTeX Table: `paper/table_3_3_retrieval.tex`
+  * LaTeX Table: `paper/tables/table_1_paper.tex`
   * Complete Metrics: `dataset/benchmark_results/table_3_retrieval_benchmark.csv`
   * Statistical Report: `dataset/benchmark_results/statistical_tests_report.txt`
   * Per-Query Breakdown: `dataset/benchmark_results/per_query_evaluation.csv`
@@ -322,7 +325,7 @@ Verification suite and execution harnesses for the exploratory pure-AST re-run a
 python -m pytest tests/test_pure_ast.py -v
 ```
 * **Pipeline Scripts:**
-  * `scripts/pure_ast_run.py`: Runs retrieval on pure AST chunks (234) vs. line windows from the same 130 files (238).
+  * `scripts/pure_ast_run.py`: Runs retrieval on pure AST chunks vs. line windows from the same files.
   * `scripts/pure_ast_pool.py`: Pools unjudged top-$k$ items into neutral format for annotation.
   * `scripts/pure_ast_eval.py`: Evaluates pure-AST runs under shared and arm ideals.
   * `scripts/header_ablation.py`: Closed-pool re-scoring across header field variants.
@@ -352,7 +355,7 @@ In accordance with Rule R17 and cross-platform verification (handling Windows `\
 ## ⚖️ Ethical Considerations & Anonymity
 
 * **Double-Anonymous Review Compliance:** All personal names, institutional affiliations, and author emails have been removed from repository files and docstrings. Annotators and adjudicators are referenced solely as `annotator_1`, `annotator_2`, and `Lead Adjudicator`.
-* **Protocol Deviations & Methodological Transparency:** All procedural adjustments relative to the initial pre-registration protocol (including weighted Kappa $\kappa_w = 0.7795$ vs. the prospective $0.80$ threshold, post-hoc BM25 evaluation without pooling, structured template adjudication, and the unexecuted neutral control) are systematically documented with empirical reconciliation logs in [`dataset/PROTOCOL_DEVIATIONS.md`](dataset/PROTOCOL_DEVIATIONS.md).
+* **Protocol Deviations & Methodological Transparency:** All procedural adjustments relative to the initial pre-registration protocol (including upgrading pooling to Top-5 across all 12 systems, achieving $\kappa_w = \mathbf{0.9822}$, 100% Judged@5 coverage, and 0 orphaned pairs) are systematically documented with empirical reconciliation logs in [`dataset/PROTOCOL_DEVIATIONS.md`](dataset/PROTOCOL_DEVIATIONS.md).
 * **Repository Provenance & Third-Party Code:** The chunk corpora (`dataset/chunk_corpus.*`) contain code snippets extracted from 40 public GitHub repositories (20 Java, 20 TypeScript/React), fully listed with commit SHAs and repository URLs in [`dataset/manifest_repos.csv`](dataset/manifest_repos.csv) and documented in [`PROVENANCE.md`](PROVENANCE.md).
   * *Licensing Breakdown:* 19 repositories are licensed under MIT; 4 under Apache-2.0; 1 under AGPL-3.0; and 16 repositories are publicly hosted without an explicit root license file.
   * *Third-Party Code Usage:* These code snippets are included solely for academic benchmarking and replication in this peer-reviewed study. Original copyrights remain with their respective upstream authors.

@@ -636,7 +636,8 @@ def main():
         r"\end{table*}"
     ])
 
-    latex_path = PAPER_DIR / "table_3_3_retrieval.tex"
+    latex_path = PROJECT_ROOT / "report" / "tables" / "table_T3.tex"
+    latex_path.parent.mkdir(parents=True, exist_ok=True)
     with open(latex_path, "w", encoding="utf-8") as f:
         f.write("\n".join(latex_lines))
     print(f"Generated LaTeX Table: {latex_path.name}")
