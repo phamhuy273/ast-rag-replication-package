@@ -1,6 +1,8 @@
-"""tests/test_pool_coverage.py - Verifies that the 8 dense and rerank configurations have 100% judged@3 pool coverage, while BM25 is recorded separately.
+"""tests/test_pool_coverage.py - Verifies that ALL 12 configurations have 100% judged/pooled Top-5 coverage under Phase 2.
 
-Governed by Rule R44 and pool integrity verification.
+Governed by Phase 2:
+- Unified Cranfield/TREC Top-5 pooling across ALL 12 systems (BM25, Dense, Rerank).
+- 100% coverage at Top-5 for all 12 configurations in to_label.csv.
 """
 
 import csv
@@ -11,10 +13,14 @@ import pytest
 ROOT_DIR = Path(__file__).resolve().parent.parent
 DATASET_DIR = ROOT_DIR / "dataset"
 RUNS_DIR = DATASET_DIR / "retrieval_runs"
-GT_FILE = DATASET_DIR / "ground_truth_final.csv"
-COVERAGE_REPORT = DATASET_DIR / "benchmark_results" / "pool_coverage_report.csv"
+TO_LABEL_FILE = DATASET_DIR / "to_label.csv"
+SECRET_MAPPING_FILE = DATASET_DIR / "pool_id_mapping_secret.json"
 
-POOLED_CONFIGS = [
+ALL_12_CONFIGS = [
+    "bm25_line_no_header",
+    "bm25_line_with_header",
+    "bm25_ast_no_header",
+    "bm25_ast_with_header",
     "dense_line_no_header",
     "dense_line_with_header",
     "dense_ast_no_header",
@@ -25,65 +31,45 @@ POOLED_CONFIGS = [
     "rerank_ast_with_header",
 ]
 
-BM25_CONFIGS = [
-    "bm25_line_no_header",
-    "bm25_line_with_header",
-    "bm25_ast_no_header",
-    "bm25_ast_with_header",
-]
 
-
-def test_dense_and_rerank_configs_have_full_top3_judged_coverage():
-    """All 8 dense and rerank configurations must have judged@3 = 1.0 (0 unjudged slots)."""
-    gt_set = set()
-    with open(GT_FILE, "r", encoding="utf-8") as f:
+def test_all_12_configs_have_full_top5_pooled_coverage():
+    """All 12 configurations (BM25, Dense, Rerank) must have 100% Top-5 coverage in to_label.csv."""
+    assert TO_LABEL_FILE.exists(), f"Missing to_label.csv: {TO_LABEL_FILE}"
+    with open(TO_LABEL_FILE, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        for r in reader:
-            key = (r["jd_id"], r["repo_name"], r["file_path"], int(r["start_line"]), int(r["end_line"]))
-            gt_set.add(key)
+        qid_col = "query_id" if "query_id" in (reader.fieldnames or []) else "jd_id"
+        pool_set = {(r[qid_col], r["repo_name"], r["file_path"], int(r["start_line"]), int(r["end_line"])) for r in reader}
 
-    for cfg in POOLED_CONFIGS:
+    for cfg in ALL_12_CONFIGS:
         run_file = RUNS_DIR / f"{cfg}.json"
         assert run_file.exists(), f"Missing run file: {run_file}"
         with open(run_file, "r", encoding="utf-8") as f:
             run_data = json.load(f)
 
-        unjudged_top3 = 0
-        total_top3 = 0
+        unpooled_top5 = 0
+        total_top5 = 0
         for qid, items in run_data.items():
-            for it in items[:3]:
+            for it in items[:5]:
                 key = (qid, it["repo_name"], it["file_path"], int(it["start_line"]), int(it["end_line"]))
-                total_top3 += 1
-                if key not in gt_set:
-                    unjudged_top3 += 1
+                total_top5 += 1
+                if key not in pool_set:
+                    unpooled_top5 += 1
 
-        assert total_top3 == 75, f"Expected 75 top-3 items (25 queries * 3), found {total_top3}"
-        assert unjudged_top3 == 0, f"Config {cfg} has {unjudged_top3} unjudged items in top-3!"
+        assert total_top5 == 125, f"Expected 125 top-5 items (25 queries * 5), found {total_top5}"
+        assert unpooled_top5 == 0, f"Config {cfg} has {unpooled_top5} unpooled items in top-5!"
 
 
-def test_bm25_configs_were_not_pooled():
-    """BM25 configurations have substantial unjudged top-3 slots (65-81% unjudged)."""
-    gt_set = set()
-    with open(GT_FILE, "r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for r in reader:
-            key = (r["jd_id"], r["repo_name"], r["file_path"], int(r["start_line"]), int(r["end_line"]))
-            gt_set.add(key)
+def test_pool_size_report_exact_concordance():
+    """Verify pool_size_report.csv has 25 queries and matches to_label row count."""
+    pool_report_file = DATASET_DIR / "pool_size_report.csv"
+    assert pool_report_file.exists()
+    with open(pool_report_file, "r", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
 
-    for cfg in BM25_CONFIGS:
-        run_file = RUNS_DIR / f"{cfg}.json"
-        with open(run_file, "r", encoding="utf-8") as f:
-            run_data = json.load(f)
+    assert len(rows) == 25, f"Expected 25 queries in pool report, found {len(rows)}"
+    total_unique = sum(int(r["new_to_label"]) for r in rows)
 
-        unjudged_top3 = 0
-        total_top3 = 0
-        for qid, items in run_data.items():
-            for it in items[:3]:
-                key = (qid, it["repo_name"], it["file_path"], int(it["start_line"]), int(it["end_line"]))
-                total_top3 += 1
-                if key not in gt_set:
-                    unjudged_top3 += 1
+    with open(TO_LABEL_FILE, "r", encoding="utf-8") as f:
+        to_label_rows = list(csv.DictReader(f))
 
-        assert unjudged_top3 > 0, f"BM25 config {cfg} unexpectedly has 0 unjudged top-3 slots"
-        judged_rate = (total_top3 - unjudged_top3) / total_top3
-        assert 0.15 <= judged_rate <= 0.40, f"Unexpected judged@3 rate for {cfg}: {judged_rate}"
+    assert total_unique == len(to_label_rows), f"Report sum ({total_unique}) != to_label rows ({len(to_label_rows)})"

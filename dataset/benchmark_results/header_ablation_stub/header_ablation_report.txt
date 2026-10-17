@@ -1,0 +1,46 @@
+EXPLORATORY closed-pool re-scoring of judged pairs. AUC baseline = 0.5. Not comparable with Table I.
+backend: stub; pairs used: 882; skipped (no chunk in current corpus): 0
+
+== subset all: 882 pairs, 25 JDs ==
+rerank_auc     none=0.531  path=0.478  full=0.479
+rerank_ndcg_5  none=0.409  path=0.415  full=0.414
+dense_auc      none=0.553  path=0.468  full=0.480
+dense_ndcg_5   none=0.461  path=0.421  full=0.434
+  [rerank_auc] path vs none       delta=-0.053 CI=[-0.107,-0.004] p_raw=0.2414 p_Holm=0.4603
+  [rerank_auc] full vs none       delta=-0.052 CI=[-0.106,-0.003] p_raw=0.2301 p_Holm=0.4603
+  [rerank_ndcg_5] path vs none       delta=+0.006 CI=[-0.038,+0.041] p_raw=0.3061 p_Holm=0.6123
+  [rerank_ndcg_5] full vs none       delta=+0.005 CI=[-0.038,+0.040] p_raw=0.3255 p_Holm=0.6123
+  [dense_auc] path vs none       delta=-0.085 CI=[-0.150,-0.026] p_raw=0.0318 p_Holm=0.0636
+  [dense_auc] full vs none       delta=-0.072 CI=[-0.134,-0.016] p_raw=0.0851 p_Holm=0.0851
+  [dense_ndcg_5] path vs none       delta=-0.039 CI=[-0.074,-0.006] p_raw=0.0377 p_Holm=0.0753
+  [dense_ndcg_5] full vs none       delta=-0.026 CI=[-0.055,+0.004] p_raw=0.1060 p_Holm=0.1060
+
+== subset pure_ast: 445 pairs, 25 JDs ==
+rerank_auc     none=0.451  path=0.428  class=0.451  method=0.450  path_class=0.428  no_lines=0.431  full=0.433
+rerank_ndcg_5  none=0.424  path=0.361  class=0.424  method=0.423  path_class=0.364  no_lines=0.371  full=0.371
+dense_auc      none=0.461  path=0.430  class=0.458  method=0.462  path_class=0.431  no_lines=0.436  full=0.436
+dense_ndcg_5   none=0.428  path=0.344  class=0.426  method=0.431  path_class=0.345  no_lines=0.350  full=0.350
+  [rerank_auc] path vs none       delta=-0.024 CI=[-0.090,+0.040] p_raw=0.6612 p_Holm=1.0000
+  [rerank_auc] class vs none      delta=+0.000 CI=[+0.000,+0.000] p_raw=1.0000 p_Holm=1.0000
+  [rerank_auc] method vs none     delta=-0.001 CI=[-0.005,+0.001] p_raw=0.5930 p_Holm=1.0000
+  [rerank_auc] path_class vs none delta=-0.024 CI=[-0.091,+0.038] p_raw=0.6612 p_Holm=1.0000
+  [rerank_auc] no_lines vs none   delta=-0.020 CI=[-0.086,+0.042] p_raw=0.6482 p_Holm=1.0000
+  [rerank_auc] full vs none       delta=-0.019 CI=[-0.085,+0.044] p_raw=0.7332 p_Holm=1.0000
+  [rerank_ndcg_5] path vs none       delta=-0.063 CI=[-0.100,-0.028] p_raw=0.0038 p_Holm=0.0226
+  [rerank_ndcg_5] class vs none      delta=+0.000 CI=[+0.000,+0.000] p_raw=1.0000 p_Holm=1.0000
+  [rerank_ndcg_5] method vs none     delta=-0.001 CI=[-0.004,+0.003] p_raw=0.7150 p_Holm=1.0000
+  [rerank_ndcg_5] path_class vs none delta=-0.060 CI=[-0.097,-0.024] p_raw=0.0055 p_Holm=0.0275
+  [rerank_ndcg_5] no_lines vs none   delta=-0.053 CI=[-0.092,-0.014] p_raw=0.0143 p_Holm=0.0571
+  [rerank_ndcg_5] full vs none       delta=-0.053 CI=[-0.091,-0.015] p_raw=0.0143 p_Holm=0.0571
+  [dense_auc] path vs none       delta=-0.031 CI=[-0.098,+0.037] p_raw=0.3220 p_Holm=1.0000
+  [dense_auc] class vs none      delta=-0.003 CI=[-0.007,+0.000] p_raw=0.1797 p_Holm=1.0000
+  [dense_auc] method vs none     delta=+0.001 CI=[-0.003,+0.005] p_raw=0.5002 p_Holm=1.0000
+  [dense_auc] path_class vs none delta=-0.030 CI=[-0.098,+0.040] p_raw=0.3392 p_Holm=1.0000
+  [dense_auc] no_lines vs none   delta=-0.025 CI=[-0.092,+0.045] p_raw=0.4852 p_Holm=1.0000
+  [dense_auc] full vs none       delta=-0.025 CI=[-0.093,+0.046] p_raw=0.4852 p_Holm=1.0000
+  [dense_ndcg_5] path vs none       delta=-0.084 CI=[-0.132,-0.039] p_raw=0.0033 p_Holm=0.0198
+  [dense_ndcg_5] class vs none      delta=-0.002 CI=[-0.005,+0.000] p_raw=0.1797 p_Holm=0.3594
+  [dense_ndcg_5] method vs none     delta=+0.003 CI=[-0.002,+0.010] p_raw=0.5930 p_Holm=0.5930
+  [dense_ndcg_5] path_class vs none delta=-0.083 CI=[-0.131,-0.039] p_raw=0.0033 p_Holm=0.0198
+  [dense_ndcg_5] no_lines vs none   delta=-0.078 CI=[-0.127,-0.032] p_raw=0.0080 p_Holm=0.0321
+  [dense_ndcg_5] full vs none       delta=-0.078 CI=[-0.128,-0.032] p_raw=0.0080 p_Holm=0.0321

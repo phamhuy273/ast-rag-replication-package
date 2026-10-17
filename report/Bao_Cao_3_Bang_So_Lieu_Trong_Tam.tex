@@ -53,10 +53,10 @@
 {\small
 \noindent\textbf{Tóm tắt Kết luận Thực nghiệm \& Ý nghĩa Khoa học (Bảng 4):}
 \begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
-    \item \textbf{Kiểm định Giả thuyết Cốt lõi (Comp 1):} So sánh phương pháp đề xuất toàn diện (AST+Header) với baseline dòng toàn diện (Line No-Header) cho thấy $\Delta = -0.0138$ (95\% CI $[-0.088, 0.058]$, $p_{\mathrm{raw}} = 0.8532$, $p_{\mathrm{Holm}} = 0.8532$, $W = 155.0$). \textbf{Giả thuyết đặt ra ban đầu rằng AST vượt trội hơn Line không đạt ý nghĩa thống kê} (không bác bỏ được $H_0$).
-    \item \textbf{Hiệu ứng Cú pháp Thuần túy (Comp 2):} Khi loại bỏ Context Header ở cả 2 bên, phân mảnh theo AST thuần túy kém hơn Line cố định có ý nghĩa thống kê rất cao ($\Delta = -0.1258$, $p_{\mathrm{Holm}} < 0.001$, Line thắng 20/25 JD). Điều này chứng minh cấu trúc cây cú pháp đơn thuần không tự động giúp mô hình embedding hiểu code tốt hơn.
-    \item \textbf{Context Header là Yếu tố Cứu vãn (Comp 3):} Việc gắn thêm Context Header (tên class, gói, chữ ký) giúp AST tăng vọt $\Delta = +0.1120$ ($p_{\mathrm{Holm}} = 0.0031$, AST có Header thắng 19/25 JD). Header chính là nguồn cung cấp thông tin ngữ nghĩa cốt lõi.
-    \item \textbf{Đối chứng Mở rộng (Comp 5):} Khi cả 2 phương pháp đều được trang bị Context Header, Line+Header vẫn đạt điểm cao hơn AST+Header ($\Delta = +0.0428$, $p_{\mathrm{raw}} = 0.1355$, $W = 97.0$).
+    \item \textbf{Kiểm định Giả thuyết Cốt lõi (Comp 1):} So sánh phương pháp đề xuất toàn diện (AST+Header) với baseline dòng toàn diện (Line No-Header) cho thấy $\Delta = -0.0930$ (95\% CI $[-0.164, -0.023]$, $p_{\mathrm{raw}} = 0.0219$, $p_{\mathrm{Holm}} = 0.0438$, $W = 78.0$). Có ý nghĩa thống kê, phản ánh Line No-Header đạt hiệu năng cao hơn AST+Header.
+    \item \textbf{Hiệu ứng Cú pháp Thuần túy (Comp 2):} Khi loại bỏ Context Header ở cả 2 bên, phân mảnh theo AST thuần túy kém hơn Line cố định có ý nghĩa thống kê rất cao ($\Delta = -0.2390$, $p_{\mathrm{Holm}} < 0.001$, Line thắng 23/25 JD). Điều này chứng minh cấu trúc cây cú pháp đơn thuần không tự động giúp mô hình embedding hiểu code tốt hơn.
+    \item \textbf{Context Header là Yếu tố Cứu vãn (Comp 3):} Việc gắn thêm Context Header (tên class, gói, chữ ký) giúp AST tăng vọt $\Delta = +0.1459$ ($p_{\mathrm{Holm}} = 0.0001$, AST có Header thắng 23/25 JD). Header chính là nguồn cung cấp thông tin ngữ nghĩa cốt lõi.
+    \item \textbf{Đối chứng Mở rộng (Comp 5):} Khi cả 2 phương pháp đều được trang bị Context Header, Line+Header dẫn trước AST+Header có ý nghĩa thống kê ($\Delta = +0.1339$, $p_{\mathrm{raw}} = 0.0003$, $W = 36.0$).
 \end{itemize}
 }
 \clearpage
@@ -70,10 +70,10 @@
 {\footnotesize
 \noindent\textbf{Tóm tắt Kết luận Thực nghiệm \& Ý nghĩa Khoa học (Bảng 3):}
 \begin{itemize}[nosep,topsep=1pt,partopsep=0pt,itemsep=1pt]
-    \item \textbf{Phương pháp Đạt Hiệu năng Toàn diện Cao nhất:} \textbf{Line With-Header} dẫn đầu trên mọi thước đo độ chính xác tại tầng Re-ranking (NDCG@10 = 0.499 [0.450, 0.543], NDCG@1 = 0.800, MRR@10 = 0.980, Context Precision CP@5 = 0.935).
-    \item \textbf{Hiệu năng của AST:} \textbf{AST With-Header} xếp thứ hai (NDCG@10 = 0.457 [0.405, 0.509], NDCG@1 = 0.720, MRR@10 = 0.940). Nếu không có Header, AST bị tụt dốc nghiêm trọng xuống 0.345.
-    \item \textbf{Vai trò Then chốt của Bộ Re-ranker:} Tầng Re-ranker Cross-Encoder (\texttt{bge-reranker-large}) nâng hiệu năng vượt bậc cho toàn bộ 4 cấu hình, đưa NDCG@10 từ 0.104--0.187 (BM25) và 0.320--0.450 (Dense BGE-M3) lên 0.345--0.499.
-    \item \textbf{Kiểm toán Baseline Ngẫu nhiên:} Random selection trên toàn corpus (798 chunks) đạt NDCG@10 = 0.019; trên tập ứng viên pool đạt 0.592 (chỉ gồm các mục có nhãn người $\ge 0$, không bị phạt unjudged).
+    \item \textbf{Phương pháp Đạt Hiệu năng Toàn diện Cao nhất:} \textbf{Line With-Header} dẫn đầu trên các thước đo độ chính xác tại tầng Re-ranking (NDCG@10 = 0.621 [0.569, 0.672], NDCG@1 = 0.800, MRR@10 = 0.950, Context Precision CP@5 = 0.933).
+    \item \textbf{Hiệu năng của AST:} \textbf{AST With-Header} đạt NDCG@10 = 0.487 [0.428, 0.545] (NDCG@1 = 0.740, MRR@10 = 0.896). Nếu không có Header, AST bị tụt dốc xuống 0.341.
+    \item \textbf{Vai trò Then chốt của Bộ Re-ranker:} Tầng Re-ranker Cross-Encoder nâng hiệu năng vượt bậc cho toàn bộ 4 cấu hình, đưa NDCG@10 lên 0.341--0.621.
+    \item \textbf{Kiểm toán Baseline Ngẫu nhiên:} Random selection trên toàn corpus đạt NDCG@10 = 0.022; trên tập ứng viên pool đạt 0.562.
 \end{itemize}
 }
 \clearpage
@@ -87,9 +87,9 @@
 {\small
 \noindent\textbf{Tóm tắt Kết luận Thực nghiệm \& Ý nghĩa Khoa học (Bảng 2):}
 \begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
-    \item \textbf{Tính Toàn vẹn Cú pháp:} AST thuần túy đạt tỷ lệ parse sạch gần như tuyệt đối (97.9\% bởi Tree-sitter) và 100.0\% nguyên vẹn ranh giới khối mã. Trong khi đó, phân mảnh theo dòng 50 LOC cắt ngang qua thân cú pháp ở 56.0\% số chunk (chỉ 22.4\% parse sạch, 44.0\% giữ được ranh giới).
+    \item \textbf{Tính Toàn vẹn Cú pháp:} AST thuần túy đạt tỷ lệ parse sạch 78.1\% bởi Tree-sitter và 87.2\% nguyên vẹn ranh giới khối mã. Trong khi đó, phân mảnh theo dòng 50 LOC cắt ngang qua thân cú pháp ở 56.0\% số chunk (chỉ 22.4\% parse sạch, 44.0\% giữ được ranh giới).
     \item \textbf{Bảo toàn Ngữ cảnh Cấu trúc:} AST lưu giữ 100.0\% Context Header bao bọc (class, interface, signature). Phân mảnh theo dòng hoàn toàn đánh mất ngữ cảnh này (0.0\%).
-    \item \textbf{Bắt buộc Phải có Cơ chế Fallback:} Trong mã nguồn thực tế, các hàm dài vượt quá ngữ cảnh 512 token của mô hình embedding. AST bắt buộc phải kích hoạt fallback cửa sổ trượt (tỷ lệ fallback chung 35.7\%, trong đó Java là 13.1\%, React/TS là 52.1\%). Việc các hàm dài bị xẻ nhỏ thành fallback dòng đã làm suy giảm ưu thế cú pháp của AST trên thực tế.
+    \item \textbf{Triệt tiêu Hoàn toàn Fallback:} Với việc nâng cấp bộ phân tích cú pháp Tree-sitter, toàn bộ cấu trúc hiện đại của Java và React/TS đều được trích xuất thành node cú pháp, đạt tỷ lệ fallback 0.0\%.
 \end{itemize}
 }
 

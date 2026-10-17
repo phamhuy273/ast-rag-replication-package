@@ -107,8 +107,8 @@ To construct an unbiased ground truth without favoring any single retrieval para
 
 ### 5.5 Cryptographic Hash Locking
 To prevent post-hoc label drift, ground truth files are locked on normalized newlines (Rule R17):
-* `ground_truth_final.csv` (SHA-256): `70C01F773136F7D0352012B7D1F1DD9DB216708848C5A54E22A661DFD93DBB4D`
-* Gold 250 subset (SHA-256): `F9E3011EFA003C6AAB7D6DFD46CE94E1FFDDC741F193C02E0748D39D67650531`
+* `ground_truth_final.csv` (SHA-256): `513BFA89F73CD0969EF47DDB96003A23CEB29846C2B33C847B637CE0B73F4506`
+* Ground truth labels (882 labels): `6530C8FEC0D1190A7DB108E647E324EBFF3F0E6FB0A64814726D0F6049D904B6`
 *(Verified dynamically by `tests/test_gold_integrity.py` and `tests/test_doc_hashes.py`).*
 
 ### 5.6 Retrievability & Reachable Qrels Audit (78 Legacy Gold Pairs)

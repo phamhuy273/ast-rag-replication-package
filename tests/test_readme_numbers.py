@@ -156,38 +156,42 @@ class TestReadmeNumbers:
 
     def test_sensitivity_numbers_in_readme(self):
         """Verify language breakdown, consensus scores, and judged-only sensitivity."""
+        lb = self.sensitivity["language_breakdown"]
         # Language breakdown
-        assert "0.5146" in self.readme  # Java AST+Header
-        assert "0.5358" in self.readme  # Java Line+Header
-        assert "0.3694" in self.readme  # React AST+Header
-        assert "0.4448" in self.readme  # React Line+Header
+        assert f"{lb['rerank_ast_with_header']['java_mean']:.4f}" in self.readme  # 0.5830
+        assert f"{lb['rerank_line_with_header']['java_mean']:.4f}" in self.readme  # 0.7158
+        assert f"{lb['rerank_ast_with_header']['react_mean']:.4f}" in self.readme  # 0.3420
+        assert f"{lb['rerank_line_with_header']['react_mean']:.4f}" in self.readme  # 0.4777
 
         # Consensus-only scores
-        assert "0.4262" in self.readme  # Line+Header
-        assert "0.4128" in self.readme  # Line No-Header
-        assert "0.3687" in self.readme  # AST+Header
-        assert "0.2938" in self.readme  # AST No-Header
+        cs = self.sensitivity["annotator_robustness"]["consensus_only_scores"]
+        assert f"{cs['rerank_line_with_header']:.4f}" in self.readme  # 0.6175
+        assert f"{cs['rerank_line_no_header']:.4f}" in self.readme  # 0.5713
+        assert f"{cs['rerank_ast_with_header']:.4f}" in self.readme  # 0.4866
+        assert f"{cs['rerank_ast_no_header']:.4f}" in self.readme  # 0.3338
 
         # Judged-only shortlist scores
-        assert "0.6148" in self.readme  # Line+Header
-        assert "0.5896" in self.readme  # Line No-Header
-        assert "0.5463" in self.readme  # AST+Header
-        assert "0.4537" in self.readme  # AST No-Header
+        jo = self.sensitivity["judged_only_evaluation"]
+        assert f"{jo['rerank_line_with_header']:.4f}" in self.readme  # 0.7242
+        assert f"{jo['rerank_line_no_header']:.4f}" in self.readme  # 0.6702
+        assert f"{jo['rerank_ast_with_header']:.4f}" in self.readme  # 0.5774
+        assert f"{jo['rerank_ast_no_header']:.4f}" in self.readme  # 0.4156
 
     def test_kappa_agreement_in_readme(self):
         """Verify Cohen's Kappa and pair counts in README."""
-        assert "603" in self.readme
-        assert "481" in self.readme
-        assert "112" in self.readme
-        assert "10" in self.readme
-        assert "0.7795" in self.readme
-        assert "0.8808" in self.readme
-        assert "Substantial Agreement" in self.readme
+        assert "882" in self.readme
+        assert "865" in self.readme
+        assert "16" in self.readme
+        assert "1" in self.readme
+        assert "0.9822" in self.readme
+        assert "0.9805" in self.readme
+        assert "Almost Perfect Agreement" in self.readme
 
     def test_pool_random_baseline_in_readme(self):
         """Verify candidate pool random baseline in README."""
         retrieval_map = {r["config_id"]: r for r in self.retrieval}
         pool_base = retrieval_map["random_pool_candidates"]
-        assert f"{pool_base['ndcg_10_mean']:.3f}" in self.readme  # 0.592
-        assert "0.0195" in self.readme  # Whole-corpus random baseline
-        assert "0.6148" in self.readme  # Judged-only Line+Header exceeding pool baseline
+        corpus_base = retrieval_map["random_corpus_universe"]
+        assert f"{pool_base['ndcg_10_mean']:.3f}" in self.readme  # 0.562
+        assert f"{corpus_base['ndcg_10_mean']:.4f}" in self.readme  # 0.0224
+        assert "0.7243" in self.readme  # Judged-only Line+Header exceeding pool baseline

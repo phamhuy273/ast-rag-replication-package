@@ -9,26 +9,26 @@
 Chunking Strategy & Header Condition & NDCG@10$\uparrow$ & NDCG@1$\uparrow$ & NDCG@3$\uparrow$ & NDCG@5$\uparrow$ & MRR@10$\uparrow$ & P@5$\uparrow$ & Recall@10$\uparrow$ & Judged@10 \\
 \midrule
 \multicolumn{10}{l}{\textit{Panel A: Two-Stage Re-ranking Tier (Cross-Encoder BGE-Reranker-Large)}} \\[2pt]
-Line (50 LOC) & No-Header & \makecell{\underline{0.470}\\\scriptsize [0.414, 0.524]} & \underline{0.740} & \underline{0.703} & \underline{0.587} & 0.933 & \underline{0.656} & 0.246 & \textbf{0.564} \\[1pt]
-Line (50 LOC) & With-Header & \makecell{\textbf{0.499}\\\scriptsize [0.450, 0.543]} & \textbf{0.800} & \textbf{0.736} & \textbf{0.630} & \textbf{0.980} & \textbf{0.704} & \textbf{0.262} & 0.552 \\[1pt]
-AST Method & No-Header & \makecell{0.345\\\scriptsize [0.299, 0.390]} & 0.460 & 0.477 & 0.399 & 0.846 & 0.560 & 0.220 & 0.536 \\[1pt]
-AST Method & With-Header & \makecell{0.457\\\scriptsize [0.405, 0.509]} & 0.720 & 0.675 & 0.564 & \underline{0.940} & 0.648 & \underline{0.253} & \underline{0.564} \\[1pt]
+Line (50 LOC) & No-Header & \makecell{\underline{0.580}\\\scriptsize [0.505, 0.649]} & \textbf{0.800} & \underline{0.736} & \underline{0.728} & \textbf{0.953} & \underline{0.816} & \underline{0.230} & \underline{0.716} \\[1pt]
+Line (50 LOC) & With-Header & \makecell{\textbf{0.621}\\\scriptsize [0.555, 0.682]} & \textbf{0.800} & \textbf{0.773} & \textbf{0.770} & \underline{0.950} & \textbf{0.896} & \textbf{0.262} & \textbf{0.736} \\[1pt]
+AST Method & No-Header & \makecell{0.341\\\scriptsize [0.263, 0.421]} & 0.340 & 0.346 & 0.375 & 0.699 & 0.544 & 0.156 & 0.712 \\[1pt]
+AST Method & With-Header & \makecell{0.487\\\scriptsize [0.419, 0.551]} & \underline{0.740} & 0.698 & 0.661 & 0.896 & 0.744 & 0.183 & 0.660 \\[1pt]
 \midrule
 \multicolumn{10}{l}{\textit{Panel B: Dense Bi-Encoder Tier (BGE-M3 Embeddings)}} \\[2pt]
-Line (50 LOC) & No-Header & \makecell{\underline{0.446}\\\scriptsize [0.377, 0.511]} & \underline{0.600} & 0.593 & \underline{0.512} & \underline{0.903} & \underline{0.640} & \underline{0.265} & \textbf{0.592} \\[1pt]
-Line (50 LOC) & With-Header & \makecell{\textbf{0.450}\\\scriptsize [0.398, 0.502]} & 0.580 & \textbf{0.600} & \textbf{0.539} & \textbf{0.913} & \textbf{0.704} & \textbf{0.273} & \underline{0.572} \\[1pt]
-AST Method & No-Header & \makecell{0.320\\\scriptsize [0.265, 0.369]} & 0.480 & 0.426 & 0.378 & 0.807 & 0.568 & 0.217 & 0.548 \\[1pt]
-AST Method & With-Header & \makecell{0.408\\\scriptsize [0.346, 0.463]} & \textbf{0.660} & \underline{0.594} & 0.491 & 0.900 & 0.584 & 0.236 & 0.544 \\[1pt]
+Line (50 LOC) & No-Header & \makecell{\underline{0.521}\\\scriptsize [0.439, 0.600]} & \underline{0.600} & \textbf{0.612} & \underline{0.615} & \underline{0.891} & \underline{0.792} & \underline{0.225} & \underline{0.720} \\[1pt]
+Line (50 LOC) & With-Header & \makecell{\textbf{0.551}\\\scriptsize [0.480, 0.619]} & 0.580 & \underline{0.609} & \textbf{0.628} & 0.883 & \textbf{0.832} & \textbf{0.265} & \textbf{0.752} \\[1pt]
+AST Method & No-Header & \makecell{0.358\\\scriptsize [0.298, 0.420]} & 0.420 & 0.381 & 0.412 & 0.813 & 0.608 & 0.167 & 0.716 \\[1pt]
+AST Method & With-Header & \makecell{0.450\\\scriptsize [0.393, 0.506]} & \textbf{0.620} & 0.589 & 0.581 & \textbf{0.910} & 0.784 & 0.204 & 0.692 \\[1pt]
 \midrule
 \multicolumn{10}{l}{\textit{Panel C: Lexical Sparse Baseline Tier (BM25)$^{\dagger}$}} \\[2pt]
-Line (50 LOC) & No-Header & \makecell{0.104\\\scriptsize [0.070, 0.141]} & \textbf{0.140} & 0.113 & 0.106 & 0.337 & 0.128 & 0.071 & 0.136 \\[1pt]
-Line (50 LOC) & With-Header & \makecell{0.129\\\scriptsize [0.094, 0.165]} & \textbf{0.140} & 0.144 & 0.126 & \underline{0.405} & 0.168 & 0.092 & 0.180 \\[1pt]
-AST Method & No-Header & \makecell{\textbf{0.187}\\\scriptsize [0.145, 0.230]} & \underline{0.080} & \textbf{0.171} & \textbf{0.173} & \textbf{0.409} & \textbf{0.288} & \textbf{0.148} & \textbf{0.304} \\[1pt]
-AST Method & With-Header & \makecell{\underline{0.170}\\\scriptsize [0.122, 0.221]} & \underline{0.080} & \underline{0.151} & \underline{0.167} & 0.395 & \underline{0.248} & \underline{0.120} & \underline{0.244} \\[1pt]
+Line (50 LOC) & No-Header & \makecell{\underline{0.405}\\\scriptsize [0.350, 0.458]} & \textbf{0.440} & \underline{0.502} & \textbf{0.523} & \underline{0.865} & \textbf{0.824} & \underline{0.208} & 0.644 \\[1pt]
+Line (50 LOC) & With-Header & \makecell{\textbf{0.433}\\\scriptsize [0.376, 0.486]} & \textbf{0.440} & \textbf{0.506} & \underline{0.520} & \textbf{0.868} & \underline{0.800} & \textbf{0.228} & \textbf{0.696} \\[1pt]
+AST Method & No-Header & \makecell{0.305\\\scriptsize [0.236, 0.371]} & \underline{0.340} & 0.414 & 0.429 & 0.724 & 0.592 & 0.128 & 0.560 \\[1pt]
+AST Method & With-Header & \makecell{0.311\\\scriptsize [0.243, 0.376]} & \underline{0.340} & 0.309 & 0.353 & 0.761 & 0.576 & 0.153 & \underline{0.676} \\[1pt]
 \midrule
 \multicolumn{10}{l}{\textit{Pre-registered Random Baselines}} \\[1pt]
-Random Selection & Full Corpus (798 Chunks) & 0.019 & --- & --- & --- & --- & --- & --- & --- \\[1pt]
-Random Selection & Judged Pool Candidates$^{\ddagger}$ & 0.592 & --- & --- & --- & --- & --- & --- & --- \\
+Random Selection & Full Corpus (872 Chunks) & 0.022 & --- & --- & --- & --- & --- & --- & --- \\[1pt]
+Random Selection & Judged Pool Candidates$^{\ddagger}$ & 0.562 & --- & --- & --- & --- & --- & --- & --- \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\scriptsize

@@ -51,6 +51,8 @@ def compute_pool_coverage():
 
         top3_total = 0
         top3_unjudged = 0
+        top5_total = 0
+        top5_unjudged = 0
         top10_total = 0
         top10_unjudged = 0
 
@@ -63,12 +65,18 @@ def compute_pool_coverage():
                 if not is_judged:
                     top10_unjudged += 1
 
+                if i < 5:
+                    top5_total += 1
+                    if not is_judged:
+                        top5_unjudged += 1
+
                 if i < 3:
                     top3_total += 1
                     if not is_judged:
                         top3_unjudged += 1
 
         j3 = (top3_total - top3_unjudged) / top3_total if top3_total > 0 else 0.0
+        j5 = (top5_total - top5_unjudged) / top5_total if top5_total > 0 else 0.0
         j10 = (top10_total - top10_unjudged) / top10_total if top10_total > 0 else 0.0
 
         results.append({
@@ -77,6 +85,9 @@ def compute_pool_coverage():
             "top3_total": top3_total,
             "top3_unjudged": top3_unjudged,
             "judged_at_3": round(j3, 4),
+            "top5_total": top5_total,
+            "top5_unjudged": top5_unjudged,
+            "judged_at_5": round(j5, 4),
             "top10_total": top10_total,
             "top10_unjudged": top10_unjudged,
             "judged_at_10": round(j10, 4),
@@ -85,6 +96,7 @@ def compute_pool_coverage():
     OUTPUT_CSV.parent.mkdir(parents=True, exist_ok=True)
     fieldnames = [
         "configuration", "tier", "top3_total", "top3_unjudged", "judged_at_3",
+        "top5_total", "top5_unjudged", "judged_at_5",
         "top10_total", "top10_unjudged", "judged_at_10"
     ]
     with open(OUTPUT_CSV, "w", encoding="utf-8", newline="") as f:

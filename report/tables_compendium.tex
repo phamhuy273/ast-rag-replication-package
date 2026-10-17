@@ -60,9 +60,9 @@ This compendium provides the complete, unabridged set of 10 empirical benchmark 
 {\small
 \noindent\textbf{Empirical Findings \& Methodological Takeaways (Table I):}
 \begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
-    \item \textbf{Curation Scale:} Unified ground truth comprises $N=603$ query-code candidate pairs evaluated on a 3-point ordinal relevance scale ($0 = \text{not relevant}$, $1 = \text{partially relevant}$, $2 = \text{highly relevant}$).
-    \item \textbf{High Reliability:} Pre-registered Gold subset ($N=250$) achieves $\kappa_w = 0.8808$ (88.4\% exact agreement, ``Almost Perfect'' under Landis \& Koch, 1977). The candidate expansion partition ($N=353$) yields $\kappa_w = 0.6826$ (73.7\% exact agreement, ``Substantial''). Overall unified dataset achieves $\kappa_w = 0.7795$ with 79.8\% exact agreement.
-    \item \textbf{Minimal Extreme Divergence:} Severe disagreements ($\Delta = 2$, e.g., $0$ vs. $2$) occurred in only 10 cases (1.7\% across all 603 pairs), while minor disagreements ($\Delta = 1$) occurred in 112 pairs (18.6\%). All 122 disagreements underwent formal independent adjudication.
+    \item \textbf{Curation Scale:} Unified ground truth comprises $N=882$ query-code candidate pairs evaluated on a 3-point ordinal relevance scale ($0 = \text{not relevant}$, $1 = \text{partially relevant}$, $2 = \text{highly relevant}$).
+    \item \textbf{High Reliability:} Complete unified ground truth achieves $\kappa_w = 0.9822$ (98.1\% exact agreement, ``Almost Perfect'' under Landis \& Koch, 1977). Java ecosystem reaches $\kappa_w = 0.9805$ ($N=543$, 98.2\% exact agreement), while React/TS reaches $\kappa_w = 0.9789$ ($N=339$, 97.9\% exact agreement).
+    \item \textbf{Minimal Extreme Divergence:} Severe disagreements ($\Delta = 2$, e.g., $0$ vs. $2$) occurred in only 1 case (0.1\% across all 882 pairs), while minor disagreements ($\Delta = 1$) occurred in 16 pairs (1.8\%). All 17 disagreements underwent formal independent adjudication.
 \end{itemize}
 }
 \clearpage
@@ -75,9 +75,9 @@ This compendium provides the complete, unabridged set of 10 empirical benchmark 
 {\small
 \noindent\textbf{Empirical Findings \& Methodological Takeaways (Table II):}
 \begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
-    \item \textbf{Syntactic Integrity:} Pure AST chunking delivers near-flawless syntactic parseability (97.9\% clean parse by tree-sitter) and 100.0\% intact boundaries. In contrast, fixed 50-line chunking slices across syntax boundaries in 56.0\% of chunks (only 22.4\% clean parse, 44.0\% intact boundary).
+    \item \textbf{Syntactic Integrity:} Pure AST chunking delivers 78.1\% clean parse by tree-sitter and 87.2\% intact boundaries. In contrast, fixed 50-line chunking slices across syntax boundaries in 56.0\% of chunks (only 22.4\% clean parse, 44.0\% intact boundary).
     \item \textbf{Context Retention:} Pure AST retains enclosing context headers (classes, interfaces, signatures) across 100.0\% of method chunks, whereas line chunking has 0.0\% contextual header retention.
-    \item \textbf{The Necessity of Fallback:} Real-world code contains long functions exceeding embedding context limits (512 tokens). Line chunking produces 28.6\% truncated chunks. AST resolves this via sliding-window fallback, yielding an overall 35.7\% fallback rate (13.1\% in Java, 52.1\% in React/TS).
+    \item \textbf{Elimination of Fallback:} Following the upgraded Tree-sitter extraction rules, AST chunking captures modern declarations across both ecosystems, achieving 0.0\% fallback rate.
 \end{itemize}
 }
 \clearpage
@@ -90,10 +90,10 @@ This compendium provides the complete, unabridged set of 10 empirical benchmark 
 {\footnotesize
 \noindent\textbf{Empirical Findings \& Methodological Takeaways (Table III):}
 \begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
-    \item \textbf{Pipeline Superiority:} Re-ranking with \texttt{bge-reranker-large} delivers massive gains across all 4 chunking configurations, lifting NDCG@10 from 0.104--0.187 (BM25) and 0.320--0.450 (Dense BGE-M3) to 0.345--0.499.
-    \item \textbf{Top Overall Performer:} Line With-Header achieves the highest NDCG@10 (0.499 [0.450, 0.543]) and leads across all top-precision metrics (NDCG@1: 0.800, MRR@10: 0.980, CP@5: 0.935).
-    \item \textbf{AST Performance:} AST With-Header reaches 0.457 [0.405, 0.509] (NDCG@1: 0.720, MRR@10: 0.940). Without headers, AST suffers severely, achieving only 0.345 NDCG@10.
-    \item \textbf{Audit of Baselines:} Full corpus random NDCG@10 is 0.019; candidate pool random NDCG@10 is 0.592. As explained in the methodological notes, the pool baseline is computed exclusively over pre-selected candidate items (all having human labels $\ge 0$), whereas production ranking faces thousands of unjudged non-relevant chunks.
+    \item \textbf{Pipeline Superiority:} Re-ranking with Cross-Encoder delivers substantial gains across all 4 chunking configurations, lifting NDCG@10 to 0.341--0.621.
+    \item \textbf{Top Overall Performer:} Line With-Header achieves the highest NDCG@10 (0.621 [0.569, 0.672]) and leads across top-precision metrics (NDCG@1: 0.800, MRR@10: 0.950, CP@5: 0.933).
+    \item \textbf{AST Performance:} AST With-Header reaches 0.487 [0.428, 0.545] (NDCG@1: 0.740, MRR@10: 0.896). Without headers, AST drops to 0.341 NDCG@10.
+    \item \textbf{Audit of Baselines:} Full corpus random NDCG@10 is 0.022; candidate pool random NDCG@10 is 0.562.
 \end{itemize}
 }
 \clearpage
@@ -106,11 +106,11 @@ This compendium provides the complete, unabridged set of 10 empirical benchmark 
 {\small
 \noindent\textbf{Empirical Findings \& Methodological Takeaways (Table IV):}
 \begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
-    \item \textbf{Comp 1 (Pre-registered Primary Hypothesis):} AST+Header vs. Line No-Header shows $\Delta = -0.0138$ (95\% CI $[-0.088, 0.058]$, $p_{\mathrm{raw}} = 0.8532$, $p_{\mathrm{Holm}} = 0.8532$, $W = 155.0$). \textbf{The pre-registered hypothesis that AST chunking outperforms line chunking is not supported.}
-    \item \textbf{Comp 2 (Pure Chunking):} In the absence of context headers, AST chunking is statistically inferior to line chunking ($\Delta = -0.1258$, $p_{\mathrm{Holm}} < 0.001$, $W = 22.0$). Line chunking won in 20 out of 25 JDs.
-    \item \textbf{Comp 3 (Header on AST):} Adding structural context headers to AST chunks produces a large, highly significant performance boost ($\Delta = +0.1120$, $p_{\mathrm{Holm}} = 0.0031$, $W = 46.0$, 19 wins vs. 6 losses). Context headers are the true driver of AST retrieval capability.
-    \item \textbf{Comp 4 (Header on Line):} Adding headers to line chunks produces a modest, non-significant gain ($\Delta = +0.0291$, $p_{\mathrm{Holm}} = 0.7332$, $W = 128.0$).
-    \item \textbf{Comp 5 (Exploratory Contrast):} Comparing the two header-equipped systems reveals Line With-Header leads AST With-Header by $+0.0428$ ($p_{\mathrm{raw}} = 0.1355$, 95\% CI $[-0.106, 0.021]$, $W = 97.0$).
+    \item \textbf{Comp 1 (Pre-registered Primary Hypothesis):} AST+Header vs. Line No-Header shows $\Delta = -0.0930$ (95\% CI $[-0.164, -0.023]$, $p_{\mathrm{raw}} = 0.0219$, $p_{\mathrm{Holm}} = 0.0438$, $W = 78.0$). The pre-registered primary comparison is statistically significant, favoring Line No-Header.
+    \item \textbf{Comp 2 (Pure Chunking):} In the absence of context headers, AST chunking is statistically inferior to line chunking ($\Delta = -0.2390$, $p_{\mathrm{Holm}} < 0.001$, $W = 3.0$).
+    \item \textbf{Comp 3 (Header on AST):} Adding structural context headers to AST chunks produces a large, highly significant performance boost ($\Delta = +0.1459$, $p_{\mathrm{Holm}} = 0.0001$, $W = 24.0$, 23 wins vs. 2 losses).
+    \item \textbf{Comp 4 (Header on Line):} Adding headers to line chunks produces a non-significant change ($\Delta = +0.0409$, $p_{\mathrm{Holm}} = 0.2411$, $W = 118.0$).
+    \item \textbf{Comp 5 (Exploratory Contrast):} Comparing the two header-equipped systems reveals Line With-Header leads AST With-Header by $+0.1339$ ($p_{\mathrm{raw}} = 0.0003$, 95\% CI $[-0.199, -0.070]$, $W = 36.0$).
 \end{itemize}
 }
 \clearpage
@@ -123,9 +123,9 @@ This compendium provides the complete, unabridged set of 10 empirical benchmark 
 {\small
 \noindent\textbf{Empirical Findings \& Methodological Takeaways (Table V):}
 \begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
-    \item \textbf{Java Stratum ($N=15$):} AST+Header closely tracks Line+Header (0.515 vs. 0.536, $\Delta = -0.021$). In object-oriented languages with disciplined class/method structures, AST chunking remains highly competitive.
-    \item \textbf{React/TypeScript Stratum ($N=10$):} AST+Header lags Line+Header significantly (0.369 vs. 0.445, $\Delta = -0.075$). The high syntactic complexity of JSX, functional components, hooks, and large files forces high fallback rates (52.1\%), diminishing AST advantages.
-    \item \textbf{Methodological Conclusion:} Language characteristics govern chunking utility. AST is viable in structured OOP (Java) but suboptimal in modern multi-paradigm web stacks (React/TS).
+    \item \textbf{Java Stratum ($N=15$):} AST+Header reaches 0.5830 vs. 0.7158 for Line+Header ($\Delta = -0.1328$).
+    \item \textbf{React/TypeScript Stratum ($N=10$):} AST+Header reaches 0.3420 vs. 0.4777 for Line+Header ($\Delta = -0.1357$).
+    \item \textbf{Methodological Conclusion:} Both ecosystems exhibit consistent relative ranking across chunking and context header conditions.
 \end{itemize}
 }
 \clearpage
@@ -138,9 +138,8 @@ This compendium provides the complete, unabridged set of 10 empirical benchmark 
 {\small
 \noindent\textbf{Empirical Findings \& Methodological Takeaways (Table VI):}
 \begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
-    \item \textbf{Severe Fallback Domination Without Headers:} For AST No-Header, 70.0\% (175/250) of all retrieved top-10 items across all queries were actually line-fallback chunks! This reveals that without headers, the AST pipeline relies almost entirely on fixed sliding windows to retrieve relevant code.
-    \item \textbf{Header Restores Pure AST Retrieval:} Adding structural context headers elevates pure AST retrieval to 54.0\% (135/250) at the re-ranking tier and 66.4\% (166/250) at the dense tier.
-    \item \textbf{Scientific Insight:} Unaugmented AST functions poorly because pure method snippets lack enclosing class and namespace metadata; neural encoders favor longer, broader fallback windows unless explicit context headers are prepended.
+    \item \textbf{0\% Fallback in Top-10:} With upgraded Tree-sitter parsers, 0 (0.0\%) line-fallback chunks appear in the top-10 across all 12 retrieval configurations.
+    \item \textbf{Pure AST Retrieval:} Chunks retrieved by the AST pipeline represent genuine syntactic units.
 \end{itemize}
 }
 \clearpage
@@ -153,9 +152,9 @@ This compendium provides the complete, unabridged set of 10 empirical benchmark 
 {\small
 \noindent\textbf{Empirical Findings \& Methodological Takeaways (Table VII):}
 \begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
-    \item \textbf{Consensus-Only Robustness Check (Panel A):} When excluding the 122 disputed pairs ($N=481$ consensus items remaining), the AST header effect attenuates to $\Delta = +0.075$ and becomes \textbf{statistically non-significant} ($p = 0.0851$). This indicates that borderline, disputed candidate items were instrumental in establishing the statistical significance of context headers.
-    \item \textbf{Single-Annotator Concordance (Panel B):} Under either Annotator 1 alone ($\Delta = +0.104$, $p < 0.001$) or Annotator 2 alone ($\Delta = +0.090$, $p < 0.01$), the header effect remains positive and significant.
-    \item \textbf{Judged-Only Candidate Shortlist (Panel C):} Removing unjudged items from evaluation yields Line+Header (0.615) vs. AST+Header (0.546). Comp 1 remains non-significant ($\Delta = -0.043$, $p = 0.3666$), and Line+Header holds an exploratory advantage ($\Delta = -0.069$, $p_{\mathrm{raw}} = 0.0318$).
+    \item \textbf{Consensus-Only Robustness Check (Panel A):} When excluding the 17 disputed pairs ($N=865$ consensus items remaining), the AST header effect remains large and statistically significant ($\Delta = +0.1528$, $p < 0.001$).
+    \item \textbf{Single-Annotator Concordance (Panel B):} Under either Annotator 1 alone ($\Delta = +0.145$, $p < 0.001$) or Annotator 2 alone ($\Delta = +0.148$, $p < 0.001$), the header effect remains positive and significant.
+    \item \textbf{Judged-Only Candidate Shortlist (Panel C):} Removing unjudged items yields Line+Header (0.724) vs. AST+Header (0.577).
 \end{itemize}
 }
 \clearpage
@@ -168,9 +167,8 @@ This compendium provides the complete, unabridged set of 10 empirical benchmark 
 {\small
 \noindent\textbf{Empirical Findings \& Methodological Takeaways (Table VIII):}
 \begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
-    \item \textbf{Complete Coverage for Dense and Re-ranking:} Across all 8 Dense (BGE-M3) and Re-ranking configurations, top-3 candidate judgment coverage was strictly 100.0\% (75/75 items evaluated).
-    \item \textbf{BM25 Pool Exclusion:} BM25 runs were excluded from candidate pooling; top-3 judgment coverage for BM25 ranged between 18.7\% and 34.7\%, leaving 220 unjudged slots in top-3 (treated as non-relevant $0$).
-    \item \textbf{Scientific Rigor:} This transparently explains the lower BM25 scores and guarantees that all neural retrieval conclusions are completely free from pooling bias.
+    \item \textbf{Complete Exhaustive Coverage:} Across all 12 configurations (BM25, Dense, and Re-ranking), Judged@3 and Judged@5 coverage is strictly 100.0\%.
+    \item \textbf{Unbiased Pooling:} All 12 systems contributed candidates to the unified pool, ensuring completely balanced evaluation.
 \end{itemize}
 }
 \clearpage
@@ -183,9 +181,9 @@ This compendium provides the complete, unabridged set of 10 empirical benchmark 
 {\small
 \noindent\textbf{Empirical Findings \& Methodological Takeaways (Table IX):}
 \begin{itemize}[nosep,topsep=2pt,partopsep=0pt,itemsep=2pt]
-    \item \textbf{Coordinate Deduplication (Panel A):} 415 raw top-3 retrieval candidates collapsed into 382 unique line coordinate pairs (33 duplicate coordinates identified between AST-fallback and Line-50 chunks). 29 overlapped with the initial Gold standard, yielding 353 new unique items and 603 total unified ground truth items.
-    \item \textbf{Adjudication Distribution (Panel B):} 122 inter-annotator disagreements were adjudicated by the independent lead author: 73 (59.8\%) upheld Annotator 1, 47 (38.5\%) upheld Annotator 2, and 2 (1.6\%) overruled both with independent consensus scores.
-    \item \textbf{Taxonomy of Disagreements:} Adjudication decisions were categorized into 70 distinct structured rationale strings, with 29 explicit adjudication prefixes (23.8\%) and 93 standard evaluation format logs (76.2\%).
+    \item \textbf{Coordinate Deduplication (Panel A):} 1500 raw Top-5 retrieval candidates collapsed into 882 unique code spans.
+    \item \textbf{Adjudication Distribution (Panel B):} 17 inter-annotator disagreements were adjudicated: 13 (76.5\%) upheld Annotator 1, 4 (23.5\%) upheld Annotator 2, and 0 (0.0\%) overruled both.
+    \item \textbf{Taxonomy of Disagreements:} Adjudication decisions were categorized into 15 distinct structured rationale strings, with 17 explicit prefixes (100.0\%).
 \end{itemize}
 }
 \clearpage

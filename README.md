@@ -54,13 +54,13 @@ Our chunking strategy is **AST-first with line fallback**: it extracts method-le
 │   ├── queries_frozen.json                     # 25 pre-registered frozen queries with metadata
 │   ├── manifest_repos.csv                      # 40 GitHub repositories with commit SHAs & licenses
 │   ├── source_file_intervals.json              # Pinned method intervals across 189 files for boundary analysis
-│   ├── fallback_audit.csv                      # Detailed audit and categorization of 130 fallback chunks
-│   ├── chunk_corpus.parquet                    # Dual corpus: 798 chunks (364 AST + 434 Line-based)
-│   ├── ground_truth_final.csv                  # 603 unified labeled pairs (250 Gold + 353 Pooled)
-│   ├── ground_truth_annotator1.csv             # Anonymized annotations from Annotator 1 (603 pairs)
-│   ├── ground_truth_annotator2.csv             # Anonymized annotations from Annotator 2 (603 pairs)
-│   ├── disagreements_adjudication.csv          # 122 adjudicated disagreements with technical rationales
-│   ├── to_label.csv                            # Neutral pooling candidate pairs (k=3 budget, Rule R44)
+│   ├── fallback_audit.csv                      # Diagnostic audit of line-fallback chunks (0 chunks, 0.0% fallback)
+│   ├── chunk_corpus.parquet                    # Dual corpus: 872 chunks (438 AST + 434 Line-based)
+│   ├── ground_truth_final.csv                  # 882 unified labeled pairs (exhaustive Top-5 pool across 12 runs)
+│   ├── ground_truth_annotator1.csv             # Anonymized annotations from Annotator 1 (882 pairs)
+│   ├── ground_truth_annotator2.csv             # Anonymized annotations from Annotator 2 (882 pairs)
+│   ├── disagreements_adjudication.csv          # 17 adjudicated disagreements with technical rationales
+│   ├── to_label.csv                            # Neutral pooling candidate pairs (Top-5 across all 12 runs, 882 pairs)
 │   ├── pool_size_report.csv                    # Adaptive pool size report across 25 JDs
 │   ├── table_3_2_measured.json                 # Real corpus morphology metrics across 4 subgroups
 │   ├── table_3_2_report.txt                    # Formatted text report for Table 3.2
@@ -182,10 +182,10 @@ python scripts/reproduce_all.py
 Step     | Target Paper Item                              | Status   | Duration | Key Empirical Verification
 -----------------------------------------------------------------------------------------------
 STEP_1   | Unit Tests & Experimental Controls             | PASS     |    2.5s  | All tests passed
-STEP_2   | Table 3.1 & Figure 3.1 (Confusion Matrix)     | PASS     |    3.3s  | Quadratic Kappa = 0.7795, Agreement = 79.8%
-STEP_3   | Table 3.2 (AST vs Line Chunking Morphology)   | PASS     |   14.1s  | AST Syntax Intact: 90.9% vs Line: 44.0%
+STEP_2   | Table 3.1 & Figure 3.1 (Confusion Matrix)     | PASS     |    3.3s  | Quadratic Kappa = 0.9822, Agreement = 98.1%
+STEP_3   | Table 3.2 (AST vs Line Chunking Morphology)   | PASS     |   14.1s  | AST Syntax Intact: 78.1% vs Line: 22.4%
 STEP_4   | Table 3.3 & Confirmatory Hypothesis Tests     | PASS     |    3.3s  | Comp 3 AST Header Gain Statistically Significant
-STEP_5   | Language, Fallback, Comp 5 & Annotator Robust  | PASS     |    2.3s  | Comp 5 Delta = -0.0428, Top Fallback: JSX render
+STEP_5   | Language, Fallback, Comp 5 & Annotator Robust  | PASS     |    2.3s  | Comp 5 Delta = -0.1339, 0.0% AST Fallback
 ===============================================================================================
 Total Reproduction Time: 25.5s
 RESULT: ALL 5 EMPIRICAL REPRODUCTION STEPS COMPLETED AND VERIFIED SUCCESSFULLY [PASS]
@@ -207,17 +207,18 @@ python -m pytest tests/ -v
 ---
 
 ### Step 2: Reproduce Table 3.1 & Figure 3.1 — Inter-Annotator Reliability
-Evaluates independent human annotations from Annotator 1 and Annotator 2 across all 603 candidate pairs, computing Quadratic Weighted Cohen's Kappa ($\kappa_w$), Linear Kappa, exact agreement rate, and generating the confusion matrix heatmap:
+Evaluates independent human annotations from Annotator 1 and Annotator 2 across all 882 candidate pairs, computing Quadratic Weighted Cohen's Kappa ($\kappa_w$), Linear Kappa, exact agreement rate, and generating the confusion matrix heatmap:
 ```bash
 python scripts/calculate_kappa.py
 ```
 * **Key Verified Results:**
-  * Total Candidate Evidence Pairs ($N$): **603**
-  * Exact Consensus Matches ($p_o$): **481 / 603 (79.77%)**
-  * Minor Disagreements ($|\Delta| = 1$): **112 / 603 (18.57%)**
-  * Severe Disagreements ($|\Delta| = 2$): **10 / 603 (1.66%)**
-  * **Quadratic Weighted Kappa ($\kappa_w$):** **`0.7795`** (*Substantial Agreement*, Landis & Koch 1977 [0.61–0.80])
-  * **Gold 250 Subset Kappa:** **`0.8808`** (*Almost Perfect Agreement*)
+  * Total Candidate Evidence Pairs ($N$): **882**
+  * Exact Consensus Matches ($p_o$): **865 / 882 (98.07%)**
+  * Minor Disagreements ($|\Delta| = 1$): **16 / 882 (1.81%)**
+  * Severe Disagreements ($|\Delta| = 2$): **1 / 882 (0.11%)**
+  * **Quadratic Weighted Kappa ($\kappa_w$):** **`0.9822`** (*Almost Perfect Agreement*, Landis & Koch 1977 [>0.80])
+  * **Java Subgroup Kappa:** **`0.9805`** ($N=543$, 98.16% exact agreement)
+  * **React/TS Subgroup Kappa:** **`0.9789`** ($N=339$, 97.94% exact agreement)
 * **Generated Artifacts:**
   * Report: `dataset/benchmark_results/kappa_evaluation_report.txt`
   * Figure: `dataset/benchmark_results/confusion_matrix_kappa.png`
@@ -225,14 +226,14 @@ python scripts/calculate_kappa.py
 ---
 
 ### Step 3: Reproduce Table 3.2 — Real Corpus Morphology & Syntax Boundaries
-Executes live Tree-sitter syntax parsing and HuggingFace AutoTokenizer (`BAAI/bge-m3`) across all 798 chunks from 189 source files:
+Executes live Tree-sitter syntax parsing and HuggingFace AutoTokenizer (`BAAI/bge-m3`) across all 872 chunks from 189 source files:
 ```bash
 python scripts/evaluate_syntax.py
 ```
 * **Key Verified Results:**
-  * **AST Pure (N=234):** 100.0% boundary intact (0 cuts), 97.9% valid syntax, 100.0% context header retention, mean LOC 19.8, mean tokens 211.3, truncation >512 tokens: 6.0% (14 chunks).
-  * **AST Fallback (N=130):** 74.6% boundary intact (33 cuts), 20.0% valid syntax, 0.0% header retention, mean LOC 42.9, mean tokens 367.0, truncation >512 tokens: 20.0% (26 chunks).
-  * **AST Combined (N=364):** 90.9% boundary intact (33 cuts), 70.1% valid syntax, 64.3% header retention, mean LOC 28.1, mean tokens 266.9, truncation >512 tokens: 11.0% (40 chunks).
+  * **AST Pure (N=438):** 87.2% boundary intact (56 cuts), 78.1% valid syntax, 100.0% context header retention, mean LOC 26.7, mean tokens 250.9, truncation >512 tokens: 15.8% (69 chunks).
+  * **AST Fallback (N=0):** 0.0% fallback rate (0/438 chunks, 100.0% boundary intact, 100.0% valid syntax, mean LOC 0.0, mean tokens 0.0, truncation >512 tokens: 0.0% (0 chunks)).
+  * **AST Combined (N=438):** 87.2% boundary intact (56 cuts), 78.1% valid syntax, 100.0% context header retention, mean LOC 26.7, mean tokens 250.9, truncation >512 tokens: 15.8% (69 chunks).
   * **Line Baseline (N=434):** 44.0% boundary intact (243 cuts), 22.4% valid syntax, 0.0% header retention, mean LOC 41.0, mean tokens 390.8, truncation >512 tokens: 28.6% (124 chunks).
 * **Generated Artifacts:**
   * LaTeX Table: `paper/table_3_2.tex`
@@ -247,11 +248,17 @@ Computes NDCG@{1, 3, 5, 10}, MRR@10, Precision@5, Recall@10, and Context Precisi
 python scripts/evaluate_retrieval.py
 ```
 * **Key Verified Results:**
-  * **Comp 3 (Header Effect on AST Chunks):** $\Delta = \mathbf{+0.1120}$, 95% Bootstrap CI $[+0.0559, +0.1664]$, $W = 46.0$, $p_{\text{raw}} = 0.0010$, $p_{\text{Holm}} = \mathbf{0.0031} < 0.05$ (Statistically significant improvement of progressive context headers).
-  * **Comp 2 (Pure Chunking Effect without Headers):** $\Delta = \mathbf{-0.1258}$, $p_{\text{Holm}} = \mathbf{0.0001} < 0.05$ (Confirms severe degradation when syntax chunks lack context).
-  * **Comp 1 (Full Proposed AST+Header vs. Baseline Line No-Header):** $\Delta = -0.0138$, 95% Bootstrap CI $[-0.0882, +0.0575]$, Wilcoxon $W = 155.0$, $p_{\text{Holm}} = 0.8532$ (Comparable re-ranking performance: $\text{NDCG@10} = 0.4566$ vs. $0.4703$, not statistically significant; Context Precision $\text{CP@5} = 0.913$ vs. $0.888$, $\text{MRR@10} = 0.940$ vs. $0.933$).
-  * **Comp 4 (Header Effect on Line Chunks):** $\Delta = +0.0291$, $p_{\text{Holm}} = 0.7332 \ge 0.05$ (Not statistically significant).
-  * **Methodological Note on BM25 Coverage:** BM25 configurations were evaluated post-hoc as baseline comparisons and were not included in candidate pooling. Consequently, Top-3 judged coverage for BM25 runs is 18.7%–34.7% (with 220 unjudged slots across the 4 configurations), compared to 100.0% judged coverage for all 8 Dense and Re-ranking configurations. Under standard TREC pooling conventions (Rule R20), unjudged candidate items are assigned relevance score 0, which penalizes unpooled BM25 runs. Complete audit is in `dataset/benchmark_results/pool_coverage_report.csv`.
+  * **Comp 1 (Full Proposed AST+Header vs. Baseline Line No-Header):** $\Delta = \mathbf{-0.0930}$, 95% Bootstrap CI $[-0.1636, -0.0228]$, Wilcoxon $W = 78.0$, $p_{\text{raw}} = 0.0219$, $p_{\text{Holm}} = \mathbf{0.0438} < 0.05$ (Statistically significant).
+  * **Comp 2 (Pure Chunking Effect without Headers):** $\Delta = \mathbf{-0.2390}$, 95% Bootstrap CI $[-0.2919, -0.1847]$, $W = 3.0$, $p_{\text{raw}} < 0.0001$, $p_{\text{Holm}} = \mathbf{0.0000} < 0.001$.
+  * **Comp 3 (Header Effect on AST Chunks):** $\Delta = \mathbf{+0.1459}$, 95% Bootstrap CI $[+0.0862, +0.2071]$, $W = 24.0$, $p_{\text{raw}} < 0.0001$, $p_{\text{Holm}} = \mathbf{0.0001} < 0.001$ (Statistically significant improvement of progressive context headers).
+  * **Comp 4 (Header Effect on Line Chunks):** $\Delta = \mathbf{+0.0409}$, 95% Bootstrap CI $[-0.0122, +0.0928]$, $W = 118.0$, $p_{\text{raw}} = 0.2411$, $p_{\text{Holm}} = \mathbf{0.2411} \ge 0.05$ (Not statistically significant).
+  * **Re-ranking Tier Summary:**
+    * Line With-Header: $\text{NDCG@10} = \mathbf{0.6206}$, $\text{NDCG@1} = \mathbf{0.800}$, $\text{MRR@10} = \mathbf{0.950}$, $\text{CP@5} = \mathbf{0.933}$.
+    * Line No-Header: $\text{NDCG@10} = \mathbf{0.5797}$, $\text{NDCG@1} = \mathbf{0.800}$, $\text{MRR@10} = \mathbf{0.953}$, $\text{CP@5} = \mathbf{0.903}$.
+    * AST With-Header: $\text{NDCG@10} = \mathbf{0.4866}$, $\text{NDCG@1} = \mathbf{0.740}$, $\text{MRR@10} = \mathbf{0.896}$, $\text{CP@5} = \mathbf{0.869}$.
+    * AST No-Header: $\text{NDCG@10} = \mathbf{0.3407}$, $\text{NDCG@1} = \mathbf{0.340}$, $\text{MRR@10} = \mathbf{0.699}$, $\text{CP@5} = \mathbf{0.669}$.
+  * **Random Baselines:** Full corpus universe random baseline $\text{NDCG@10} = \mathbf{0.0224}$; candidate pool random baseline $\text{NDCG@10} = \mathbf{0.562}$.
+  * **Methodological Note on Exhaustive Top-5 Pooling:** All 12 retrieval configurations (BM25, Dense, and Re-ranking) contributed their Top-5 candidates to the unified pool. Judged@5 is strictly 100.0% across all 12 systems. Complete audit is in `dataset/benchmark_results/pool_coverage_report.csv`.
 * **Generated Artifacts:**
   * LaTeX Table: `paper/table_3_3_retrieval.tex`
   * Complete Metrics: `dataset/benchmark_results/table_3_retrieval_benchmark.csv`
@@ -267,14 +274,13 @@ Executes subgroup analyses evaluating language effects (Java vs. React/TS), fall
 python scripts/evaluate_sensitivity.py
 ```
 * **Key Verified Results:**
-  * **Comp 5 (Exploratory AST+Header vs Line+Header):** $\Delta = -0.0428$, 95% Bootstrap CI $[-0.1056, +0.0211]$, Wilcoxon $W = 97.0, p = 0.1355$ (Difference not statistically significant; Line+Header wins 18 queries, AST+Header wins 6 queries, 1 tie).
+  * **Comp 5 (Exploratory AST+Header vs Line+Header):** $\Delta = \mathbf{-0.1339}$, 95% Bootstrap CI $[-0.1992, -0.0704]$, Wilcoxon $W = 36.0, p = 0.0003$ (Line+Header leads AST+Header significantly across 20 of 25 JDs, with 5 wins for AST+Header and 0 ties).
   * **Language Stratification (NDCG@10):**
-    * *Java (N=15):* AST+Header = **0.5146**, Line+Header = **0.5358** ($\Delta = -0.0212$).
-    * *React/TS (N=10):* AST+Header = **0.3694**, Line+Header = **0.4448** ($\Delta = -0.0754$).
-  * **Fallback Composition:** 110 of the 130 fallback chunks (84.6%) are from React/TS files (52.1% of React AST chunks). Top fallback trigger is top-level JSX renders (51/130, 39.2%), followed by styled-components (23/130, 17.7%) and object configurations (13/130, 10.0%).
-  * **Annotator Robustness ($N=481$ Consensus Pairs):** Ranking order is invariant: Line+Header (**0.4262**) > Line No-Header (**0.4128**) > AST+Header (**0.3687**) > AST No-Header (**0.2938**). Header effect on AST: $\Delta = +0.0749, p = 0.0851 \ge 0.05$ (Not statistically significant at $\alpha = 0.05$).
-  * **Judged-Only (Shortlist) Evaluation:** When evaluated strictly within pre-screened judged candidates (fair comparison against the 0.592 pool random baseline where unjudged items are excluded): Line+Header (**0.6148**) > Line No-Header (**0.5896**) > AST+Header (**0.5463**) > AST No-Header (**0.4537**). AST header effect remains significant ($\Delta = +0.0926, p = 0.0034$), Comp 1 remains non-significant ($\Delta = -0.0433, p = 0.3666$), and Comp 5 favors Line ($\Delta = -0.0685, p = 0.0318$).
-  * **Reachable Qrels Sensitivity:** Restricting ground truth strictly to the 525 retrievable pairs (excluding 78 legacy gold pairs) yields Line No-Header = 0.485, Line+Header = 0.514, AST No-Header = 0.356, AST+Header = 0.470 (C1: -0.015, C2: -0.129, C3: +0.114, C4: +0.029, C5: -0.044).
+    * *Java (N=15):* AST+Header = **0.5830**, Line+Header = **0.7158** ($\Delta = -0.1328$).
+    * *React/TS (N=10):* AST+Header = **0.3420**, Line+Header = **0.4777** ($\Delta = -0.1357$).
+  * **Fallback Composition:** With upgraded Tree-sitter parsers, line-fallback chunk count in Top-10 retrieval is **0 (0.0%)** across all 12 retrieval configurations.
+  * **Annotator Robustness ($N=865$ Consensus Pairs):** Ranking order is invariant: Line+Header (**0.6175**) > Line No-Header (**0.5713**) > AST+Header (**0.4866**) > AST No-Header (**0.3338**). Header effect on AST: $\Delta = +0.1528, p < 0.001$.
+  * **Judged-Only (Shortlist) Evaluation:** Evaluated strictly within pre-screened judged candidates: Line+Header (**0.7243**) > Line No-Header (**0.6696**) > AST+Header (**0.5774**) > AST No-Header (**0.4156**), with Line+Header easily exceeding the 0.562 pool random baseline.
 * **Generated Artifacts:**
   * Report: `dataset/benchmark_results/sensitivity_analysis_report.txt`
   * JSON: `dataset/benchmark_results/sensitivity_analysis_report.json`
@@ -303,7 +309,7 @@ Calculates the minimum detectable effect size at 80% statistical power across al
 python scripts/power_analysis.py
 ```
 * **Key Verified Results:**
-  * Detectable effect size ranges from **0.072** to **0.134** NDCG@10 across the 5 comparisons ($\alpha = 0.05$ to $0.0125$).
+  * Detectable effect size ranges from **0.080** to **0.130** NDCG@10 across the 5 comparisons ($\alpha = 0.05$ to $0.0125$).
 * **Generated Artifacts:**
   * Report: `dataset/benchmark_results/power_analysis.txt`
   * JSON: `dataset/benchmark_results/power_analysis.json`
@@ -329,16 +335,16 @@ python -m pytest tests/test_pure_ast.py -v
 | `queries_frozen.json` | 25 | JSON | Pre-registered industry Job Descriptions (15 Java, 10 TS/React) | Frozen at Phase 0 |
 | `manifest_repos.csv` | 40 | CSV | GitHub repositories with pinned commit SHAs, licenses, file lists | Audited licenses |
 | `source_file_intervals.json` | 189 | JSON | Pinned method line intervals across 189 source files | Verified via Tree-sitter |
-| `fallback_audit.csv` | 130 | CSV | Detailed diagnostic categorization of all 130 line-fallback chunks | Audited |
-| `chunk_corpus.parquet` | 798 | Parquet | Unified dual corpus: 364 AST + 434 Line chunks | Unique `chunk_id` enforced |
-| `ground_truth_final.csv` | 603 | CSV | Unified ground truth (250 Gold + 353 Pooled pairs) | Normalized SHA-256 Hash Locked |
-| `disagreements_adjudication.csv`| 122 | CSV | 122 resolved disagreements with technical rationales | 93 technical, 29 templated |
+| `fallback_audit.csv` | 0 | CSV | Detailed diagnostic audit of line-fallback chunks (0% fallback) | Audited |
+| `chunk_corpus.parquet` | 872 | Parquet | Unified dual corpus: 438 AST + 434 Line chunks | Unique `chunk_id` enforced |
+| `ground_truth_final.csv` | 882 | CSV | Unified ground truth (exhaustive Top-5 pool across 12 runs) | Normalized SHA-256 Hash Locked |
+| `disagreements_adjudication.csv`| 17 | CSV | 17 resolved disagreements with technical rationales | Structured rubric templates |
 | `retrieval_runs/*.json` | 12 files | JSON | Top-10 ranking outputs for 3 retrieval tiers $\times$ 4 conditions | Deterministic scoring |
 
 ### Ground Truth Normalized SHA-256 Hashes:
 In accordance with Rule R17 and cross-platform verification (handling Windows `\r\n` vs. Linux `\n`), the ground truth dataset is cryptographically locked on normalized newlines:
-* `ground_truth_final.csv` (Entire file): `70C01F773136F7D0352012B7D1F1DD9DB216708848C5A54E22A661DFD93DBB4D`
-* Gold subset (First 250 labels): `F9E3011EFA003C6AAB7D6DFD46CE94E1FFDDC741F193C02E0748D39D67650531`
+* `ground_truth_final.csv` (Entire file): `513BFA89F73CD0969EF47DDB96003A23CEB29846C2B33C847B637CE0B73F4506`
+* Ground truth labels (882 labels): `6530C8FEC0D1190A7DB108E647E324EBFF3F0E6FB0A64814726D0F6049D904B6`
 *(Automatically verified by `tests/test_gold_integrity.py`).*
 
 ---

@@ -72,18 +72,28 @@ class TestReportNumbers:
         """Assert Table T1 matches Cohen's Kappa, sample counts, and exact agreement."""
         t1_content = (TABLES_DIR / "table_T1.tex").read_text(encoding="utf-8")
 
+        with open(BENCHMARK_DIR / "kappa_evaluation_report.json", "r", encoding="utf-8") as f:
+            kappa_data = json.load(f)
+
+        total = kappa_data["total"]
+        java = kappa_data["subsets"]["java_subgroup"]
+        react = kappa_data["subsets"]["react_subgroup"]
+
         # Counts
-        assert "250" in t1_content  # Gold
-        assert "353" in t1_content  # New
-        assert "603" in t1_content  # Total
-        assert "88.4\\%" in t1_content  # Gold exact agreement
-        assert "73.7\\%" in t1_content  # New exact agreement
-        assert "79.8\\%" in t1_content  # Total exact agreement
-        assert "0.8808" in t1_content   # Gold Kappa_w
-        assert "0.6826" in t1_content   # New Kappa_w
-        assert "0.7795" in t1_content   # Total Kappa_w
-        assert "112 (18.6\\%)" in t1_content  # Minor deviations
-        assert "10 (1.7\\%)" in t1_content    # Severe deviations
+        assert str(java["n"]) in t1_content
+        assert str(react["n"]) in t1_content
+        assert str(total["n"]) in t1_content
+        assert str(java["exact_matches"]) in t1_content
+        assert str(react["exact_matches"]) in t1_content
+        assert str(total["exact_matches"]) in t1_content
+        assert f"{java['exact_agreement_pct']:.1f}\\%" in t1_content
+        assert f"{react['exact_agreement_pct']:.1f}\\%" in t1_content
+        assert f"{total['exact_agreement_pct']:.1f}\\%" in t1_content
+        assert f"{java['quadratic_weighted_kappa']:.4f}" in t1_content
+        assert f"{react['quadratic_weighted_kappa']:.4f}" in t1_content
+        assert f"{total['quadratic_weighted_kappa']:.4f}" in t1_content
+        assert f"{total['disagreement_delta_1']}" in t1_content
+        assert f"{total['disagreement_delta_2']}" in t1_content
 
     def test_t2_morphology_concordance(self):
         """Assert Table T2 matches table_3_2_measured.json exactly."""
@@ -139,8 +149,8 @@ class TestReportNumbers:
         assert f"{retrieval_map['bm25_ast_with_header']['ndcg_10_mean']:.3f}" in t3_content  # 0.170
 
         # Baselines
-        assert "0.019" in t3_content  # Whole corpus
-        assert "0.592" in t3_content  # Evaluated pool
+        assert "0.022" in t3_content  # Whole corpus
+        assert "0.562" in t3_content  # Evaluated pool
 
         # Mandatory note on BM25 unpooled items
         assert "BM25" in t3_content
@@ -152,30 +162,34 @@ class TestReportNumbers:
         doc_content = (REPORT_DIR / "results_report.tex").read_text(encoding="utf-8")
 
         # Comp 1
-        assert "-0.0138" in t4_content
-        assert "0.8532" in t4_content  # p_Holm
-        assert "155.0" in t4_content   # Wilcoxon W
-        assert "not supported" in doc_content.lower()
+        comp1 = self.stats[0]
+        assert f"{comp1['mean_diff']:+.4f}" in t4_content
+        assert f"{comp1['p_holm']:.4f}" in t4_content or "<0.001" in t4_content
+        assert f"{comp1['wilcoxon_stat']:.1f}" in t4_content
 
         # Comp 2
-        assert "-0.1258" in t4_content
-        assert "<0.001" in t4_content  # p_Holm
-        assert "22.0" in t4_content    # Wilcoxon W
+        comp2 = self.stats[1]
+        assert f"{comp2['mean_diff']:+.4f}" in t4_content
+        assert "<0.001" in t4_content
+        assert f"{comp2['wilcoxon_stat']:.1f}" in t4_content
 
         # Comp 3
-        assert "+0.1120" in t4_content
-        assert "0.0031" in t4_content  # p_Holm
-        assert "46.0" in t4_content    # Wilcoxon W
+        comp3 = self.stats[2]
+        assert f"{comp3['mean_diff']:+.4f}" in t4_content
+        assert "<0.001" in t4_content
+        assert f"{comp3['wilcoxon_stat']:.1f}" in t4_content
 
         # Comp 4
-        assert "+0.0291" in t4_content
-        assert "0.7332" in t4_content  # p_Holm
-        assert "128.0" in t4_content   # Wilcoxon W
+        comp4 = self.stats[3]
+        assert f"{comp4['mean_diff']:+.4f}" in t4_content
+        assert f"{comp4['p_holm']:.4f}" in t4_content
+        assert f"{comp4['wilcoxon_stat']:.1f}" in t4_content
 
         # Comp 5 (Exploratory Contrast)
-        assert "-0.0428" in t4_content
-        assert "0.1355" in t4_content  # p_raw
-        assert "97.0" in t4_content    # Wilcoxon W
+        comp5 = self.sensitivity["comp_5_ast_vs_line_with_header"]
+        assert f"{comp5['delta']:+.4f}" in t4_content
+        assert "<0.001" in t4_content or f"{comp5['p_value']:.4f}" in t4_content
+        assert f"{comp5['wilcoxon_w']:.1f}" in t4_content
         assert "Exploratory" in t4_content  # Explicit exploratory classification
         assert "---" in t4_content     # Not part of Holm family
 
@@ -190,37 +204,26 @@ class TestReportNumbers:
         lb = self.sensitivity["language_breakdown"]
 
         # Means in Table (3 decimal precision)
-        assert f"{lb['rerank_ast_with_header']['java_mean']:.3f}" in t5_content  # 0.515
-        assert f"{lb['rerank_line_with_header']['java_mean']:.3f}" in t5_content  # 0.536
-        assert f"{lb['rerank_ast_with_header']['react_mean']:.3f}" in t5_content  # 0.369
-        assert f"{lb['rerank_line_with_header']['react_mean']:.3f}" in t5_content  # 0.445
+        assert f"{lb['rerank_ast_with_header']['java_mean']:.3f}" in t5_content
+        assert f"{lb['rerank_line_with_header']['java_mean']:.3f}" in t5_content
+        assert f"{lb['rerank_ast_with_header']['react_mean']:.3f}" in t5_content
+        assert f"{lb['rerank_line_with_header']['react_mean']:.3f}" in t5_content
 
         # 4-decimal precision in master report text
-        assert "0.5146" in doc_content
-        assert "0.5358" in doc_content
-        assert "0.3694" in doc_content
-        assert "0.4448" in doc_content
-
-        # Differences
-        assert "-0.021" in doc_content
-        assert "-0.075" in doc_content
+        assert f"{lb['rerank_ast_with_header']['java_mean']:.4f}" in doc_content
+        assert f"{lb['rerank_line_with_header']['java_mean']:.4f}" in doc_content
+        assert f"{lb['rerank_ast_with_header']['react_mean']:.4f}" in doc_content
+        assert f"{lb['rerank_line_with_header']['react_mean']:.4f}" in doc_content
 
     def test_t6_fallback_concordance(self):
         """Assert Table T6 matches fallback composition counts across tiers."""
         t6_content = (TABLES_DIR / "table_T6.tex").read_text(encoding="utf-8")
         fc = self.sensitivity["fallback_composition"]
 
-        # Rerank
-        assert f"{fc['rerank_ast_with_header']['fallback_count']} (46.0\\%)" in t6_content  # 115
-        assert f"{fc['rerank_ast_no_header']['fallback_count']} (70.0\\%)" in t6_content  # 175
-
-        # Dense
-        assert f"{fc['dense_ast_with_header']['fallback_count']} (33.6\\%)" in t6_content  # 84
-        assert f"{fc['dense_ast_no_header']['fallback_count']} (69.2\\%)" in t6_content  # 173
-
-        # BM25
-        assert f"{fc['bm25_ast_with_header']['fallback_count']} (48.0\\%)" in t6_content  # 120
-        assert f"{fc['bm25_ast_no_header']['fallback_count']} (76.4\\%)" in t6_content  # 191
+        for key in ["rerank_ast_with_header", "rerank_ast_no_header", "dense_ast_with_header", "dense_ast_no_header", "bm25_ast_with_header", "bm25_ast_no_header"]:
+            count = fc[key]["fallback_count"]
+            pct = fc[key]["fallback_pct"]
+            assert f"{count} ({pct:.1f}\\%" in t6_content
 
     def test_t7_sensitivity_concordance(self):
         """Assert Table T7 matches consensus, single-annotator, and judged-only results."""
@@ -229,55 +232,48 @@ class TestReportNumbers:
         jo = self.sensitivity["judged_only_evaluation"]
 
         # Consensus
-        assert f"{ar['consensus_only_scores']['rerank_line_with_header']:.3f}" in t7_content  # 0.426
-        assert f"{ar['consensus_only_scores']['rerank_line_no_header']:.3f}" in t7_content  # 0.413
-        assert f"{ar['consensus_only_scores']['rerank_ast_with_header']:.3f}" in t7_content  # 0.369
-        assert f"{ar['consensus_only_scores']['rerank_ast_no_header']:.3f}" in t7_content  # 0.294
-        assert "+0.075" in t7_content  # Delta
-        assert "0.0851" in t7_content  # p-value
-        assert "Non-Significant" in t7_content
+        assert f"{ar['consensus_only_scores']['rerank_line_with_header']:.3f}" in t7_content
+        assert f"{ar['consensus_only_scores']['rerank_line_no_header']:.3f}" in t7_content
+        assert f"{ar['consensus_only_scores']['rerank_ast_with_header']:.3f}" in t7_content
+        assert f"{ar['consensus_only_scores']['rerank_ast_no_header']:.3f}" in t7_content
 
         # Judged-only
-        assert f"{jo['rerank_line_with_header']:.3f}" in t7_content  # 0.615
-        assert f"{jo['rerank_line_no_header']:.3f}" in t7_content  # 0.590
-        assert f"{jo['rerank_ast_with_header']:.3f}" in t7_content  # 0.546
-        assert f"{jo['rerank_ast_no_header']:.3f}" in t7_content  # 0.454
+        assert f"{jo['rerank_line_with_header']:.3f}" in t7_content
+        assert f"{jo['rerank_line_no_header']:.3f}" in t7_content
+        assert f"{jo['rerank_ast_with_header']:.3f}" in t7_content
+        assert f"{jo['rerank_ast_no_header']:.3f}" in t7_content
 
     def test_t8_pool_coverage_concordance(self):
-        """Assert Table T8 matches candidate pool coverage and BM25 unjudged counts."""
+        """Assert Table T8 matches candidate pool coverage and unjudged counts."""
         t8_content = (TABLES_DIR / "table_T8.tex").read_text(encoding="utf-8")
 
-        # Dense & Rerank 100% judged@3
+        # Dense, Rerank & BM25 100% judged@3
         assert "100.0\\%" in t8_content
-        # BM25 unjudged counts
-        assert "61" in t8_content  # bm25_line_no_header
-        assert "57" in t8_content  # bm25_line_with_header
-        assert "49" in t8_content  # bm25_ast_no_header
-        assert "53" in t8_content  # bm25_ast_with_header
-        assert "220 top-3 slots" in t8_content
+        for row in self.pool_coverage_rows:
+            cfg = row["configuration"].replace("_", r"\_")
+            assert f"\\texttt{{{cfg}}}" in t8_content
+            assert str(row["top10_unjudged"]) in t8_content
 
     def test_t9_pool_reconciliation_concordance(self):
         """Assert Table T9 matches pool deduplication counts and adjudication distribution."""
         t9_content = (TABLES_DIR / "table_T9.tex").read_text(encoding="utf-8")
         dd = self.adjudication["decision_distribution"]
+        tf = self.adjudication["template_families"]
 
         # Deduplication
-        assert "415" in t9_content
-        assert "382" in t9_content
-        assert "29" in t9_content
-        assert "353" in t9_content
-        assert "603" in t9_content
+        assert "1500" in t9_content
+        assert "882" in t9_content
+        assert "58.8\\%" in t9_content
 
         # Adjudication
-        assert f"{dd['agreed_with_annotator_1_only']}" in t9_content  # 73
-        assert f"{dd['agreed_with_annotator_2_only']}" in t9_content  # 47
-        assert f"{dd['agreed_with_neither']}" in t9_content           # 2
-        assert "59.8\\%" in t9_content
-        assert "38.5\\%" in t9_content
-        assert "1.6\\%" in t9_content
-        assert "70" in t9_content  # distinct strings
-        assert "29" in t9_content  # prefix count
-        assert "93" in t9_content  # standard count
+        assert f"{dd['agreed_with_annotator_1_only']}" in t9_content
+        assert f"{dd['agreed_with_annotator_2_only']}" in t9_content
+        assert f"{dd['agreed_with_neither']}" in t9_content
+        assert f"{dd['agreed_with_annotator_1_pct']:.1f}\\%" in t9_content
+        assert f"{dd['agreed_with_annotator_2_pct']:.1f}\\%" in t9_content
+        assert f"{dd['agreed_with_neither_pct']:.1f}\\%" in t9_content
+        assert f"{self.adjudication['unique_reason_strings']}" in t9_content
+        assert f"{tf['explicit_prefix_RESOLVED_BY_ADJUDICATION']}" in t9_content
 
     def test_t10_manifest_concordance(self):
         """Assert Table T10 matches repository license distribution."""

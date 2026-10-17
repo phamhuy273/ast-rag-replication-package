@@ -64,7 +64,7 @@ def summarize():
             "agreed_with_neither_pct": round(agree_neither / total_rows * 100, 2),
         },
         "template_families": template_families,
-        "description": "Adjudication reasons follow structured templated text specifying the resolved relevance level and item-specific identifiers (file path and technical snippet characteristics), resulting in 70 distinct strings across 122 rows rather than unconstrained free-form technical essays."
+        "description": "Adjudication reasons follow structured templated text specifying the resolved relevance level and item-specific identifiers (file path and technical snippet characteristics), resulting in structured adjudication across all 17 disagreement rows."
     }
 
     OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)

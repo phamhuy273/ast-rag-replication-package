@@ -1,36 +1,36 @@
 \begin{table*}[t]
 \centering
 \small
-\caption{Empirical Retrieval and Re-ranking Performance Across 2$\times$2 Factorial Pipeline Configurations ($N=25$ Job Descriptions, Graded Ground Truth $N=603$).}
+\caption{Empirical Retrieval and Re-ranking Performance Across 2$\times$2 Factorial Pipeline Configurations ($N=25$ Job Descriptions, Graded Ground Truth $N=882$).}
 \label{tab:retrieval_2x2}
-\begin{tabular}{llcccccccc}
+\begin{tabular}{llccccccccc}
 \toprule
-\textbf{Retrieval Tier} & \textbf{Configuration} & \textbf{NDCG@1} & \textbf{NDCG@3} & \textbf{NDCG@5} & \textbf{NDCG@10} & \textbf{MRR@10} & \textbf{P@5} & \textbf{Recall@10} & \textbf{CP@5} \\
+\textbf{Retrieval Tier} & \textbf{Configuration} & \textbf{NDCG@1} & \textbf{NDCG@3} & \textbf{NDCG@5} & \textbf{NDCG@10} & \textbf{95\% CI} & \textbf{MRR@10} & \textbf{bpref} & \textbf{P@5} & \textbf{Judged@5} \\
 \midrule
-\multicolumn{10}{l}{\textit{BM25}} \\
-  & Line (50 LOC) + No-Header      & 0.140 & 0.113 & 0.106 & \textbf{0.104} & 0.337 & 0.128 & 0.071 & 0.286 \\
-  & Line (50 LOC) + With-Header    & 0.140 & 0.144 & 0.126 & \textbf{0.129} & 0.405 & 0.168 & 0.092 & 0.361 \\
-  & AST Method + No-Header         & 0.080 & 0.171 & 0.173 & \textbf{0.187} & 0.409 & 0.288 & 0.148 & 0.392 \\
-  & AST Method + With-Header       & 0.080 & 0.151 & 0.167 & \textbf{0.170} & 0.395 & 0.248 & 0.120 & 0.366 \\
+\multicolumn{11}{l}{\textit{BM25}} \\
+  & Line (50 LOC) + No-Header      & 0.440 & 0.502 & 0.523 & \textbf{0.405} & [0.35, 0.46] & 0.865 & 0.246 & 0.824 & 100.0\% \\
+  & Line (50 LOC) + With-Header    & 0.440 & 0.506 & 0.520 & \textbf{0.433} & [0.38, 0.49] & 0.868 & 0.255 & 0.800 & 100.0\% \\
+  & AST Syntactic + No-Header      & 0.340 & 0.414 & 0.429 & \textbf{0.305} & [0.24, 0.37] & 0.724 & 0.129 & 0.592 & 100.0\% \\
+  & AST Syntactic + With-Header    & 0.340 & 0.309 & 0.353 & \textbf{0.311} & [0.24, 0.38] & 0.761 & 0.137 & 0.576 & 100.0\% \\
 \midrule
-\multicolumn{10}{l}{\textit{Dense (BGE-M3)}} \\
-  & Line (50 LOC) + No-Header      & 0.600 & 0.593 & 0.512 & \textbf{0.446} & 0.903 & 0.640 & 0.265 & 0.880 \\
-  & Line (50 LOC) + With-Header    & 0.580 & 0.600 & 0.539 & \textbf{0.450} & 0.913 & 0.704 & 0.273 & 0.863 \\
-  & AST Method + No-Header         & 0.480 & 0.426 & 0.378 & \textbf{0.320} & 0.807 & 0.568 & 0.217 & 0.777 \\
-  & AST Method + With-Header       & 0.660 & 0.594 & 0.491 & \textbf{0.408} & 0.900 & 0.584 & 0.236 & 0.850 \\
+\multicolumn{11}{l}{\textit{Dense (BGE-M3)}} \\
+  & Line (50 LOC) + No-Header      & 0.600 & 0.612 & 0.615 & \textbf{0.521} & [0.44, 0.60] & 0.891 & 0.297 & 0.792 & 100.0\% \\
+  & Line (50 LOC) + With-Header    & 0.580 & 0.609 & 0.628 & \textbf{0.551} & [0.48, 0.62] & 0.883 & 0.347 & 0.832 & 100.0\% \\
+  & AST Syntactic + No-Header      & 0.420 & 0.381 & 0.412 & \textbf{0.358} & [0.30, 0.42] & 0.813 & 0.179 & 0.608 & 100.0\% \\
+  & AST Syntactic + With-Header    & 0.620 & 0.589 & 0.581 & \textbf{0.450} & [0.39, 0.51] & 0.910 & 0.247 & 0.784 & 100.0\% \\
 \midrule
-\multicolumn{10}{l}{\textit{Re-rank (Cross-Encoder)}} \\
-  & Line (50 LOC) + No-Header      & 0.740 & 0.703 & 0.587 & \textbf{0.470} & 0.933 & 0.656 & 0.246 & 0.888 \\
-  & Line (50 LOC) + With-Header    & 0.800 & 0.736 & 0.630 & \textbf{0.499} & 0.980 & 0.704 & 0.262 & 0.935 \\
-  & AST Method + No-Header         & 0.460 & 0.477 & 0.399 & \textbf{0.345} & 0.846 & 0.560 & 0.220 & 0.822 \\
-  & AST Method + With-Header       & 0.720 & 0.675 & 0.564 & \textbf{0.457} & 0.940 & 0.648 & 0.253 & 0.913 \\
+\multicolumn{11}{l}{\textit{Re-rank (Cross-Encoder)}} \\
+  & Line (50 LOC) + No-Header      & 0.800 & 0.736 & 0.728 & \textbf{0.580} & [0.51, 0.65] & 0.953 & 0.300 & 0.816 & 100.0\% \\
+  & Line (50 LOC) + With-Header    & 0.800 & 0.773 & 0.770 & \textbf{0.621} & [0.55, 0.68] & 0.950 & 0.353 & 0.896 & 100.0\% \\
+  & AST Syntactic + No-Header      & 0.340 & 0.346 & 0.375 & \textbf{0.341} & [0.26, 0.42] & 0.699 & 0.170 & 0.544 & 100.0\% \\
+  & AST Syntactic + With-Header    & 0.740 & 0.698 & 0.661 & \textbf{0.487} & [0.42, 0.55] & 0.896 & 0.241 & 0.744 & 100.0\% \\
 \midrule
-\multicolumn{10}{l}{\textit{Random Baseline}} \\
-  & Random Selection + Full Corpus (798 Chunks) & 0.000 & 0.000 & 0.000 & \textbf{0.019} & 0.000 & 0.000 & 0.000 & 0.000 \\
-  & Random Selection + Evaluated Pool Candidates & 0.000 & 0.000 & 0.000 & \textbf{0.592} & 0.000 & 0.000 & 0.000 & 0.000 \\
+\multicolumn{11}{l}{\textit{Random Baseline}} \\
+  & Random Selection + Full Corpus (872 Chunks) & 0.000 & 0.000 & 0.000 & \textbf{0.022} & [0.02, 0.03] & 0.000 & 0.000 & 0.000 & 0.0\% \\
+  & Random Selection + Evaluated Pool Candidates & 0.000 & 0.000 & 0.000 & \textbf{0.562} & [0.50, 0.62] & 0.000 & 0.000 & 0.000 & 100.0\% \\
 \bottomrule
 \end{tabular}
 \vspace{1mm}\\
-\footnotesize{\textit{Note:} BM25 configurations were evaluated post-hoc as baseline comparisons and were not included in candidate pooling. Consequently, their Top-3 judged coverage is 18.7\%--34.7\% (vs. 100.0\% for Dense and Re-rank tiers). Following standard TREC pooling protocol, unjudged candidate items are assigned relevance score 0, which penalizes unpooled BM25 runs.}
+\footnotesize{\textit{Note:} All 12 configurations across lexical (BM25), dense bi-encoder (BGE-M3), and two-stage cross-encoder (BGE-Reranker-Base) tiers were pooled uniformly at Top-5 ($N=25$ JDs, $N=882$ unique graded candidate spans, Judged@5 = 100.0\%). All metrics are evaluated against the adjudicated unified ground truth.}
 \vspace{-2mm}
 \end{table*}

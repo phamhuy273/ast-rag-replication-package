@@ -49,28 +49,28 @@ Hypothesis testing encompasses a family of four pre-registered confirmatory Wilc
 \subsection{Exploratory Status of Comp 5}
 The contrast between AST+Header and Line+Header was defined post-hoc and is designated as \textbf{Comp 5 (Exploratory)}. It is presented outside the Holm family and cannot be claimed as a pre-registered confirmatory finding.
 
-\subsection{Candidate Pool Constraints on BM25}
-Candidate pooling was formed strictly from the top-3 results of the 8 Dense and Re-ranking configurations ($N=382$ deduplicated coordinates, resulting in 603 unified pairs). BM25 runs were not included in the pool. Under standard TREC pooling rules, unjudged candidates are evaluated as 0 (not relevant). Consequently, BM25 performance is heavily penalized by 220 unjudged slots in top-3 and \textbf{must not be interpreted as an unpenalized baseline}.
+\subsection{Candidate Pool Construction}
+Candidate pooling was formed across all 12 configurations (BM25, Dense, and Re-ranking) via exhaustive Top-5 pooling ($N=882$ unique deduplicated coordinate spans from 1500 candidate instances). Judged@5 coverage is strictly 100.0\% across all 12 systems.
 
 \section{Annotation Reliability and Corpus Morphology}
-Table~\ref{tab:inter_annotator_agreement} documents the inter-annotator reliability across the initial pre-registered gold standard ($N=250$), the pooled candidate expansion ($N=353$), and the total unified evidence set ($N=603$). The quadratic weighted Cohen's Kappa reaches $\kappa_w = 0.7795$ overall (Substantial Agreement) and $\kappa_w = 0.8808$ on the gold subset (Almost Perfect Agreement). Figure~\ref{fig:confusion_matrix} depicts the $3\times 3$ confusion matrix.
+Table~\ref{tab:inter_annotator_agreement} documents the inter-annotator reliability across the Java Spring Boot ecosystem ($N=543$), React/TypeScript ecosystem ($N=339$), and the total unified evidence set ($N=882$). The quadratic weighted Cohen's Kappa reaches $\kappa_w = 0.9822$ overall (Almost Perfect Agreement), with $\kappa_w = 0.9805$ in Java and $\kappa_w = 0.9789$ in React/TypeScript. Figure~\ref{fig:confusion_matrix} depicts the $3\times 3$ confusion matrix ($N=882$).
 
 \input{tables/table_T1.tex}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.85\linewidth]{figs/fig_F4.pdf}
-\caption{Inter-annotator confusion matrix across the 3-point relevance scale ($N=603$).}
+\caption{Inter-annotator confusion matrix across the 3-point relevance scale ($N=882$).}
 \label{fig:confusion_matrix}
 \end{figure}
 
-Table~\ref{tab:chunk_morphology} characterizes chunk morphology across the 40 repositories. While Pure AST chunks preserve 100\% of syntactic boundaries and achieve 97.9\% clean parse rates, the sliding-window Line baseline suffers 56.0\% boundary cuts and 77.6\% syntax errors.
+Table~\ref{tab:chunk_morphology} characterizes chunk morphology across the 40 repositories. Upgraded Tree-sitter extraction achieves 87.2\% intact boundaries, 78.1\% clean parse rates, and 0.0\% line-fallback. In contrast, the sliding-window Line baseline suffers 56.0\% boundary cuts and 77.6\% syntax errors.
 
 \input{tables/table_T2.tex}
 
 \FloatBarrier
 \section{Retrieval Effectiveness Benchmark (2x2 Factorial)}
-Table~\ref{tab:main_retrieval_benchmark} presents the complete $2\times 2$ factorial evaluation. Across the primary Re-ranking tier, Line With-Header achieves NDCG@10 of 0.499 [0.450, 0.543], followed by Line No-Header at 0.470 [0.414, 0.524], AST With-Header at 0.457 [0.405, 0.509], and AST No-Header at 0.345 [0.299, 0.390]. 
+Table~\ref{tab:main_retrieval_benchmark} presents the complete $2\times 2$ factorial evaluation. Across the primary Re-ranking tier, Line With-Header achieves NDCG@10 of 0.621 [0.569, 0.672], followed by Line No-Header at 0.580 [0.523, 0.636], AST With-Header at 0.487 [0.428, 0.545], and AST No-Header at 0.341 [0.283, 0.398]. 
 
 \input{tables/table_T3.tex}
 
@@ -88,7 +88,7 @@ Table~\ref{tab:main_retrieval_benchmark} presents the complete $2\times 2$ facto
 \label{fig:interaction_plot}
 \end{figure}
 
-Figure~\ref{fig:ndcg_bar} illustrates the re-ranking performance with 95\% bootstrap confidence intervals. Figure~\ref{fig:interaction_plot} demonstrates the pronounced interaction effect: while context headers yield a modest non-significant improvement on line chunks ($\Delta = +0.029$), they recover $+0.112$ NDCG@10 on AST chunks ($p_{\mathrm{Holm}} = 0.0031$).
+Figure~\ref{fig:ndcg_bar} illustrates the re-ranking performance with 95\% bootstrap confidence intervals. Figure~\ref{fig:interaction_plot} demonstrates the pronounced interaction effect: while context headers yield a modest non-significant improvement on line chunks ($\Delta = +0.041$), they recover $+0.146$ NDCG@10 on AST chunks ($p_{\mathrm{Holm}} = 0.0001$).
 
 \FloatBarrier
 \section{Hypothesis Testing and Paired Comparisons}
@@ -104,36 +104,36 @@ Table~\ref{tab:statistical_hypothesis_tests} presents the non-parametric Wilcoxo
 \end{figure}
 
 \begin{itemize}
-    \item \textbf{Comp 1 (Full Proposed vs. Baseline):} The overall difference between AST+Header and Line No-Header is $\Delta = -0.0138$ (95\% CI $[-0.088, 0.058]$, $p_{\mathrm{raw}} = 0.8532$, $p_{\mathrm{Holm}} = 0.8532$). The pre-registered primary hypothesis is \textbf{not supported}.
-    \item \textbf{Comp 2 (Pure Chunking):} In the absence of context headers, AST chunking underperforms Line chunking by $\Delta = -0.1258$ ($p_{\mathrm{Holm}} = 0.0001$).
-    \item \textbf{Comp 3 (Header on AST):} Adding structural context headers to AST chunks produces a large, statistically significant gain of $\Delta = +0.1120$ ($p_{\mathrm{Holm}} = 0.0031$).
-    \item \textbf{Comp 4 (Header on Line):} Context headers produce a minor, non-significant change on Line chunks ($\Delta = +0.0291$, $p_{\mathrm{Holm}} = 0.7332$).
-    \item \textbf{Comp 5 (Exploratory Contrast):} Line With-Header achieves an edge of $+0.0428$ over AST With-Header ($p_{\mathrm{raw}} = 0.1355$, 95\% CI $[-0.106, 0.021]$), which does not reach statistical significance.
+    \item \textbf{Comp 1 (Full Proposed vs. Baseline):} The overall difference between AST+Header and Line No-Header is $\Delta = -0.0930$ (95\% CI $[-0.164, -0.023]$, $p_{\mathrm{raw}} = 0.0219$, $p_{\mathrm{Holm}} = 0.0438$). The pre-registered primary comparison is statistically significant, favoring Line No-Header over AST+Header.
+    \item \textbf{Comp 2 (Pure Chunking):} In the absence of context headers, AST chunking underperforms Line chunking by $\Delta = -0.2390$ ($p_{\mathrm{Holm}} < 0.001$).
+    \item \textbf{Comp 3 (Header on AST):} Adding structural context headers to AST chunks produces a large, statistically significant gain of $\Delta = +0.1459$ ($p_{\mathrm{Holm}} = 0.0001$).
+    \item \textbf{Comp 4 (Header on Line):} Context headers produce a minor, non-significant change on Line chunks ($\Delta = +0.0409$, $p_{\mathrm{Holm}} = 0.2411$).
+    \item \textbf{Comp 5 (Exploratory Contrast):} Line With-Header achieves an edge of $+0.1339$ over AST With-Header ($p_{\mathrm{raw}} = 0.0003$, 95\% CI $[-0.199, -0.070]$), which is statistically significant.
 \end{itemize}
 
-Figure~\ref{fig:strip_plot} displays the per-query paired differences for Comp 3 (19 wins, 6 losses) and Comp 5 (6 wins, 18 losses, 1 tie).
+Figure~\ref{fig:strip_plot} displays the per-query paired differences for Comp 3 (23 wins, 2 losses) and Comp 5 (5 wins, 20 losses, 0 ties).
 
 \FloatBarrier
 \section{Subgroup Stratification and Sensitivity Analyses}
-Table~\ref{tab:language_stratification} stratifies performance across Java ($N=15$) and React/TypeScript ($N=10$). In Java, AST+Header closely tracks Line+Header (0.5146 vs. 0.5358, $\Delta = -0.021$). In React/TypeScript, the gap widens to $\Delta = -0.075$ (0.3694 vs. 0.4448), driven by high line-fallback rates in React files.
+Table~\ref{tab:language_stratification} stratifies performance across Java ($N=15$) and React/TypeScript ($N=10$). In Java, AST+Header reaches 0.5830 vs. 0.7158 for Line+Header ($\Delta = -0.133$). In React/TypeScript, AST+Header reaches 0.3420 vs. 0.4777 for Line+Header ($\Delta = -0.136$).
 
 \input{tables/table_T5.tex}
 
-Table~\ref{tab:fallback_composition} tracks the composition of retrieved top-10 items. For AST No-Header, line-fallback chunks comprise 70.0\% of top-10 results. Context headers increase pure AST retrieval to 54.0\% at the re-ranking tier.
+Table~\ref{tab:fallback_composition} tracks the composition of retrieved top-10 items. Following the AST parser upgrade, 0 (0.0\%) fallback chunks appear in the top-10 across all tiers.
 
 \input{tables/table_T6.tex}
 
-Table~\ref{tab:qrel_sensitivity} presents sensitivity audits. When removing all 122 disputed items (Panel A: Consensus Only), the AST header effect attenuates to $\Delta = +0.075$ and is \textbf{statistically non-significant} ($p = 0.0851$). Under judged-only evaluation (Panel C), Comp 1 remains non-significant ($\Delta = -0.043$, $p = 0.3666$).
+Table~\ref{tab:qrel_sensitivity} presents sensitivity audits. When removing all 17 disputed items (Panel A: Consensus Only, $N=865$), the AST header effect remains large and significant ($\Delta = +0.1528$, $p < 0.001$). Under judged-only evaluation (Panel C), Line+Header achieves 0.7243 vs. 0.5774 for AST+Header.
 
 \input{tables/table_T7.tex}
 
 \FloatBarrier
 \section{Candidate Pool Audit and Dataset Provenance}
-Table~\ref{tab:candidate_pool_coverage} provides a complete coverage audit. Top-3 judgment coverage was 100.0\% across all Dense and Re-ranking configurations, while BM25 suffered unjudged rates of 65.3\%--81.3\% in top-3.
+Table~\ref{tab:candidate_pool_coverage} provides a complete coverage audit. Top-3 and Top-5 judgment coverage was 100.0\% across all 12 configurations.
 
 \input{tables/table_T8.tex}
 
-Table~\ref{tab:pool_reconciliation_adjudication} details pool deduplication (Panel A) and adjudication decisions (Panel B). Exactly 33 coordinate duplicates collapsed during deduplication. Adjudication resolved 122 disagreements into 73 agreements with Annotator 1, 47 with Annotator 2, and 2 independent resolutions.
+Table~\ref{tab:pool_reconciliation_adjudication} details pool deduplication (Panel A) and adjudication decisions (Panel B). 1500 raw Top-5 instances collapsed into 882 unique candidate spans. Adjudication resolved 17 disagreements into 13 agreements with Annotator 1, 4 with Annotator 2, and 0 independent resolutions.
 
 \input{tables/table_T9.tex}
 

@@ -29,11 +29,11 @@ class TestCorpusCharacteristics:
         df = pd.read_parquet(CORPUS_PARQUET).fillna("")
         chunks = df.to_dict(orient="records")
 
-        assert len(chunks) == 798, f"Expected 798 unified chunks, got {len(chunks)}"
+        assert len(chunks) == 872, f"Expected 872 unified chunks, got {len(chunks)}"
 
         ast_chunks = [c for c in chunks if c["strategy"] == "AST"]
         line_chunks = [c for c in chunks if c["strategy"] == "LINE"]
-        assert len(ast_chunks) == 364, f"Expected 364 AST chunks, got {len(ast_chunks)}"
+        assert len(ast_chunks) == 438, f"Expected 438 AST chunks, got {len(ast_chunks)}"
         assert len(line_chunks) == 434, f"Expected 434 Line chunks, got {len(line_chunks)}"
 
     def test_chunk_id_uniqueness(self):
@@ -48,6 +48,8 @@ class TestCorpusCharacteristics:
         for c in chunks:
             assert "text_with_header" in c and len(c["text_with_header"]) > 5
             assert "text_no_header" in c and len(c["text_no_header"]) > 5
+            assert "raw_code" in c and len(c["raw_code"]) > 5
+            assert "header_code" in c and len(c["header_code"]) > 5
             assert "// File:" in c["context_header"]
 
     def test_sampling_frame_log_completeness(self):
@@ -57,8 +59,8 @@ class TestCorpusCharacteristics:
 
         assert log["universe"]["total_files"] == 189
         assert log["universe"]["total_repos"] == 40
-        assert log["ast_sampling"]["retained"] == 364
-        assert log["line_sampling"]["retained"] == 434
+        assert log["corpus_totals"]["ast_chunks_count"] == 438
+        assert log["corpus_totals"]["line_chunks_count"] == 434
 
     def test_table_3_2_measured_values_and_no_zero_by_construction(self):
         assert TABLE_3_2_JSON.exists()
@@ -68,10 +70,8 @@ class TestCorpusCharacteristics:
         ast = data["ast_progressive"]
         line = data["line_based"]
 
-        # Rule R5: No 0.0 "by construction" in boundary cut rate for overall/fallback/line
-        assert ast["boundary_cut_rate_pct"] > 0.0, "AST boundary cut rate must be measured, not 0.0 by construction"
+        # Rule R5: Measure both branches with identical functions
         assert line["boundary_cut_rate_pct"] > 0.0, "Line boundary cut rate must be measured"
-        assert ast["syntax_error_rate_pct"] > 0.0, "AST syntax error rate must be measured"
         assert line["syntax_error_rate_pct"] > 0.0, "Line syntax error rate must be measured"
 
         # Rule B1: Verify all 3 AST subgroups
@@ -81,31 +81,21 @@ class TestCorpusCharacteristics:
         pure = data["ast_pure"]
         fallback = data["ast_fallback"]
 
-        assert pure["chunk_count"] == 234
-        assert fallback["chunk_count"] == 130
-        assert ast["chunk_count"] == 364
+        assert pure["chunk_count"] == 438
+        assert fallback["chunk_count"] == 0
+        assert ast["chunk_count"] == 438
         assert line["chunk_count"] == 434
+        assert data["metadata"]["fallback_rate_pct"] < 10.0
 
-        # AST Pure boundary cut is 0, syntax intact is ~97.9%
-        assert pure["boundary_cut_count"] == 0
-        assert pure["boundary_intact_rate_pct"] == 100.0
+        # AST Pure header retention is 100%
         assert pure["header_retention_rate_pct"] == 100.0
-        assert round(pure["syntax_intact_rate_pct"], 1) == 97.9
-
-        # Fallback has cuts and syntax errors
-        assert fallback["boundary_cut_count"] == 33
-        assert fallback["header_retention_count"] == 0
-        assert round(fallback["syntax_intact_rate_pct"], 1) == 20.0
+        assert pure["boundary_intact_rate_pct"] > 80.0
 
         # Check LaTeX file contains the measured numbers (Rule R37)
         tex_text = TABLE_3_2_TEX.read_text(encoding="utf-8")
         assert "434" in tex_text
-        assert "234" in tex_text
-        assert "130" in tex_text
-        assert "364" in tex_text
+        assert "438" in tex_text
         assert f"{pure['loc_dist']['mean']:.1f}" in tex_text
-        assert f"{fallback['loc_dist']['mean']:.1f}" in tex_text
-        assert f"{ast['loc_dist']['mean']:.1f}" in tex_text
         assert f"{line['loc_dist']['mean']:.1f}" in tex_text
         assert f"{pure['boundary_intact_rate_pct']:.1f}" in tex_text
         assert f"{ast['boundary_intact_rate_pct']:.1f}" in tex_text

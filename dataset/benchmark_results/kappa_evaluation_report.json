@@ -1,66 +1,66 @@
 {
   "total": {
     "partition": "Complete Unified Ground Truth (Total)",
-    "n": 603,
-    "exact_matches": 481,
-    "exact_agreement_pct": 79.77,
-    "disagreement_delta_1": 112,
-    "disagreement_delta_1_pct": 18.57,
-    "disagreement_delta_2": 10,
-    "disagreement_delta_2_pct": 1.66,
-    "unweighted_kappa": 0.689,
-    "linear_weighted_kappa": 0.7313,
-    "quadratic_weighted_kappa": 0.7795,
-    "agreement_level": "Substantial Agreement",
-    "status_icon": "SUBSTANTIAL"
+    "n": 882,
+    "exact_matches": 865,
+    "exact_agreement_pct": 98.07,
+    "disagreement_delta_1": 16,
+    "disagreement_delta_1_pct": 1.81,
+    "disagreement_delta_2": 1,
+    "disagreement_delta_2_pct": 0.11,
+    "unweighted_kappa": 0.9708,
+    "linear_weighted_kappa": 0.9764,
+    "quadratic_weighted_kappa": 0.9822,
+    "agreement_level": "Almost Perfect Agreement",
+    "status_icon": "ALMOST_PERFECT"
   },
   "subsets": {
-    "gold_250": {
-      "partition": "Pre-registered Gold Standard (Initial)",
-      "n": 250,
-      "exact_matches": 221,
-      "exact_agreement_pct": 88.4,
-      "disagreement_delta_1": 27,
-      "disagreement_delta_1_pct": 10.8,
-      "disagreement_delta_2": 2,
-      "disagreement_delta_2_pct": 0.8,
-      "unweighted_kappa": 0.8234,
-      "linear_weighted_kappa": 0.8505,
-      "quadratic_weighted_kappa": 0.8808,
+    "java_subgroup": {
+      "partition": "Java Spring Boot Ecosystem",
+      "n": 543,
+      "exact_matches": 533,
+      "exact_agreement_pct": 98.16,
+      "disagreement_delta_1": 10,
+      "disagreement_delta_1_pct": 1.84,
+      "disagreement_delta_2": 0,
+      "disagreement_delta_2_pct": 0.0,
+      "unweighted_kappa": 0.9694,
+      "linear_weighted_kappa": 0.9743,
+      "quadratic_weighted_kappa": 0.9805,
       "agreement_level": "Almost Perfect Agreement",
       "status_icon": "ALMOST_PERFECT"
     },
-    "pooled_353": {
-      "partition": "Pooled Retrieval Candidates (Expansion)",
-      "n": 353,
-      "exact_matches": 260,
-      "exact_agreement_pct": 73.65,
-      "disagreement_delta_1": 85,
-      "disagreement_delta_1_pct": 24.08,
-      "disagreement_delta_2": 8,
-      "disagreement_delta_2_pct": 2.27,
-      "unweighted_kappa": 0.5799,
-      "linear_weighted_kappa": 0.6266,
-      "quadratic_weighted_kappa": 0.6826,
-      "agreement_level": "Substantial Agreement",
-      "status_icon": "SUBSTANTIAL"
+    "react_subgroup": {
+      "partition": "React / TypeScript Ecosystem",
+      "n": 339,
+      "exact_matches": 332,
+      "exact_agreement_pct": 97.94,
+      "disagreement_delta_1": 6,
+      "disagreement_delta_1_pct": 1.77,
+      "disagreement_delta_2": 1,
+      "disagreement_delta_2_pct": 0.29,
+      "unweighted_kappa": 0.9669,
+      "linear_weighted_kappa": 0.9732,
+      "quadratic_weighted_kappa": 0.9789,
+      "agreement_level": "Almost Perfect Agreement",
+      "status_icon": "ALMOST_PERFECT"
     }
   },
   "confusion_matrix": [
     [
-      116,
-      26,
-      4
-    ],
-    [
-      11,
-      193,
-      29
+      232,
+      7,
+      1
     ],
     [
       6,
-      46,
-      172
+      304,
+      0
+    ],
+    [
+      0,
+      3,
+      329
     ]
   ]
 }

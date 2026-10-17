@@ -141,17 +141,26 @@ def main():
 
     # Merge on pair_id
     if 'pair_id' in df_a1.columns and 'pair_id' in df_a2.columns and path_a1 != path_a2:
-        merged = pd.merge(df_a1[['pair_id', col_a1]], df_a2[['pair_id', col_a2]], on='pair_id', suffixes=('_a1', '_a2'))
+        cols_to_merge_a1 = ['pair_id', col_a1]
+        for extra_col in ['jd_id', 'query_id']:
+            if extra_col in df_a1.columns:
+                cols_to_merge_a1.append(extra_col)
+                break
+        merged = pd.merge(df_a1[cols_to_merge_a1], df_a2[['pair_id', col_a2]], on='pair_id', suffixes=('_a1', '_a2'))
         y_a1 = merged[f"{col_a1}_a1"].values
         y_a2 = merged[f"{col_a2}_a2"].values
+        q_ids = merged['jd_id'].values if 'jd_id' in merged.columns else (merged['query_id'].values if 'query_id' in merged.columns else None)
     else:
         y_a1 = df_a1[col_a1].values
         y_a2 = df_a1[col_a2].values
+        q_ids = df_a1['jd_id'].values if 'jd_id' in df_a1.columns else (df_a1['query_id'].values if 'query_id' in df_a1.columns else None)
 
     # Clean valid integer labels (0, 1, 2)
     valid_mask = pd.notna(y_a1) & pd.notna(y_a2)
     y_a1 = y_a1[valid_mask].astype(int)
     y_a2 = y_a2[valid_mask].astype(int)
+    if q_ids is not None:
+        q_ids = q_ids[valid_mask]
 
     n_pairs = len(y_a1)
     labels = [0, 1, 2]
@@ -186,9 +195,12 @@ def main():
     total_stats = compute_partition_stats(y_a1, y_a2, "Complete Unified Ground Truth (Total)")
 
     subsets = {}
-    if n_pairs == 603:
-        subsets["gold_250"] = compute_partition_stats(y_a1[:250], y_a2[:250], "Pre-registered Gold Standard (Initial)")
-        subsets["pooled_353"] = compute_partition_stats(y_a1[250:], y_a2[250:], "Pooled Retrieval Candidates (Expansion)")
+    if q_ids is not None:
+        java_mask = np.array([str(qid).startswith("JD_JAVA") for qid in q_ids])
+        react_mask = np.array([str(qid).startswith("JD_REACT") for qid in q_ids])
+        if np.sum(java_mask) > 0 and np.sum(react_mask) > 0:
+            subsets["java_subgroup"] = compute_partition_stats(y_a1[java_mask], y_a2[java_mask], "Java Spring Boot Ecosystem")
+            subsets["react_subgroup"] = compute_partition_stats(y_a1[react_mask], y_a2[react_mask], "React / TypeScript Ecosystem")
 
     cm = confusion_matrix(y_a1, y_a2, labels=labels)
 
@@ -216,10 +228,8 @@ def main():
         log("   " + "-" * 75)
         log(f"   {'Partition':<35} | {'N':^5} | {'Exact (%)':^12} | {'kappa_w':^8} | {'Landis & Koch':^15}")
         log("   " + "-" * 75)
-        g = subsets["gold_250"]
-        p = subsets["pooled_353"]
-        log(f"   {g['partition']:<35} | {g['n']:^5} | {g['exact_matches']} ({g['exact_agreement_pct']:.1f}%) | {g['quadratic_weighted_kappa']:.4f} | {g['agreement_level']:<15}")
-        log(f"   {p['partition']:<35} | {p['n']:^5} | {p['exact_matches']} ({p['exact_agreement_pct']:.1f}%) | {p['quadratic_weighted_kappa']:.4f} | {p['agreement_level']:<15}")
+        for k, sub in subsets.items():
+            log(f"   {sub['partition']:<35} | {sub['n']:^5} | {sub['exact_matches']} ({sub['exact_agreement_pct']:.1f}%) | {sub['quadratic_weighted_kappa']:.4f} | {sub['agreement_level']:<15}")
         log(f"   {total_stats['partition']:<35} | {total_stats['n']:^5} | {total_stats['exact_matches']} ({total_stats['exact_agreement_pct']:.1f}%) | {total_stats['quadratic_weighted_kappa']:.4f} | {total_stats['agreement_level']:<15}")
         log("   " + "-" * 75)
 

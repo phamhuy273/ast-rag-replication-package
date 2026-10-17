@@ -199,6 +199,24 @@ def main():
                 has_context_header += 1
 
         n = len(branch_chunks)
+        if n == 0:
+            empty_dist = {"mean": 0.0, "std": 0.0, "median": 0.0, "min": 0.0, "max": 0.0, "p25": 0.0, "p75": 0.0, "p90": 0.0}
+            return {
+                "chunk_count": 0,
+                "loc_dist": empty_dist,
+                "tokens_content_dist": empty_dist,
+                "tokens_with_header_dist": empty_dist,
+                "syntax_error_count": 0,
+                "syntax_error_rate_pct": 0.0,
+                "syntax_intact_rate_pct": 100.0,
+                "boundary_cut_count": 0,
+                "boundary_cut_rate_pct": 0.0,
+                "boundary_intact_rate_pct": 100.0,
+                "header_retention_count": 0,
+                "header_retention_rate_pct": 0.0,
+                "truncated_512_count": 0,
+                "truncated_512_rate_pct": 0.0
+            }
         return {
             "chunk_count": n,
             "loc_dist": compute_distribution(locs),

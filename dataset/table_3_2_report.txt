@@ -1,19 +1,19 @@
 =============================================================================================================
 TABLE 3.2: CORPUS CHARACTERISTICS & QUANTITATIVE CHUNKING COMPARISON (MEASURED)
 Governed by Rule R5 (Zero Hardcoding; Measured via identical AST & Tokenizer functions)
-Disaggregated by AST Subgroups: Pure (N=234), Fallback (N=130), Combined (N=364)
+Disaggregated by AST Subgroups: Pure (N=438), Fallback (N=0), Combined (N=438)
 Tokenizer: BAAI/bge-m3 | Max Seq Length: 512
 Universe: 40 GitHub Repositories / 189 Source Files
 =============================================================================================================
 
 Metric / Characteristic              | Line (50 LOC)          | AST Pure (Ours)        | AST Fallback           | AST Combined
 ---------------------------------------------------------------------------------------------------------------------------------------------
-Total Chunks Extracted               | 434                    | 234                    | 130                    | 364                   
-Mean Chunk Size (LOC)                | 41.0 (std 13.1, med 50) | 19.8 (std 16.7, med 13) | 42.9 (std 13.0, med 50) | 28.1 (std 19.0, med 24)
-Mean Tokens (Content Only)           | 390.8 (med  388)       | 211.3 (med  158)       | 367.0 (med  372)       | 266.9 (med  222)
-Mean Tokens (With Header)            | 419.5 (med  420)       | 254.5 (med  202)       | 394.5 (med  400)       | 304.5 (med  260)
-Boundary Preservation (Intact)       |  44.0% (243/434 cuts)   | 100.0% (  0/234 cuts)   |  74.6% ( 33/130 cuts)   |  90.9% ( 33/364 cuts)
-Parse Error Free Rate (Valid)        |  22.4% (337/434 errs)   |  97.9% (  5/234 errs)   |  20.0% (104/130 errs)   |  70.1% (109/364 errs)
-Context Header Retention             |   0.0% (No header)            | 100.0% (234/234)          |   0.0% (  0/130)          |  64.3% (234/364)
-Truncation Rate (> 512 Tokens)       |  28.6% (124 chunks)        |   6.0% ( 14 chunks)        |  20.0% ( 26 chunks)        |  11.0% ( 40 chunks)
+Total Chunks Extracted               | 434                    | 438                    | 0                      | 438                   
+Mean Chunk Size (LOC)                | 41.0 (std 13.1, med 50) | 26.7 (std 23.3, med 16) |  0.0 (std  0.0, med  0) | 26.7 (std 23.3, med 16)
+Mean Tokens (Content Only)           | 390.8 (med  388)       | 250.9 (med  172)       |   0.0 (med    0)       | 250.9 (med  172)
+Mean Tokens (With Header)            | 419.5 (med  420)       | 290.2 (med  213)       |   0.0 (med    0)       | 290.2 (med  213)
+Boundary Preservation (Intact)       |  44.0% (243/434 cuts)   |  87.2% ( 56/438 cuts)   | 100.0% (  0/  0 cuts)   |  87.2% ( 56/438 cuts)
+Parse Error Free Rate (Valid)        |  22.4% (337/434 errs)   |  78.1% ( 96/438 errs)   | 100.0% (  0/  0 errs)   |  78.1% ( 96/438 errs)
+Context Header Retention             |   0.0% (No header)            | 100.0% (438/438)          |   0.0% (  0/  0)          | 100.0% (438/438)
+Truncation Rate (> 512 Tokens)       |  28.6% (124 chunks)        |  15.8% ( 69 chunks)        |   0.0% (  0 chunks)        |  15.8% ( 69 chunks)
 ---------------------------------------------------------------------------------------------------------------------------------------------

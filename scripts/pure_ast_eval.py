@@ -44,18 +44,24 @@ def main():
     ap.add_argument("--key", default=None); ap.add_argument("--outdir", default=None)
     ap.add_argument("--allow-unjudged", action="store_true"); ap.add_argument("--boot", type=int, default=10000)
     a = ap.parse_args(); root = Path(a.root); base = Path(a.outdir) if a.outdir else root / "dataset/pure_ast"
-    rundir = Path(a.rundir) if a.rundir else base / "runs"
-    lab_path = Path(a.labels) if a.labels else base / "to_label_pure_ast.csv"; key_path = Path(a.key) if a.key else base / "pool_key_pure_ast.csv"
-    res_dir = base / "results"; res_dir.mkdir(parents=True, exist_ok=True)
+    rundir = Path(a.rundir) if a.rundir else (base / "runs" if (base / "runs").exists() else root / "dataset/retrieval_runs")
+    lab_path = Path(a.labels) if a.labels else base / "to_label_pure_ast.csv"
+    key_path = Path(a.key) if a.key else base / "pool_key_pure_ast.csv"
+    res_dir = base / "results" if a.outdir else root / "dataset/benchmark_results/pure_ast"
+    res_dir.mkdir(parents=True, exist_ok=True)
 
     gt_df = pd.read_csv(root / "dataset/ground_truth_final.csv")
     gt = {K(r.jd_id, r.repo_name, r.file_path, r.start_line, r.end_line): int(r.ground_truth_label) for r in gt_df.itertuples()}
-    n_old = len(gt); new = pd.read_csv(lab_path, dtype=str); keys = pd.read_csv(key_path, dtype=str).set_index("item_id")
-    for r in new.itertuples():
-        k = keys.loc[r.item_id]; kk = K(k.jd_id, k.repo_name, k.file_path, k.start_line, k.end_line); lbl = final_label(r)
-        if kk in gt and gt[kk] != lbl: sys.exit(f"conflict with an existing label at {kk}")
-        gt[kk] = lbl
-    print(f"labels: {n_old} existing + {len(gt) - n_old} new = {len(gt)}")
+    n_old = len(gt)
+    if lab_path.exists() and key_path.exists():
+        new = pd.read_csv(lab_path, dtype=str); keys = pd.read_csv(key_path, dtype=str).set_index("item_id")
+        for r in new.itertuples():
+            k = keys.loc[r.item_id]; kk = K(k.jd_id, k.repo_name, k.file_path, k.start_line, k.end_line); lbl = final_label(r)
+            if kk in gt and gt[kk] != lbl: sys.exit(f"conflict with an existing label at {kk}")
+            gt[kk] = lbl
+        print(f"labels: {n_old} existing + {len(gt) - n_old} new = {len(gt)}")
+    else:
+        print(f"Using unified ground truth: {n_old} pairs")
 
     corpus = pd.read_parquet(root / "dataset/chunk_corpus.parquet")
     pure = corpus[(corpus.strategy == "AST") & (corpus.chunk_type != "LINE_FALLBACK")]
@@ -63,7 +69,20 @@ def main():
     line = corpus[corpus.strategy == "LINE"]; same = line[[(r, f) in F for r, f in zip(line.repo_name, line.file_path)]]
     coords = {"pure_ast": {(r.repo_name, r.file_path, int(r.start_line), int(r.end_line)) for r in pure.itertuples()},
               "line_same": {(r.repo_name, r.file_path, int(r.start_line), int(r.end_line)) for r in same.itertuples()}}
-    jds = sorted(json.load(open(rundir / "dense_pure_ast_with_header.json")))
+    
+    # Resolve run files mapping
+    def get_run(tier, arm, h):
+        p1 = rundir / f"{tier}_{arm}_{h}.json"
+        if p1.exists():
+            return json.load(open(p1, encoding="utf-8"))
+        arm_alias = "ast" if "ast" in arm else "line"
+        p2 = rundir / f"{tier}_{arm_alias}_{h}.json"
+        if p2.exists():
+            return json.load(open(p2, encoding="utf-8"))
+        raise FileNotFoundError(f"Missing run file for {tier}_{arm}_{h} at {p1} or {p2}")
+
+    sample_run = get_run("dense", "pure_ast", "with_header")
+    jds = sorted(sample_run.keys())
 
     def qrels(jd, mode, arm):
         out = {}
@@ -77,7 +96,7 @@ def main():
     for tier in ("dense", "rerank"):
         for arm in ARMS:
             for h in HDR:
-                name = f"{tier}_{arm}_{h}"; run = json.load(open(rundir / f"{name}.json"))
+                name = f"{tier}_{arm}_{h}"; run = get_run(tier, arm, h)
                 for mode in ("shared", "arm"):
                     for jd in jds:
                         q = qrels(jd, mode, arm); ideal = sorted([v for v in q.values() if v > 0], reverse=True)

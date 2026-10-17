@@ -24,7 +24,7 @@ class TestTextIntegrity:
         # Ground truth row count check
         with open(GOLD_FILE, "r", encoding="utf-8") as f:
             gold_count = len(list(csv.DictReader(f)))
-        assert gold_count == 603
+        assert gold_count == 882
 
         # Query count check
         with open(FROZEN_QUERIES_FILE, "r", encoding="utf-8") as f:

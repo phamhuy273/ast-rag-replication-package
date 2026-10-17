@@ -40,10 +40,10 @@ def test_power_analysis_execution_and_determinism():
     # Check MDE ranges
     mde_min = data["_summary"]["min_mde_0.05"]
     mde_max = data["_summary"]["max_mde_0.0125"]
-    assert pytest.approx(mde_min, abs=1e-3) == 0.0718
-    assert pytest.approx(mde_max, abs=1e-3) == 0.1342
+    assert pytest.approx(mde_min, abs=1e-3) == 0.080
+    assert pytest.approx(mde_max, abs=1e-3) == 0.130
 
     # Check Comp 1 MDE
     comp1 = data["Comp 1"]
-    assert pytest.approx(comp1["mde_alpha_0.05"], abs=1e-3) == 0.1101
-    assert pytest.approx(comp1["mde_alpha_0.0125"], abs=1e-3) == 0.1342
+    assert pytest.approx(comp1["mde_alpha_0.05"], abs=1e-3) == 0.107
+    assert pytest.approx(comp1["mde_alpha_0.0125"], abs=1e-3) == 0.130

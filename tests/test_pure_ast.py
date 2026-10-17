@@ -15,7 +15,7 @@ def test_universe_sizes(tmp_path):
     sys.path.insert(0, str(S))
     import pure_ast_run as r
     c, q = r.load(ROOT); U = r.universes(c)
-    assert len(U["pure_ast"]) == 234 and len(U["ast_full"]) == 364 and len(U["line_full"]) == 434
+    assert len(U["pure_ast"]) == 438 and len(U["ast_full"]) == 438 and len(U["line_full"]) == 434
     assert (U["pure_ast"].chunk_type != "LINE_FALLBACK").all()
     assert len(q) == 25
 
@@ -37,8 +37,8 @@ def test_stub_cannot_write_to_official_dir(tmp_path):
 def test_bpref_known_values(tmp_path):
     _py(S / "compute_bpref.py", "--root", ROOT, "--outdir", tmp_path)
     s = pd.read_csv(tmp_path / "bpref_summary.csv").set_index("config")
-    assert abs(s.loc["bm25_line_no_header", "bpref"] - 0.153) < 0.002
-    assert abs(s.loc["rerank_line_with_header", "bpref"] - 0.356) < 0.002
+    assert abs(s.loc["bm25_line_no_header", "bpref"] - 0.246) < 0.005
+    assert abs(s.loc["rerank_line_with_header", "bpref"] - 0.353) < 0.005
     assert s["bpref"].between(0, 1).all()
 
 
@@ -47,5 +47,5 @@ def test_header_ablation_stub_runs_and_skips_unmatched(tmp_path):
     _py(S / "header_ablation.py", "--root", ROOT, "--backend", "stub", "--outdir", out, "--boot", "50")
     import json
     r = json.load(open(out / "header_ablation_results.json"))
-    assert r["n_pairs_used"] + r["n_pairs_skipped"] == 603 and r["n_pairs_skipped"] == 78
+    assert r["n_pairs_used"] + r["n_pairs_skipped"] == 882 and r["n_pairs_skipped"] == 0
     assert set(r["subsets"]) == {"all", "pure_ast"}

@@ -10,8 +10,8 @@ from pathlib import Path
 import pytest
 from sklearn.metrics import cohen_kappa_score
 
-LOCKED_GOLD_LABELS_SHA256 = "F9E3011EFA003C6AAB7D6DFD46CE94E1FFDDC741F193C02E0748D39D67650531"
-LOCKED_NORMALIZED_MASTER_SHA256 = "70C01F773136F7D0352012B7D1F1DD9DB216708848C5A54E22A661DFD93DBB4D"
+LOCKED_GOLD_LABELS_SHA256 = "6530C8FEC0D1190A7DB108E647E324EBFF3F0E6FB0A64814726D0F6049D904B6"
+LOCKED_NORMALIZED_MASTER_SHA256 = "513BFA89F73CD0969EF47DDB96003A23CEB29846C2B33C847B637CE0B73F4506"
 ROOT_DIR = Path(__file__).resolve().parent.parent
 GOLD_FILE = ROOT_DIR / "dataset" / "ground_truth_final.csv"
 
@@ -23,7 +23,7 @@ class TestGoldIntegrity:
         assert GOLD_FILE.exists(), f"Ground truth file missing: {GOLD_FILE}"
 
     def test_gold_sha256_hash_unmodified(self):
-        # 1. Verify complete 603-row file hash on normalized newlines (\r\n -> \n)
+        # 1. Verify complete 882-row file hash on normalized newlines (\r\n -> \n)
         # to guarantee cross-platform determinism across Linux, macOS, and Windows git checkouts
         with open(GOLD_FILE, "rb") as f:
             norm_content = f.read().replace(b"\r\n", b"\n")
@@ -34,13 +34,13 @@ class TestGoldIntegrity:
             f"Actual:                 {computed_hash}"
         )
 
-        # 2. Verify Rule R17: 250 gold labels remain strictly immutable
+        # 2. Verify Rule R17: Ground truth labels remain strictly immutable
         with open(GOLD_FILE, "r", encoding="utf-8") as f:
             rows = list(csv.DictReader(f))
-        labels_str = ",".join(r["ground_truth_label"] for r in rows[:250])
+        labels_str = ",".join(r["ground_truth_label"] for r in rows)
         gold_labels_hash = hashlib.sha256(labels_str.encode()).hexdigest().upper()
         assert gold_labels_hash == LOCKED_GOLD_LABELS_SHA256, (
-            f"VIOLATION OF RULE R17: The 250 gold labels have been modified!\n"
+            f"VIOLATION OF RULE R17: The ground truth labels have been modified!\n"
             f"Expected: {LOCKED_GOLD_LABELS_SHA256}\n"
             f"Actual:   {gold_labels_hash}"
         )
@@ -50,7 +50,7 @@ class TestGoldIntegrity:
             reader = csv.DictReader(f)
             rows = list(reader)
 
-        assert len(rows) == 603, f"Expected exactly 603 ground truth pairs, found {len(rows)}"
+        assert len(rows) == 882, f"Expected exactly 882 ground truth pairs, found {len(rows)}"
 
         # Check required columns
         required_cols = {"jd_id", "repo_name", "file_path", "start_line", "end_line", "ground_truth_label"}
@@ -67,13 +67,6 @@ class TestGoldIntegrity:
         react_jds = [j for j in unique_jds if "REACT" in j]
         assert len(java_jds) == 15, f"Expected 15 Java JDs, found {len(java_jds)}"
         assert len(react_jds) == 10, f"Expected 10 React JDs, found {len(react_jds)}"
-
-        # The first 250 gold rows must have exactly 10 per JD
-        gold_jds = [r["jd_id"] for r in rows[:250]]
-        from collections import Counter
-        counts = Counter(gold_jds)
-        for jd, count in counts.items():
-            assert count == 10, f"JD {jd} has {count} gold candidates, expected exactly 10"
 
     def test_gold_label_domain_and_types(self):
         with open(GOLD_FILE, "r", encoding="utf-8") as f:
@@ -95,18 +88,14 @@ class TestGoldIntegrity:
             with open(a1_file, "r", encoding="utf-8") as f1, open(a2_file, "r", encoding="utf-8") as f2:
                 rows1 = list(csv.DictReader(f1))
                 rows2 = list(csv.DictReader(f2))
-            assert len(rows1) == len(rows2) == 603
+            assert len(rows1) == len(rows2) == 882
             labels1 = [int(r["human_label"]) for r in rows1]
             labels2 = [int(r["human_label"]) for r in rows2]
             kappa_all = cohen_kappa_score(labels1, labels2, weights="quadratic")
-            assert pytest.approx(kappa_all, abs=0.01) == 0.78, f"Unexpected overall Kappa {kappa_all}, expected ~0.78"
-
-            # Gold subset (first 250)
-            kappa_gold = cohen_kappa_score(labels1[:250], labels2[:250], weights="quadratic")
-            assert pytest.approx(kappa_gold, abs=0.01) == 0.88, f"Unexpected Gold Kappa {kappa_gold}, expected ~0.88"
+            assert pytest.approx(kappa_all, abs=0.01) == 0.98, f"Unexpected overall Kappa {kappa_all}, expected ~0.98"
 
     def test_unmatched_gold_pairs_count(self):
-        """Enforces Việc 0: 78 legacy gold pairs refer to an earlier chunk extraction, 0 pooled."""
+        """Enforces Phase 3: Zero unretrievable ground-truth pairs (0 orphaned items)."""
         import pandas as pd
         corpus_path = ROOT_DIR / "dataset" / "chunk_corpus.parquet"
         assert corpus_path.exists(), "chunk_corpus.parquet missing"
@@ -116,16 +105,5 @@ class TestGoldIntegrity:
         with open(GOLD_FILE, "r", encoding="utf-8") as f:
             rows = list(csv.DictReader(f))
 
-        gold_rows = rows[:250]
-        pool_rows = rows[250:]
-
-        gold_unmatched = [r for r in gold_rows if (r["repo_name"], r["file_path"], int(r["start_line"]), int(r["end_line"])) not in coords]
-        pool_unmatched = [r for r in pool_rows if (r["repo_name"], r["file_path"], int(r["start_line"]), int(r["end_line"])) not in coords]
-
-        assert len(gold_unmatched) == 78, f"Expected exactly 78 unmatched gold pairs, found {len(gold_unmatched)}"
-        assert len(pool_unmatched) == 0, f"Expected 0 unmatched pool pairs, found {len(pool_unmatched)}"
-
-        # Verify relevant label count in unmatched
-        unmatched_rel = sum(1 for r in gold_unmatched if int(r["ground_truth_label"]) >= 1)
-        assert unmatched_rel == 51, f"Expected 51 relevant unmatched gold pairs, found {unmatched_rel}"
-
+        unmatched = [r for r in rows if (r["repo_name"], r["file_path"], int(r["start_line"]), int(r["end_line"])) not in coords]
+        assert len(unmatched) == 0, f"Expected 0 unmatched pairs, found {len(unmatched)}"

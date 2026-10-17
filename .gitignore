@@ -22,6 +22,9 @@ Thumbs.db
 *.synctex.gz
 *.fls
 *.fdb_latexmk
+*.toc
+report/page_*.png
+dataset/cache_embeddings/
 
 # Reference literature papers
 *Ta*li*u NCKh*
