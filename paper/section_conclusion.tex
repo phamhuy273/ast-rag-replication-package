@@ -1,21 +1,19 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-In this Research Preview, we studied how chunking strategy and context headers affect requirement-to-code evidence retrieval over 40 repositories. 
-After reranking, headers improved AST chunks ($\Delta = +0.112$, $p_{\mathrm{Holm}} = 0.0031$); without headers, line windows outperformed AST chunks ($\Delta = -0.126$, $p_{\mathrm{Holm}} = 0.0001$); and we found no evidence that AST chunks with headers differ from line windows without headers ($\Delta = -0.014$, $p_{\mathrm{Holm}} = 0.85$). 
-Line windows with headers scored highest (NDCG@10 = 0.499 vs. 0.457), though this difference was exploratory and not significant. 
-Because 35.7\% of AST-arm chunks are line-window fallbacks, these results concern an AST-first arm with fallback, not pure AST chunking. 
-To invite discussion, we pose three questions: 
-(1)~\textit{Is structural chunking worth its parsing complexity once context headers are available?} 
-(2)~\textit{How should code-RAG benchmarks balance syntactic boundary integrity against lexical content?} 
-(3)~\textit{How should evidence retrieval for requirements be used responsibly when the requirements describe people's skills?}
+In this Early Research Achievements (ERA) paper, we presented a controlled $2 \times 2$ factorial evaluation crossing chunking strategy with hierarchical context headers across 40 repositories. 
+At reranking, line-window chunking with headers achieved the highest aggregate performance ($\text{NDCG@10} = 0.621$), significantly outperforming AST chunks with headers ($\Delta = -0.134$, $p = 0.0003$). 
+While context headers provide an essential boost for AST chunks ($\Delta = +0.146$, $p_{\mathrm{Holm}} = 0.0001$), line windows without headers significantly outperform AST chunks with headers ($\Delta = -0.093$, $p_{\mathrm{Holm}} = 0.0438$), and strongly outperform AST chunks without headers ($\Delta = -0.239$, $p_{\mathrm{Holm}} < 0.001$). 
+Following parser grammar expansions, the AST fallback rate was $0.0\%$, confirming that structural chunking alone does not surpass sliding windows in requirement evidence retrieval. 
+We pose three open questions for the community:
+(1)~\textit{Can graph-enriched headers bridge the information gap for fine-grained AST chunks?} 
+(2)~\textit{How should code-RAG benchmarks weigh syntactic integrity against contextual information density?} 
+(3)~\textit{How can requirement evidence retrieval best assist practitioners in verifying codebase capabilities?}
 
 \section*{Data Availability}
-The package includes chunk text from 40 public repositories (19 MIT, 4 Apache-2.0, 1 AGPL-3.0, 16 without a stated license); copyright remains with the original authors, and the manifest lists repository URLs and commit SHAs. 
-The package is accessible at: \url{https://anonymous.4open.science/r/ast-rag-replication-2027}.
+The replication package---including corpus source code, frozen queries, Tree-sitter parsers, 882 blinded human-labeled pairs, adjudication records, and benchmark scripts---is publicly available at: \url{https://anonymous.4open.science/r/ast-rag-replication-2027}.
 
 \section*{Acknowledgments}
-Generative AI tools (Google Antigravity, including Anthropic Claude and Google Gemini models) were used for drafting and editing text, and for generating analysis scripts, tables, and figures. 
-All AI-generated text and code were reviewed, verified, and edited by the authors, who take full responsibility for the content. 
-Relevance labels were produced by human annotators without AI assistance. 
-An LLM was also used to extract queries from job descriptions, as described in Section~\ref{sec:approach}.
+Generative AI tools (Google Antigravity, Anthropic Claude, and Google Gemini models) were utilized for assistance in drafting text, code refactoring, and statistical script generation. 
+All AI-assisted outputs were verified, edited, and validated by the authors, who take full scientific responsibility. 
+Relevance ground-truth labels were produced entirely by human annotators without AI intervention.

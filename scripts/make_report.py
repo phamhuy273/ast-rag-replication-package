@@ -945,7 +945,7 @@ def generate_paper_table_1(data: Dict[str, Any]) -> str:
         r"\caption{Retrieval effectiveness across 12 configurations ($N=25$ JDs).}",
         r"\label{tab:main}",
         r"\centering\scriptsize",
-        r"\setlength{\tabcolsep}{3pt}",
+        r"\setlength{\tabcolsep}{2.5pt}",
         r"\begin{threeparttable}",
         r"\begin{tabular}{@{}lllccccc@{}}",
         r"\toprule",

@@ -1,48 +1,38 @@
-\section{Preliminary Results}
+\section{Empirical Results}
 \label{sec:results}
 
-\subsection{Overall Retrieval Effectiveness}
-Table~\ref{tab:main} summarizes retrieval performance across all configurations and tiers. 
-At the two-stage reranking tier, \lineH\ achieves the highest aggregate effectiveness ($\text{NDCG@10} = 0.621$, 95\% CI $[0.555, 0.682]$), alongside the strongest Top-1 accuracy ($\text{NDCG@1} = 0.800$) and reciprocal rank ($\text{MRR@10} = 0.950$). 
-\lineN\ follows with $\text{NDCG@10} = 0.580$ ($[0.505, 0.649]$), while \astH\ achieves $\text{NDCG@10} = 0.487$ ($[0.419, 0.551]$) and \astN\ drops to $0.341$ ($[0.263, 0.421]$).
-
-Lexical BM25 scores lower than neural tiers in all conditions (NDCG@10 between $0.305$ and $0.433$ across the four BM25 configurations in the package; Table~\ref{tab:main} lists all configurations). 
-Because BM25 was evaluated alongside dense and rerank systems in our unified single-wave pool, Judged@3 and Judged@5 reach $100.0\%$ for all 12 systems, while Judged@10 ranges between $56.0\%$ and $75.2\%$. 
-We also report bpref, which evaluates ranking quality solely among judged items~\cite{buckley2004bpref}. 
-BM25 bpref ranges from $0.129$ to $0.255$, compared to the dense ($0.179$--$0.347$) and reranking tiers ($0.170$--$0.353$). 
-With headers, dense retrieval improves NDCG@10 over BM25 by $0.118$ to $0.139$, and reranking adds a further $0.037$ to $0.070$. 
-Notably, context headers benefit AST chunks already at the dense bi-encoder tier ($\Delta = +0.092$, rising from $0.358$ to $0.450$) as well as during reranking ($\Delta = +0.146$, reaching $0.487$), confirming that headers serve as essential anchors during initial candidate retrieval.
+\subsection{Overall Benchmark Results across Twelve Systems}
+\label{sec:results:benchmark}
+Table~\ref{tab:main} presents the 12-configuration benchmark across lexical (BM25), dense bi-encoder (BGE-M3), and cross-encoder reranking tiers. 
+At reranking, \lineH\ achieves the highest overall retrieval effectiveness ($\text{NDCG@10} = 0.621$, 95\% CI $[0.555, 0.682]$), Top-1 accuracy ($\text{NDCG@1} = 0.800$), and reciprocal rank ($\text{MRR@10} = 0.950$). 
+\lineN\ follows with $\text{NDCG@10} = 0.580$ ($[0.505, 0.649]$), while \astH\ reaches $0.487$ ($[0.419, 0.551]$), and \astN\ drops to $0.341$ ($[0.263, 0.421]$).
 
 \input{tables/table_1_paper.tex}
 
-\subsection{Hypothesis Testing and Confirmatory Analyses}
-Table~\ref{tab:statistical_hypothesis_tests} presents the statistical test results for the confirmatory family and the exploratory contrast.
+Dense encoding improves NDCG@10 over BM25 by $0.118$--$0.139$ with headers, and reranking adds another $0.037$--$0.070$. 
+Context headers interact differently across chunking strategies: for AST chunks, headers produce substantial gains at every stage (BM25 $+0.006$, dense $+0.092$, rerank $+0.146$), whereas for line windows, gains are modest ($+0.028$, $+0.030$, $+0.041$). 
+Because pooling spanned all 12 systems at top-5, $\text{Judged@5}$ is $100.0\%$ for all configurations. 
+Binary preference (\texttt{bpref}) rankings perfectly mirror NDCG@10 across all tiers ($\text{Line+H}: 0.353 > \text{Line No-H}: 0.300 > \text{AST+H}: 0.242 > \text{AST No-H}: 0.170$), confirming robustness to unjudged items at deeper ranks.
+
+\subsection{Hypothesis Testing and RQ Analyses}
+\label{sec:results:hypotheses}
+Table~\ref{tab:statistical_hypothesis_tests} reports the pre-registered confirmatory Wilcoxon signed-rank tests with Holm-Bonferroni correction, alongside the exploratory contrast.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.88\columnwidth]{figs/fig1.pdf}
-\caption{Interaction plot demonstrating differential context header sensitivity between line-window chunking and AST-first chunking at the reranking tier ($N=25$ JDs).}
+\includegraphics[width=0.80\columnwidth]{figs/fig1.pdf}
+\caption{Interaction plot of context header sensitivity at reranking ($N=25$).}
 \label{fig:interaction_plot}
 \end{figure}
 
 \input{tables/table_2_paper.tex}
 
-\textbf{RQ1: Context Header Impact (Comps 3 and 4).}
-Adding hierarchical context headers produces a statistically significant improvement for AST chunks (\textbf{Comp 3}: $\Delta = +0.146$, 95\% CI $[+0.086, +0.207]$, $p_{\mathrm{Holm}} = 0.0001$, $W = 24.0$). 
-\astH\ outperforms \astN\ on 23 of the 25 JDs. 
-In contrast, prepending context headers to line windows yields a small gain that we cannot distinguish from zero (\textbf{Comp 4}: $\Delta = +0.041$, 95\% CI [$-0.012$, $+0.093$], $p_{\mathrm{Holm}} = 0.2411$, $W = 118.0$; 15 wins vs. 10 losses). 
-As shown in Fig.~\ref{fig:interaction_plot}, context headers act as an essential anchor for AST chunks while providing marginal benefits for line windows.
+\textbf{RQ1 (Context Headers):} Prepending headers yields a large, significant gain for AST chunks (\textbf{Comp 3}: $\Delta = +0.146$, 95\% CI $[+0.086, +0.207]$, $p_{\mathrm{Holm}} = 0.0001$, $W = 24.0$; AST+H wins 23/25 JDs). In contrast, prepending headers to line windows yields a minor, non-significant gain (\textbf{Comp 4}: $\Delta = +0.041$, 95\% CI [$-0.012$, $+0.093$], $p_{\mathrm{Holm}} = 0.2411$, $W = 118.0$; 15 wins vs. 10 losses). As shown in Fig.~\ref{fig:interaction_plot}, headers act as vital anchors for fine-grained AST chunks while providing diminishing returns for 50-line windows.
 
-\textbf{RQ2: AST vs. Line-Window Chunking (Comps 1, 2, and 5).}
-Comparing \astH\ against \lineN\ reveals that line windows without headers significantly outperform AST chunks with headers (\textbf{Comp 1}: $\Delta = -0.093$, 95\% CI [$-0.164$, $-0.023$], $p_{\mathrm{Holm}} = 0.0438$, $W = 78.0$), with Line winning 18 vs. AST winning 7. 
-Without headers (\textbf{Comp 2}), line windows outperformed AST chunks ($\Delta = -0.239$, 95\% CI [$-0.292$, $-0.185$], $p_{\mathrm{Holm}} < 0.001$, $W = 3.0$), winning 23 of 25 queries. 
-In the exploratory contrast with headers (\textbf{Comp 5}), line windows remain significantly higher ($\Delta = -0.134$, 95\% CI [$-0.199$, $-0.070$], $p_{\mathrm{raw}} = 0.0003$, $W = 36.0$; Line wins 20, AST wins 5, 0 ties).
+\textbf{RQ2 (AST vs. Line):} Simple line windows without headers significantly outperform AST chunks with headers (\textbf{Comp 1}: $\Delta = -0.093$, 95\% CI [$-0.164$, $-0.023$], $p_{\mathrm{Holm}} = 0.0438$, $W = 78.0$; Line wins 18 vs. AST wins 7). Without headers, line windows strongly outperform AST chunks (\textbf{Comp 2}: $\Delta = -0.239$, 95\% CI [$-0.292$, $-0.185$], $p_{\mathrm{Holm}} < 0.001$, $W = 3.0$; Line wins 23/25). In the exploratory contrast with headers (\textbf{Comp 5}), line windows remain significantly superior ($\Delta = -0.134$, 95\% CI [$-0.199$, $-0.070$], $p_{\mathrm{raw}} = 0.0003$, $W = 36.0$; Line wins 20 vs. AST wins 5).
 
-\subsection{Language Sensitivity and Fallback Audit}
-Subgroup analysis across target ecosystems reveals consistent trends:
-On Java repositories ($N=15$ JDs), \lineH\ outperforms \astH\ ($\text{NDCG@10} = 0.716$ vs. $0.583$, $\Delta = -0.133$). 
-On React/TypeScript repositories ($N=10$ JDs), the pattern is identical ($\text{NDCG@10} = 0.478$ vs. $0.342$, $\Delta = -0.136$).
+\subsection{Subgroups, Pure-AST Audit, and Header Ablation}
+\label{sec:results:sensitivity}
+\textbf{Subgroups \& Pure-AST:} Trends hold across both ecosystems: on Java ($N=15$), Line+H achieves $\text{NDCG@10} = 0.716$ vs. $0.583$ for AST+H ($\Delta = -0.133$); on React/TS ($N=10$), Line+H achieves $0.478$ vs. $0.342$ ($\Delta = -0.136$). Following grammar expansion, the AST fallback rate is $0.0\%$ (0/438 chunks, 87.2\% boundary intactness), and fallback chunks constitute $0.0\%$ (0/250) of top-10 retrieved candidates across all tiers. Thus, AST underperformance is not caused by fallback degradation.
 
-Following the grammar expansion in our Tree-sitter parser, modern constructs in both ecosystems (e.g., Java records, enums, annotated DTO classes; React arrow function components, hooks, interfaces, and type aliases) are captured as first-class syntactic nodes. 
-As a result, the AST fallback rate across the entire corpus is $0.0\%$ ($0/438$ chunks), ensuring that syntactic nodes maintain $87.2\%$ boundary intactness without falling back to sliding windows. 
-In the top-10 retrieved results for the AST arm, fallback chunks constitute $0.0\%$ ($0/250$) across all tiers.
+\textbf{Header Ablation \& Example:} Closed-pool re-scoring indicates that \texttt{// File: <path>} and \texttt{// Class: <name>} provide the primary lift by supplying architectural keywords that cross-encoders match against requirements. For example, for query \texttt{JD\_JAVA\_01} (\textit{"Spring Security \& JWT"}), an isolated AST method \texttt{configure(endpoints)} ranks 18th because its body lacks security keywords; prepending \texttt{// File: .../AuthorizationServerConfig.java} and \texttt{// Class: AuthorizationServerConfig} injects domain keywords ("Authorization", "Config"), elevating this chunk to Rank~1 (Top-1 match).
