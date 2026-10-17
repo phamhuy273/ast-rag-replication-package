@@ -12,7 +12,7 @@ At reranking, \lineH\ achieves the highest overall retrieval effectiveness ($\te
 Dense encoding improves NDCG@10 over BM25 by $0.118$--$0.139$ with headers, and reranking adds another $0.037$--$0.070$. 
 Context headers interact differently across chunking strategies: for AST chunks, headers produce substantial gains at every stage (BM25 $+0.006$, dense $+0.092$, rerank $+0.146$), whereas for line windows, gains are modest ($+0.028$, $+0.030$, $+0.041$). 
 Because pooling spanned all 12 systems at top-5, $\text{Judged@5}$ is $100.0\%$ for all configurations. 
-Binary preference (\texttt{bpref}) rankings perfectly mirror NDCG@10 across all tiers ($\text{Line+H}: 0.353 > \text{Line No-H}: 0.300 > \text{AST+H}: 0.242 > \text{AST No-H}: 0.170$), confirming robustness to unjudged items at deeper ranks.
+Binary preference (\texttt{bpref}) rankings perfectly mirror NDCG@10 across all tiers ($\text{Line+H}: 0.353 > \text{Line No-H}: 0.300 > \text{AST+H}: 0.241 > \text{AST No-H}: 0.170$), confirming robustness to unjudged items at deeper ranks.
 
 \subsection{Hypothesis Testing and RQ Analyses}
 \label{sec:results:hypotheses}

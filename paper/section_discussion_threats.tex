@@ -4,12 +4,12 @@
 \subsection{Underlying Mechanisms}
 Our findings indicate that AST structural chunking does not inherently surpass sliding windows in requirement evidence retrieval. 
 Two mechanisms explain this: 
-First, \textit{information density}: 50-line windows (mean 41.0 LOC) capture declarations, imports, and helper calls, providing richer co-occurrence signals for neural encoders, whereas fine-grained AST chunks (mean 19.8 LOC) strip this lexical context. 
+First, \textit{information density}: 50-line windows (mean 41.0 LOC) capture declarations, imports, and helper calls, providing richer co-occurrence signals for neural encoders, whereas fine-grained AST chunks (mean 26.7 LOC) strip this lexical context. 
 Second, \textit{contextual compensation}: prepending hierarchical headers injects the missing architectural namespace, allowing cross-encoders to match high-level requirement keywords against file and class names. 
 Consequently, headers produce dramatic gains for AST chunks ($\Delta = +0.146$), but offer diminishing returns for line windows ($\Delta = +0.041$), which already encapsulate surrounding context.
 
 \subsection{Threats to Validity}
-\textbf{Internal Validity:} Mitigated by $100\%$ candidate pooling at top-5 across all 12 systems (100% Judged@5), 100% blinded dual annotation ($\kappa_w = 0.9822$, 98.07% exact agreement), standardized adjudication, and 0.0% parser fallback. 
-\textbf{Statistical Conclusion Validity:} $N=25$ queries provide 80% power to detect paired differences of $0.080$--$0.130$ NDCG@10 ($\alpha = 0.05$ to $0.0125$). Significant effects (Comps 1, 2, 3, 5) exceed these thresholds; non-significant Comp 4 denotes absence of evidence, not equivalence. 
+\textbf{Internal Validity:} Mitigated by 100\% candidate pooling at top-5 across all 12 systems (100\% Judged@5, zero orphaned pairs) and 100\% blinded dual annotation ($\kappa_w = 0.9822$).
+\textbf{Statistical Conclusion Validity:} $N = 25$ queries provide 80\% power to detect paired differences of $\Delta \ge 0.08$ NDCG@10 ($\alpha = 0.05$); non-significant small differences (e.g., Comp 4) indicate absence of evidence rather than strict equivalence.
 \textbf{Construct Validity:} Requirements were extracted from job postings using \texttt{gemini-1.5-flash} to reflect authentic industry skill expectations, though prompt phrasing could introduce stylistic artifacts. Relevance was evaluated on an established 3-point ordinal scale. 
 \textbf{External Validity:} Evaluated on Java Spring Boot and React/TypeScript with BGE-M3 and BGE-Reranker-Base. Caution is warranted when generalizing to dynamically typed languages (Python) or distributed architectures.
