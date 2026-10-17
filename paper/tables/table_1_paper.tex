@@ -1,29 +1,34 @@
 \begin{table}[t]
-\caption{Retrieval effectiveness ($N=25$ JDs). Rerank tier first; Dense and BM25 are reference tiers.}
+\caption{Retrieval effectiveness across 12 configurations ($N=25$ JDs).}
 \label{tab:main}
-\centering\footnotesize
+\centering\scriptsize
 \setlength{\tabcolsep}{3pt}
 \begin{threeparttable}
-\begin{tabular}{@{}llcccc@{}}
+\begin{tabular}{@{}lllccccc@{}}
 \toprule
-Chunk & Header & NDCG@10 [95\% CI] & NDCG@1 & MRR@10 & J@10\tnote{a} \\
+Tier & Chunk & Header & NDCG@10 [95\% CI] & NDCG@1 & MRR@10 & bpref & J@10 \\
 \midrule
-Line & Yes & \textbf{0.499} [0.450, 0.543] & \textbf{0.800} & \textbf{0.980} & 0.552 \\
-Line & No  & \textit{0.470} [0.414, 0.524] & \textit{0.740} & 0.933 & 0.564 \\
-AST  & Yes & 0.457 [0.405, 0.509] & 0.720 & \textit{0.940} & 0.564 \\
-AST  & No  & 0.345 [0.299, 0.390] & 0.460 & 0.846 & 0.536 \\
+\multicolumn{8}{@{}l}{\textit{Two-Stage Re-ranking Tier (Cross-Encoder)}} \\
+Rerank & Line & Yes & \textbf{0.621} [0.555, 0.682] & \textbf{0.800} & 0.950 & \textbf{0.353} & 0.736 \\
+Rerank & Line & No & \textit{0.580} [0.505, 0.649] & \textbf{0.800} & \textbf{0.953} & \textit{0.300} & 0.716 \\
+Rerank & AST & Yes & 0.487 [0.419, 0.551] & 0.740 & 0.896 & 0.241 & 0.660 \\
+Rerank & AST & No & 0.341 [0.263, 0.421] & 0.340 & 0.699 & 0.170 & 0.712 \\
 \midrule
-\multicolumn{6}{l}{\textit{Reference Tiers (Line+Header / AST+Header)}} \\
-Dense & Yes (Line) & 0.450 [0.398, 0.502] & 0.580 & 0.913 & 0.572 \\
-Dense & Yes (AST)  & 0.408 [0.346, 0.463] & 0.660 & 0.900 & 0.544 \\
-BM25$^{\dagger}$ & Yes (Line) & 0.129 [0.094, 0.165] & 0.140 & 0.405 & 0.180 \\
-BM25$^{\dagger}$ & Yes (AST)  & 0.170 [0.122, 0.221] & 0.080 & 0.395 & 0.244 \\
+\multicolumn{8}{@{}l}{\textit{Dense Bi-Encoder Tier (BGE-M3)}} \\
+Dense & Line & Yes & \textbf{0.551} [0.480, 0.619] & 0.580 & 0.883 & \textbf{0.347} & 0.752 \\
+Dense & Line & No & 0.521 [0.439, 0.600] & 0.600 & 0.891 & 0.297 & 0.720 \\
+Dense & AST & Yes & 0.450 [0.393, 0.506] & \textbf{0.620} & \textbf{0.910} & 0.247 & 0.692 \\
+Dense & AST & No & 0.358 [0.298, 0.420] & 0.420 & 0.813 & 0.179 & 0.716 \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Lexical Sparse Baseline Tier (BM25)}} \\
+BM25 & Line & Yes & \textbf{0.433} [0.376, 0.486] & \textbf{0.440} & \textbf{0.868} & \textbf{0.255} & 0.696 \\
+BM25 & Line & No & 0.405 [0.350, 0.458] & \textbf{0.440} & 0.865 & 0.246 & 0.644 \\
+BM25 & AST & Yes & 0.311 [0.243, 0.376] & 0.340 & 0.761 & 0.137 & 0.676 \\
+BM25 & AST & No & 0.305 [0.236, 0.371] & 0.340 & 0.724 & 0.129 & 0.560 \\
 \bottomrule
 \end{tabular}
-\begin{tablenotes}\footnotesize
-\item[] Bold: best; italic: second best within the reranking tier.
-\item[a] Judged@10: share of top-10 items with a human label (unjudged count as 0).
-\item[$\dagger$] BM25 was not used for pooling; scores are not an unpenalized baseline.
+\begin{tablenotes}\scriptsize
+\item[] Bold: best within tier; italic: second best (Rerank tier). Linear gain $\mathrm{rel}/\log_2(i+1)$. J@10: Judged@10 coverage.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
