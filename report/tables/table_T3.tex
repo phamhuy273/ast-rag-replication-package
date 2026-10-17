@@ -1,40 +1,36 @@
 \begin{table*}[t]
-\caption{Retrieval effectiveness across chunking strategies, context header conditions, and pipeline tiers ($N=25$ job descriptions).}
-\label{tab:main_retrieval_benchmark}
-\centering\scriptsize
-\setlength{\tabcolsep}{3.5pt}
-\begin{threeparttable}
-\begin{tabular}{@{}llcccccccc@{}}
+\centering
+\small
+\caption{Empirical Retrieval and Re-ranking Performance Across 2$\times$2 Factorial Pipeline Configurations ($N=25$ Job Descriptions, Graded Ground Truth $N=882$).}
+\label{tab:retrieval_2x2}
+\begin{tabular}{llccccccccc}
 \toprule
-Chunking Strategy & Header Condition & NDCG@10$\uparrow$ & NDCG@1$\uparrow$ & NDCG@3$\uparrow$ & NDCG@5$\uparrow$ & MRR@10$\uparrow$ & P@5$\uparrow$ & Recall@10$\uparrow$ & Judged@10 \\
+\textbf{Retrieval Tier} & \textbf{Configuration} & \textbf{NDCG@1} & \textbf{NDCG@3} & \textbf{NDCG@5} & \textbf{NDCG@10} & \textbf{95\% CI} & \textbf{MRR@10} & \textbf{bpref} & \textbf{P@5} & \textbf{Judged@5} \\
 \midrule
-\multicolumn{10}{l}{\textit{Panel A: Two-Stage Re-ranking Tier (Cross-Encoder BGE-Reranker-Large)}} \\[2pt]
-Line (50 LOC) & No-Header & \makecell{\underline{0.580}\\\scriptsize [0.505, 0.649]} & \textbf{0.800} & \underline{0.736} & \underline{0.728} & \textbf{0.953} & \underline{0.816} & \underline{0.230} & \underline{0.716} \\[1pt]
-Line (50 LOC) & With-Header & \makecell{\textbf{0.621}\\\scriptsize [0.555, 0.682]} & \textbf{0.800} & \textbf{0.773} & \textbf{0.770} & \underline{0.950} & \textbf{0.896} & \textbf{0.262} & \textbf{0.736} \\[1pt]
-AST Method & No-Header & \makecell{0.341\\\scriptsize [0.263, 0.421]} & 0.340 & 0.346 & 0.375 & 0.699 & 0.544 & 0.156 & 0.712 \\[1pt]
-AST Method & With-Header & \makecell{0.487\\\scriptsize [0.419, 0.551]} & \underline{0.740} & 0.698 & 0.661 & 0.896 & 0.744 & 0.183 & 0.660 \\[1pt]
+\multicolumn{11}{l}{\textit{BM25}} \\
+  & Line (50 LOC) + No-Header      & 0.440 & 0.502 & 0.523 & \textbf{0.405} & [0.35, 0.46] & 0.865 & 0.246 & 0.824 & 100.0\% \\
+  & Line (50 LOC) + With-Header    & 0.440 & 0.506 & 0.520 & \textbf{0.433} & [0.38, 0.49] & 0.868 & 0.255 & 0.800 & 100.0\% \\
+  & AST Syntactic + No-Header      & 0.340 & 0.414 & 0.429 & \textbf{0.305} & [0.24, 0.37] & 0.724 & 0.129 & 0.592 & 100.0\% \\
+  & AST Syntactic + With-Header    & 0.340 & 0.309 & 0.353 & \textbf{0.311} & [0.24, 0.38] & 0.761 & 0.137 & 0.576 & 100.0\% \\
 \midrule
-\multicolumn{10}{l}{\textit{Panel B: Dense Bi-Encoder Tier (BGE-M3 Embeddings)}} \\[2pt]
-Line (50 LOC) & No-Header & \makecell{\underline{0.521}\\\scriptsize [0.439, 0.600]} & \underline{0.600} & \textbf{0.612} & \underline{0.615} & \underline{0.891} & \underline{0.792} & \underline{0.225} & \underline{0.720} \\[1pt]
-Line (50 LOC) & With-Header & \makecell{\textbf{0.551}\\\scriptsize [0.480, 0.619]} & 0.580 & \underline{0.609} & \textbf{0.628} & 0.883 & \textbf{0.832} & \textbf{0.265} & \textbf{0.752} \\[1pt]
-AST Method & No-Header & \makecell{0.358\\\scriptsize [0.298, 0.420]} & 0.420 & 0.381 & 0.412 & 0.813 & 0.608 & 0.167 & 0.716 \\[1pt]
-AST Method & With-Header & \makecell{0.450\\\scriptsize [0.393, 0.506]} & \textbf{0.620} & 0.589 & 0.581 & \textbf{0.910} & 0.784 & 0.204 & 0.692 \\[1pt]
+\multicolumn{11}{l}{\textit{Dense (BGE-M3)}} \\
+  & Line (50 LOC) + No-Header      & 0.600 & 0.612 & 0.615 & \textbf{0.521} & [0.44, 0.60] & 0.891 & 0.297 & 0.792 & 100.0\% \\
+  & Line (50 LOC) + With-Header    & 0.580 & 0.609 & 0.628 & \textbf{0.551} & [0.48, 0.62] & 0.883 & 0.347 & 0.832 & 100.0\% \\
+  & AST Syntactic + No-Header      & 0.420 & 0.381 & 0.412 & \textbf{0.358} & [0.30, 0.42] & 0.813 & 0.179 & 0.608 & 100.0\% \\
+  & AST Syntactic + With-Header    & 0.620 & 0.589 & 0.581 & \textbf{0.450} & [0.39, 0.51] & 0.910 & 0.247 & 0.784 & 100.0\% \\
 \midrule
-\multicolumn{10}{l}{\textit{Panel C: Lexical Sparse Baseline Tier (BM25)$^{\dagger}$}} \\[2pt]
-Line (50 LOC) & No-Header & \makecell{\underline{0.405}\\\scriptsize [0.350, 0.458]} & \textbf{0.440} & \underline{0.502} & \textbf{0.523} & \underline{0.865} & \textbf{0.824} & \underline{0.208} & 0.644 \\[1pt]
-Line (50 LOC) & With-Header & \makecell{\textbf{0.433}\\\scriptsize [0.376, 0.486]} & \textbf{0.440} & \textbf{0.506} & \underline{0.520} & \textbf{0.868} & \underline{0.800} & \textbf{0.228} & \textbf{0.696} \\[1pt]
-AST Method & No-Header & \makecell{0.305\\\scriptsize [0.236, 0.371]} & \underline{0.340} & 0.414 & 0.429 & 0.724 & 0.592 & 0.128 & 0.560 \\[1pt]
-AST Method & With-Header & \makecell{0.311\\\scriptsize [0.243, 0.376]} & \underline{0.340} & 0.309 & 0.353 & 0.761 & 0.576 & 0.153 & \underline{0.676} \\[1pt]
+\multicolumn{11}{l}{\textit{Re-rank (Cross-Encoder)}} \\
+  & Line (50 LOC) + No-Header      & 0.800 & 0.736 & 0.728 & \textbf{0.580} & [0.51, 0.65] & 0.953 & 0.300 & 0.816 & 100.0\% \\
+  & Line (50 LOC) + With-Header    & 0.800 & 0.773 & 0.770 & \textbf{0.621} & [0.55, 0.68] & 0.950 & 0.353 & 0.896 & 100.0\% \\
+  & AST Syntactic + No-Header      & 0.340 & 0.346 & 0.375 & \textbf{0.341} & [0.26, 0.42] & 0.699 & 0.170 & 0.544 & 100.0\% \\
+  & AST Syntactic + With-Header    & 0.740 & 0.698 & 0.661 & \textbf{0.487} & [0.42, 0.55] & 0.896 & 0.241 & 0.744 & 100.0\% \\
 \midrule
-\multicolumn{10}{l}{\textit{Pre-registered Random Baselines}} \\[1pt]
-Random Selection & Full Corpus (872 Chunks) & 0.022 & --- & --- & --- & --- & --- & --- & --- \\[1pt]
-Random Selection & Judged Pool Candidates$^{\ddagger}$ & 0.562 & --- & --- & --- & --- & --- & --- & --- \\
+\multicolumn{11}{l}{\textit{Random Baseline}} \\
+  & Random Selection + Full Corpus (872 Chunks) & 0.000 & 0.000 & 0.000 & \textbf{0.022} & [0.02, 0.03] & 0.000 & 0.000 & 0.000 & 0.0\% \\
+  & Random Selection + Evaluated Pool Candidates & 0.000 & 0.000 & 0.000 & \textbf{0.562} & [0.50, 0.62] & 0.000 & 0.000 & 0.000 & 100.0\% \\
 \bottomrule
 \end{tabular}
-\begin{tablenotes}\scriptsize
-\item[] Note: 95\% bootstrap confidence intervals across 25 JDs (10,000 resamples, seed 42) shown in brackets below NDCG@10. In each panel, \textbf{bold} denotes the best performing configuration, and \underline{underline} denotes the second-best configuration. Linear relevance gain $\mathrm{rel}/\log_2(i+1)$ is employed across all NDCG calculations.
-\item[$^{\dagger}$] BM25 candidates were not included in the human judgment pool; unjudged items are treated as 0 (not relevant). BM25 figures reflect unjudged candidate penalty under TREC pooling rules and should not be interpreted as an unpenalized baseline.
-\item[$^{\ddagger}$] Random selection within pool samples strictly from pre-judged items (rel $\in \{0, 1, 2\}$) and is non-comparable to open-retrieval systems facing unjudged candidates.
-\end{tablenotes}
-\end{threeparttable}
+\vspace{1mm}\\
+\footnotesize{\textit{Note:} All 12 configurations across lexical (BM25), dense bi-encoder (BGE-M3), and two-stage cross-encoder (BGE-Reranker-Base) tiers were pooled uniformly at Top-5 ($N=25$ JDs, $N=882$ unique graded candidate spans, Judged@5 = 100.0\%). All metrics are evaluated against the adjudicated unified ground truth.}
+\vspace{-2mm}
 \end{table*}

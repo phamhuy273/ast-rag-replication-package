@@ -44,3 +44,68 @@ class TestTextIntegrity:
         ]
         for phrase in forbidden:
             assert phrase.lower() not in readme_text.lower(), f"Forbidden phrase found in README: {phrase}"
+
+    def test_paper_tex_no_obsolete_numbers(self):
+        """Cross-checks paper/*.tex and paper/tables/*.tex for zero obsolete numbers from legacy runs."""
+        paper_dir = ROOT_DIR / "paper"
+        tex_files = list(paper_dir.glob("*.tex")) + list((paper_dir / "tables").glob("*.tex"))
+        assert len(tex_files) > 0, "No LaTeX files found in paper/"
+
+        obsolete_tokens = ["798", "603", "364", "234", "130", "35.7", "19.8 LOC", "0.242", "0.499", "0.345"]
+        for f in tex_files:
+            text = f.read_text(encoding="utf-8")
+            for token in obsolete_tokens:
+                if token.endswith(" LOC"):
+                    assert token not in text, f"Found obsolete phrase '{token}' in {f.name}"
+                else:
+                    matches = re.findall(r"\b" + re.escape(token) + r"\b", text)
+                    assert len(matches) == 0, f"Found obsolete number '{token}' in {f.name}: {len(matches)} match(es)"
+
+    def test_paper_tex_no_unescaped_percent_after_digits(self):
+        """Ensure all percent signs after digits in paper/*.tex are properly escaped as \\%."""
+        paper_dir = ROOT_DIR / "paper"
+        tex_files = list(paper_dir.glob("*.tex")) + list((paper_dir / "tables").glob("*.tex"))
+
+        for f in tex_files:
+            text = f.read_text(encoding="utf-8")
+            for line_idx, line in enumerate(text.splitlines(), start=1):
+                # Match digits immediately followed by unescaped %
+                matches = re.findall(r"(?<!\\)\d+%", line)
+                assert len(matches) == 0, (
+                    f"Unescaped '%' after digit in {f.name}:{line_idx}: '{line}'. "
+                    f"Must be escaped as '\\%' in LaTeX."
+                )
+
+    def test_paper_and_repo_double_blind_anonymity(self):
+        """Ensure double-anonymous compliance: zero author names, student IDs, personal emails, or local paths."""
+        paper_dir = ROOT_DIR / "paper"
+        tex_files = list(paper_dir.glob("*.tex")) + list((paper_dir / "tables").glob("*.tex"))
+
+        forbidden_tokens = [
+            "win 11",
+            "users/win",
+            "@gmail.com",
+            "@hcmut",
+            "@edu.vn",
+            "student_id",
+        ]
+
+        for f in tex_files:
+            content = f.read_text(encoding="utf-8").lower()
+            for tok in forbidden_tokens:
+                assert tok not in content, f"Double-blind anonymity violation: found '{tok}' in {f.name}"
+
+        # Verify paper/main.pdf metadata
+        pdf_path = paper_dir / "main.pdf"
+        if pdf_path.exists():
+            try:
+                import pypdfium2 as pdfium
+                doc = pdfium.PdfDocument(str(pdf_path))
+                meta = doc.get_metadata_dict()
+                for key in ["Author", "Creator", "Producer"]:
+                    val = (meta.get(key, "") or "").lower()
+                    for tok in forbidden_tokens:
+                        assert tok not in val, f"Anonymity leak in PDF metadata {key}: {val}"
+            except Exception:
+                pass
+

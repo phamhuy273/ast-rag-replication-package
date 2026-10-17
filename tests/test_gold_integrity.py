@@ -92,7 +92,7 @@ class TestGoldIntegrity:
             labels1 = [int(r["human_label"]) for r in rows1]
             labels2 = [int(r["human_label"]) for r in rows2]
             kappa_all = cohen_kappa_score(labels1, labels2, weights="quadratic")
-            assert pytest.approx(kappa_all, abs=0.01) == 0.98, f"Unexpected overall Kappa {kappa_all}, expected ~0.98"
+            assert kappa_all == pytest.approx(0.9822, abs=0.001), f"Unexpected overall Kappa {kappa_all}, expected ~0.9822"
 
     def test_unmatched_gold_pairs_count(self):
         """Enforces Phase 3: Zero unretrievable ground-truth pairs (0 orphaned items)."""

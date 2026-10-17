@@ -89,7 +89,9 @@ class TestCorpusCharacteristics:
 
         # AST Pure header retention is 100%
         assert pure["header_retention_rate_pct"] == 100.0
-        assert pure["boundary_intact_rate_pct"] > 80.0
+        assert pure["loc_dist"]["mean"] == pytest.approx(26.7, abs=0.1)
+        assert pure["boundary_intact_rate_pct"] == pytest.approx(87.2, abs=0.1)
+        assert pure["syntax_intact_rate_pct"] == pytest.approx(78.1, abs=0.1)
 
         # Check LaTeX file contains the measured numbers (Rule R37)
         tex_text = TABLE_3_2_TEX.read_text(encoding="utf-8")
@@ -100,3 +102,17 @@ class TestCorpusCharacteristics:
         assert f"{pure['boundary_intact_rate_pct']:.1f}" in tex_text
         assert f"{ast['boundary_intact_rate_pct']:.1f}" in tex_text
         assert f"{line['boundary_intact_rate_pct']:.1f}" in tex_text
+
+        # Cross-check against paper text
+        approach_tex = (ROOT_DIR / "paper" / "section_approach.tex").read_text(encoding="utf-8")
+        assert "87.2\\%" in approach_tex
+        assert "434" in approach_tex
+        assert "438" in approach_tex
+        assert "872" in approach_tex
+        assert "0.0\\%" in approach_tex
+
+        table1_tex = (ROOT_DIR / "paper" / "tables" / "table_1_paper.tex").read_text(encoding="utf-8")
+        assert "0.621" in table1_tex
+        assert "0.580" in table1_tex
+        assert "0.487" in table1_tex
+        assert "0.341" in table1_tex

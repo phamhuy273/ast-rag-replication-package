@@ -73,3 +73,20 @@ def test_pool_size_report_exact_concordance():
         to_label_rows = list(csv.DictReader(f))
 
     assert total_unique == len(to_label_rows), f"Report sum ({total_unique}) != to_label rows ({len(to_label_rows)})"
+
+
+def test_all_12_configs_judged_at_3_and_5_are_100_percent():
+    """Verify that pool_coverage_report.csv has exactly 1.0 Judged@3 and Judged@5 for all 12 systems."""
+    coverage_file = DATASET_DIR / "benchmark_results" / "pool_coverage_report.csv"
+    assert coverage_file.exists(), f"Missing coverage file: {coverage_file}"
+    with open(coverage_file, "r", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+
+    assert len(rows) == 12, f"Expected 12 configurations, found {len(rows)}"
+    for r in rows:
+        cfg = r["configuration"]
+        assert float(r["judged_at_3"]) == 1.0, f"Config {cfg} Judged@3 is {r['judged_at_3']}, expected 1.0"
+        assert float(r["judged_at_5"]) == 1.0, f"Config {cfg} Judged@5 is {r['judged_at_5']}, expected 1.0"
+        assert int(r["top3_unjudged"]) == 0, f"Config {cfg} top3_unjudged is {r['top3_unjudged']}, expected 0"
+        assert int(r["top5_unjudged"]) == 0, f"Config {cfg} top5_unjudged is {r['top5_unjudged']}, expected 0"
+

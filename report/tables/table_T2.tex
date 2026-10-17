@@ -1,22 +1,22 @@
 \begin{table*}[t]
-\caption{Chunk morphology, syntactic validity, and context header preservation across chunking strategies.}
-\label{tab:chunk_morphology}
-\centering\scriptsize
-\setlength{\tabcolsep}{2.5pt}
-\begin{threeparttable}
-\begin{tabular}{@{}lcccccccc@{}}
-\toprule
-Strategy Group & Total (J/R) & Mean LOC $\pm$ SD & Tokens (Content) & Tokens (Header) & Clean Parse (\%) & Intact Bnd (\%) & Header (\%) & Trunc $>512$ (\%) \\
-\midrule
-Line (50 LOC Baseline) & 434 (120/314) & 41.0 $\pm$ 13.1 & 390.8 (388) & 419.5 (420) & 22.4\% & 44.0\% & 0.0\% & 124 (28.6\%) \\
-\cmidrule(lr){1-9}
-AST Pure (Methods/Funcs) & 438 (131/162) & 26.7 $\pm$ 23.3 & 250.9 (172) & 290.2 (213) & 78.1\% & 87.2\% & 100.0\% & 69 (15.8\%) \\
-AST Fallback (Line 50) & 0 (0/0) & 0.0 $\pm$ 0.0 & 0.0 (0) & 0.0 (0) & 100.0\% & 100.0\% & 0.0\% & 0 (0.0\%) \\
-AST Combined (Full Branch) & 438 (131/162) & 26.7 $\pm$ 23.3 & 250.9 (172) & 290.2 (213) & 78.1\% & 87.2\% & 100.0\% & 69 (15.8\%) \\
-\bottomrule
+\caption{Quantitative Comparison of Source Code Chunking Strategies across 40 GitHub Repositories (189 Files) Disaggregated by Subgroups}
+\label{tab:corpus_chunking}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccc}
+\hline
+\textbf{Characteristic} & \textbf{Line-based (50 LOC)} & \textbf{AST Pure (Ours)} & \textbf{AST Fallback} & \textbf{AST-first (Combined)} \\
+\hline
+Total Chunks Extracted & 434 & 438 & 0 & 438 \\
+Mean Chunk Size (LOC) & 41.0 ($\pm$13.1) & 26.7 ($\pm$23.3) & 0.0 ($\pm$0.0) & 26.7 ($\pm$23.3) \\
+Median Chunk Size (LOC) & 50 & 16 & 0 & 16 \\
+Mean Token Count (BGE-M3) & 390.8 & 250.9 & 0.0 & 250.9 \\
+Mean Tokens (with Context Header) & 419.5 & 290.2 & 0.0 & 290.2 \\
+Syntax Boundary Preservation & 44.0\% & \textbf{87.2\%} & 100.0\% & 87.2\% \\
+Parse Error-Free Rate & 22.4\% & \textbf{78.1\%} & 100.0\% & 78.1\% \\
+Context Header Retention (Class/Method) & 0.0\% & \textbf{100.0\%} & 0.0\% & 100.0\% \\
+Truncated Chunks ($> 512$ tokens) & 28.6\% (124) & 15.8\% (69) & 0.0\% (0) & 15.8\% (69) \\
+\hline
 \end{tabular}
-\begin{tablenotes}\footnotesize
-\item[] Note: Evaluated over 40 GitHub repositories (189 source files). Tokenizer: \texttt{BAAI/bge-m3} (maximum context length 512). Chunk count breakdown: Total (Java / React-TS). Boundary Preservation reflects percentage of chunks not artificially sliced across syntactic statement boundaries. Clean Parse denotes syntactically valid code blocks parsable by tree-sitter without syntax errors. Data dynamically derived from \texttt{table\_3\_2\_measured.json} and \texttt{chunk\_corpus.parquet}.
-\end{tablenotes}
-\end{threeparttable}
+}
 \end{table*}

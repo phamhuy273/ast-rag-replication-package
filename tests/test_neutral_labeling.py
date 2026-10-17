@@ -30,7 +30,8 @@ class TestNeutralLabeling:
             reader = csv.DictReader(f)
             rows = list(reader)
 
-        assert len(rows) == 882, f"Expected 882 pooled items, found {len(rows)}"
+        assert len(rows) <= 1000, f"Pool size exceeded upper ceiling of 1000: {len(rows)}"
+        assert len(rows) == 882, f"Expected exactly 882 pooled items, found {len(rows)}"
 
     def test_neutral_columns_and_no_leakage(self):
         with open(TO_LABEL_FILE, "r", encoding="utf-8") as f:

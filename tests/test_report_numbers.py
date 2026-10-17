@@ -152,9 +152,9 @@ class TestReportNumbers:
         assert "0.022" in t3_content  # Whole corpus
         assert "0.562" in t3_content  # Evaluated pool
 
-        # Mandatory note on BM25 unpooled items
+        # Mandatory note on complete 12-configuration pooling
         assert "BM25" in t3_content
-        assert "unjudged" in t3_content.lower()
+        assert "judged@5 = 100.0%" in t3_content.lower() or "pooled uniformly at top-5" in t3_content.lower()
 
     def test_t4_hypothesis_concordance(self):
         """Assert Table T4 correctly segregates Confirmatory Holm family (Comps 1-4) vs. Exploratory (Comp 5)."""
